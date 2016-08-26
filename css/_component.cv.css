@@ -1,0 +1,40 @@
+.cv {
+  @media (--breakpoint-md) {
+    width: 50%;
+  }
+}
+
+.cv-heading {
+  border-bottom: 1px solid var(--cv-item-heading-color);
+  margin-top: var(--base-spacing-double);
+  font-weight: var(--font-weight-regular);
+  padding-bottom: var(--base-spacing-third);
+}
+
+.cv-item {
+  border-left: 1px solid var(--cv-item-border-color);
+  margin-bottom: var(--base-spacing-double);
+  padding-left: var(--base-spacing);
+}
+
+.cv-item__meta {
+  margin-bottom: var(--base-spacing);
+}
+
+.cv-item__meta__title {
+  font-weight: var(--font-weight-regular);
+  margin-bottom: var(--base-spacing-third);
+  margin-top: 0;
+}
+
+.cv-item__meta__date {
+  font-size: 0.9rem;
+  font-weight: var(--font-weight-regular);
+  float: right;
+  text-align: right;
+}
+
+.cv-item__meta__employer {
+  color: #ccc;
+  font-style: italic;
+}

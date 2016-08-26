@@ -1,0 +1,76 @@
+.card {
+  background-color: rgba(240,250,240,0.9);
+  border: 1px solid #fff;
+  border-radius: 3px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.3);
+  padding: var(--base-spacing);
+  position: relative;
+  margin: 0 var(--base-spacing-double);
+  width: 100%;
+
+  @media (--breakpoint-md) {
+    width: 33%;
+  }
+}
+
+.card:before {
+  content: "";
+  display: block;
+  background-color: var(--brand-primary-light);
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  opacity: 0;
+  transition: opacity 0.75s ease;
+}
+
+.card.loading:before {
+  opacity: 1;
+}
+
+.card__header {
+  border-bottom: 1px solid #fff;
+  font-size: 1.2rem;
+  margin-bottom: var(--base-spacing);
+  padding-bottom: var(--base-spacing);
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.card__meta {
+  color: #999;
+  font-size: 0.75rem;
+  margin-bottom: 5px;
+}
+
+.card__meta__link {
+  color: inherit;
+  position: relative;
+  text-decoration: none;
+}
+
+.card--tweet {
+  background-color: color(var(--twitter-color) lightness(95%) alpha(90%));
+}
+
+.card--tweet > .card__header {
+  color: var(--twitter-color);
+}
+
+.card--tweet .card__meta {
+  color: color(var(--twitter-color) blackness(50%));
+}
+
+.card--scrobble {
+  background-color: color(var(--lastfm-color) lightness(95%) alpha(90%));
+}
+
+.card--scrobble > .card__header {
+  color: var(--lastfm-color);
+}
+
+.card--scrobble .card__meta {
+  color: color(var(--lastfm-color) blackness(50%));
+}

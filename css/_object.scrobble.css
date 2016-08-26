@@ -1,0 +1,9 @@
+.scrobble {
+  align-items: center;
+}
+
+.scrobble__image {
+  height: var(--scrobble-image-dimension);
+  width: var(--scrobble-image-dimension);
+  margin-right: var(--base-spacing);
+}

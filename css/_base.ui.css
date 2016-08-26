@@ -1,0 +1,13 @@
+* {
+  font-family: 'Roboto Condensed', sans-serif;
+}
+
+html {
+  font-size: 100%;
+}
+
+body {
+  background-color: var(--body-background-color);
+  margin: 0 var(--base-spacing-double);
+  color: var(--copy-color);
+}

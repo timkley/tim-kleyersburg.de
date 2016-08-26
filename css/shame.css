@@ -1,0 +1,13 @@
+.main {
+  font-size: 1.1rem;
+  padding: var(--base-spacing-double);
+}
+
+.ci-title:after {
+  content: "";
+  display: block;
+  background: linear-gradient(to right, rgba(0,0,0,0.2), transparent);
+  border-radius: 5px;
+  height: 0px;
+  width: 75%;
+}

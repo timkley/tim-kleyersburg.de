@@ -1,0 +1,25 @@
+:root {
+  --body-background-color: #fafafa;
+  --font-weight-light: 300;
+  --font-weight-regular: 400;
+  --font-weight-bold: 700;
+
+  --brand-primary: #91cda1;
+  --brand-primary-light: color(var(--brand-primary) lightness(70%));
+  --copy-color: #333;
+  --twitter-color: #1da1f2;
+  --lastfm-color: #b90000;
+
+  --base-spacing-third: 5px;
+  --base-spacing: 15px;
+  --base-spacing-double: 30px;
+
+  --scrobble-image-dimension: 100px;
+
+  --cv-item-heading-color: #dedede;
+  --cv-item-border-color: var(--brand-primary);
+}
+
+@custom-media --breakpoint-sm (min-width: 40em);
+@custom-media --breakpoint-md (min-width: 52em);
+@custom-media --breakpoint-lg (min-width: 64em);
