@@ -5,10 +5,11 @@
   --font-weight-bold: 700;
 
   --brand-primary: #91cda1;
-  --brand-primary-light: color(var(--brand-primary) lightness(70%));
+  --brand-primary-light: color(var(--brand-primary) lightness(90%));
   --copy-color: #333;
   --twitter-color: #1da1f2;
   --lastfm-color: #b90000;
+  --grey-color: #b3b3b3;
 
   --base-spacing-third: 5px;
   --base-spacing: 15px;

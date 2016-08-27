@@ -1,4 +1,9 @@
 .main {
   font-size: 1.1rem;
   padding: var(--base-spacing-double);
+
+  @media (--breakpoint-md) {
+    display: flex;
+    justify-content: space-between;
+  }
 }
