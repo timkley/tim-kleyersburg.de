@@ -15,4 +15,5 @@
 
 @import "shame.css";
 
+@import "_utility.animations.css";
 @import "_utility.flex.css";

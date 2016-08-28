@@ -1,0 +1,56 @@
+@keyframes heartbeat {
+  0%, 28%, 70% {
+    transform: scale(1);
+  }
+  14%, 42% {
+    transform: scale(1.3);
+  }
+}
+
+@keyframes handwave {
+  from {
+    transform: none;
+  }
+  15% {
+    transform: rotate3d(0, 0, 1, -20deg);
+  }
+  30% {
+    transform: rotate3d(0, 0, 1, 17deg);
+  }
+  45% {
+    transform: rotate3d(0, 0, 1, -17deg);
+  }
+  60% {
+    transform: rotate3d(0, 0, 1, 20deg);
+  }
+  75% {
+    transform: rotate3d(0, 0, 1, -5deg);
+  }
+  to {
+    transform: none;
+  }
+}
+
+@keyframes fastrotate {
+  0% {
+    transform: rotate(0deg)
+  }
+  50% {
+    transform: rotate(1080deg);
+  }
+}
+
+.animate--heartbeat:hover > .fa {
+  animation: heartbeat 1300ms ease 0s infinite normal;
+  transform-origin: center;
+}
+
+.animate--handwave:hover > .fa {
+  animation: handwave 1300ms linear 0s infinite normal;
+  transform-origin: bottom center;
+}
+
+.animate--fastrotate:hover > .fa {
+  animation: fastrotate 1300ms ease 0s infinite normal;
+  transform-origin: center;
+}
