@@ -11,3 +11,13 @@ body {
   margin: 0 var(--base-spacing-double);
   color: var(--copy-color);
 }
+
+a {
+  border-bottom: 1px solid var(--brand-primary);
+  color: var(--copy-color);
+  text-decoration: none;
+}
+
+a:hover {
+  border-bottom-color: var(--brand-primary-light);
+}
