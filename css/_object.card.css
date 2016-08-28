@@ -47,6 +47,7 @@
 }
 
 .card__meta__link {
+  border: 0;
   color: inherit;
   position: relative;
   text-decoration: none;
