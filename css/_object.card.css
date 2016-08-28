@@ -5,11 +5,12 @@
   box-shadow: 0 0 5px rgba(0,0,0,0.3);
   padding: var(--base-spacing);
   position: relative;
-  margin: 0 var(--base-spacing-double);
+  margin: 0 var(--base-spacing);
   width: 100%;
 
   @media (--breakpoint-md) {
-    width: 33%;
+    margin: 0 var(--base-spacing-double);
+    width: 40%;
   }
 }
 

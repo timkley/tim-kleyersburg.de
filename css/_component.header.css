@@ -5,7 +5,13 @@
   background-repeat: no-repeat;
   border-radius: 5px 5px 0px 0px;
   min-height: 33vh;
-  padding-top: 10vh;
+  padding-top: 5vh;
+  padding-left: var(--base-spacing);
+  padding-right: var(--base-spacing);
+
+  @media (--breakpoint-sm) {
+    padding-top: 10vh;
+  }
 
   @media (--breakpoint-md) {
     padding-top: 20vh;
@@ -18,9 +24,12 @@
   font-size: 3rem;
   font-weight: var(--font-weight-light);
   margin: 0 auto var(--base-spacing) auto;
-  max-width: 50%;
   text-align: center;
   text-shadow: 0 0 10px #000, 0 0 4px #000;
+
+  @media (--breakpoint-md) {
+    max-width: 50%;
+  }
 }
 
 .header__subtitle {
@@ -33,7 +42,11 @@
 }
 
 .header__cards {
-  margin-top: 85px;
+  margin-top: var(--base-spacing-double);
+
+  @media (--breakpoint-md) {
+    margin-top: 85px;
+  }
 }
 
 .header__cards > .card {
