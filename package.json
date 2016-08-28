@@ -5,8 +5,9 @@
   "author": "Tim Kleyersburg <timkley@gmail.com>",
   "license": "UNLICENSED",
   "scripts": {
-    "prepostcss": "rm -rf dist/js/*",
+    "prepostcss": "rm -rf dist/css/*",
     "postcss": "postcss -c postcss.config.json css/bundle.css -d dist/css/",
+    "prepostjs": "rm -rf dist/js/*",
     "js": "mkdir -p dist/js && browserify js/bundle.js -o dist/js/bundle.js",
     "uglify": "uglifyjs dist/js/bundle.js --compress --mangle -o dist/js/bundle.js",
     "build": "npm run postcss && npm run js && npm run uglify",
