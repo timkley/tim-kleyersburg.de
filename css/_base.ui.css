@@ -16,8 +16,10 @@ a {
   border-bottom: 1px solid var(--brand-primary);
   color: var(--copy-color);
   text-decoration: none;
+  transition: .15s;
 }
 
 a:hover {
-  border-bottom-color: var(--brand-primary-light);
+  border-bottom-width: 2px;
+  padding-bottom: 2px;
 }
