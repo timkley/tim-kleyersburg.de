@@ -5,6 +5,10 @@
   }
 }
 
+.cv--contact {
+  width: 100%;
+}
+
 .cv-heading {
   border-bottom: 1px solid var(--cv-item-heading-color);
   margin-top: var(--base-spacing-double);
