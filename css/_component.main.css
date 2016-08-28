@@ -4,6 +4,7 @@
 
   @media (--breakpoint-md) {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
   }
 }
