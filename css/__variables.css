@@ -4,12 +4,14 @@
   --font-weight-regular: 400;
   --font-weight-bold: 700;
 
-  --brand-primary: #91cda1;
+  --brand-primary: #4db6cb;
   --brand-primary-light: color(var(--brand-primary) lightness(90%));
   --copy-color: #333;
   --twitter-color: #1da1f2;
   --lastfm-color: #b90000;
   --grey-color: #b3b3b3;
+
+  --header-background-image-url: '/img/background-guitar.jpg';
 
   --base-spacing-third: 5px;
   --base-spacing: 15px;

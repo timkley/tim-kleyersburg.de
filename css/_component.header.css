@@ -1,5 +1,5 @@
 .header {
-  background-image: url('/img/background.jpg');
+  background-image: url(var(--header-background-image-url));
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
