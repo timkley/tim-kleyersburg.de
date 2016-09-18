@@ -1,6 +1,6 @@
 var LastFm = function(options) {
     var _settings = {
-        apiUrl: 'http://ws.audioscrobbler.com/2.0/?format=json',
+        apiUrl: 'https://ws.audioscrobbler.com/2.0/?format=json',
         apiKey: '1d5d6d83a1c4e1a2705c4b0aa990c15b',
         method: 'user.getrecenttracks',
         user: 'timmotheus',
