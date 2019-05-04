@@ -1,0 +1,22 @@
+image: php:7.2-alpine
+
+before_script:
+  - apk update --no-cache
+  - apk add --no-cache openssh-client curl npm rsync
+  - curl -L https://deployer.org/deployer.phar > /usr/local/bin/dep
+  - chmod +x /usr/local/bin/dep
+
+.init_ssh: &init_ssh |
+  eval $(ssh-agent -s)
+  echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
+  mkdir -p ~/.ssh
+  chmod 700 ~/.ssh
+  [[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+
+deploy:
+  stage: 'deploy'
+  script:
+    - *init_ssh
+    - dep deploy
+  only:
+    - master
