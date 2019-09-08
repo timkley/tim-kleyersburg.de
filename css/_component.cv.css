@@ -73,7 +73,7 @@
   opacity: 0.75;
 }
 
-.cv-list__item_meta {
+.cv-list__item__meta {
   color: var(--grey-color);
   font-size: .75rem;
 }
