@@ -13,7 +13,5 @@
 @import "_component.header.css";
 @import "_component.main.css";
 
-@import "shame.css";
-
 @import "_utility.animations.css";
 @import "_utility.flex.css";
