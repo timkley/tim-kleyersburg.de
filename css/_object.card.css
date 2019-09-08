@@ -54,26 +54,18 @@
   text-decoration: none;
 }
 
-.card--tweet {
-  background-color: color(var(--twitter-color) lightness(95%) alpha(90%));
-}
 
+.card--tweet {
+  background-color: var(--twitter-light-color);
+}
 .card--tweet > .card__header {
   color: var(--twitter-color);
 }
 
-.card--tweet .card__meta {
-  color: color(var(--twitter-color) blackness(50%));
-}
 
 .card--scrobble {
-  background-color: color(var(--lastfm-color) lightness(95%) alpha(90%));
+  background-color: var(--lastfm-light-color);
 }
-
 .card--scrobble > .card__header {
   color: var(--lastfm-color);
-}
-
-.card--scrobble .card__meta {
-  color: color(var(--lastfm-color) blackness(50%));
 }

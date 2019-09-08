@@ -5,10 +5,12 @@
   --font-weight-bold: 700;
 
   --brand-primary: #4db6cb;
-  --brand-primary-light: color(var(--brand-primary) lightness(90%));
+  --brand-primary-light: #d7eff4;
   --copy-color: #333;
   --twitter-color: #1da1f2;
+  --twitter-light-color: rgba(207, 235, 252, 0.9);
   --lastfm-color: #b90000;
+  --lastfm-light-color: rgba(255, 229, 229, 0.9);
   --grey-color: #b3b3b3;
 
   --header-background-image-url: '/img/background-guitar.jpg';
