@@ -73,6 +73,11 @@
   opacity: 0.75;
 }
 
+.cv-list__item_meta {
+  color: var(--grey-color);
+  font-size: .75rem;
+}
+
 .cv-list__rating {
   background-color: #eee;
   display: block;
