@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Tim Kleyersburg – Leidenschaftlicher Webentwickler</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="./css/bundle.css"/>
+</head>
+<body class="bg-gray-100">
+<div id="app" class="px-6 mt-6 mb-6">
+    <div class="container max-w-6xl pb-8 border border-gray-300 bg-white rounded-lg shadow-lg overflow-hidden">
+        <header class="bg-center bg-cover mb-8 sm:mb-16 px-3 pt-8 sm:pt-12 md:pt-24 pb-8 sm:pb-8"
+                style="background-image: url('img/background-guitar.jpg')">
+            <div class="text-white text-center font-thin text-shadow max-w-2xl mx-auto mb-8 sm:mb-12 md:mb-16">
+                <h1 class="text-5xl mb-4">Hi, ich bin Tim.</h1>
+                <h2 class="text-3xl leading-tight">Leidenschaftlicher Webentwickler, mittelmäßiger Gitarrist und Rock-Liebhaber.</h2>
+            </div>
+
+            <div class="px-4 flex flex-wrap justify-between sm:-mx-4 sm:-mb-16">
+                <twitter v-slot="slotProps">
+                    {% embed 'partials/_card.twig' with {
+                        color: 'blue',
+                        classes: 'mb-4 sm:mb-0',
+                        title: 'Letzter Tweet',
+                        linkUrl: 'https://www.twitter.com/timkley',
+                        linkTitle: '@timkley'
+                    } %}
+                        {% block content %}
+                            <div class="leading-tight" v-if="slotProps.tweet" v-html="slotProps.tweet"></div>
+                            <div v-else>
+                                loading...
+                            </div>
+                        {% endblock %}
+                    {% endembed %}
+                </twitter>
+
+                <last-fm v-slot="slotProps">
+                    {% embed 'partials/_card.twig' with {
+                        color: 'red',
+                        title: 'Letzter Scrobble',
+                        linkUrl: 'https://www.last.fm/de/user/timmotheus',
+                        linkTitle: '@timmotheus'
+                    } %}
+                        {% block content %}
+                            <div class="flex items-center -mx-3" v-if="slotProps.track">
+                                <div class="w-24 px-3">
+                                    <img :src="slotProps.albumArt">
+                                </div>
+                                <div class="px-3" v-text="slotProps.artist + ' – ' + slotProps.track"></div>
+                            </div>
+                            <div v-else>
+                                loading...
+                            </div>
+                        {% endblock %}
+                    {% endembed %}
+                </last-fm>
+            </div>
+        </header>
+
+        <main class="px-6">
+            <div class="flex flex-wrap sm:-mx-6">
+                <div class="w-full md:w-1/2 sm:px-6">
+                    <h3 class="mb-4 text-3xl border-b border-gray-300">Arbeit</h3>
+
+                    {% embed 'partials/_cv-item.twig' with {
+                        title: 'Teamleiter Entwicklung',
+                        date: '11.2016 – heute',
+                        employer: 'Caesar & Gustav Werbeagentur UG'
+                    } %}
+                        {% block content %}
+                            <p>
+                                Leitung des 4-köpfigen Entwicklungsteams, Projektplanung sowie technischer Ansprechpartner der Key-Accounts. Kontinuierliche Weiterentwicklung der eingesetzten E-Commerce-Software.
+                            </p>
+                        {% endblock %}
+                    {% endembed %}
+
+                    {% embed 'partials/_cv-item.twig' with {
+                        title: 'Frontend-Entwickler',
+                        date: '12.2015 – 10.2016',
+                        employer: 'Caesar & Gustav Werbeagentur UG'
+                    } %}
+                        {% block content %}
+                            <p>
+                                Ganzheitliche Entwicklung von Webshop-Projekten auf Basis moderner Frontend-Workflows, Git und PHP. Betreuung und Beratung von Bestandskunden.
+                            </p>
+                        {% endblock %}
+                    {% endembed %}
+
+                    {% embed 'partials/_cv-item.twig' with {
+                        title: 'Junior Account Manager',
+                        date: '10.2012 – 11.2015',
+                        employer: 'executive now GmbH'
+                    } %}
+                        {% block content %}
+                            <p>
+                                Zuständig für die digitale Beratung, Kundenbetreuung, Konzeption und Umsetzung von entwickelten Strategien um mobil Kunden zu erreichen. Nebenbei Assistenz der Geschäftsführung.
+                            </p>
+                        {% endblock %}
+                    {% endembed %}
+
+                    {% embed 'partials/_cv-item.twig' with {
+                        title: 'Anzeigensachbearbeiter',
+                        date: '08.2011 – 09.2012',
+                        employer: 'Verlagsanstalt Alexander Koch GmbH'
+                    } %}
+                        {% block content %}
+                            <p>
+                                Operative Gesamtabwicklung des Anzeigengeschäftes, Betreuung und Beratung von Bestands- und Neukunden sowie Pflege der Internetseite. Außerdem Aufbau und kontinuierliche Betreuung der AIT iPad-App.
+                            </p>
+                        {% endblock %}
+                    {% endembed %}
+
+                    <h3 class="mb-4 text-3xl border-b border-gray-300">Ausbildung</h3>
+
+                    {% embed 'partials/_cv-item.twig' with {
+                        title: 'Verlagskaufmann',
+                        date: '09.2005 – 01.2008',
+                        employer: 'Konradin Verlagsgruppe'
+                    } %}
+                    {% endembed %}
+                </div>
+                <div class="w-full md:w-1/2 md:px-6">
+                    <h3 class="mb-4 text-3xl border-b border-gray-300">Play hard</h3>
+
+                    {% include 'partials/_progress-bar.twig' with {
+                        icon: 'heart',
+                        title: 'Happiness',
+                        width: 'w-full'
+                    } %}
+
+                    {% include 'partials/_progress-bar.twig' with {
+                        icon: 'note',
+                        title: 'Gitarre',
+                        width: 'w-7/12'
+                    } %}
+
+                    {% include 'partials/_progress-bar.twig' with {
+                        icon: 'spock',
+                        title: 'Nerd',
+                        width: 'w-10/12'
+                    } %}
+
+                    {% include 'partials/_progress-bar.twig' with {
+                        icon: 'chrome',
+                        title: 'Internet',
+                        width: 'w-11/12'
+                    } %}
+
+                    {% include 'partials/_progress-bar.twig' with {
+                        icon: 'football',
+                        title: 'FIFA 15',
+                        width: 'w-3/12'
+                    } %}
+
+                    {% include 'partials/_progress-bar.twig' with {
+                        icon: 'rocket',
+                        title: 'Rocket League',
+                        width: 'w-8/12'
+                    } %}
+
+                    <h3 class="mt-12 mb-4 text-3xl border-b border-gray-300">Work hard</h3>
+
+                    {% include 'partials/_progress-bar.twig' with {
+                        icon: 'heartbeat',
+                        title: 'Loyalität',
+                        width: 'w-full'
+                    } %}
+
+                    {% include 'partials/_progress-bar.twig' with {
+                        icon: 'code',
+                        title: 'Frontend-Entwicklung',
+                        width: 'w-10/12'
+                    } %}
+
+                    {% include 'partials/_progress-bar.twig' with {
+                        icon: 'php',
+                        title: 'Backend-Entwicklung',
+                        width: 'w-7/12'
+                    } %}
+
+                    {% include 'partials/_progress-bar.twig' with {
+                        icon: 'people',
+                        title: 'Team',
+                        width: 'w-full'
+                    } %}
+                </div>
+            </div>
+        </main>
+
+        <footer class="px-6">
+            <h3 class="mt-12 mb-4 text-3xl border-b border-gray-300">Kontakt</h3>
+
+            <p>
+                <a class="inline-block mb-2 transition hover:text-gray-700 border-b border-blue-400 hover:border-blue-600"
+                   href="mailto:timkley@gmail.com">timkley@gmail.com</a>
+            </p>
+            <p>
+                <a class="inline-block mb-2 transition hover:text-gray-700 border-b border-blue-400 hover:border-blue-600"
+                   href="https://stackoverflow.com/users/261713/tim">StackOverflow</a>
+            </p>
+            <p>
+                <a class="inline-block mb-2 transition hover:text-gray-700 border-b border-blue-400 hover:border-blue-600"
+                   href="https://twitter.com/user/timkley">Twitter</a>
+            </p>
+            <p>
+                <a class="inline-block mb-2 transition hover:text-gray-700 border-b border-blue-400 hover:border-blue-600"
+                   href="https://www.xing.com/profile/Tim_Kleyersburg">Xing</a>
+            </p>
+        </footer>
+    </div>
+</div>
+<script src="./js/bundle.js"></script>
+</body>
+</html>

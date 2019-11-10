@@ -1,2 +1,6 @@
 node_modules
-dist
+public/*.html
+public/css
+public/js
+builds
+!.gitkeep

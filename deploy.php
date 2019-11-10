@@ -38,8 +38,8 @@ host($host)
 // Tasks
 
 task('build', function() {
-    run('npm i');
-    run('npm run build');
+    run('yarn');
+    run('./node_modules/.bin/gulp default');
 })->local();
 
 task('upload', function() {

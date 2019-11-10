@@ -2,7 +2,7 @@ image: php:7.2-alpine
 
 before_script:
   - apk update --no-cache
-  - apk add --no-cache openssh-client curl npm rsync
+  - apk add --no-cache openssh-client curl yarn rsync
   - curl -L https://deployer.org/deployer.phar > /usr/local/bin/dep
   - chmod +x /usr/local/bin/dep
 

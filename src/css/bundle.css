@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400,700&display=swap');
+
+@tailwind base;
+@tailwind components;
+
+body {
+    @apply text-gray-800;
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+.transition {
+    transition: all .12s ease-in-out;
+}
+
+.text-shadow {
+    text-shadow: 0 0 10px #000, 0 0 4px #000
+}
+
+@tailwind utilities;
