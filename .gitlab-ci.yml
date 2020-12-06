@@ -1,4 +1,4 @@
-image: php:7.2-alpine
+image: php:7.3-alpine3.10
 
 before_script:
   - apk update --no-cache
