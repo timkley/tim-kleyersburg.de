@@ -3,20 +3,11 @@ namespace Deployer;
 
 require 'recipe/common.php';
 
-/* Change variables to match your project */
-$host = 'tim-kleyersburg.de';
-$repository = 'git@gitlab.com:timkley/tim-kleyersburg.de.git';
-$deploy_path = '/var/www/virtual/thenose/_deployment/tim-kleyersburg.de';
-
-/* ------------------------------------------------------------------------ */
-/* DON'T CHANGE ANYTHING BELOW THIS LINE UNLESS YOU KNOW WHAT YOU'RE DOING! */
-/* ------------------------------------------------------------------------ */
-
 // Project name
-set('application', $host);
+set('application', 'tim-kleyersburg.de');
 
 // Project repository
-set('repository', $repository);
+set('repository', 'git@gitlab.com:timkley/tim-kleyersburg.de.git');
 
 // [Optional] Allocate tty for git clone. Default value is false.
 set('git_tty', true); 
@@ -31,9 +22,9 @@ set('allow_anonymous_stats', false);
 
 // Hosts
 
-host($host)
+host('us.timkley.de')
     ->user('thenose')
-    ->set('deploy_path', $deploy_path);
+    ->set('deploy_path', '/var/www/virtual/thenose/_deployment/tim-kleyersburg.de');
 
 // Tasks
 
