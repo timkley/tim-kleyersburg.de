@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="de">
 <head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Tim Kleyersburg – Leidenschaftlicher Webentwickler</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, max-scale=1.0">
     <link rel="stylesheet" type="text/css" media="screen" href="./css/bundle.css"/>
 </head>
 <body class="bg-gray-100">
@@ -13,8 +13,9 @@
         <header class="bg-center bg-cover mb-8 sm:mb-16 px-3 pt-8 sm:pt-12 md:pt-24 pb-8 sm:pb-8"
                 style="background-image: url('img/background-guitar.jpg')">
             <div class="text-white text-center font-thin text-shadow max-w-2xl mx-auto mb-8 sm:mb-12 md:mb-16">
-                <h1 class="text-5xl mb-4">Hi, ich bin Tim.</h1>
-                <h2 class="text-3xl leading-tight">Leidenschaftlicher Webentwickler, mittelmäßiger Gitarrist und Rock-Liebhaber.</h2>
+                <h1 class="text-5xl mb-4">Hi, ich bin Tim 😎.</h1>
+                <h2 class="text-3xl leading-tight">Leidenschaftlicher Webentwickler, mittelmäßiger Gitarrist und
+                    Metal-Liebhaber.</h2>
             </div>
 
             <div class="px-4 flex flex-wrap justify-between sm:-mx-4 sm:-mb-16">
@@ -25,7 +26,7 @@
                         title: 'Letzter Tweet',
                         linkUrl: 'https://www.twitter.com/timkley',
                         linkTitle: '@timkley'
-                    } %}
+                        } %}
                         {% block content %}
                             <div class="leading-tight" v-if="slotProps.tweet" v-html="slotProps.tweet"></div>
                             <div v-else>
@@ -41,7 +42,7 @@
                         title: 'Letzter Scrobble',
                         linkUrl: 'https://www.last.fm/de/user/timmotheus',
                         linkTitle: '@timmotheus'
-                    } %}
+                        } %}
                         {% block content %}
                             <div class="flex items-center -mx-3" v-if="slotProps.track">
                                 <div class="w-24 px-3">
@@ -63,14 +64,22 @@
                 <div class="w-full md:w-1/2 sm:px-6">
                     <h3 class="mb-4 text-3xl border-b border-gray-300">Arbeit</h3>
 
-                    {% embed 'partials/_cv-item.twig' with {
-                        title: 'Teamleiter Entwicklung',
-                        date: '11.2016 – heute',
+                    {% include 'partials/_cv-item.twig' with {
+                        title: 'Geschäftsführer Digital',
+                        date: '08.2020 – heute',
                         employer: 'Caesar & Gustav Werbeagentur UG'
                     } %}
+
+                    {% embed 'partials/_cv-item.twig' with {
+                        title: 'Teamleiter Entwicklung',
+                        date: '11.2016 – 07.2020',
+                        employer: 'Caesar & Gustav Werbeagentur UG'
+                        } %}
                         {% block content %}
                             <p>
-                                Leitung des 4-köpfigen Entwicklungsteams, Projektplanung sowie technischer Ansprechpartner der Key-Accounts. Kontinuierliche Weiterentwicklung der eingesetzten E-Commerce-Software.
+                                Leitung des 4-köpfigen Entwicklungsteams, Projektplanung sowie technischer
+                                Ansprechpartner der Key-Accounts. Kontinuierliche Weiterentwicklung der eingesetzten
+                                E-Commerce-Software.
                             </p>
                         {% endblock %}
                     {% endembed %}
@@ -79,10 +88,11 @@
                         title: 'Frontend-Entwickler',
                         date: '12.2015 – 10.2016',
                         employer: 'Caesar & Gustav Werbeagentur UG'
-                    } %}
+                        } %}
                         {% block content %}
                             <p>
-                                Ganzheitliche Entwicklung von Webshop-Projekten auf Basis moderner Frontend-Workflows, Git und PHP. Betreuung und Beratung von Bestandskunden.
+                                Ganzheitliche Entwicklung von Webshop-Projekten auf Basis moderner Frontend-Workflows,
+                                Git und PHP. Betreuung und Beratung von Bestandskunden.
                             </p>
                         {% endblock %}
                     {% endembed %}
@@ -91,10 +101,12 @@
                         title: 'Junior Account Manager',
                         date: '10.2012 – 11.2015',
                         employer: 'executive now GmbH'
-                    } %}
+                        } %}
                         {% block content %}
                             <p>
-                                Zuständig für die digitale Beratung, Kundenbetreuung, Konzeption und Umsetzung von entwickelten Strategien um mobil Kunden zu erreichen. Nebenbei Assistenz der Geschäftsführung.
+                                Zuständig für die digitale Beratung, Kundenbetreuung, Konzeption und Umsetzung von
+                                entwickelten Strategien um mobil Kunden zu erreichen. Nebenbei Assistenz der
+                                Geschäftsführung.
                             </p>
                         {% endblock %}
                     {% endembed %}
@@ -103,10 +115,12 @@
                         title: 'Anzeigensachbearbeiter',
                         date: '08.2011 – 09.2012',
                         employer: 'Verlagsanstalt Alexander Koch GmbH'
-                    } %}
+                        } %}
                         {% block content %}
                             <p>
-                                Operative Gesamtabwicklung des Anzeigengeschäftes, Betreuung und Beratung von Bestands- und Neukunden sowie Pflege der Internetseite. Außerdem Aufbau und kontinuierliche Betreuung der AIT iPad-App.
+                                Operative Gesamtabwicklung des Anzeigengeschäftes, Betreuung und Beratung von Bestands-
+                                und Neukunden sowie Pflege der Internetseite. Außerdem Aufbau und kontinuierliche
+                                Betreuung der AIT iPad-App.
                             </p>
                         {% endblock %}
                     {% endembed %}
@@ -117,7 +131,7 @@
                         title: 'Verlagskaufmann',
                         date: '09.2005 – 01.2008',
                         employer: 'Konradin Verlagsgruppe'
-                    } %}
+                        } %}
                     {% endembed %}
                 </div>
                 <div class="w-full md:w-1/2 md:px-6">
