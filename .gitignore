@@ -1,6 +1,5 @@
-node_modules
-public/*.html
-public/css
-public/js
-builds
-!.gitkeep
+_site/
+_tmp/
+.DS_Store
+node_modules/
+package-lock.json

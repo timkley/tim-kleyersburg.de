@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="de">
+<head>
+    <meta charset="utf-8"/>
+    <title>Tim Kleyersburg</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="./bundle.css"/>
+    <script defer src="./bundle.js"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.2.1/dist/cdn.min.js"></script>
+</head>
+<body class="bg-gray-100">
+<div id="app" class="px-6 mt-6 mb-6">
+    <div class="mx-auto max-w-6xl pb-8 border border-gray-300 bg-white rounded-lg shadow-lg overflow-hidden">
+        <header
+                class="bg-center bg-cover mb-8 sm:mb-16 px-3 pt-8 sm:pt-12 md:pt-24 pb-8 sm:pb-8"
+                style="background-image: url('/img/background-guitar.jpg')"
+        >
+            <div class="text-white text-shadow font-light text-center max-w-2xl mx-auto mb-8 sm:mb-12 md:mb-16">
+                <h1 class="text-5xl mb-4">Hi, ich bin Tim 😎.</h1>
+                <h2 class="text-3xl leading-tight">
+                    Leidenschaftlicher Webentwickler, mittelmäßiger Gitarrist und Metal-Liebhaber.
+                </h2>
+            </div>
+
+            <div class="px-4 flex flex-wrap justify-between sm:-mx-4 sm:-mb-16">
+                {% include 'card_twitter.njk' %}
+                {% include 'card_lastfm.njk' %}
+            </div>
+        </header>
+
+        <main class="px-6">
+            <div class="flex flex-wrap sm:-mx-6">
+                <div class="w-full md:w-1/2 sm:px-6">
+                    <h3 class="mb-4 text-3xl border-b border-gray-300">Arbeit</h3>
+
+                    {% for cv_item in cv_items %}
+                        {% include 'cv_item.njk' %}
+                    {% endfor %}
+
+                    <h3 class="mb-4 text-3xl border-b border-gray-300">Ausbildung</h3>
+
+                    {% for cv_item in cv_items_education %}
+                        {% include 'cv_item.njk' %}
+                    {% endfor %}
+                </div>
+                <div class="w-full md:w-1/2 md:px-6">
+                    <h3 class="mb-4 text-3xl border-b border-gray-300">Play hard</h3>
+
+                    {% for item in play_hards %}
+                        {% include 'progress_bar.njk' %}
+                    {% endfor %}
+
+                    <h3 class="mt-12 mb-4 text-3xl border-b border-gray-300">Work hard</h3>
+
+                    {% for item in work_hards %}
+                        {% include 'progress_bar.njk' %}
+                    {% endfor %}
+                </div>
+            </div>
+        </main>
+
+        <footer class="px-6">
+            <h3 class="mt-12 mb-4 text-3xl border-b border-gray-300">Kontakt</h3>
+
+            <p>
+                <a
+                        class="inline-block mb-2 transition hover:text-gray-700 border-b border-blue-400 hover:border-blue-600"
+                        href="mailto:timkley@gmail.com"
+                >timkley@gmail.com</a>
+            </p>
+            <p>
+                <a
+                        class="inline-block mb-2 transition hover:text-gray-700 border-b border-blue-400 hover:border-blue-600"
+                        href="https://stackoverflow.com/users/261713/tim"
+                >StackOverflow</a>
+            </p>
+            <p>
+                <a
+                        class="inline-block mb-2 transition hover:text-gray-700 border-b border-blue-400 hover:border-blue-600"
+                        href="https://twitter.com/user/timkley"
+                >Twitter</a>
+            </p>
+            <p>
+                <a
+                        class="inline-block mb-2 transition hover:text-gray-700 border-b border-blue-400 hover:border-blue-600"
+                        href="https://www.xing.com/profile/Tim_Kleyersburg"
+                >Xing</a>
+            </p>
+        </footer>
+    </div>
+</div>
+{# <script src="./js/bundle.js"></script> #}
+</body>
+</html>

@@ -1,0 +1,84 @@
+{
+  "cv_items": [
+    {
+      "title": "Geschäftsführer Digital",
+      "date": "08.2020 – heute",
+      "employer": "Caesar & Gustav Werbeagentur UG"
+    },
+    {
+      "title": "Teamleiter Entwicklung",
+      "date": "11.2016 – heute",
+      "employer": "Caesar & Gustav Werbeagentur UG",
+      "content": "Leitung des 4-köpfigen Entwicklungsteams, Projektplanung sowie technischer Ansprechpartner der Key-Accounts. Kontinuierliche Weiterentwicklung der eingesetzten E-Commerce-Software."
+    },
+    {
+      "title": "Frontend-Entwickler",
+      "date": "12.2015 – 10.2016",
+      "employer": "Caesar & Gustav Werbeagentur UG",
+      "content": "Ganzheitliche Entwicklung von Webshop-Projekten auf Basis moderner Frontend-Workflows, Git und PHP. Betreuung und Beratung von Bestands- und Neukunden."
+    },
+    {
+      "title": "Junior Account Manager",
+      "date": "10.2012 – 11.2015",
+      "employer": "executive now GmbH",
+      "content": "Zuständig für die digitale Beratung, Kundenbetreuung, Konzeption und Umsetzung von  entwickelten Strategien um mobil Kunden zu erreichen. Außerdem Assistenz der Geschäftsführung."
+    },
+    {
+      "title": "Anzeigensachbearbeiter",
+      "date": "08.2011 – 09.2012",
+      "employer": "Verlagsanstalt Alexander Koch GmbH",
+      "content": "Operative Gesamtabwicklung des Anzeigengeschäftes, Betreuung und Beratung von Bestands- und Neukunden sowie Pflege der Internetseite. Außerdem Aufbau und kontinuierliche Betreuung der AIT iPad-App."
+    }
+  ],
+  "cv_items_education": [
+    {
+      "title": "Verlagskaufmann",
+      "date": "08.2011 – 09.2012",
+      "employer": "Konradin Verlagsgruppe"
+    }
+  ],
+  "play_hards": [
+    {
+      "title": "Happiness",
+      "width": "w-full"
+    },
+    {
+      "title": "Gitarre",
+      "width": "w-6/12"
+    },
+    {
+      "title": "Nerd",
+      "width": "w-10/12"
+    },
+    {
+      "title": "Internet",
+      "width": "w-11/12"
+    },
+    {
+      "title": "FIFA 15",
+      "width": "w-3/12"
+    },
+    {
+      "title": "Rocket League",
+      "width": "w-8/12"
+    }
+  ],
+  "work_hards": [
+    {
+      "title": "Loyalität",
+      "width": "w-full"
+    },
+    {
+      "title": "Frontend-Entwicklung",
+      "width": "w-11/12"
+    },
+    {
+      "title": "Backend-Entwicklung",
+      "width": "w-9/12"
+    },
+    {
+      "title": "Team",
+      "width": "w-full"
+    }
+  ]
+}
