@@ -2,7 +2,7 @@
   "name": "tim-kleyersburg.de",
   "scripts": {
     "start": "npx tailwindcss -i src/css/bundle.css -o _tmp/bundle.css --watch & npx @11ty/eleventy --serve",
-    "build": "ELEVENTY_PRODUCTION=true npx @11ty/eleventy & NODE_ENV=production postcss src/css/bundle.css --o _site/css/bundle.css"
+    "build": "ELEVENTY_PRODUCTION=true npx @11ty/eleventy & NODE_ENV=production postcss src/css/bundle.css --o _site/bundle.css"
   },
   "devDependencies": {
     "@11ty/eleventy": "^0.12.1",

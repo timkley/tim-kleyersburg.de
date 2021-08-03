@@ -4,7 +4,6 @@ module.exports = (eleventyConfig) => {
     eleventyConfig.addWatchTarget('_tmp/bundle.css')
     eleventyConfig.addWatchTarget('src/js/bundle.js')
 
-    eleventyConfig.addPassthroughCopy({'src/api/twitter.php': 'api/twitter.php'})
     eleventyConfig.addPassthroughCopy({'_tmp/bundle.css': 'bundle.css'})
     eleventyConfig.addPassthroughCopy({'src/js/bundle.js': 'bundle.js'})
     eleventyConfig.addPassthroughCopy({'src/img': 'img'})
