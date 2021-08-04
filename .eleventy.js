@@ -16,6 +16,10 @@ module.exports = (eleventyConfig) => {
         return String(Date.now())
     })
 
+    eleventyConfig.addFilter('limit', function (array, limit) {
+        return array.slice(0, limit)
+    })
+
     return {
         dir: {
             layouts: '_layouts'

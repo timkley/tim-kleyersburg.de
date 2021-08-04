@@ -1,11 +1,19 @@
 {% extends '_layouts/base.njk' %}
 
-{% block header %}
-
-{% endblock %}
-
 {% block content %}
     <div class="prose mx-auto">
         {{ content | safe }}
     </div>
+{% endblock %}
+
+{% block footer %}
+    {% if pagination %}
+        <ol>
+            <li>{% if pagination.href.previous %}<a href="{{ pagination.href.previous }}">Previous</a>{% else %}Previous{% endif %}</li>
+            {%- for pageEntry in pagination.pages %}
+                <li><a href="{{ pagination.hrefs[ loop.index0 ] }}"{% if page.url == pagination.hrefs[ loop.index0 ] %} aria-current="page"{% endif %}>Page {{ loop.index }}</a></li>
+            {%- endfor %}
+            <li>{% if pagination.href.next %}<a href="{{ pagination.href.next }}">Next</a>{% else %}Next{% endif %}</li>
+        </ol>
+    {% endif %}
 {% endblock %}

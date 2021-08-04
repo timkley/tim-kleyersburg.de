@@ -2,6 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-.text-shadow {
-    text-shadow: 0 0 10px #333, 0 0 4px #333
+a {
+    @apply inline-block mb-2 transition hover:text-gray-700 border-b border-blue-400 hover:border-blue-600
 }

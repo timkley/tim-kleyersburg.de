@@ -1,5 +1,6 @@
 ---
 layout: blog
+date: 2021-08-04
 tags: post
 title: 'From Vue.js to Alpine: Our journey'
 permalink: 'blog/from-vue-to-alpine/'
@@ -20,16 +21,20 @@ The main goals defined with the client where:
 After months of implementing, the client, and we, where happy with the results. We hit green ratings in all 4 of Lighthouses categories and the conversion rate
 improved significantly.
 
-That was until Google decided to change how Lighthouse calculates the performance score (https://web.dev/lighthouse-whats-new-6.0/).  
+That was until Google decided to change how Lighthouse calculates the performance
+score ([What's New in Lighthouse 6.0](https://web.dev/lighthouse-whats-new-6.0/)).  
 Our scores dropped from solid green ratings to red.
 
-As a quick reminder: additionally to things like TTFB (Time till first byte) and overall network performance things like file sizes, optimised CSS or webfonts Lighthouse moved the focus to frontend stuff like „Time To Interactive“ or „Largest Contentful Paint“. As the web becomes more and more interactive the perceived performance becomes more important.
-So, in theory, we agreed with Googles step to include those new metrics.
-Although it's comparing apples to oranges when Google presents nearly non-interactive sites like blogs as „good examples“.
+As a quick reminder: additionally to things like TTFB (Time till first byte) and overall network performance things like file sizes, optimised CSS or webfonts
+Lighthouse moved the focus to frontend stuff like „Time To Interactive“ or „Largest Contentful Paint“. As the web becomes more and more interactive the
+perceived performance becomes more important. So, in theory, we agreed with Googles step to include those new metrics. Although it's comparing apples to oranges
+when Google presents nearly non-interactive sites like blogs as „good examples“.
 
-After the first meetings with the client we postponed optimising for the new Lighthouse metrics. After analysing what devices our visitors most commonly used we couldn’t rationalise investing much time into a problem all our competitors faced also.
+After the first meetings with the client we postponed optimising for the new Lighthouse metrics. After analysing what devices our visitors most commonly used we
+couldn’t rationalise investing much time into a problem all our competitors faced also.
 
-That changed with Googles announcement that some of these new metrics would impact search ranking (https://developers.google.com/search/blog/2020/11/timing-for-page-experience).
+That changed with Googles announcement that some of these new metrics would impact search
+ranking ([Timing for bringing page experience to Google Search](https://developers.google.com/search/blog/2020/11/timing-for-page-experience)).
 
 It was clear we shouldn’t postpone this issue further (this was late 2020 / early 2021).
 
@@ -40,15 +45,17 @@ We now needed more data. To be frank: until this point the deeper performance me
 Using Google Chrome we analysed the website with a mix of the built in Lighthouse app as well as the Performance tab in DevTools.
 
 ## Our setup at this time
-When we did the relaunch we completely reimplemented the frontend architecture. We were using Vue 2 as our javascript framework of choice and TailwindCSS. Everything was bundled by Symfony Encore (Webpack).
 
-The site was no SPA, instead we wrapped the whole site with a #app div which we bound the root instance to.
-We used renderless components (https://adamwathan.me/renderless-components-in-vuejs/) so we could write most of our templates in Twig and also make easy use of server side variables without the need of writing an API.
+When we did the relaunch we completely reimplemented the frontend architecture. We were using Vue 2 as our javascript framework of choice and TailwindCSS.
+Everything was bundled by Symfony Encore (Webpack).
+
+The site was no SPA, instead we wrapped the whole site with a `#app` div which we bound the root instance to. We used renderless
+components ([Renderless Components in Vue.js](https://adamwathan.me/renderless-components-in-vuejs/)) so we could write most of our templates in Twig and also
+make easy use of server side variables without the need of writing an API.
 
 *Include screenshot of renderless component with JSON encoded server variables as prop*
 
 ## Analysing the problem
-
 Our process looked like this:
 1. Do performance report in chrome
 2. Look at the numbers
@@ -137,7 +144,6 @@ What we needed (and wanted) from a new framework was:
 - Small footprint
 
 ## Evaluating alternatives
-
 Proof of concept
 - Event bus
 - First metrics

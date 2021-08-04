@@ -7,7 +7,19 @@ module.exports = {
         '_layouts/**/*.njk'
     ],
     theme: {
-        extend: {},
+        extend: {
+            typography: {
+                DEFAULT: {
+                    css: {
+                        a: {
+                            fontWeight: 400,
+                            textDecoration: 'none',
+                            wordBreak: 'break-word'
+                        }
+                    }
+                }
+            }
+        },
     },
     plugins: [
         require('@tailwindcss/typography')
