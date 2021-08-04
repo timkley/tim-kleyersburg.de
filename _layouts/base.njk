@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="de">
+<head>
+    <meta charset="utf-8"/>
+    <title>{{ title|default('Tim Kleyersburg') }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="/bundle.css"/>
+    {# <script defer src="./bundle.js"></script> #}
+    {# <script defer src="https://unpkg.com/alpinejs@3.2.1/dist/cdn.min.js"></script> #}
+</head>
+<body class="px-4 py-6">
+{% block header %}{% endblock %}
+
+{% block content %}
+    {{ content | safe }}
+{% endblock %}
+</body>
+</html>

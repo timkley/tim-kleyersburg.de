@@ -3,10 +3,13 @@ module.exports = {
     purge: [
         '*.njk',
         '*.json',
-        '_includes/**/*.njk'
+        '_includes/**/*.njk',
+        '_layouts/**/*.njk'
     ],
     theme: {
         extend: {},
     },
-    plugins: [],
+    plugins: [
+        require('@tailwindcss/typography')
+    ],
 }

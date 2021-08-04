@@ -1,84 +1,46 @@
 {
   "cv_items": [
     {
-      "title": "Geschäftsführer Digital",
-      "date": "08.2020 – heute",
-      "employer": "Caesar & Gustav Werbeagentur UG"
-    },
-    {
-      "title": "Teamleiter Entwicklung",
-      "date": "11.2016 – heute",
+      "title": "CTO",
+      "date": "08.2020 – today",
       "employer": "Caesar & Gustav Werbeagentur UG",
-      "content": "Leitung des 4-köpfigen Entwicklungsteams, Projektplanung sowie technischer Ansprechpartner der Key-Accounts. Kontinuierliche Weiterentwicklung der eingesetzten E-Commerce-Software."
+      "content": "Focusing on optimizing our processes, internal mentoring and architectural development decisions."
     },
     {
-      "title": "Frontend-Entwickler",
+      "title": "Teamlead Web Development",
+      "date": "11.2016 – today",
+      "employer": "Caesar & Gustav Werbeagentur UG",
+      "content": "Working together with 6 great colleagues. Responsible for internal training and self-development. Technical contact for key accounts. Furthering development of the used custom ecommerce solution."
+    },
+    {
+      "title": "Frontend developer",
       "date": "12.2015 – 10.2016",
       "employer": "Caesar & Gustav Werbeagentur UG",
-      "content": "Ganzheitliche Entwicklung von Webshop-Projekten auf Basis moderner Frontend-Workflows, Git und PHP. Betreuung und Beratung von Bestands- und Neukunden."
+      "content": "Implementation of custom ecommerce projects in the medical industry."
     },
     {
       "title": "Junior Account Manager",
       "date": "10.2012 – 11.2015",
       "employer": "executive now GmbH",
-      "content": "Zuständig für die digitale Beratung, Kundenbetreuung, Konzeption und Umsetzung von  entwickelten Strategien um mobil Kunden zu erreichen. Außerdem Assistenz der Geschäftsführung."
-    },
-    {
-      "title": "Anzeigensachbearbeiter",
-      "date": "08.2011 – 09.2012",
-      "employer": "Verlagsanstalt Alexander Koch GmbH",
-      "content": "Operative Gesamtabwicklung des Anzeigengeschäftes, Betreuung und Beratung von Bestands- und Neukunden sowie Pflege der Internetseite. Außerdem Aufbau und kontinuierliche Betreuung der AIT iPad-App."
+      "content": "Digital consulting, client success, conception and implementation of strategies to reach clients on the go and assistant to the CEO."
     }
   ],
-  "cv_items_education": [
+  "contact_items": [
     {
-      "title": "Verlagskaufmann",
-      "date": "08.2011 – 09.2012",
-      "employer": "Konradin Verlagsgruppe"
-    }
-  ],
-  "play_hards": [
-    {
-      "title": "Happiness",
-      "width": "w-full"
+      "title": "timkley@gmail.com",
+      "url": "mailto:timkley@gmail.com"
     },
     {
-      "title": "Gitarre",
-      "width": "w-6/12"
+      "title": "StackOverflow",
+      "url": "https://stackoverflow.com/users/261713/tim"
     },
     {
-      "title": "Nerd",
-      "width": "w-10/12"
+      "title": "Twitter",
+      "url": "https://twitter.com/user/timkley"
     },
     {
-      "title": "Internet",
-      "width": "w-11/12"
-    },
-    {
-      "title": "FIFA 15",
-      "width": "w-3/12"
-    },
-    {
-      "title": "Rocket League",
-      "width": "w-8/12"
-    }
-  ],
-  "work_hards": [
-    {
-      "title": "Loyalität",
-      "width": "w-full"
-    },
-    {
-      "title": "Frontend-Entwicklung",
-      "width": "w-11/12"
-    },
-    {
-      "title": "Backend-Entwicklung",
-      "width": "w-9/12"
-    },
-    {
-      "title": "Team",
-      "width": "w-full"
+      "title": "GitHub",
+      "url": "https://github.com/timkley"
     }
   ]
 }
