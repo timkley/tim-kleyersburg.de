@@ -1,0 +1,46 @@
+{
+  "cv_items": [
+    {
+      "title": "CTO",
+      "date": "08.2020 – today",
+      "employer": "Caesar & Gustav Werbeagentur UG",
+      "content": "Focusing on optimizing our processes, internal mentoring and architectural development decisions."
+    },
+    {
+      "title": "Teamlead Web Development",
+      "date": "11.2016 – today",
+      "employer": "Caesar & Gustav Werbeagentur UG",
+      "content": "Working together with 6 great colleagues. Responsible for internal training and self-development. Technical contact for key accounts. Furthering development of the used custom ecommerce solution."
+    },
+    {
+      "title": "Frontend developer",
+      "date": "12.2015 – 10.2016",
+      "employer": "Caesar & Gustav Werbeagentur UG",
+      "content": "Implementation of custom ecommerce projects in the medical industry."
+    },
+    {
+      "title": "Junior Account Manager",
+      "date": "10.2012 – 11.2015",
+      "employer": "executive now GmbH",
+      "content": "Digital consulting, client success, conception and implementation of strategies to reach clients on the go and assistant to the CEO."
+    }
+  ],
+  "contact_items": [
+    {
+      "title": "timkley@gmail.com",
+      "url": "mailto:timkley@gmail.com"
+    },
+    {
+      "title": "StackOverflow",
+      "url": "https://stackoverflow.com/users/261713/tim"
+    },
+    {
+      "title": "Twitter",
+      "url": "https://twitter.com/user/timkley"
+    },
+    {
+      "title": "GitHub",
+      "url": "https://github.com/timkley"
+    }
+  ]
+}

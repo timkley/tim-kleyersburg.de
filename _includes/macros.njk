@@ -1,0 +1,19 @@
+{% macro heading(tag = 'div', content = '') %}
+    {% set classes = {
+        'h1': 'text-3xl font-bold mb-5 transition -rotate-2 hover:rotate-2',
+        'h2': 'text-2xl font-bold mb-4 transition rotate-2 hover:-rotate-2'
+    } %}
+
+    <{{ tag }} class="{{ classes[tag]|default('') }}">
+    {{ content }}
+    </{{ tag }}>
+{% endmacro %}
+
+{% macro cv_item(title, date, employer, content) %}
+    <div class="mb-8 px-2">
+        <h4 class="mb-1 text-lg">{{ title }}</h4>
+        <p class="text-sm text-gray-600 mb-1">{{ date }}</p>
+        <p class="mb-3 italic text-sm text-gray-500">{{ employer }}</p>
+        {{ content }}
+    </div>
+{% endmacro %}

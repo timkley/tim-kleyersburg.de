@@ -1,0 +1,47 @@
+---
+layout: homepage.njk
+---
+{% from 'macros.njk' import heading, cv_item %}
+<div class="space-y-16 sm:space-y-20 md:space-y-24 max-w-lg mx-auto text-center">
+    <div>
+        {{ heading('h1', '👋 Hello world!') }}
+        <p class="leading-relaxed">
+            I’m Tim, working in a digital agency, fascinated by web development and currently focusing on developer mentoring, process optimisation and
+            everything in
+            between.
+        </p>
+    </div>
+
+    <div>
+        {{ heading('h2', 'Latest articles') }}
+
+        {% set postLimit = 5 %}
+        <ul>
+            {% for post in collections.post | reverse | limit(postLimit) %}
+                <li class="mt-1"><a href="{{ post.url }}">{{ post.data.title }}</a></li>
+            {% endfor %}
+        </ul>
+
+        {% if collections.post | length  > postLimit %}
+            <a class="mt-4" href="/articles">more articles</a>
+        {% endif %}
+    </div>
+
+    <div>
+        {{ heading('h2', 'Where to find me online') }}
+        {% for contact_item in contact_items %}
+            <div>
+                <a href="{{ contact_item.url }}">
+                    {{ contact_item.title }}
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div>
+        {{ heading('h2', 'My career') }}
+        {% for item in cv_items %}
+            {{ cv_item(item.title, item.date, item.employer, item.content) }}
+        {% endfor %}
+    </div>
+</div>

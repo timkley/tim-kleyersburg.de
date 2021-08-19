@@ -1,17 +1,37 @@
 module.exports = {
+    mode: 'jit',
+    important: true,
+    purge: [
+        '*.njk',
+        '*.json',
+        '_includes/**/*.njk',
+        '_layouts/**/*.njk'
+    ],
     theme: {
         extend: {
-            colors: {
-                'blue-200-90': 'rgba(190, 227, 248, .90)',
-                'red-200-90': 'rgba(254, 215, 215, .90)'
+            typography: {
+                DEFAULT: {
+                    css: {
+                        a: {
+                            fontWeight: 400,
+                            textDecoration: 'none',
+                            wordBreak: 'break-word'
+                        },
+                        code: {
+                            fontStyle: 'initial',
+                        },
+                        'code::before': {
+                            content: '',
+                        },
+                        'code::after': {
+                            content: '',
+                        },
+                    }
+                }
             }
         },
-        container: {
-            center: true
-        }
     },
-    variants: {
-        backgroundColor: ['responsive', 'hover', 'group-hover']
-    },
-    plugins: [],
+    plugins: [
+        require('@tailwindcss/typography')
+    ],
 }
