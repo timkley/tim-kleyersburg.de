@@ -1,6 +1,7 @@
 ---
 date: 2021-08-04
 title: 'From Vue to Alpine.js: Our journey'
+metaDescription: 'We moved from Vue to Alpine.js. Find out what I learned in the process.'
 ---
 ## The problem
 
