@@ -4,26 +4,32 @@
     <meta charset="utf-8"/>
     <title>{{ title|default('Tim Kleyersburg') }}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="/bundle.css"/>
-    {# <script defer src="./bundle.js"></script> #}
-    {# <script defer src="https://unpkg.com/alpinejs@3.2.1/dist/cdn.min.js"></script> #}
+    <link rel="stylesheet" type="text/css" media="screen" href="/bundle.css?v={% version %}"/>
 </head>
-<body class="px-4 py-6 bg-gray-50 selection:bg-blue-200">
-{% block header %}
-    <div class="flex items-center justify-between mx-auto max-w-3xl mb-8">
-        <div class="tracking-tight font-semibold">
-            <a class="border-transparent hover:border-blue-500" href="/">Tim Kleyersburg</a>
-        </div>
+<body class="bg-gray-50 selection:bg-blue-200">
+<div class="px-4 py-6">
+    {% block header %}
+        <header class="flex items-center justify-between mx-auto max-w-3xl mb-8">
+            <div class="tracking-tight font-semibold">
+                <a class="border-transparent hover:border-blue-500" href="/">Tim Kleyersburg</a>
+            </div>
 
-        <div class="space-x-2">
-            <a href="/">Home</a>
-            <a href="/blog">Blog</a>
-        </div>
-    </div>
-{% endblock %}
+            <div class="space-x-2">
+                <a href="/">Home</a>
+                <a href="/articles">Articles</a>
+            </div>
+        </header>
+    {% endblock %}
 
-{% block content %}
-    {{ content | safe }}
+    {% block content %}
+        {{ content | safe }}
+    {% endblock %}
+</div>
+
+{% block footer %}
+    <footer class="fixed bottom-0 w-full bg-gradient-to-r from-blue-700 to-blue-300 h-1">
+
+    </footer>
 {% endblock %}
 </body>
 </html>

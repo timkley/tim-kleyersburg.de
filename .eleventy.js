@@ -9,15 +9,27 @@ module.exports = (eleventyConfig) => {
     eleventyConfig.addWatchTarget('src/js/bundle.js')
     eleventyConfig.addPassthroughCopy({'src/js/bundle.js': 'bundle.js'})
 
-    // Copy all images
+    // Copy images
     eleventyConfig.addPassthroughCopy({'src/img': 'img'})
+    eleventyConfig.addPassthroughCopy('articles/**/*.{jpg,jpeg,png,gif}')
 
-    eleventyConfig.addShortcode('version', function () {
+    eleventyConfig.addShortcode('version', () => {
         return String(Date.now())
     })
 
-    eleventyConfig.addFilter('limit', function (array, limit) {
+    eleventyConfig.addFilter('limit', (array, limit) => {
         return array.slice(0, limit)
+    })
+
+    eleventyConfig.addFilter('readtime', (content) => {
+        const wpm = 250
+        const wordCount = content.split(' ').length
+
+        return Math.round(wordCount / wpm)
+    })
+
+    eleventyConfig.addFilter('formattedDate', (date) => {
+        return `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2, '0')}-${String(date.getDay()).padStart(2, '0')}`
     })
 
     return {

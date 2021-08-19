@@ -1,0 +1,28 @@
+{% extends '_layouts/base.njk' %}
+
+{% block content %}
+    <div class="prose mx-auto md:mt-8 lg:mt-16 mb-24">
+        <h1>{{ title }}</h1>
+        <div class="flex items-center space-x-4">
+            <div class="flex items-center space-x-2">
+                <div class="flex-shrink-0 w-6 h-6 overflow-hidden rounded-full">
+                    <img class="my-0" src="{{ author.avatarUrl }}" alt="{{ author.name }}"/>
+                </div>
+                <div>
+                    {{ author.name }}
+                </div>
+                <div>
+                    on {{ page.date | formattedDate }}
+                </div>
+            </div>
+            <div class="text-sm inline-flex items-center">
+                <span class="mr-3">
+                    📖
+                </span>
+                {{ content | readtime }} minutes
+            </div>
+        </div>
+
+        {{ content | safe }}
+    </div>
+{% endblock %}

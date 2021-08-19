@@ -2,7 +2,7 @@
 layout: homepage.njk
 ---
 {% from 'macros.njk' import heading, cv_item %}
-<div class="space-y-12 max-w-lg mx-auto text-center">
+<div class="space-y-16 sm:space-y-20 md:space-y-24 max-w-lg mx-auto text-center">
     <div>
         {{ heading('h1', '👋 Hello world!') }}
         <p class="leading-relaxed">
@@ -13,7 +13,7 @@ layout: homepage.njk
     </div>
 
     <div>
-        {{ heading('h2', 'Latest blog posts') }}
+        {{ heading('h2', 'Latest articles') }}
 
         {% set postLimit = 5 %}
         <ul>
@@ -23,7 +23,7 @@ layout: homepage.njk
         </ul>
 
         {% if collections.post | length  > postLimit %}
-            <a class="mt-4" href="/blog">more posts</a>
+            <a class="mt-4" href="/articles">more articles</a>
         {% endif %}
     </div>
 
