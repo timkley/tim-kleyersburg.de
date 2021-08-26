@@ -3,8 +3,24 @@
 <head>
     <meta charset="utf-8"/>
     <title>{{ title|default('Tim Kleyersburg') }}</title>
-    <meta name="description" content="{{ metaDescription|default('Get to know me.') }}">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {% block meta_tags %}
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="{{ metaDescription|default('Get to know me.') }}">
+        <meta property="og:title" content='{{ title|default('Tim Kleyersburg') }}'/>
+        <meta property="og:description" content="{{ metaDescription|default('Get to know me.') }}" />
+        <meta property="og:url" content="https://www.tim-kleyersburg.de{{ page.url }}"/>
+        <meta property="og:site_name" content="Tim Kleyersburg"/>
+        {% if socialImage %}
+            <meta property="og:image" content="https://www.tim-kleyersburg.de{{ page.url }}{{ socialImage }}" />
+            <meta name="twitter:image" content="https://www.tim-kleyersburg.de{{ page.url }}{{ socialImage }}" />
+        {% endif %}
+        <meta name="twitter:card" content="summary_large_image"/>
+        <meta name="twitter:description" content="{{ metaDescription|default('Get to know me') }}" />
+        <meta name="twitter:title" content='{{ title|default('Tim Kleyersburg') }}'/>
+        <meta name="twitter:site" content="@timkley"/>
+    {% endblock %}
+
     <link rel="stylesheet" type="text/css" media="screen" href="/bundle.css?v={% version %}"/>
 </head>
 <body class="bg-gray-50 selection:bg-blue-200">
