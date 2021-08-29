@@ -9,20 +9,20 @@ socialImage: 'social-image-v2.jpg'
 We relaunched the e-commerce site from one of our clients in the end of 2019. It was a big relaunch, impacting the overall design, template and frontend architecture.  
 The only thing pretty much left unchanged was the backend.
 
-The main goals defined with the client where:
+The main goals defined with the client were:
 
 - optimise PageSpeed metrics
 - Improve usability and therefore conversion rate
 
-After months of implementing, the client, and we, where happy with the results. We hit green ratings in all 4 of Lighthouses categories and the conversion rate improved significantly.
+After months of implementing, the client, and we, were happy with the results. We hit green ratings in all 4 of Lighthouse's categories and the conversion rate improved significantly.
 
 That was until Google decided to change how Lighthouse calculates the performance score ([What's New in Lighthouse 6.0](https://web.dev/lighthouse-whats-new-6.0/)). Our scores dropped from solid green ratings to red.
 
-As a quick reminder: additionally to things like TTFB (Time till first byte) and overall network performance things like file sizes, optimised CSS or webfonts Lighthouse moved the focus to frontend stuff like „Time To Interactive“ or „Largest Contentful Paint“. As the web becomes more and more interactive the perceived performance becomes more important. So, in theory, we agreed with Googles step to include those new metrics. Although it's comparing apples to oranges when Google presents nearly non-interactive sites like blogs as „good examples“.
+As a quick reminder: in addition to things like TTFB (Time to first byte) and overall network performance things like file sizes, optimised CSS or webfonts, Lighthouse moved the focus to frontend stuff like „Time To Interactive“ or „Largest Contentful Paint“. As the web becomes more and more interactive the perceived performance becomes more important. So, in theory, we agreed with Google's step to include those new metrics. Although it's comparing apples to oranges when Google presents nearly non-interactive sites like blogs as „good examples“.
 
 After the first meetings with the client we postponed optimising for the new Lighthouse metrics. After analysing what devices our visitors most commonly used we couldn’t rationalise investing much time into a problem all our competitors faced also.
 
-That changed with Googles announcement that some of these new metrics would impact search ranking ([Timing for bringing page experience to Google Search](https://developers.google.com/search/blog/2020/11/timing-for-page-experience)).
+That changed with Google's announcement that some of these new metrics would impact search ranking ([Timing for bringing page experience to Google Search](https://developers.google.com/search/blog/2020/11/timing-for-page-experience)).
 
 It was clear we shouldn’t postpone this issue further (this was late 2020 / early 2021).
 
@@ -30,7 +30,7 @@ We talked to the client again and decided we could gain a significant competitor
 
 ## How we analyzed
 
-We now needed more data. To be frank: until this point the deeper performance metrics where never our biggest concern so we had some catching up to do.  
+We now needed more data. To be frank: until this point the deeper performance metrics were never our biggest concern so we had some catching up to do.  
 Using Google Chrome we analysed the website with a mix of the built in Lighthouse app as well as the Performance tab in DevTools.
 
 ## Our setup at this time
@@ -94,7 +94,7 @@ We tested different combinations of preloading and pre-connecting and ended up w
 - Preconnect for GTM
 - Preloading of our own key assets (like webfonts or our main css/js file)
 
-The following tools where used:
+The following tools were used:
 
 - Lighthouse: provides direct insight which assets should be preloaded
 - Firefox: the devtools tell you which fonts you are preloading but aren‘t used within the first seconds
@@ -137,7 +137,7 @@ Unfortunately we couldn't find a way to significantly improve the performance wi
 
 ### Evaluating the needs
 
-Next, we put together the components and interactivity we currently provide on the site to get a birds eye view of the things we need from a new solution.
+Next, we put together the components and interactivity we currently provide on the site to get a bird's eye view of the things we need from a new solution.
 
 Here are some examples of components we have on the site:
 
@@ -154,7 +154,7 @@ We also have some smaller functions (previously provided by mixins). Those funct
 
 One thing all these things had in common: many of them needed to communicate with each other.
 
-The components where not the most complex, mostly providing interactivity or preventing site reloads.
+The components were not the most complex, mostly providing interactivity or preventing site reloads.
 
 What we needed (and wanted) from a new framework was:
 
@@ -170,7 +170,7 @@ We weren't sure if Alpine.js could handle such a big e-commerce site. So our nex
 
 We rebuild the most important components like our offcanvas component, the dynamic cart and the main menu. These components used all the above mentioned needs. So if we could reintegrate these components we could be very confident that all other components could be rewritten also.
 
-After about a days work we were super happy with the results. We hit a few roadblocks along the way, but since most of our logic is of course Javascript (although in Vue) the translation was very straight-forward for the most parts.
+After about a day's work we were super happy with the results. We hit a few roadblocks along the way, but since most of our logic is of course Javascript (although in Vue) the translation was very straight-forward for the most parts.
 
 We settled on the following architecture:
 
@@ -304,7 +304,7 @@ export { getResultFor }
 
 Since we depend on Alpine.js 2.8 we use [Spruce](https://github.com/ryangjchandler/spruce) for global state management.
 
-We have one store for each part, this are the few lines of code we use to manage the state of our mega menu:
+We have one store for each part, these are the few lines of code we use to manage the state of our mega menu:
 
 ```javascript
 Spruce.store('megamenu', {
@@ -321,16 +321,16 @@ Spruce.store('megamenu', {
 
 ### Comparison between old and new metrics
 
-After having settled on an architecture and implementing our most complex components without problems we where very confident we are on the right path. The metrics looked promising, gaining 15-20 percentage points in most performance categories.
+After having settled on an architecture and implementing our most complex components without problems we were very confident we are on the right path. The metrics looked promising, gaining 15-20 percentage points in most performance categories.
 
-We where eager to get complete metrics after implementing all other components. My heart-rate elevated a little when I pressed "Generate Report" in the Lighthouse tab.  
-We expected we wouldn't come to the 56 points completely without scripts but here we are:
+We were eager to get complete metrics after implementing all other components. My heart-rate elevated a little when I pressed "Generate Report" in the Lighthouse tab.  
+We expected we wouldn't come to the 56 points completely without scripts, but here we are:
 
 ![Screenshot of Lighthouse report after conversion to Alpine.js](performance-report-with-alpine.png)
 
 This again was our dev environment, thus many opportunities shown here wouldn't apply in the live environment.
 
-Pleased with the results with did some final tests, cleaned up the code and planned the release for next monday.
+Pleased with the results we did some final tests, cleaned up the code and planned the release for the next Monday.
 
 The "Merge"-Button was pressed at 8:24AM. We did a last Lighthouse test before, our performance-score was down to 28 at that time (I don't exactly know what caused the drop of around 10 points).
 
@@ -354,9 +354,9 @@ While researching ways to accomplish this with our CI/CD pipeline, through manua
 
 Debugbear is a service which monitors your core web vitals, does Lighthouse tests and can compare all of these results to either your competitors or your historical data, providing great insights into what changed between two tests.
 
-Debugbear helped us not only in better understanding what caused problems but also in having confidence into our optimizations.
+Debugbear helped us not only in better understanding what caused problems, but also in having confidence into our optimizations.
 
-Debugbear provides great value for it's dollars. And Matt is a great guy, we had problems with our credit card, he generously renewed our trial multiple times so we could continue to test everything without having to fear the deadline.  
+Debugbear provides great value for its dollars. And Matt is a great guy, we had problems with our credit card, he generously renewed our trial multiple times so we could continue to test everything without having to fear the deadline.  
 
 ## Final words
 
