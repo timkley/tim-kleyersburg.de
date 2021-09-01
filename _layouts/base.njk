@@ -21,7 +21,9 @@
         <meta name="twitter:site" content="@timkley"/>
     {% endblock %}
 
-    <link rel="stylesheet" type="text/css" media="screen" href="/bundle.css?v={% version %}"/>
+    {% block styles %}
+        <link rel="stylesheet" type="text/css" media="screen" href="/bundle.css?v={% version %}"/>
+    {% endblock %}
 </head>
 <body class="bg-gray-50 selection:bg-blue-200">
 <div class="px-4 py-6">
