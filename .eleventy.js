@@ -1,3 +1,5 @@
+const syntaxHighlight = require('@11ty/eleventy-plugin-syntaxhighlight')
+
 module.exports = (eleventyConfig) => {
     eleventyConfig.setUseGitIgnore(false)
 
@@ -12,6 +14,8 @@ module.exports = (eleventyConfig) => {
     // Copy images
     eleventyConfig.addPassthroughCopy({'src/img': 'img'})
     eleventyConfig.addPassthroughCopy('articles/**/*.{jpg,jpeg,png,gif}')
+
+    eleventyConfig.addPlugin(syntaxHighlight)
 
     eleventyConfig.addShortcode('version', () => {
         return String(Date.now())

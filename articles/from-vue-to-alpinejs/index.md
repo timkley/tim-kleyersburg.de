@@ -42,11 +42,11 @@ The site was no SPA, instead we wrapped the whole site with a `#app` div which w
 
 ```html
 <notepad-star
-        :product-id="{{ product_id }}"
-        :initial-star="{{ is_stared(product_id) ? 'true' : 'false' }}"
+        :product-id="{% raw %}{{ product_id }}{% endraw %}"
+        :initial-star="{% raw %}{{ is_stared(product_id) ? 'true' : 'false' }}{% endraw %}"
 >
     <div>
-        <button @click.prevent="toggle"> Toggle</button>
+        <button @click.prevent="toggle">Toggle</button>
     </div>
 </notepad-star>
 ```
