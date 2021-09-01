@@ -33,7 +33,7 @@ module.exports = (eleventyConfig) => {
     })
 
     eleventyConfig.addFilter('formattedDate', (date) => {
-        return `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2, '0')}-${String(date.getDay()).padStart(2, '0')}`
+        return date.toLocaleDateString('en-gb', { year: 'numeric', month: 'long', day: 'numeric'})
     })
 
     return {

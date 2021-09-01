@@ -23,16 +23,16 @@
                 </div>
                 <div>
                     {{ author.name }}
-                </div>
-                <div>
-                    on {{ page.date | formattedDate }}
+                    <span class="text-gray-500">
+                        on {{ page.date | formattedDate }}
+                    </span>
                 </div>
             </div>
-            <div class="text-sm inline-flex items-center">
-                <span class="mr-3">
-                    📖
-                </span>
-                {{ content | readtime }} minutes
+            <div class="hidden sm:block">
+                •
+            </div>
+            <div class="text-gray-500 inline-flex items-center whitespace-nowrap">
+                {{ content | readtime }} minutes to read
             </div>
         </div>
 
