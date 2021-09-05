@@ -1,5 +1,5 @@
 ---
-date: 2021-09-04
+date: 2021-09-09
 title: 'Customisable TailwindCSS colours without build step'
 metaDescription: 'How to let the customers set their own colours in your product / application.'
 ---
@@ -25,7 +25,7 @@ module.exports = {
 
 Our first problem was with semantics. The first layout consisted of one color in different shades. It made sense to group these colours together. But if the clients choose 3 very different colours, because that's their corporate design, these keywords would loose meaning.
 
-This is one of the very few and still very manageable downsides of using TailwindCSS. You have to search&replace all your template files if you want to rename a colour. But most of the time your good to go with a regular expression like this one:
+This is one of the very few and still very manageable downsides of using TailwindCSS. You have to search&replace in all your template files if you want to rename a colour. But most of the time your good to go with a regular expression like this one:
 
 ```regex
 (?:$|^|)(your-color-name)(?:$|^|)
