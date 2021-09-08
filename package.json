@@ -13,6 +13,8 @@
     "tailwindcss": "^2.2.4"
   },
   "dependencies": {
-    "@tailwindcss/typography": "^0.4.1"
+    "@netlify/functions": "^0.7.2",
+    "@tailwindcss/typography": "^0.4.1",
+    "chrome-aws-lambda": "^10.1.0"
   }
 }
