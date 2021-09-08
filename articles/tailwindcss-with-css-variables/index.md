@@ -8,7 +8,7 @@ One of our clients provides a marketplace. You can book a package and get a comp
 
 The project was built with [TailwindCSS](https://tailwindcss.com) and our config looked something like this:
 
-```
+```js
 module.exports = {
     theme: {
         extend: {
@@ -31,7 +31,7 @@ This is one of the very few and still very manageable downsides of using Tailwin
 (?:$|^|)(your-color-name)(?:$|^|)
 ```
 
-> I don't understand this RegEx enough to explain it in detail. I [just googled it](https://regex101.com/library/1COSOf).
+> I don't understand RegEx enough to explain this one in detail. I [just googled it](https://regex101.com/library/1COSOf).
 
 In the end we didn't change the names because the entry page still used the original layout, so in development it would only loose meaning when manually choosing a marketplace vendor. We could live with that.
 
@@ -41,7 +41,7 @@ After initial thoughts of generating the accompanying CSS files for each vendor 
 
 We changed our `tailwind.config.js` to this:
 
-```
+```js
 module.exports = {
     theme: {
         extend: {
@@ -58,7 +58,7 @@ module.exports = {
 
 Now we could just set the colours from our server side rendered templates like this:
 
-```
+```html
 <style>
     :root {
         --primary-dark: #1c3d5a;
@@ -66,8 +66,9 @@ Now we could just set the colours from our server side rendered templates like t
         --primary-light: #bcdefa;
     }
 </style>
-
 ```
+
+> The particular colors are coming from the database where all vendors are stored.
 
 And that's it for the frontend part! Now every vendor can set his own colours in his backend and the change live as soon as the settings were saved.
 
@@ -79,13 +80,22 @@ Setting a CSS variable from JavaScript is as simple as calling the `setProperty`
 
 Since we set those variables for `:root` the `documentElement` made sense for us:
 
-```
+```js
 document.documentElement.style.setProperty(`--variable-name`, newValue);
 ```
 
+### CodePen example
+
+<p class="codepen" data-height="300" data-default-tab="js,result" data-slug-hash="zYzNdRX" data-user="timkley" style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+  <span>See the Pen <a href="https://codepen.io/timkley/pen/zYzNdRX">
+  Change CSS custom properties with J</a> by Tim (<a href="https://codepen.io/timkley">@timkley</a>)
+  on <a href="https://codepen.io">CodePen</a>.</span>
+</p>
+<script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
+
 ### Internet Explorer support
 
-In an earlier iteration we still needed to support Internet Explorer 11. Fortunately this changed since then, but if you want or need to support IE11 you can use the [this ponyfill](https://github.com/jhildenbiddle/css-vars-ponyfill).
+In an earlier iteration we still needed to support Internet Explorer 11. Fortunately this isn't the case anymore, but if you want or need to support IE11 you can use the [this ponyfill](https://github.com/jhildenbiddle/css-vars-ponyfill).
 
 After successful installation it was literally a one-liner, we only had to call `cssVars()` when we detected we had an IE11 user on the site.
 
