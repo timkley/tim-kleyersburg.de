@@ -22,9 +22,10 @@ module.exports = (eleventyConfig) => {
     })
 
     eleventyConfig.addShortcode('ogImage', function(url) {
-        const domain = 'https://www.tim-kleyersburg.de';
+        const imageService = process.env.ELEVENTY_PRODUCTION ? 'https://www.tim-kleyersburg.de/opengraph-image' : 'http://localhost:9999/.netlify/functions/screenshot';
+        const openGraphImageUrl = process.env.ELEVENTY_PRODUCTION ? `https://www.tim-kleyersburg.de/opengraph/${url}` : `http://localhost:8080/opengraph/${url}`
 
-        return `https://www.tim-kleyersburg.de/opengraph-image/${encodeURIComponent(`${domain}${url}`)}/opengraph/`;
+        return `${imageService}/${encodeURIComponent(openGraphImageUrl)}`
     });
 
     eleventyConfig.addFilter('limit', (array, limit) => {
