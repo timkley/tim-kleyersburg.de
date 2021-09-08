@@ -18,6 +18,11 @@ module.exports = {
                             textDecoration: 'none',
                             wordBreak: 'break-word'
                         },
+                        blockquote: {
+                            fontWeight: 400,
+                            fontStyle: 'normal',
+                            quotes: 'none'
+                        },
                         code: {
                             fontStyle: 'initial',
                         },
