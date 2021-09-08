@@ -1,0 +1,31 @@
+---
+layout: opengraph
+tags: null
+permalink: "/opengraph{{ article.url }}"
+pagination:
+    data: collections.article
+    size: 1
+    alias: article
+---
+
+<div class="relative z-10 pt-16 pl-24 max-w-3xl">
+    <h1 class="text-6xl mb-16">
+        {{ article.data.title }}
+    </h1>
+
+    <p class="text-3xl text-gray-600 mb-16">
+        {{ article.data.metaDescription }}
+    </p>
+
+    <div class="text-3xl flex items-center space-x-2">
+        <div class="flex-shrink-0 w-6 h-6 overflow-hidden rounded-full">
+            <img class="my-0" src="{{ author.avatarUrl }}" alt="{{ author.name }}"/>
+        </div>
+        <div>
+            {{ author.name }}
+            <span class="text-gray-500">
+                on {{ article.data.date | formattedDate }}
+            </span>
+        </div>
+    </div>
+</div>
