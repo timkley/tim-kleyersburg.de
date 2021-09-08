@@ -4,5 +4,8 @@
   "author": {
     "name": "Tim Kleyersburg",
     "avatarUrl": "/img/avatar_small.jpg"
+  },
+  "seo": {
+    "socialImage": true
   }
 }

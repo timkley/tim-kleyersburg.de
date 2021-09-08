@@ -21,6 +21,12 @@ module.exports = (eleventyConfig) => {
         return String(Date.now())
     })
 
+    eleventyConfig.addShortcode('ogImage', function(url) {
+        const domain = 'https://www.tim-kleyersburg.de';
+
+        return `https://www.tim-kleyersburg.de/opengraph-image/${encodeURIComponent(`${domain}${url}`)}/opengraph/`;
+    });
+
     eleventyConfig.addFilter('limit', (array, limit) => {
         return array.slice(0, limit)
     })
