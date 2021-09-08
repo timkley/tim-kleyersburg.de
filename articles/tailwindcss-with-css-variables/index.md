@@ -1,5 +1,5 @@
 ---
-date: 2021-09-09
+date: 2021-09-08
 title: 'Customisable TailwindCSS colours without build step'
 metaDescription: 'How to let the customers set their own colours in your product / application.'
 socialImage: 'social-image.jpg'

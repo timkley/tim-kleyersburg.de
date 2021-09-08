@@ -1,0 +1,8 @@
+[functions]
+directory = "_functions"
+
+[[redirects]]
+from = "/opengraph-image/*"
+to = "/.netlify/functions/screenshot"
+status = 200
+force = true
