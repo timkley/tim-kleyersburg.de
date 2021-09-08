@@ -2,6 +2,7 @@
 date: 2021-09-09
 title: 'Customisable TailwindCSS colours without build step'
 metaDescription: 'How to let the customers set their own colours in your product / application.'
+socialImage: 'social-image.jpg'
 ---
 
 One of our clients provides a marketplace. You can book a package and get a complete website with content, e-commerce functionality and the possibility to add your own content and define your brand colours.
@@ -76,7 +77,7 @@ And that's it for the frontend part! Now every vendor can set his own colours in
 
 With just using CSS we could also provide a live preview in the frontend for logged in vendors so they could see how their colour combination would look.
 
-Setting a CSS variable from JavaScript is as simple as calling the `setProperty` method on whichever element makes sense for your application.
+Setting a CSS variable from JavaScript is as simple as calling the `setProperty` method with the name of your variable and the new value on whichever element makes sense for your application.
 
 Since we set those variables for `:root` the `documentElement` made sense for us:
 
