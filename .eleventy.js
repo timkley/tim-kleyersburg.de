@@ -15,6 +15,8 @@ module.exports = (eleventyConfig) => {
     eleventyConfig.addPassthroughCopy({'src/img': 'img'})
     eleventyConfig.addPassthroughCopy('articles/**/*.{jpg,jpeg,png,gif}')
 
+    // Copy fonts
+    eleventyConfig.addPassthroughCopy({'src/css/fonts': 'fonts'})
     eleventyConfig.addPlugin(syntaxHighlight)
 
     eleventyConfig.addShortcode('version', () => {
