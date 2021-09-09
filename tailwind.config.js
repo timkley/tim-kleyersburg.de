@@ -7,6 +7,7 @@ module.exports = {
         '_includes/**/*.njk',
         '_layouts/**/*.njk',
         'articles/**/*.njk',
+        'articles/**/*.md'
     ],
     theme: {
         extend: {
