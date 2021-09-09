@@ -1,45 +1,65 @@
 ---
 date: 0000-00-00
-title: 'From GitLab to GitHub'
-metaDescription: 'My takes on moving from GitLab to GitHub'
+title: 'Moving from GitLab to GitHub'
+metaDescription: 'Why I made the jump after years of using GitLab.'
 ---
 
-Since years I‘ve been a big fan of GitLab. I started using it because I could host my own private repos without any costs.
+Since years I've been a big fan of GitLab. I started there because I could host my own private repos without any costs. At this time, GitHub only allowed private repos for paying customers.
 
 I started using GitHub for my own projects in August 2021 with GitHubs announcement of [Codespaces being available for everyone](https://github.blog/changelog/2021-08-11-codespaces-is-generally-available-for-team-and-enterprise/) with a teams plan.
 
-Just hitting `.` in the browser and having a full-blown VS Code instance at my fingertips blew my mind. I really dig GitHubs interface, but if you just want to navigate a project to get a feel for it, I nearly always cloned the repo to my machine so I could use my IDE.
+Just hitting `.` in the browser and having a full-blown VS Code instance at my fingertips had a real wow-effect for me. I really dig GitHubs interface, but if you just want to navigate a project to get a feel for it, I nearly always cloned the repo to my machine so I could use my IDE.  
 Not anymore.
 
 For work I could see the use of Codespaces as a development environment on demand, so I started playing around with GitHub a lot more.
 
-I knew my way around GitHub, but not from a maintainers point of view.
+Although I knew my way around GitHub's interface, I never used it to maintain a repository. Moving my repos to the same place where I explorer other people's code was something I wanted to do for some time.
 
-So the following thoughts are what helped my transition to GitHub and what kept me there.
+So the following thoughts are what drove me to GitHub and what kept me there.
 
 ## User interface
+
 GitHub has done so much in the last years to improve their interface. Compared to GitLab it feels light and much more modern.
 
 The addition that you could click through code to get to function definitions or where a variable was declared made open source projects much more accessible in my opinion.
 
+I often browse GitHub on my mobile phone after seeing some interesting tweets. GitHub does a much better job presenting the code and is much faster navigation-wise.
+
+## Importing a project from GitLab
+
+Getting a project into GitHub is relatively simple since the addition of the import dialogue:
+
+![The add dropdown with the import option highlighted](importing-a-project.png)
+
+In the following dialogue you need to provide your previous repository's clone URL, add a new name (or just use the one from GitLab), choose of you want to make the repo private or public and you are good to go. 
+
+![The GitHub import dialogue](github-import-dialogue.png)
+
+You will be asked to authenticate yourself. These are you credentials to GitLab.  
+If you are getting the error <span class="bg-red-100">`No source repositories were detected at https://gitlab.com/timkley/your-repo. Please check the URL and try again.`</span> you maybe copied the wrong URL. In my case though the problem was the activated two-factor-authentication from GitLab. The 2FA flow is not supported when importing to GitHub so you need to turn 2FA off in GitLab to be able to import your repositories.
+
+The import itself is done in the background so you don't have to keep the tab open, you'll get an email after the import is done.  
+Depending on the size of your repository this can take a few minutes. My repos are pretty small and the imports never took longer than a minute or two.
+
 ## Continuous integration / continuous deployment
-GitLab had it for years: GitLab CI. I‘ve been using GitLabs shared runners for a few years now and think I got a good grasp at it (at least for my needs).
+
+GitLab had it for years: GitLab CI. I've been using GitLabs shared runners for a few years now and think I got a good grasp at it (at least for my needs).
 
 I set up automatic testing and deployment with it. And after a few months of iterating I now have a set of in good shape `.gitlab-ci.yml` files I can always reference.
 
-I didn‘t want to loose this functionality, so with the rising of GitHub Workflows I was curious to see how challenging the setup on GitHub would be.
+I didn't want to loose this functionality, so with the rising of GitHub Workflows I was curious to see how challenging the setup on GitHub would be.
 
-Spoiler: It wasn‘t challenging at all.
+Spoiler: It wasn't challenging at all.
 
-Maybe my needs aren’t that special or hard to solve. But the ease of setting up, for example, automatic testing for a Laravel application really impressed me. Where I tried to get it working for hours on GitLab, keeping countless tutorials and StackOverflow threads open in other tabs, I could find a ready to use [GitHub Action in the Marketplace](https://github.com/marketplace/actions/laravel-tests).
+Maybe my needs aren't that special or hard to solve. But the ease of setting up, for example, automatic testing for a Laravel application really impressed me. Where I tried to get it working for hours on GitLab, keeping countless tutorials and StackOverflow threads open in other tabs, I could find a ready to use [GitHub Action in the Marketplace](https://github.com/marketplace/actions/laravel-tests).
 
 ![The test workflow return green](green-action.png)
 
-For deployment I currently use [Deployer](https://deployer.org). Of course there was [an action available](https://github.com/marketplace/actions/action-deployer-php).
+For deployment I currently use [Deployer](https://deployer.org). Of course there was [an action readily available](https://github.com/marketplace/actions/action-deployer-php) on the GitHub marketplace.
 
 As with GitLab I struggled getting access to my repo. In this case, as last time, I got the following error:
 
-```
+```text
   Host key verification failed.                                                
   fatal: Could not read from remote repository.                                
 
@@ -55,6 +75,22 @@ After logging into the host and running a `git` command my `known_hosts` file wa
 
 ![Deployment works](deployment-works.png)
 
-To be fair: I learned a lot about CI pipelines in general in the last years, so maybe this comparison isn’t that fair.
+To be fair: I learned a lot about CI pipelines in general in the last years, so maybe this comparison isn't that fair.
 
 But this emphasises one main advantage of GitHub: the community and open source approach in general.
+
+### Downsides
+
+The whole concept of workflows, actions, steps is a little different than pipelines and jobs on GitLab. It's confusing at first to get the semantics right and I'm still searching for a way to trigger a step in a workflow manually after the first steps where successful.
+
+But: it gets easier with every project. After finishing the setup of my first Laravel project the transition of another project went smoothly. Much smoother than my second project on GitLab 😉.
+
+## Community and open source
+
+I mentioned the community aspect of GitHub a few times before. Having the privilege of browsing others people's code, learning from them and maybe even contribute to open source projects has become more important to me.
+
+It was around 2002 when I wrote my first piece of HTML. It took me this long to gain enough confidence in my skills to publicly build and show things I've done. And I think there is currently no better platform than GitHub to do exactly that.
+
+## Final words
+
+My hope is that my move to GitHub helps my motiviation of giving back after years of using open source for my own projects and that, as many others before me, I can provide some value, may it be through an article like this one or contributions to open source in general.
