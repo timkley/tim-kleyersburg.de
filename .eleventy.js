@@ -17,7 +17,7 @@ module.exports = (eleventyConfig) => {
 
     // Copy fonts
     eleventyConfig.addPassthroughCopy({'src/css/fonts': 'fonts'})
-    eleventyConfig.addPlugin(syntaxHighlight)
+    eleventyConfig.addPlugin(require('eleventy-plugin-torchlight'))
 
     eleventyConfig.addShortcode('version', () => {
         return String(Date.now())
