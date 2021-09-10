@@ -67,7 +67,7 @@ As with GitLab I struggled getting access to my repo. In this case, as last time
   and the repository exists.  
 ```
 
-I don't like the presentation of this error message. The last part about making sure to having the correct access rights is very misleading if you miss the first part.
+> I don't like the presentation of this error message. The last part about making sure to having the correct access rights is very misleading if you miss the first part.
 
 In my `deploy.php`  I had already set `StrictHostKeyChecking` as SSH option [like described in the docs](https://deployer.org/docs/6.x/hosts) but to no luck.
 
@@ -84,6 +84,8 @@ But this emphasises one main advantage of GitHub: the community and open source 
 The whole concept of workflows, actions, steps is a little different than pipelines and jobs on GitLab. It's confusing at first to get the semantics right and I'm still searching for a way to trigger a step in a workflow manually after the first steps where successful.
 
 But: it gets easier with every project. After finishing the setup of my first Laravel project the transition of another project went smoothly. Much smoother than my second project on GitLab 😉.
+
+I've gotten much better at adapting to new circumstances lately. In many cases you can achieve the same, or even better, result if you change your point of view. You'll explorer new approaches from which you might benefit. So this may be a little philosophical, but: with every downside, every problem you solve comes an, maybee unseen, upside.
 
 ## Community and open source
 
