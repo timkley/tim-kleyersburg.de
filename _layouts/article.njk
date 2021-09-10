@@ -40,7 +40,7 @@
 
         <hr>
 
-        <div>
+        <div class="space-y-1 sm:space-y-0 sm:flex sm:space-x-3 text-sm">
             <a class="text-gray-600 inline-flex items-center" href="https://github.com/timkley/tim-kleyersburg.de/tree/main/{{ page.inputPath }}">
                 <div class="w-4 h-4 flex-shrink-0 mr-1">
                     <svg class="fill-current" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>GitHub</title>
@@ -49,6 +49,10 @@
                 </div>
                 See on GitHub
             </a>
+            <span class="hidden sm:block">•</span>
+            <div>
+                Code highlighting provided by <a href="https://torchlight.dev">torchlight.dev</a>
+            </div>
         </div>
     </div>
 {% endblock %}
