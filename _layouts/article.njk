@@ -7,12 +7,6 @@
     <meta property="article:published_time" content="{{ page.date }}"/>
 {% endblock %}
 
-{% block styles %}
-    {{ super() }}
-
-    {% include 'prism-theme.njk' %}
-{% endblock %}
-
 {% block content %}
     <div class="prose mx-auto md:mt-8 lg:mt-16 mb-24">
         <h1>{{ title }}</h1>
