@@ -11,7 +11,7 @@ module.exports = {
     ],
     theme: {
         extend: {
-            typography: {
+            typography: (theme) => ({
                 DEFAULT: {
                     css: {
                         maxWidth: '72ch',
@@ -34,9 +34,13 @@ module.exports = {
                         'code::after': {
                             content: '',
                         },
+                        img: {
+                            borderRadius: theme('borderRadius.lg'),
+                            boxShadow: theme('boxShadow.md')
+                        }
                     }
                 }
-            }
+            })
         },
     },
     plugins: [
