@@ -2,7 +2,6 @@
 date: 2021-09-08
 title: 'Customisable TailwindCSS colours without build step'
 metaDescription: 'How to let the customers set their own colours in your product / application.'
-socialImage: 'social-image.jpg'
 ---
 
 One of our clients provides a marketplace. You can book a package and get a complete website with content, e-commerce functionality and the possibility to add your own content and define your brand colours.
