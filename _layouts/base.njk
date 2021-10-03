@@ -2,11 +2,19 @@
 <html lang="de">
 <head>
     <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="{{ metaDescription|default('Get to know me.') }}">
     <title>{{ title|default('Tim Kleyersburg') }}</title>
 
+    {% block styles %}
+        <link rel="stylesheet" type="text/css" media="screen" href="/bundle.css?v={% version %}"/>
+
+        <link rel="preload" href="/fonts/source-sans-pro-v14-latin-regular.woff2" as="font" crossorigin="anonymous"/>
+        <link rel="preload" href="/fonts/source-sans-pro-v14-latin-600.woff2" as="font" crossorigin="anonymous"/>
+        <link rel="preload" href="/fonts/source-sans-pro-v14-latin-700.woff2" as="font" crossorigin="anonymous"/>
+    {% endblock %}
+
     {% block meta_tags %}
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="{{ metaDescription|default('Get to know me.') }}">
         <meta property="og:title" content='{{ title|default('Tim Kleyersburg') }}'/>
         <meta property="og:description" content="{{ metaDescription|default('Get to know me.') }}" />
         <meta property="og:url" content="https://www.tim-kleyersburg.de{{ page.url }}"/>
@@ -19,10 +27,6 @@
         <meta name="twitter:description" content="{{ metaDescription|default('Get to know me') }}" />
         <meta name="twitter:title" content='{{ title|default('Tim Kleyersburg') }}'/>
         <meta name="twitter:site" content="@timkley"/>
-    {% endblock %}
-
-    {% block styles %}
-        <link rel="stylesheet" type="text/css" media="screen" href="/bundle.css?v={% version %}"/>
     {% endblock %}
 </head>
 <body class="bg-gray-50 selection:bg-blue-200">
