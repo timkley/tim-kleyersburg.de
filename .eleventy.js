@@ -13,7 +13,7 @@ module.exports = (eleventyConfig) => {
 
     // Copy images
     eleventyConfig.addPassthroughCopy({'src/img': 'img'})
-    eleventyConfig.addPassthroughCopy('articles/**/*.{jpg,jpeg,png,gif}')
+    eleventyConfig.addPassthroughCopy('articles/**/*.{jpg,jpeg,png,gif,mp4}')
 
     // Copy fonts
     eleventyConfig.addPassthroughCopy({'src/css/fonts': 'fonts'})

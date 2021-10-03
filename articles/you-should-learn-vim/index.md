@@ -73,7 +73,8 @@ This is more or less was this process looks like with or without Vim.
 
 The above process doesn’t look so much different on paper, but I would argue the Vim way is 5 times faster than the other way. Maybe 10 times if you use your mouse to select what you want to change.
 
-<div style="width:100%;height:0;padding-bottom:56%;position:relative;"><iframe src="https://giphy.com/embed/Ld77zD3fF3Run8olIt" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><p><a href="https://giphy.com/gifs/disneyplus-star-wars-the-mandalorian-madalorian-Ld77zD3fF3Run8olIt">via GIPHY</a></p>
+<video class="w-full" autoplay loop muted src="this-is-the-way.mp4"></video>
+[via GIPHY](https://giphy.com/gifs/disneyplus-star-wars-the-mandalorian-madalorian-Ld77zD3fF3Run8olIt)
 
 ## How I got into Vim and got better with it
 After my crash course, I installed/activated Vim mode in all my editors (I use PHPStorm and VSCode) and just force myself to use it. After the first week (in which I felt very unproductive) I got used to it and quickly got back to the speed I had before.
