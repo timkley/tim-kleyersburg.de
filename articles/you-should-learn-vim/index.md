@@ -1,5 +1,5 @@
 ---
-date: 2021-10-03
+date: 2021-10-17
 title: 'You should learn Vim!'
 metaDescription: 'If learning the basics of Vim made me a faster developer, it will make you too.'
 ---
@@ -8,16 +8,16 @@ You probably heard of [Vim](https://www.vim.org/). Chances are you probably got 
 ![Picture of a Tweet mocking how it looks when first users of Vim try to quit it.](vim-meme.jpg)
 [Source](https://twitter.com/iamdevloper/status/1041999624775626752)
 
-You maybe know by now to exit Vim by typing `:q` (Or `:q!` if you want to be really sure Vim quits).  
-Typing a colon tells Vim you want to enter a command (given you are in the so-called „normal mode“, which is the default mode of Vim after startup).
+You maybe know by now to exit Vim by typing `:q` (or `:q!` if you want to be really sure Vim quits).  
+Typing a colon tells Vim you want to enter a command (given you are in the so-called "normal mode", which is the default mode of Vim after startup).
 
 But let's cycle back: why would you want to learn Vim? It feels complicated and the situations where you really need it seem to be scarce.
 
-For me, it was exactly these situations where you are connected to a remote server over SSH to just make a quick edit to a config and the only editor installed is Vim. It wasn't quick or easy at all for me. I always dreaded entering `vim example.conf` because, although knowing how to enter „input mode“, leaving it and quitting Vim, I somehow got stuck 2 out of 3 times anyway.
+For me, it was exactly these situations where you are connected to a remote server over SSH to just make a quick edit to a config and the only editor installed is Vim. It wasn't quick or easy at all for me. I always dreaded entering `vim example.conf` because, although knowing how to enter "input mode", leaving it and quitting Vim, I somehow got stuck 2 out of 3 times anyway.
 
 This frustrated me. But it wasn't until my brother sat down with me to explain the basics of Vim that I started to get a good grasp of it. I think this is mainly because he explains things to me like I'm 5 years old and has nearly unlimited patience with my (probably dumb) questions.
 
-This article's aim isn't to teach you Vim. Countless resources that do a much better job explaining than I could. **I just want to provide you some insights into how learning Vim made me a faster and better developer**. At the end of the article you'll find resources that helped me to understand Vim better.
+This article's aim isn't to teach you Vim. Countless resources do a much better job explaining it than I could. **I just want to provide you some insights into how learning Vim made me a faster and better developer**. At the end of the article you'll find resources that helped me to understand Vim better.
 
 ## Quick introduction to Vim
 Know how I said this article won't be a tutorial in the last paragraph? Just stay with me for a quick introduction so we all are on the same page (and by writing about it forcing me to get my facts straight and learn some basics in the process).
@@ -32,13 +32,13 @@ You can use them to navigate (using `h`, `j`, `k` and `l`), enter insert mode (b
 [How did I Replace PhpStorm by Vim in my Heart, Matthieu Cneude](https://thevaluable.dev/phpstorm-vs-vim/)
 
 ### Insert mode
-This is the mode in which you have this familiar feeling because you can *just type away* like in your normal editor / IDE. Nothing bad happens when you type, you just see the characters happily appear on the screen as you type them. Until you hit `Esc` and fall back to „normal mode“.
+This is the mode in which you have this familiar feeling because you can *just type away* like in your normal editor / IDE. Nothing bad happens when you type, you just see the characters happily appear on the screen as you type them. Until you hit `Esc` and fall back to "normal mode".
 
 ### Visual mode
 The visual mode (which you can get into by hitting `v` when in the normal mode) works similarly to normal mode. The difference is that you are selecting the underlying text/code when moving through the code which gives you the possibility to copy, cut or just delete the selected pieces of code.
 
 ### Motions
-Although not the perfect synonym you could also call it „movements“. You hit one or more specific keys and get where you want to be. And you get there fast, after learning the basics. Some common motions are `e` (move to the end of a word) and `b` to move to the beginning of a word. 
+Although not the perfect synonym you could also call it "movements". You hit one or more specific keys and get where you want to be. And you get there fast, after learning the basics. Some common motions are `e` (move to the end of a word) and `b` to move to the beginning of a word. 
 There are many more motions which let you quickly get were you want to go, without ever touching your mouse. This applies to all of Vim: your hands stay on the keyboard much more, therefore reducing the time spent moving your right hand to the mouse, searching for what you want to click on, and getting back to typing.
 This may seem negligible, but since you do this so often throughout your work day, you can really save a significant amount of time. There's also the accompanying feeling of productivity and efficiency that makes this so compelling to me.
 
@@ -49,7 +49,7 @@ One: my frustration not being able to edit a damn config file on a server withou
 
 Second: seeing developers like [Jeffrey Way](https://twitter.com/jeffrey_way) on [Laracasts](https://laracasts.com) or my brother editing code like magic.
 
-How did they do it? The most common demeanor was the block cursor you see in Vim's normal mode.
+How did they do it? The most common denominator was the block cursor I knew from Vim's normal mode.
 
 All in all, I had the feeling I was being held back by my not existing knowledge of the tools with which I program. I'd gotten very good at hitting nails with the wrong side of the hammer – and hitting my finger all the time. But I was *fast*. I learned how to type with more than 2 fingers early on, so I was almost always faster than my colleagues. But never as fast as some of the people I looked up to in my programming sphere.
 
