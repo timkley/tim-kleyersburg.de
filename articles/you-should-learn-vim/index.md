@@ -22,7 +22,8 @@ This article's aim isn't to teach you Vim. Countless resources do a much better 
 ## Quick introduction to Vim
 Know how I said this article won't be a tutorial in the last paragraph? Just stay with me for a quick introduction so we all are on the same page (and by writing about it forcing me to get my facts straight and learn some basics in the process).
 
-Vim consists of three modes. Every mode has its own set of features. You will find that using the modes together is what makes Vim so powerful.
+A normal, "modeless" editor is like Notepad on Windows: it only has one "mode" where you can enter text.  
+Vim falls in the category of "modal editors". Instead of only having one mode it consists of multiple "modes" which you can use to efficiently edit text or code.
 
 ### Normal mode
 This is the default mode that Vim starts in. If you start typing, unexpected things will happen because *your keys have completely different meanings* in normal mode.
@@ -32,13 +33,15 @@ You can use them to navigate (using `h`, `j`, `k` and `l`), enter insert mode (b
 [How did I Replace PhpStorm by Vim in my Heart, Matthieu Cneude](https://thevaluable.dev/phpstorm-vs-vim/)
 
 ### Insert mode
-This is the mode in which you have this familiar feeling because you can *just type away* like in your normal editor / IDE. Nothing bad happens when you type, you just see the characters happily appear on the screen as you type them. Until you hit `Esc` and fall back to "normal mode".
+This is the mode in which you have this familiar feeling because you can *just type away* like in your  editor / IDE. Nothing bad happens when you type, you just see the characters happily appear on the screen as you type them. Until you hit `Esc` and fall back to "normal mode".
 
 ### Visual mode
 The visual mode (which you can get into by hitting `v` when in the normal mode) works similarly to normal mode. The difference is that you are selecting the underlying text/code when moving through the code which gives you the possibility to copy, cut or just delete the selected pieces of code.
 
+> Typing `V` (`Shift`-`V`) puts you in visual-line mode and also selects *the whole line under the cursor*. In visual-line mode you select whole lines which makes it super easy to move some blocks of code around.
+
 ### Motions
-Although not the perfect synonym you could also call it "movements". You hit one or more specific keys and get where you want to be. And you get there fast, after learning the basics. Some common motions are `e` (move to the end of a word) and `b` to move to the beginning of a word. 
+Although not the perfect synonym you could also call it "movements". You hit one or more specific keys to get where you want to be. And you get there fast, after learning the basics. Some common motions are `e` to move *forward* to the end of the next word and `b` to move *backwards* to the beginning of a word. 
 There are many more motions which let you quickly get were you want to go, without ever touching your mouse. This applies to all of Vim: your hands stay on the keyboard much more, therefore reducing the time spent moving your right hand to the mouse, searching for what you want to click on, and getting back to typing.
 This may seem negligible, but since you do this so often throughout your work day, you can really save a significant amount of time. There's also the accompanying feeling of productivity and efficiency that makes this so compelling to me.
 
@@ -59,23 +62,26 @@ It's the little things that let you feel like you are in much more control. Most
 
 An example: I write a lot of HTML, so working with tags is one of those things I need to do all the time. Selecting the whole tag, changing the content inside a paragraph tag, or just deleting the `<div>` alltogether.
 
-This is more or less was this process looks like with or without Vim.
+Let's compare the process:
 
-*Normal Editor*
+### Normal (modal) Editor
 1. Go to tag
-2. Select all of its content with the mouse or keyboard (be careful not the select one of the start or end braces `</>`), fucking up your whole markup in the process.
+2. Select all of its content with the mouse or keyboard (be careful not the select one of the start or end braces `</>`, fucking up your whole markup in the process).
 3. Finally change it.
 
-*Vim*
+### Vim / modeless editor
 1. Place cursor somewhere in the tag while in normal mode
 2. Type `cit`
 3. Boom💥
 
-`cit`  means **c**hange **i**nner **t**ag. I use it all the time.
+`cit`  means **c**hange **i**nner **t**ag. I use it all the time and it was easy to remember because it just does what it says. Just remember you want to change the inner tag and you won't forget what to type.
 
-The above process doesn't look so much different on screen, but I would argue the Vim way is 5 times faster than the other way. Maybe 10 times if you use your mouse to select what you want to change.
+The above process doesn't look so much different written down, but I would argue the Vim way is 5 times faster. Maybe 10 times if you use your mouse to select what you want to change.
 
-<video class="w-full" autoplay loop muted src="this-is-the-way.mp4"></video>
+> Vim takes so much pain out of the boring editing stuff when writing code that the experience of writing code becomes much more enjoyable. I now spend more time coding than I did before because I don't waste valuable time moving code blocks around or fiddling with the mouse to change some characters.  
+The added time spent on programming probably also had and has a positive impact on my continued learning how to program. 
+
+<video class="w-full mb-0" autoplay loop muted src="this-is-the-way.mp4"></video>
 [via GIPHY](https://giphy.com/gifs/disneyplus-star-wars-the-mandalorian-madalorian-Ld77zD3fF3Run8olIt)
 
 ## How I got into Vim and got better with it
@@ -87,8 +93,7 @@ I took another lesson from my brother. He showed me some more advanced motions a
 ### Resources
 Afar from the personal conversations with my brother, where I could also ask questions or get another explanation, the following resources helped me a lot to better understand Vim, see how other people use it and what their learning process looked like.
 
-
-[**Vim Mastery by Jeffrey Way on laracasts.com**](https://laracasts.com/series/vim-mastery) (💵 paid)  
+[**Vim Mastery by Jeffrey Way on laracasts.com**](https://laracasts.com/series/vim-mastery) (paid)  
 I always recommend Jeffrey and Laracasts. Laracasts started as a video learning platform for Laravel but also has many great series about everything around programming.
 Vim Mastery is a great course.
 
@@ -106,3 +111,7 @@ Matthieu phrased it perfectly in his [Vim for Beginners](https://thevaluable.dev
 It really is. Like in a game you need to learn when to push the right buttons to get the outcome you want. It is a lot of fun after the first few steps because you feel how much you are progressing.
 
 I hope you give Vim a chance!
+
+----
+
+A special thanks to [pitkley](https://github.com/pitkley) for taking the time and [reviewing my first draft](https://github.com/timkley/tim-kleyersburg.de/pull/8#pullrequestreview-775661926) so thoroughly. I, again, learned some small things I wasn't aware of before 🥰.
