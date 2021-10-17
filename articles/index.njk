@@ -6,8 +6,8 @@ pagination:
     size: 10
 ---
 
-<div class="max-w-lg mx-auto space-y-3">
-    {% for article in pagination.items %}
+<div class="max-w-3xl mx-auto space-y-3">
+    {% for article in pagination.items | reverse %}
         <p>
             <a href="{{ article.url }}">{{ article.data.title }} on {{ article.data.date|formattedDate }}</a>
         </p>

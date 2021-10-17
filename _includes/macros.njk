@@ -8,12 +8,3 @@
     {{ content }}
     </{{ tag }}>
 {% endmacro %}
-
-{% macro cv_item(title, date, employer, content) %}
-    <div class="mb-8 px-2">
-        <h4 class="mb-1 text-lg">{{ title }}</h4>
-        <p class="text-sm text-gray-600 mb-1">{{ date }}</p>
-        <p class="mb-3 italic text-sm text-gray-500">{{ employer }}</p>
-        {{ content }}
-    </div>
-{% endmacro %}
