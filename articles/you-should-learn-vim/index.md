@@ -38,7 +38,7 @@ This is the mode in which you have this familiar feeling because you can *just t
 ### Visual mode
 The visual mode (which you can get into by hitting `v` when in the normal mode) works similarly to normal mode. The difference is that you are selecting the underlying text/code when moving through the code which gives you the possibility to copy, cut or just delete the selected pieces of code.
 
-> Typing `V` (`Shift`-`V`) puts you in visual-line mode and also selects *the whole line under the cursor*. In visual-line mode you select whole lines which makes it super easy to move some blocks of code around.
+> Typing `V` (`Shift`-`v`) puts you in visual-*line* mode and also selects *the whole line under the cursor*. In visual-line mode you select whole lines which makes it super easy to move some blocks of code around.
 
 ### Motions
 Although not the perfect synonym you could also call it "movements". You hit one or more specific keys to get where you want to be. And you get there fast, after learning the basics. Some common motions are `e` to move *forward* to the end of the next word and `b` to move *backwards* to the beginning of a word. 
@@ -100,6 +100,9 @@ Vim Mastery is a great course.
 [**Vim for Beginners by Matthieu Cneude**](https://thevaluable.dev/vim-beginner/) (free)  
 This is a complete series not only for beginners but also advanced or expert users.
 In my opinion, Matthieu has a great mindset when it comes to how to use the tools at your hand, how to customize them to suit your needs and get the most out of them.
+
+[**Mastering the Vim language**](https://youtu.be/wlR5gYd6um0) (free, video)  
+A great talk (a bit longy with ~ 30 minutes of playtime) by Chris Toomey for beginners. Chris is a splendid speaker, so the video doesn't feel that long.
 
 ## Final words
 If you now feel like you could also level up your skills: just do it! Activate Vim mode in VSCode or whatever editor you use *and just start*! It's easier than you think and very rewarding in its own way.
