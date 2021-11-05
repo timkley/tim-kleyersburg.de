@@ -11,7 +11,7 @@ I started using GitHub for my own projects in August 2021 with GitHubs announcem
 Just hitting `.` in the browser and having a full-blown VS Code instance at my fingertips had a real wow-effect for me. I really dig GitHubs interface, but if you just want to navigate a project to get a feel for it, I nearly always cloned the repo to my machine so I could use my IDE.  
 Not anymore.
 
-For work I could see the use of Codespaces as a development environment on demand, so I started playing around with GitHub a lot more.
+For work I could see the use of Codespaces as a development environment on demand, so I started playing around with GitHub a lot more. Spoiler alert: it wasn't Codespaces or the full-blown VS Code instance that kept me their.
 
 Although I knew my way around GitHub's interface, I never used it to maintain a repository. Moving my repos to the same place where I explorer other people's code was something I wanted to do for some time.
 
@@ -40,9 +40,9 @@ The import itself is done in the background so you don't have to keep the tab op
 Depending on the size of your repository this can take a few minutes. My repos are pretty small and the imports never took longer than a minute or two.
 
 ## Continuous integration / continuous deployment
-GitLab had it for years: GitLab CI. I've been using GitLabs shared runners for a few years now and think I got a good grasp at it (at least for my needs).
+I've been using GitLabs shared runners for CI/CD pipelines for a few years now and think I got a good grasp at it (at least for my needs).
 
-I set up automatic testing and deployment with it. And after a few months of iterating I now have a set of in good shape `.gitlab-ci.yml` files I can always reference.
+I set up automatic testing and deployment with it. And after a few months of iterating I now have a set of in good shape `.gitlab-ci.yml` files I can always reference when starting a new project.
 
 I didn't want to loose this functionality, so with the rising of GitHub Workflows I was curious to see how challenging the setup on GitHub would be.
 
@@ -76,7 +76,7 @@ To be fair: I learned a lot about CI pipelines in general in the last years, so 
 
 But it emphasises one main advantage of GitHub: the community and open source approach in general. In the last years I maybe saw one or two open source projects hosted on GitLab. If you see open source code, you probably are surfing GitHub.
 
-People solve their needs and open source the code they write for it in the process, making lifes of people like me a little easier.
+People solve their needs and open source the code they write for it in the process, making lifes of people like me a little (or sometimes a lot) easier.
 
 ### Downsides
 The whole concept of workflows, actions, steps is a little different than pipelines and jobs on GitLab. It's confusing at first to get the semantics right and I'm still searching for a way to trigger a step in a workflow manually after the first steps where successful.
@@ -85,7 +85,7 @@ But: it gets easier with every project. After finishing the setup of my first La
 
 I've gotten much better at adapting to new circumstances lately. In many cases you can achieve the same, or even better, result if you change your point of view. You'll explorer new approaches from which you might benefit. So this may be a little philosophical, but: with every downside, every problem you solve comes an, maybee unseen, upside.
 
-Looking at it from a business point of view (my agency also moved to GitHub), GitHub workflows are sill not as powerful as GitLab. Things like organization wide actions (but private) aren't a thing, making it harder to keep your workflows DRY. It is planned for Q4 2021, though. Some of our repos still live with GitLab because of this, since it's easier to make the switch later on.
+Looking at it from a business point of view (my agency also moved to GitHub), GitHub workflows are sill not as powerful as GitLab. Things like organization wide actions aren't a thing, making it harder to keep your workflows DRY. |[It is planned for Q4 2021](https://github.com/github/roadmap/issues/98), though. Some of our repos still live with GitLab because of this. I don't want to adjust multiple files by hand, so we are patiently waiting.
 
 ## Community and open source
 I mentioned the community aspect of GitHub a few times before. Having the privilege of browsing others people's code, learning from them and maybe even contribute to open source projects has become more important to me.
@@ -95,7 +95,7 @@ It was around 2002 when I wrote my first piece of HTML. It took me this long (ye
 ## Final words
 My hope is that my move to GitHub helps my motiviation of giving back after years of using open source for my own projects and that, as many others before me, I can provide some value, may it be through an article like this one or contributions to open source in general.
 
-Since I began switching to GitHub I published two open source projects! I even got a few stars on one of them 😉.
+Since I switched to GitHub I published two open source projects! I even got a few stars on one of them 😉. I'm planning to open source some of my other projects, too. For some I had more hopes that they would take of, but since this probably won't happen the most useful thing I could do with them is make them open source.
 
 [An Eleventy plugin for the great Torchlight.dev](https://github.com/timkley/eleventy-plugin-torchlight)
 
