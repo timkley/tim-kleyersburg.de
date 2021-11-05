@@ -1,5 +1,5 @@
 ---
-date: 0000-00-00
+date: 2021-11-05
 title: 'Moving from GitLab to GitHub'
 metaDescription: 'Why I made the jump after years of using GitLab.'
 ---
@@ -96,6 +96,8 @@ It was around 2002 when I wrote my first piece of HTML. It took me this long (ye
 My hope is that my move to GitHub helps my motiviation of giving back after years of using open source for my own projects and that, as many others before me, I can provide some value, may it be through an article like this one or contributions to open source in general.
 
 Since I switched to GitHub I published two open source projects! I even got a few stars on one of them 😉. I'm planning to open source some of my other projects, too. For some I had more hopes that they would take of, but since this probably won't happen the most useful thing I could do with them is make them open source.
+
+### My recent open source projects
 
 [An Eleventy plugin for the great Torchlight.dev](https://github.com/timkley/eleventy-plugin-torchlight)
 
