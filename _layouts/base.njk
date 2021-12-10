@@ -29,11 +29,11 @@
         <meta name="twitter:site" content="@timkley"/>
     {% endblock %}
 </head>
-<body class="bg-gray-50 selection:bg-blue-200">
-<div class="px-4 py-6">
+<body class="font-sans bg-gray-50 selection:bg-blue-200">
+<div class="px-4 pt-6 pb-12">
     {% block header %}
-        <header class="flex items-center justify-between mx-auto max-w-3xl mb-8">
-            <div class="tracking-tight font-semibold">
+        <header class="flex justify-between items-center mx-auto mb-8 max-w-3xl">
+            <div class="font-semibold tracking-tight">
                 <a class="border-transparent hover:border-blue-500" href="/">Tim Kleyersburg</a>
             </div>
 
@@ -50,7 +50,7 @@
 </div>
 
 {% block footer %}
-    <footer class="fixed bottom-0 w-full bg-gradient-to-r from-blue-700 to-blue-300 h-1"></footer>
+    <footer class="fixed bottom-0 w-full h-1 bg-gradient-to-r from-blue-700 to-blue-300"></footer>
 {% endblock %}
 </body>
 </html>

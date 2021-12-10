@@ -33,10 +33,6 @@
     font-display: swap;
 }
 
-body{
-    font-family: 'Source Sans Pro', sans-serif;
-}
-
 a {
     @apply transition hover:text-gray-700 border-b border-blue-400 hover:border-blue-600
 }

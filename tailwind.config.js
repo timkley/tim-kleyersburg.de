@@ -1,7 +1,6 @@
 module.exports = {
     mode: 'jit',
-    important: true,
-    purge: [
+    content: [
         '*.njk',
         '*.json',
         '_includes/**/*.njk',
@@ -11,6 +10,9 @@ module.exports = {
     ],
     theme: {
         extend: {
+            fontFamily: {
+                sans: ['Source Sans Pro', 'sans-serif'],
+            },
             typography: (theme) => ({
                 DEFAULT: {
                     css: {
