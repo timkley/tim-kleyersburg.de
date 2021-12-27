@@ -1,5 +1,10 @@
 {
   "name": "tim-kleyersburg.de",
+  "license": "proprietary",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/timkley/tim-kleyersburg.de"
+  },
   "scripts": {
     "start": "npx tailwindcss -i src/css/bundle.css -o _tmp/bundle.css --watch & npx @11ty/eleventy --serve",
     "build": "ELEVENTY_PRODUCTION=true npx @11ty/eleventy & NODE_ENV=production npx tailwindcss -i src/css/bundle.css -o _site/bundle.css --minify"
