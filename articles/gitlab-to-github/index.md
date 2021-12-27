@@ -34,7 +34,7 @@ In the following dialogue you need to provide your previous repository's clone U
 ![The GitHub import dialogue](github-import-dialogue.png)
 
 You will be asked to authenticate yourself. These are your GitLab credentials.  
-If you are getting the error <span class="bg-red-100">`No source repositories were detected at https://gitlab.com/timkley/your-repo. Please check the URL and try again.`</span> you maybe copied the wrong URL. In my case though the problem was the activated two-factor-authentication on GitLab. The 2FA flow is not supported when importing to GitHub so you need to turn 2FA off in GitLab to be able to import your repositories.
+If you are getting the error <span class="bg-red-100 dark:bg-red-800">`No source repositories were detected at https://gitlab.com/timkley/your-repo. Please check the URL and try again.`</span> you maybe copied the wrong URL. In my case though the problem was the activated two-factor-authentication on GitLab. The 2FA flow is not supported when importing to GitHub so you need to turn 2FA off in GitLab to be able to import your repositories.
 
 The import itself is done in the background so you don't have to keep the tab open, you'll get an email after the import is done.  
 Depending on the size of your repository this can take a few minutes. My repos are pretty small and the imports never took longer than a minute or two.

@@ -48,8 +48,8 @@ layout: base.njk
             {% for item in cv_items %}
                 <li>
                     <h4 class="mb-1 text-lg font-semibold">{{ item.title }}</h4>
-                    <p class="mb-1 text-sm text-gray-600">{{ item.date }}</p>
-                    <p class="mb-3 text-sm italic text-gray-500">{{ item.employer }}</p>
+                    <p class="mb-1 text-sm text-gray-600 dark:text-gray-400">{{ item.date }}</p>
+                    <p class="mb-3 text-sm italic text-gray-500 dark:text-gray-300">{{ item.employer }}</p>
                     {{ item.content }}
                 </li>
             {% endfor %}
