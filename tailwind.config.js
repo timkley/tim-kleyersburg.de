@@ -28,7 +28,6 @@ module.exports = {
                             quotes: 'none'
                         },
                         code: {
-                            backgroundColor: theme('colors.gray.200'),
                             border: `1px solid ${theme('colors.gray.300')}`,
                             borderRadius: theme('borderRadius.sm'),
                             fontStyle: 'initial',
