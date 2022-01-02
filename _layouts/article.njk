@@ -8,10 +8,10 @@
 {% endblock %}
 
 {% block content %}
-    <div class="prose dark:prose-invert mx-auto md:mt-8 lg:mt-16 mb-24">
+    <div class="prose dark:prose-invert lg:prose-lg mx-auto md:mt-8 lg:mt-16 mb-24">
         <h1>{{ title }}</h1>
         <div class="sm:flex items-center sm:space-x-3">
-            <div class="flex items-center space-x-2">
+            <div class="not-prose flex items-center space-x-2">
                 <div class="flex-shrink-0 w-6 h-6 overflow-hidden rounded-full">
                     <img class="my-0" src="{{ author.avatarUrl }}" alt="{{ author.name }}"/>
                 </div>
