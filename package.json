@@ -6,8 +6,12 @@
     "url": "https://github.com/timkley/tim-kleyersburg.de"
   },
   "scripts": {
-    "start": "npx tailwindcss -i src/css/bundle.css -o _tmp/bundle.css --watch & npx @11ty/eleventy --serve",
-    "build": "ELEVENTY_PRODUCTION=true npx @11ty/eleventy & NODE_ENV=production npx tailwindcss -i src/css/bundle.css -o _site/bundle.css --minify"
+    "dev:eleventy": "npx @11ty/eleventy --serve",
+    "dev:tailwindcss": "npx tailwindcss -i src/css/bundle.css -o _tmp/bundle.css --watch",
+    "build:eleventy": "npx @11ty/eleventy",
+    "build:tailwindcss": "npx tailwindcss -i src/css/bundle.css -o _site/bundle.css --minify",
+    "start": "run-p dev:*",
+    "build": "ELEVENTY_PRODUCTION=true NODE_ENV=production run-s build:*"
   },
   "devDependencies": {
     "@11ty/eleventy": "^0.12.1",
@@ -16,7 +20,8 @@
     "@tailwindcss/typography": "^0.5.0",
     "autoprefixer": "^10.4.0",
     "chrome-aws-lambda": "^10.1.0",
-    "eleventy-plugin-torchlight": "^0.1.0",
+    "eleventy-plugin-torchlight": "^0.1.6",
+    "npm-run-all": "^4.1.5",
     "postcss": "^8.4.4",
     "postcss-cli": "^8.3.1",
     "puppeteer-core": "^10.2.0",
