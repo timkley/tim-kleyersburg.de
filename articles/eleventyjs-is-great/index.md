@@ -1,5 +1,5 @@
 ---
-date: 2022-00-00
+date: 2022-01-02
 title: 'Going all in with Jamstack and Eleventy'
 metaDescription: 'I rebuilt my personal site with Eleventy, a static site generator, and am loving it!'
 ---
