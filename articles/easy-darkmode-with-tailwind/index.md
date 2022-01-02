@@ -22,11 +22,15 @@ a {
 }
 ```
 
-After updating the Typography plugin to the latest version using `npm install -D @tailwindcss/typography@latest` to only change to use the default inverted dark mode is as follows:
+After updating the Typography plugin to the latest version using `npm install -D @tailwindcss/typography@latest` the only change needed to use the default inverted dark mode is to add _one_ class:
 
 ```html
  <div class="prose"> <!-- [tl! --] -->
  <div class="prose dark:prose-invert"> <!-- [tl! ++] -->
 ```
 
-The only things left to do is to get all the details right, which can be tricky of your site is larger. In my case [I needed to change 6 files or 8 lines](https://github.com/timkley/tim-kleyersburg.de/pull/13/files) to make it work.
+Now, to get all the details right, go through your site to spot everything that is not properly styled when using dark mode.
+
+> *Tip:* Using Chrome with the dev tools open, hit `Cmd + Shift + P` to open the command palette. Type `prefers-color-scheme` and choose the simulate option for `dark` or `light` to quickly review your changes without needing to change your system preferences.
+
+This may be the trickiest part if your site is larger. In my case [I needed to change 6 files or 8 lines](https://github.com/timkley/tim-kleyersburg.de/pull/13/files) to make it everything look good.
