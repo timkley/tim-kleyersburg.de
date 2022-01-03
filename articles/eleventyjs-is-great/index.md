@@ -1,5 +1,5 @@
 ---
-date: 2022-01-02
+date: 2022-01-03
 title: 'Going all in with Jamstack and Eleventy'
 metaDescription: 'I rebuilt my personal site with Eleventy, a static site generator, and am loving it!'
 ---
@@ -60,7 +60,7 @@ You can start very small and add more and more features (if you want and need) o
 
 ### Resources
 
-There are a lot of great tutorials on the web on how to use Eleventy.
+There are a lot of great tutorials on the web on how to use Eleventy. These are some that helped me the most when starting out:
 
 🔗 [11ty.dev/docs/](https://www.11ty.dev/docs/)
 
