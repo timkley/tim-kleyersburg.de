@@ -23,8 +23,8 @@ layout: base.njk
             {% endfor %}
         </ul>
 
-        {% if collections.post | length  > articleLimit %}
-            <a class="mt-4" href="/articles">more articles</a>
+        {% if collections.article| length  > articleLimit %}
+            <a class="inline-block mt-6" href="/articles">more articles</a>
         {% endif %}
     </div>
 
