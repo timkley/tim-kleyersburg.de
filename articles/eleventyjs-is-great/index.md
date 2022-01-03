@@ -56,7 +56,7 @@ This is where Static Site Generators (SSG) come in. One of many SSGs is [Elevent
 Eleventy focuses on your content and not on the layout. _Bring Your Own HTML_ was never so easy. And in the end it'll output static HTML which you can host, probably, anywhere.
 
 If you are just starting your journey into web programming and are learning HTML and CSS for the first time, also learning about servers, content management systems, databases, and more might be overwhelming. Eleventy, with its flat learning curve, could be the perfect companion on your journey.  
-You can start very small and add more and more features (if you want and need) on top if it.
+You can start very small and add more and more features (if you want and need) on top of it.
 
 ### Resources
 
