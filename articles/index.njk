@@ -7,9 +7,10 @@ pagination:
 ---
 
 <div class="max-w-3xl mx-auto space-y-3">
-    {% for article in pagination.items | reverse %}
-        <p>
-            <a href="{{ article.url }}">{{ article.data.title }} on {{ article.data.date|formattedDate }}</a>
-        </p>
-    {% endfor %}
+    <ul class="space-y-3">
+        {% for article in pagination.items | reverse %}
+            <li><a href="{{ article.url }}">{{ article.data.title }}</a>
+                <span class="ml-1 text-gray-700 dark:text-gray-300">on {{ article.date | formattedDate }}</span></li>
+        {% endfor %}
+    </ul>
 </div>
