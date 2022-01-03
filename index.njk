@@ -6,7 +6,7 @@ layout: base.njk
 <div class="mx-auto space-y-16 max-w-lg text-center sm:space-y-20 md:space-y-24">
     <div>
         {{ heading('h1', '👋 Hello world!') }}
-        <p class="leading-relaxed">
+        <p class="leading-relaxed lg:text-xl">
             I’m Tim, working in a digital agency, fascinated by web development and currently focusing on developer mentoring, process optimisation and
             everything in between.
         </p>
@@ -18,7 +18,8 @@ layout: base.njk
         {% set articleLimit = 5 %}
         <ul class="space-y-3">
             {% for article in collections.article | reverse | limit(articleLimit) %}
-                <li><a href="{{ article.url }}">{{ article.data.title }}</a></li>
+                <li><a href="{{ article.url }}">{{ article.data.title }}</a>
+                    <span class="ml-1 text-gray-700 dark:text-gray-300">on {{ article.date | formattedDate }}</span></li>
             {% endfor %}
         </ul>
 
@@ -47,9 +48,13 @@ layout: base.njk
         <ul class="space-y-8 md:space-y-12">
             {% for item in cv_items %}
                 <li>
-                    <h4 class="mb-1 text-lg font-semibold">{{ item.title }}</h4>
-                    <p class="mb-1 text-sm text-gray-600 dark:text-gray-400">{{ item.date }}</p>
-                    <p class="mb-3 text-sm italic text-gray-500 dark:text-gray-300">{{ item.employer }}</p>
+                    <p class="text-sm text-gray-600 dark:text-gray-300">{{ item.date }}</p>
+                    <p class="flex justify-center items-center mb-1 text-lg font-semibold">
+                        {{ item.title }}
+                        <span class="ml-2 text-sm font-normal">
+                            @ {{ item.employer }}
+                        </span>
+                    </p>
                     {{ item.content }}
                 </li>
             {% endfor %}
