@@ -1,0 +1,34 @@
+---
+layout: base.njk
+---
+{% from 'macros.njk' import heading %}
+
+<div class="mx-auto space-y-16 max-w-lg text-center sm:space-y-20 md:space-y-24">
+    <div>
+        <div class="my-12">
+            {{ heading('h1', 'My personal Brag Document 😎') }}
+        </div>
+        <p class="leading-relaxed lg:text-xl">
+            Inspired by <a href="https://bragdocs.com">bragdocs.com</a> this is a collection of my personal and professional achievements over time to provide
+            me, and others, with a place to document my progress.
+        </p>
+    </div>
+
+    <div>
+        {{ heading('h2', 'Brags') }}
+
+        <ul class="text-left mt-12">
+            {% for brag in brags %}
+                <div class="relative pt-2 pb-6 md:pb-8 lg:pb-12 pl-4 border-l-2 border-gray-500">
+                    <div class="flex items-center text-sm text-gray-400">
+                        <div class="absolute -left-1 w-2 h-2 bg-gray-50 rounded-full border-2 border-gray-500 -translate-x-px dark:bg-gray-800"></div>
+                        {{ brag.date }}
+                    </div>
+                    <div class="mb-3 text-lg font-semibold">{{ brag.title }}</div>
+
+                    {{ brag.description | safe }}
+                </div>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
