@@ -6,11 +6,22 @@ pagination:
     size: 10
 ---
 
-<div class="max-w-3xl mx-auto space-y-3">
-    <ul class="space-y-3">
+<div class="mx-auto space-y-3 max-w-3xl">
+    <ul class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-8">
         {% for article in pagination.items | reverse %}
-            <li><a href="{{ article.url }}">{{ article.data.title }}</a>
-                <span class="ml-1 text-gray-700 dark:text-gray-300">on {{ article.date | formattedDate }}</span></li>
+            <a href="{{ article.url }}" class="overflow-hidden text-xl font-semibold bg-gray-100 rounded-md border-b-0 shadow-md hover:text-slate-900 dark:hover:bg-gray-800 dark:text-white dark:hover:text-white text-slate-900 hover:bg-gray-50 hover:shadow-lg dark:bg-gray-700">
+                <div class="h-40 bg-gray-500">
+                    {% if article.data.hero %}
+                        <img class="object-cover w-full h-full" src="{{ article.url }}/{{ article.data.hero }}" alt="{{ article.data.title }}">
+                    {% endif %}
+                </div>
+                <div class="p-3">
+                    {{ article.data.title }}
+                    <div class="text-lg font-normal text-gray-700 dark:text-gray-300">
+                        on {{ article.date | formattedDate }}
+                    </div>
+                </div>
+            </a>
         {% endfor %}
     </ul>
 </div>

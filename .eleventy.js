@@ -1,3 +1,5 @@
+const util = require('util')
+
 module.exports = (eleventyConfig) => {
     eleventyConfig.setUseGitIgnore(false)
 
@@ -41,6 +43,11 @@ module.exports = (eleventyConfig) => {
 
     eleventyConfig.addFilter('formattedDate', (date) => {
         return date.toLocaleDateString('en-gb', { year: 'numeric', month: 'long', day: 'numeric'})
+    })
+
+    eleventyConfig.addFilter('console', (value) => {
+        const str = util.inspect(value);
+        return `<div style="font-family: monospace; white-space: pre-wrap;">${unescape(str)}</div>`
     })
 
     return {

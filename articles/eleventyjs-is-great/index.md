@@ -1,6 +1,7 @@
 ---
 date: 2022-01-03
 title: 'Going all in with Jamstack and Eleventy'
+hero: hero-image.jpg
 metaDescription: 'I rebuilt my personal site with Eleventy, a static site generator, and am loving it!'
 ---
 
