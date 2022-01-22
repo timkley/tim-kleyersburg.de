@@ -5,12 +5,12 @@ layout: base.njk
 
 <div class="mx-auto space-y-16 max-w-lg text-center sm:space-y-20 md:space-y-24">
     <div>
-        <div class="my-12">
+        <div class="my-8 lg:my-12">
             {{ heading('h1', 'My personal Brag Document 😎') }}
         </div>
         <p class="leading-relaxed lg:text-xl">
-            Inspired by <a href="https://bragdocs.com">bragdocs.com</a> this is a collection of my personal and professional achievements over time to provide
-            me, and others, with a place to document my progress.
+            Inspired by <a href="https://bragdocs.com">bragdocs.com</a>, this is a collection of my personal and professional achievements to provide
+            me, and others, a place to document my progress.
         </p>
     </div>
 
@@ -24,7 +24,7 @@ layout: base.njk
                         <div class="absolute -left-1 w-2 h-2 bg-gray-50 rounded-full border-2 border-gray-500 -translate-x-px dark:bg-gray-800"></div>
                         {{ brag.date }}
                     </div>
-                    <div class="mb-3 text-lg font-semibold">{{ brag.title }}</div>
+                    <div class="mb-3 text-lg font-semibold dark:text-white">{{ brag.title }}</div>
 
                     {{ brag.description | safe }}
                 </div>

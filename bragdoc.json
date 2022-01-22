@@ -1,7 +1,12 @@
 {
   "brags": [
     {
-      "title": "Learned the guitar \uD83C\uDFB8",
+      "title": "Created my very first website \uD83D\uDC68\u200D\uD83D\uDCBB",
+      "date": "2002",
+      "description": "I'm not sure when exactly I used HTML to create a website and make it accessible to the world. I know I used Geocities to host it. What a time."
+    },
+    {
+      "title": "Learned the electric guitar \uD83C\uDFB8",
       "date": "2004",
       "description": "Playing guitar is one of maybe 3 hobbies that stayed with me since I started it. I love rock and metal and being able to play some of my favorite songs is a lot of fun."
     },
@@ -11,7 +16,12 @@
       "description": "Not that I had that much to do with the process of the creation, but this the one thing I'm most proud of."
     },
     {
-      "title": "Implemented a SAP implementation \uD83D\uDC68\u200D\uD83D\uDCBB",
+      "title": "Learned Vue.js \uD83D\uDC68\u200D\uD83D\uDCBB",
+      "date": "March 2016",
+      "description": "When I started my new job at cäsar gustav, I was introduced to Vue.js. I was so excited to learn it and I build things that would actually ship."
+    },
+    {
+      "title": "Implemented a SAP-to-Shopware-API \uD83D\uDC68\u200D\uD83D\uDCBB",
       "date": "October 2019",
       "description": "Using Shopware 6 I realized a REST API which communicated orders to a SAP instance. It also could receive things like stock and product information to update the product catalog."
     },
