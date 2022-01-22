@@ -1,6 +1,7 @@
 ---
 date: 2022-01-01
 title: 'Easy dark mode with TailwindCSS'
+hero: 'hero-image.jpg'
 metaDescription: 'If you are using TailwindCSS, implementing dark mode is super simple.'
 ---
 

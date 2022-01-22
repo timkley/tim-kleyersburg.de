@@ -1,6 +1,7 @@
 ---
 date: 2021-11-05
 title: 'Moving from GitLab to GitHub'
+hero: 'hero-image.jpg'
 metaDescription: 'Why I made the jump after years of using GitLab.'
 ---
 

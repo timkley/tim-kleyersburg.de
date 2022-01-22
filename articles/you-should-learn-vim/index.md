@@ -1,6 +1,7 @@
 ---
 date: 2021-10-17
 title: 'You should learn Vim!'
+hero: 'hero-image.jpg'
 metaDescription: 'If learning the basics of Vim made me a faster developer, it will make you too.'
 ---
 You probably heard of [Vim](https://www.vim.org/). Chances are you probably got stuck in Vim and angrily tried to exit it by smashing your mouse and keyboard.
