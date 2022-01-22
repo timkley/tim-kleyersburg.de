@@ -54,11 +54,13 @@
     <footer class="fixed bottom-0 w-full h-1 bg-gradient-to-r from-blue-700 to-blue-300"></footer>
 {% endblock %}
 
-<script src="https://getinsights.io/js/insights.js"></script>
-<script>
-insights.init('FZsiN8mIDYY8Sgtc');
-insights.trackPages();
-</script>
+{% block scripts %}
+    <script src="https://getinsights.io/js/insights.js"></script>
+    <script>
+        insights.init('FZsiN8mIDYY8Sgtc');
+        insights.trackPages();
+    </script>
+{% endblock %}
 
 </body>
 </html>
