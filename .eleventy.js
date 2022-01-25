@@ -24,8 +24,8 @@ module.exports = (eleventyConfig) => {
     })
 
     eleventyConfig.addShortcode('ogImage', function(url) {
-        const imageService = process.env.ELEVENTY_PRODUCTION ? 'https://www.tim-kleyersburg.de/opengraph-image' : 'http://localhost:9999/.netlify/functions/screenshot';
-        const openGraphImageUrl = process.env.ELEVENTY_PRODUCTION ? `https://www.tim-kleyersburg.de/opengraph/${url}` : `http://localhost:8080/opengraph/${url}`
+        const imageService = process.env.ELEVENTY_ENV === 'production' ? 'https://www.tim-kleyersburg.de/opengraph-image' : 'http://localhost:9999/.netlify/functions/screenshot';
+        const openGraphImageUrl = process.env.ELEVENTY_ENV === 'production' ? `https://www.tim-kleyersburg.de/opengraph/${url}` : `http://localhost:8080/opengraph/${url}`
 
         return `${imageService}/${encodeURIComponent(openGraphImageUrl)}`
     });
