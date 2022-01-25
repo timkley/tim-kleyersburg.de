@@ -11,7 +11,7 @@
     "build:eleventy": "npx @11ty/eleventy",
     "build:tailwindcss": "npx tailwindcss -i src/css/bundle.css -o _site/bundle.css --minify",
     "start": "run-p dev:*",
-    "build": "ELEVENTY_PRODUCTION=true NODE_ENV=production run-s build:*"
+    "build": "ELEVENTY_ENV=production NODE_ENV=production run-s build:*"
   },
   "devDependencies": {
     "@11ty/eleventy": "^0.12.1",

@@ -55,11 +55,13 @@
 {% endblock %}
 
 {% block scripts %}
-    <script src="https://getinsights.io/js/insights.js"></script>
-    <script>
-        insights.init('FZsiN8mIDYY8Sgtc');
-        insights.trackPages();
-    </script>
+    {% if global.environment == 'production' %}
+        <script src="https://getinsights.io/js/insights.js"></script>
+        <script>
+            insights.init('FZsiN8mIDYY8Sgtc');
+            insights.trackPages();
+        </script>
+    {% endif %}
 {% endblock %}
 
 </body>
