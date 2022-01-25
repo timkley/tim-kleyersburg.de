@@ -12,7 +12,7 @@ pagination:
             <a href="{{ article.url }}" class="overflow-hidden text-xl font-semibold bg-gray-100 rounded-md border-b-0 shadow-md hover:text-slate-900 dark:hover:bg-gray-800 dark:text-white dark:hover:text-white text-slate-900 hover:bg-gray-50 hover:shadow-lg dark:bg-gray-700">
                 <div class="h-40 bg-gray-500">
                     {% if article.data.hero %}
-                        <img class="object-cover w-full h-full" src="{{ article.url }}/{{ article.data.hero }}" alt="{{ article.data.title }}">
+                        <img class="object-cover w-full h-full" src="{{ article.url }}{{ article.data.hero }}" alt="{{ article.data.title }}">
                     {% endif %}
                 </div>
                 <div class="p-3">
