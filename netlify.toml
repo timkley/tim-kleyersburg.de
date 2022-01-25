@@ -2,7 +2,7 @@
 directory = "_functions"
 
 [[redirects]]
-from = "/opengraph-image/*"
+from = "/screenshot/*"
 to = "/.netlify/functions/screenshot"
 status = 200
 force = true
