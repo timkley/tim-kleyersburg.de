@@ -5,34 +5,34 @@ hero: 'hero-image.jpg'
 metaDescription: 'tbd'
 ---
 
-With the [introduction of Web Vitals](https://blog.chromium.org/2020/05/introducing-web-vitals-essential-metrics.html) by Google in May 2020 probably everyone
-has heard of or got in contact with web performance. Either because you are a developer looking at and developing against these new metrics or because you do
-client work and every client waved their bad Google performance report into your face.
+With the [introduction of Web Vitals](https://blog.chromium.org/2020/05/introducing-web-vitals-essential-metrics.html) by Google in May 2020, almost everyone
+has probably heard of or got in touch with web performance. Either because you are a developer looking at and developing against these new metrics or because you do
+client work and every client waved their bad Google performance report in your face.
 
 ## What has changed?
 
-It's not like performance reports didn't exist prior to May 2020. Chances are you also used [PageSpeed Insights](https://pagespeed.web.dev/) back in the days to
-generate reports. The metrics used where technical and in many cases very straightforward to optimise. Basically the reports told you what to do very clearly:
+It's not like performance reports didn't exist prior to May 2020. Chances are, you also used [PageSpeed Insights](https://pagespeed.web.dev/) back in the day to
+generate reports. The metrics used back then were technical and in many cases very straightforward to optimise. Basically the reports told you what to do very clearly:
 
-> "Your server sent the website to slow, serve it faster!"  
+> "Your server sent the website to slow, serve it faster!"  <! -- was willst du hier sagen? -->
 > "These images are too big, make them smaller!"  
 > "You only use 50% of the CSS, don't do that."
 
-These are, of course, good suggestions which help in improving your websites performance. But that wasn't enough for Google and shouldn't be enough for you.
+These are, of course, good suggestions which help to improve your websites performance. But that wasn't enough for Google and shouldn't be enough for you.
 
-Instead of focusing on technical aspects of web performance Google introduced new metrics that where designed to measure impacts on _user experience_ and _perceived_ performance.
+Instead of focusing on technical aspects of web performance, Google introduced new metrics that where designed to measure impacts on _user experience_ and _perceived_ performance.
 
-Shortly after the announcement Googles tools like [Lighthouse](https://developers.google.com/web/tools/lighthouse) and PageSpeed Insights (which is based on Lighthouse but more accessible to non-dev people) where updated to reflect these changes, leading to bad performance reports for many websites.
+Shortly after the announcement, Google tools like [Lighthouse](https://developers.google.com/web/tools/lighthouse) and PageSpeed Insights (which is based on Lighthouse but more accessible to non-dev people) were updated to reflect these changes, leading to bad performance reports for many websites.
 
 ## Why should you care?
 
-You've probably been on the other end of this topic: clicking a link in a search machine and waiting for the page to load.  
-When it's finally loaded you want to tap on a link in the first paragraph but realise that the page still isn't done loading. So you wait another second.  
-Your next click opens an ad which loaded just before the paragraph you were reading.
+You've probably been at the other end of this topic: clicking a link in a search machine and waiting for the page to load.  
+When it's finally loaded, you want to click on a link in the first paragraph but realise that the page is still loading. So you wait another second.  
+Your next click opens an ad, which popped up just before the paragraph you were reading.
 
 If this happens to me, 9 out of 10 times I'll leave the page and get my information elsewhere.
 
-Another part I want to emphasise is inclusion. In many cases developers work with a stable internet connection and good hardware. This prevents them from experiencing what it feels like to use their website on a slow 3G network with a 5 year old device. And this is something the visitors maybe can not change. Take a good look at your target audience so you can make an informed decision about whether it is acceptable to have a slow loading website.
+Another part I want to emphasise, is inclusion. In many cases, developers work with a stable internet connection and good hardware. This prevents them from experiencing what it feels like to use their website on a slow 3G network with a 5 year old device. And this is something the visitors may not be able to change. Take a good look at your target audience so you can make an informed decision about whether or not it is acceptable to have a slow loading website. <!-- bei Nutzung von whether muss auch noch ein "or" (not) rein. -->
  
 Also, the internet consumes a lot of electricity. And your website needs electricity, too. By optimising the performance you make sure to only use what you actually need. Apparently I [should plant a tree](https://www.websitecarbon.com/website/tim-kleyersburg-de/) to accommodate for the CO2 generated by my website (assuming I have 10.000 visitors per year. As if.).
 
@@ -44,55 +44,55 @@ Performance is a very big word and its implications are very broad, even broader
 
 So let's break it down into smaller parts to better understand the differences and responsibilities. Take a look at what happens when you request a webpage:
 
-1. You type into the address bar or click a link to, e.g., www.tim-kleyersburg.de.
-2. The domain name system (DNS) resolves this name to an IP address (the address of a server).
-3. The **request** is forwarded to this IP address.
-4. Now the server processes your request and does all the work needed so you can see a webpage.
-5. After the servers work is done it sends a **response** back to you. This response contains the HTML of the page you want to look at.
-6. Now your browser starts processing this response. It also starts downloading assets (like CSS for styles, JavaScript for interactivity, or images so you have
+1. You type into the address bar or click a link to e.g., www.tim-kleyersburg.de.
+3. The domain name system (DNS) resolves this name to an IP address (the address of a server).
+4. The **request** is forwarded to this IP address.
+5. Now the server processes your request and does all the work needed so you can see a webpage.
+6. After the servers work is done, it sends a **response** back to you. This response contains the HTML of the page you want to look at.
+7. Now your browser starts processing this response. It also starts downloading assets (like CSS for styles, JavaScript for interactivity, or images for
    something beautiful to look at).
-7. After all this is done you can finally view the webpage in all its glory.
+7. After all this is done you can finally view the webpage in all its glory. <!-- müsste hier nicht 8. stehen? -->
 
-For simplicity's sake lets only focus on points 4 to 7.
+For simplicity's sake let's only focus on points 4 to 7.
 
-Typically everything that happens _before_ your browser receives the response is called "backend" and everything that happens _after_ is called "frontend" so we'll use these terms to keep it simple.
+Typically, everything that happens _before_ your browser receives the response, is called "backend" and everything that happens _after_ is called "frontend" so we'll use these terms to keep it simple.
 
 ### Backend (4. and 5.)
 
-Imagine an online store which sells guitars (because I like guitars). You want to take a look at this specific guitar so you click on the link to get to the product page. Now the backend has to do all the work necessary to give you a helpful response. It fetches information about the product from a database, calculates the correct price based on your location and fetches stock information for different vendors. All this takes time to compute. This timespan is called "[Time to first byte](https://web.dev/time-to-first-byte/)" or TTFB for short and is one audit run by Lighthouse to assess your final performance score.
+Imagine an online store that sells guitars (because I like guitars). You want to take a look at a specific guitar so you click on the link to get to the product page. Now the backend has to do all the work necessary to give you a helpful response. It fetches information about the product from a database, calculates the correct price based on your location and gets stock information for different vendors. All this takes time to compute. This timespan is called "[Time to first byte](https://web.dev/time-to-first-byte/)" or TTFB and is one audit run by Lighthouse to assess your final performance score.
 
-Since all of this computation happens in the "backend" there is no way to extract more information from this measurement without a developer looking into what exactly causes a high TTFB. All these online tools you can use to measure performance can only tell you "your server took x seconds to send a response". Nothing more.
+Since all of this computation happens in the "backend", there is no way to extract more information from this measurement without a developer looking into what exactly causes a high TTFB. All these online tools you can use to measure performance, can only tell you "your server took x seconds to send a response". Nothing more.
 
-A good strategy for a good TTFB is to aggressively cache the response and skip the computation part altogether. There are pages which are better suited for this (like this website) than others (like a e-commerce site).  
-Rule of thumb: if your content rarely changes and is not personalised a static cache is a great way for a really good TTFB score.
+A good strategy for a good TTFB is to aggressively cache the response and skip the computation part altogether. There are pages which are better suited for this (like this website) than others (like an e-commerce site).  
+Rule of thumb: if your content rarely changes and is not personalised, a static cache is a great way to achieve a really good TTFB score.
 
 ### Frontend (6. and 7.)
 
-Now it gets more complicated. Browsers can do a lot more these days so there are more areas which can negatively affect your performance scores.
+Now it gets more complicated. Browsers can do a lot more these days so there are more areas that can negatively affect your performance scores.
 
-We'll break it down further so we get a complete puzzle piece by piece.
+We'll break it down further to complete the puzzle piece by piece.
 
-_I'm fully aware there is still a lot more to web performance than the following explanations. Please keep in mind that the audience for this article are people with a non-tech background._
+_I'm fully aware, there is still a lot more to web performance than the following explanations. Please keep in mind, that the audience for this article are people with a non-tech background._
 
-There are two big parts which very directly impact frontend performance: scripts and assets (like images or videos).
+There are two big parts which very directly affect frontend performance: scripts and assets (like images or videos).
 
 #### Assets
 
-Images can make up a big part of your website. The average website today [weighs about 2MB](https://httparchive.org/reports/page-weight) and images make up about _half of it_. Let's not take videos into account right now to avoid another layer of complexity.
+Images can make up a big part of your website. The average website of today [weighs about 2MB](https://httparchive.org/reports/page-weight) and images make up about _half of it_. Let's not take videos into account right now to avoid another layer of complexity.
 
-Since images make up half of your website it seems natural to care about how they affect the performance of your website. The size of your website directly impacts the performance because the more contents need to be loaded, the longer it takes.
+Since images make up half of your website, it seems natural to care about how they affect the performance of your website. The size of your website has a direct influence on the performance because the more contents need to be loaded, the longer it takes.
 
 #### Scripts
 
-JavaScript (not to be mixed up with Java) is a programming language. It is used for a lot things on websites. It's used to create interactivity, load more content after the initial document has loaded, track visitors, display ads and many more things.
+JavaScript (not to be mixed up with Java) is a programming language. It is used for a lot of things concerning websites. It's used to create interactivity, load more content after the initial document has loaded, track visitors, display ads and much more.
 
-Each of these things can impact performance and therefore performance metrics. By executing scripts you are using computing power which can negatively impact performance. Fetching content after the first page load can lead to layout shifts and render-blocking scripts can completely halt the rendering of a page, resulting in an unusable page until the script is done.
+Each of these things can have an impact on the performance and therefore affect performance metrics. By executing scripts you are using computing power which can have a negative impact on performance. Fetching content after the first page load can lead to layout shifts and render-blocking scripts can completely halt the rendering of a page, resulting in an unusable page until the script is done.
 
-In commercial sites there are also most likely a lot of 3rd-party-scripts. **Every script can negatively impact performance**, and you should therefore evaluate if this negative impact is worth the potential uplift in other areas.
+In commercial sites, there are also most likely a lot of 3rd-party-scripts. **Every script can have a negative impact on performance**, and should therefore be evaluated by you, if this negative impact is worth the potential uplift in other areas.
 
 ## How to measure and interpret frontend performance
 
-As outlined above: the tools at our disposal have no way to measure backend performance. There are tools for that, like [Blackfire for PHP](https://www.blackfire.io/), which are most of the time focused on developers that care about performance while developing.
+As outlined above: the tools at our disposal have no way to measure backend performance. There are tools for that, like [Blackfire for PHP](https://www.blackfire.io/), which are, most of the time, focused on developers that care about performance while developing.
 
 ### Tools
 
@@ -100,19 +100,19 @@ There are many tools you can use to measure frontend performance. I've used the 
 
 [web.dev/measure](https://web.dev/measure/) _by Google_
 
-This tool uses Lighthouse, which also is built into Google Chrome, to run an audit of your webpage. It provides nearly the same output like Chrome but you can do it online in any browser. If you need accurate data (the tests are performed [in a lab environment](https://web.dev/lab-and-field-data-differences/)) use this tool. Because it uses a predefined set of network and device conditions the results can't fluctuate like a local test or a test with field data (see PageSpeed Insights) can.
+This tool uses Lighthouse, which is also built into Google Chrome, to run an audit of your webpage. It provides nearly the same output as Chrome but you can do it online in any browser. If you need accurate data (the tests are performed [in a lab environment](https://web.dev/lab-and-field-data-differences/)) use this tool. Because it uses a predefined set of network and device conditions, the results can't fluctuate like a local test or a test with field data (see PageSpeed Insights) can.
 
 [pagespeed.web.dev](https://pagespeed.web.dev/) _by Google_
 
-PageSpeed Insights is not much different to web.dev_measure with one important difference: PSI uses _field data_ provided by Chrome to give you a better understanding how your website performs for _your actual visitors_. While a lab test can help you in enhancing your metrics in a reproducible way so you can actually see what works and what doesn't, a test with field data can surface problems your real users are having. Maybe your average user has a much slower network than you do.
+PageSpeed Insights is almost identical to web.dev_measure with one important difference: PSI uses _field data_ provided by Chrome to give you a better understanding of how your website performs for _your actual visitors_. While a lab test can help you enhance your metrics in a reproducible way so you can actually see what works and what doesn't, a test with field data can surface problems your real users are having. Maybe your average user has a much slower network than you do.
 
 [waterfaller.dev](https://waterfaller.dev/)
 
-With waterfaller you get actionable insight on what and how to improve specific Core Web Vital metrics. It also shows you a waterfall (hence the name)  of your requests, this enables you to better understand how and what your website exactly loads when and how it impacts metrics. What I really liked about using this tool is, that it gives you a clear path to take. Instead of giving you a report with all the things you've done wrong it provides you with help on how to do these things right.
+With waterfaller, you get actionable insight on what and how to improve specific Core Web Vital metrics. It also shows you a waterfall (hence the name) of your requests, this enables you to better understand how and what your website exactly loads when, and how it impacts metrics. What I really liked about using this tool is, that it gives you a clear path to take. Instead of giving you a report with all the things you've done wrong it provides you with help on how to do these things right.
 
 [yellowlab.tools](https://yellowlab.tools/result/g691h5f4kf)
 
-Yellow Lab Tools doesn't analyse Core Web Vitals but a lot other factors that are playing into bad performance, like, how many requests you performed, if you have oversized images and more. It's a great addition to the other tools because it can surface quick wins.
+Yellow Lab Tools doesn't analyse Core Web Vitals but a lot other factors that are playing into bad performance, like how many requests you performed, if you have oversized images and more. It's a great addition to the other tools because it can surface quick wins.
 
 [webhint.io](https://webhint.io) _by Microsoft_
 
@@ -124,7 +124,7 @@ But what good is the best hammer if you don't know what a nail is. So let's dive
 
 ### The metrics
 
-The following metrics where promoted to be much more important for your performance score than they have been previously.
+The following metrics where promoted to be much more important for your performance score than they have been before.
 
 **Largest Contentful Paint (LCP)**  
 Measures perceived load speed and marks the point in the page load timeline when the page's main content has likely loaded.
