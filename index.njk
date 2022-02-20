@@ -3,7 +3,7 @@ layout: base.njk
 ---
 {% from 'macros.njk' import heading %}
 
-<div class="mx-auto space-y-16 max-w-lg text-center sm:space-y-20 md:space-y-24">
+<div class="mx-auto mt-16 space-y-16 max-w-lg text-center sm:space-y-20 md:space-y-24">
     <div>
         {{ heading('h1', '👋 Hello world!') }}
         <p class="leading-relaxed lg:text-xl">
@@ -45,16 +45,12 @@ layout: base.njk
     <div>
         {{ heading('h2', 'My career') }}
 
-        <ul class="space-y-8 md:space-y-12">
+        <ul class="space-y-10 divide-y divide-gray-600 divide-dotted dark:divide-gray-400 md:space-y-16">
             {% for item in cv_items %}
-                <li>
+                <li class="pt-10 md:pt-16">
                     <p class="text-sm text-gray-600 dark:text-gray-300">{{ item.date }}</p>
-                    <p class="flex justify-center items-center mb-1 text-lg font-semibold">
-                        {{ item.title }}
-                        <span class="ml-2 text-sm font-normal">
-                            @ {{ item.employer }}
-                        </span>
-                    </p>
+                    <p class="mt-2 mb-1 text-xl font-bold dark:text-white">{{ item.title }}</p>
+                    <p class="mb-3 text-gray-600 dark:text-gray-400">🏢 {{ item.employer }}</p>
                     {{ item.content }}
                 </li>
             {% endfor %}
