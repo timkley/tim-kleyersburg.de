@@ -37,20 +37,6 @@ layout: base.njk
     </div>
 
     <div>
-        {{ heading('h2', 'Where to find me online') }}
-
-        <ul class="space-y-3">
-            {% for contact_item in contact_items %}
-                <li>
-                    <a href="{{ contact_item.url }}">
-                        {{ contact_item.title }}
-                    </a>
-                </li>
-            {% endfor %}
-        </ul>
-    </div>
-
-    <div>
         {{ heading('h2', 'My career') }}
 
         <ul class="space-y-10 divide-y divide-gray-600 divide-dotted dark:divide-gray-400 md:space-y-16">
@@ -60,6 +46,20 @@ layout: base.njk
                     <p class="mt-2 mb-1 text-xl font-bold dark:text-white">{{ item.title }}</p>
                     <p class="mb-3 text-gray-600 dark:text-gray-400">🏢 {{ item.employer }}</p>
                     {{ item.content }}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div>
+        {{ heading('h2', 'Where to find me online') }}
+
+        <ul class="space-y-3">
+            {% for contact_item in contact_items %}
+                <li>
+                    <a href="{{ contact_item.url }}">
+                        {{ contact_item.title }}
+                    </a>
                 </li>
             {% endfor %}
         </ul>
