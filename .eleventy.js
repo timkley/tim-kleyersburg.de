@@ -4,7 +4,8 @@ module.exports = (eleventyConfig) => {
     eleventyConfig.setUseGitIgnore(false)
 
     // Watch and copy our source files to trigger a reload of the page
-    eleventyConfig.addWatchTarget(['src/js/bundle.js', 'src/css/bundle.css'])
+    eleventyConfig.addWatchTarget('src/js/bundle.js')
+    eleventyConfig.addWatchTarget('src/css/bundle.css')
 
     // Copy images
     eleventyConfig.addPassthroughCopy({'src/img': 'img'})
@@ -18,7 +19,7 @@ module.exports = (eleventyConfig) => {
         return String(Date.now())
     })
 
-    eleventyConfig.addShortcode('ogImage', function(url) {
+    eleventyConfig.addShortcode('ogImage', function (url) {
         const imageService = process.env.ELEVENTY_ENV === 'production' ? 'https://www.tim-kleyersburg.de/screenshot' : 'http://localhost:9999/.netlify/functions/screenshot';
         const openGraphImageUrl = process.env.ELEVENTY_ENV === 'production' ? `https://www.tim-kleyersburg.de/opengraph/${url}` : `http://localhost:8080/opengraph/${url}`
 
@@ -37,7 +38,7 @@ module.exports = (eleventyConfig) => {
     })
 
     eleventyConfig.addFilter('formattedDate', (date) => {
-        return date.toLocaleDateString('en-gb', { year: 'numeric', month: 'long', day: 'numeric'})
+        return date.toLocaleDateString('en-gb', {year: 'numeric', month: 'long', day: 'numeric'})
     })
 
     eleventyConfig.addFilter('console', (value) => {

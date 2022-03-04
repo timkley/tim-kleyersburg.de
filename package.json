@@ -13,7 +13,7 @@
     "build:esbuild": "npx esbuild src/js/bundle.js --bundle --minify --outfile=_site/bundle.js",
     "build:tailwindcss": "npx tailwindcss -i src/css/bundle.css -o _site/bundle.css --minify",
     "start": "concurrently npm:dev:*",
-    "build": "ELEVENTY_ENV=production NODE_ENV=production npm run build:eleventy && npm run build:tailwindcss"
+    "build": "ELEVENTY_ENV=production NODE_ENV=production concurrently npm:build:*"
   },
   "devDependencies": {
     "@11ty/eleventy": "^1.0.0",
