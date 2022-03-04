@@ -1,0 +1,14 @@
+{% extends '_last-thing.njk' %}
+{% set type = 'scrobble' %}
+
+{% block link %}
+    <a href="https://www.last.fm/user/Timmotheus">@timmotheus</a>
+{% endblock %}
+
+{% block content %}
+    <div>
+        <img class="mx-auto mb-2 rounded border shadow dark:border-gray-600" :src="result.image[1]['#text']" :alt="`${result.artist['#text']} - ${result.name}`">
+        <div class="font-bold" x-text="result.artist['#text']"></div>
+        <div x-text="result.name"></div>
+    </div>
+{% endblock %}
