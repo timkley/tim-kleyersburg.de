@@ -7,8 +7,10 @@
   },
   "scripts": {
     "dev:eleventy": "npx @11ty/eleventy --serve",
-    "dev:tailwindcss": "npx tailwindcss -i src/css/bundle.css -o _tmp/bundle.css --watch",
+    "dev:esbuild": "npx esbuild src/js/bundle.js --bundle --watch --outfile=_site/bundle.js",
+    "dev:tailwindcss": "npx tailwindcss -i src/css/bundle.css -o _site/bundle.css --watch",
     "build:eleventy": "npx @11ty/eleventy",
+    "build:esbuild": "npx esbuild src/js/bundle.js --bundle --minify --outfile=_site/bundle.js",
     "build:tailwindcss": "npx tailwindcss -i src/css/bundle.css -o _site/bundle.css --minify",
     "start": "concurrently npm:dev:*",
     "build": "ELEVENTY_ENV=production NODE_ENV=production npm run build:eleventy && npm run build:tailwindcss"
@@ -16,14 +18,16 @@
   "devDependencies": {
     "@11ty/eleventy": "^1.0.0",
     "@netlify/functions": "^0.7.2",
+    "@tailwindcss/line-clamp": "^0.3.1",
     "@tailwindcss/typography": "^0.5.0",
+    "alpinejs": "^3.9.1",
     "autoprefixer": "^10.4.2",
     "chrome-aws-lambda": "^10.1.0",
     "concurrently": "^7.0.0",
     "eleventy-plugin-torchlight": "^0.1.7",
+    "esbuild": "^0.14.25",
     "postcss": "^8.4.5",
     "puppeteer-core": "^13.1.2",
     "tailwindcss": "^3.0.16"
-  },
-  "dependencies": {}
+  }
 }
