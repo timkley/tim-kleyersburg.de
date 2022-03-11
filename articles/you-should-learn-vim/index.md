@@ -82,7 +82,7 @@ The above process doesn't look so much different written down, but I would argue
 > Vim takes so much pain out of the boring editing stuff when writing code that the experience of writing code becomes much more enjoyable. I now spend more time coding than I did before because I don't waste valuable time moving code blocks around or fiddling with the mouse to change some characters.  
 The added time spent on programming probably also had and has a positive impact on my continued learning how to program. 
 
-<video class="w-full mb-0" autoplay loop muted src="this-is-the-way.mp4"></video>
+<video class="w-full mb-0" autoplay loop muted playsinline src="this-is-the-way.mp4"></video>
 [via GIPHY](https://giphy.com/gifs/disneyplus-star-wars-the-mandalorian-madalorian-Ld77zD3fF3Run8olIt)
 
 ## How I got into Vim and got better with it
