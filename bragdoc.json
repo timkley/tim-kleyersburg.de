@@ -43,7 +43,12 @@
     {
       "title": "Learned the 7-string guitar \uD83C\uDFB8",
       "date": "October 2021",
-      "description": "Although learned is a strong word, but after buying my first 7-string I finally found the time to really play with it and get better at it."
+      "description": "Although 'learned' is a strong word, but after buying my first 7-string I finally found the time to really play with it and get better at it."
+    },
+    {
+      "title": "Deployed my first serverless function \uD83D\uDC68\u200D\uD83D\uDCBB",
+      "date": "February 2022",
+      "description": "Using Cloudflare Workers I deployed to functions to show my last tweet and scrobble on my homepage."
     }
   ]
 }

@@ -47,6 +47,7 @@ module.exports = (eleventyConfig) => {
     })
 
     return {
+        markdownTemplateEngine: 'njk',
         dir: {
             layouts: '_layouts'
         }

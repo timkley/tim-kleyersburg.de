@@ -1,9 +1,9 @@
 <div
-        class="p-2 mx-auto w-64 sm:w-60 h-48 bg-gray-100 rounded shadow-md dark:bg-gray-700"
+        class="p-2 mx-auto w-64 h-48 bg-gray-100 rounded shadow-md sm:w-60 dark:bg-gray-700"
         x-data="{ result: undefined }"
         x-init="result = await (await fetch('https://workers.tim-kleyersburg.de/last-{{ type }}')).json()"
 >
-    <div class="mb-5">
+    <div class="mb-5 text-center">
         <span class="text-sm text-gray-700 dark:text-gray-300">
             Last {{ type|capitalize }}
         </span>

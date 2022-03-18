@@ -28,7 +28,7 @@ module.exports = {
                             quotes: 'none'
                         },
                         code: {
-                            border: `1px solid ${theme('colors.gray.300')}`,
+                            backgroundColor: theme('colors.gray.200'),
                             borderRadius: theme('borderRadius.sm'),
                             fontStyle: 'initial',
                             padding: `2px ${theme('padding.1')}`
@@ -42,6 +42,13 @@ module.exports = {
                         img: {
                             borderRadius: theme('borderRadius.lg'),
                             boxShadow: theme('boxShadow.md')
+                        }
+                    }
+                },
+                'invert': {
+                    css: {
+                        code: {
+                            backgroundColor: theme('colors.gray.700')
                         }
                     }
                 }
