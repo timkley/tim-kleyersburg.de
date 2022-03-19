@@ -1,6 +1,6 @@
 ---
 date: 2022-03-19
-title: '11ty Quick tip: Nunjucks include in markdown without indentation'
+title: '11ty quick tip: Nunjucks include in markdown without indentation'
 metaDescription: "If you're not careful, included files are not correctly rendered."
 ---
 
