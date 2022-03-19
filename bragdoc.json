@@ -48,7 +48,7 @@
     {
       "title": "Deployed my first serverless function \uD83D\uDC68\u200D\uD83D\uDCBB",
       "date": "February 2022",
-      "description": "Using Cloudflare Workers I deployed to functions to show my last tweet and scrobble on my homepage."
+      "description": "Using Cloudflare Workers I deployed two functions to show my last tweet and scrobble on my homepage."
     }
   ]
 }
