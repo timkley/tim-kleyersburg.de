@@ -16,7 +16,6 @@ layout: base.njk
         {% include 'last-scrobble.njk' %}
         {% include 'last-tweet.njk' %}
     </div>
-    {# TODO: Write an article on how I did this ☝️️ #}
 
     <div>
         {{ heading('h2', 'Latest articles') }}
@@ -39,7 +38,7 @@ layout: base.njk
     <div>
         {{ heading('h2', 'My career') }}
 
-        <ul class="space-y-10 divide-y divide-gray-600 divide-dotted dark:divide-gray-400 md:space-y-16">
+        <ul class="space-y-10 divide-y divide-gray-300 dark:divide-gray-700 md:space-y-16">
             {% for item in cv_items %}
                 <li class="pt-10 md:pt-16 first:pt-0">
                     <p class="text-sm text-gray-600 dark:text-gray-300">{{ item.date }}</p>
