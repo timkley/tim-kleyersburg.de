@@ -9,7 +9,7 @@ module.exports = (eleventyConfig) => {
 
     // Copy images
     eleventyConfig.addPassthroughCopy({'src/img': 'img'})
-    eleventyConfig.addPassthroughCopy('articles/**/*.{jpg,jpeg,png,gif,mp4}')
+    eleventyConfig.addPassthroughCopy('src/content/articles/**/*.{jpg,jpeg,png,gif,mp4}')
 
     // Copy fonts
     eleventyConfig.addPassthroughCopy({'src/css/fonts': 'fonts'})
@@ -50,6 +50,7 @@ module.exports = (eleventyConfig) => {
     return {
         markdownTemplateEngine: 'njk',
         dir: {
+            input: 'src/content',
             layouts: '_layouts'
         }
     }
