@@ -1,12 +1,7 @@
 module.exports = {
     mode: 'jit',
     content: [
-        '*.njk',
-        '*.json',
-        '_includes/**/*.njk',
-        '_layouts/**/*.njk',
-        'articles/**/*.njk',
-        'articles/**/*.md'
+        'src/content/**/*.{json,njk,md}'
     ],
     theme: {
         extend: {
