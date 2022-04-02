@@ -97,12 +97,14 @@ Yep, that's what I wanted. My first instinct was to use it on the `include`. But
 {% block link %} [tl! remove]
 {%- block link -%} [tl! add]
     <a href="https://www.last.fm/user/Timmotheus">@timmotheus</a>
-{% endblock %}
+{% endblock %} [tl! remove]
+{%- endblock -%} [tl! add]
 
 {% block content %} [tl! remove]
 {%- block content -%} [tl! add]
     Dynamic track title and artist
-{% endblock %}
+{% endblock %} [tl! remove]
+{%- endblock -%} [tl! add]
 ```
 {% endraw %}
 
