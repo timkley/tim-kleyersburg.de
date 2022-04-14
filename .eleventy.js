@@ -6,6 +6,7 @@ module.exports = (eleventyConfig) => {
     // Watch and copy our source files to trigger a reload of the page
     eleventyConfig.addWatchTarget('src/js/bundle.js')
     eleventyConfig.addWatchTarget('src/css/bundle.css')
+    eleventyConfig.addWatchTarget('tailwind.config.js')
 
     // Copy images
     eleventyConfig.addPassthroughCopy({'src/img': 'img'})
