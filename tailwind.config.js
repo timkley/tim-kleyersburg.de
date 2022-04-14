@@ -37,6 +37,11 @@ module.exports = {
                         img: {
                             borderRadius: theme('borderRadius.lg'),
                             boxShadow: theme('boxShadow.md')
+                        },
+                        '@media (min-width: 90ch)': {
+                            pre: {
+                                marginInline: `calc(${theme('spacing.12')} * -1)`
+                            }
                         }
                     }
                 },
