@@ -37,7 +37,7 @@ This is also mentioned in the 11ty docs as a [common pitfall](https://www.11ty.d
 
 The docs pointed me in the right direction but I just couldn't find the real culprit of why it wasn't working as expected.
 
-To understand what the problem was let's take a quick look how I implemented that Last Scrobble widget: Basically, we have to templates. One that provides the structure of the card and one that extends it to provide the individual content. I hate to repeat myself so I reach for this pattern as often as I can.
+To understand what the problem was let's take a quick look how I implemented that Last Scrobble widget: Basically, we have two templates. One that provides the structure of the card and one that extends it to provide the individual content. I hate to repeat myself so I reach for this pattern as often as I can.
 
 {% raw %}
 `_last-thing.njk`
