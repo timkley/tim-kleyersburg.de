@@ -28,11 +28,11 @@ I often browse GitHub on my mobile phone after seeing some interesting tweets. G
 ## Importing a project from GitLab
 Getting a project into GitHub is relatively simple since the addition of the import dialogue:
 
-![The add dropdown with the import option highlighted](importing-a-project.png)
+{% image 'importing-a-project.png', 'The add dropdown with the import option highlighted' %}
 
 In the following dialogue you need to provide your previous repository's clone URL, add a new name (or just use the one from GitLab), choose of you want to make the repo private or public and you are good to go. 
 
-![The GitHub import dialogue](github-import-dialogue.png)
+{% image 'github-import-dialogue.png', 'The GitHub import dialogue' %}
 
 You will be asked to authenticate yourself. These are your GitLab credentials.  
 If you are getting the error <span class="bg-red-100 dark:bg-red-800">`No source repositories were detected at https://gitlab.com/timkley/your-repo. Please check the URL and try again.`</span> you maybe copied the wrong URL. In my case though the problem was the activated two-factor-authentication on GitLab. The 2FA flow is not supported when importing to GitHub so you need to turn 2FA off in GitLab to be able to import your repositories.
@@ -51,7 +51,7 @@ Spoiler: It wasn't challenging at all.
 
 Maybe my needs aren't that special or hard to solve. But the ease of setting up, for example, automatic testing for a Laravel application really impressed me. Where I tried to get it working for hours on GitLab, keeping countless tutorials and StackOverflow threads open in other tabs, I could find a ready to use [GitHub Action in the Marketplace](https://github.com/marketplace/actions/laravel-tests).
 
-![The test workflow returning green](green-action.png)
+{% image 'green-action.png', 'The test workflow returning green' %}
 
 For deployment I currently use [Deployer](https://deployer.org). Of course there was [an action readily available](https://github.com/marketplace/actions/action-deployer-php) on the GitHub marketplace.
 
@@ -71,7 +71,7 @@ In my `deploy.php`  I had already set `StrictHostKeyChecking` as SSH option [lik
 
 After logging into the host I wanted to deploy to and running a `git` command my `known_hosts` file was correctly updated and the next automatic deployment with my configured GitHub Action just worked:
 
-![Deployment works](deployment-works.png)
+{% image 'deployment-works.png', 'Deployment works' %}
 
 To be fair: I learned a lot about CI pipelines in general in the last years, so maybe this comparison isn't that fair.
 

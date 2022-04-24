@@ -30,7 +30,7 @@ Next, I tried to simply include the same widget I was including on my homepage b
 
 Unfortunately, this wasn't working as expected and looked like this:
 
-![Screenshot of the broken Nunjucks include](broken-nunjucks-include.jpg)
+{% image 'broken-nunjucks-include.jpg', 'Screenshot of the broken Nunjucks include' %}
 
 At first I thought it just included the raw code, but then realized that the outer parts seemed to work as expected but then markdowns [Indented code blocks](https://spec.commonmark.org/0.28/#indented-code-blocks) feature kicked in.  
 This is also mentioned in the 11ty docs as a [common pitfall](https://www.11ty.dev/docs/languages/markdown/#there-are-extra-and-in-my-output).

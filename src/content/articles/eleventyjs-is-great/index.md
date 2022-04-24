@@ -17,7 +17,7 @@ I don't know about you, but I know what *I* did last summer. I wanted to redesig
 
 At first I tried to come up with a solution with my existing setup but couldn't really see how to integrate a blog into my site.
 
-![Screenshot of my previous site](screenshot-old-site.jpg)
+{% image 'screenshot-old-site.jpg', 'Screenshot of my previous site' %}
 
 Like every good developer I naturally questioned my whole stack. Technology moves fast, especially when it comes to the web. My site was 2 or 3 years old, a Methusalem in web-years (that's kinda like dog-years). Frontend tooling moved fast and there where a bunch of options I explored in my head.
 

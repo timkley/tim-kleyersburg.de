@@ -6,7 +6,7 @@ metaDescription: 'If learning the basics of Vim made me a faster developer, it w
 ---
 You probably heard of [Vim](https://www.vim.org/). Chances are you probably got stuck in Vim and angrily tried to exit it by smashing your mouse and keyboard.
 
-![Picture of a Tweet mocking how it looks when first users of Vim try to quit it.](vim-meme.jpg)
+{% image 'vim-meme.jpg', 'Picture of a Tweet mocking how it looks when first users of Vim try to quit it.' %}
 [Source](https://twitter.com/iamdevloper/status/1041999624775626752)
 
 You maybe know by now to exit Vim by typing `:q` (or `:q!` if you want to be really sure Vim quits).  

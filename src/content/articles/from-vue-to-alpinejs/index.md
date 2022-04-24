@@ -63,14 +63,14 @@ Our process looked like this:
 
 The most significant part of the Performance Report was the „Evaluating scripts“ part. It seemed like the browser had a lot of work to do when evaluating our javascript bundle.
 
-![Screenshot of Lighthouse report](performance-report-before.png)
+{% image 'performance-report-before.png', 'Screenshot of Lighthouse report' %}
 
 *Live environment*
 
 Our first step was to comment out the script tag so see how that improved our metrics.  
 Turns out, pretty significantly:
 
-![Screenshot of Lighthouse report without scripts](performance-report-no-scripts.png)
+{% image 'performance-report-no-scripts.png', 'Screenshot of Lighthouse report without scripts' %}
 
 *Note: This report was generated in our development environment. We have a difference of about 10-15% to the live environment.*
 
@@ -325,7 +325,7 @@ After having settled on an architecture and implementing our most complex compon
 We were eager to get complete metrics after implementing all other components. My heart-rate elevated a little when I pressed "Generate Report" in the Lighthouse tab.  
 We expected we wouldn't come to the 56 points completely without scripts, but here we are:
 
-![Screenshot of Lighthouse report after conversion to Alpine.js](performance-report-with-alpine.png)
+{% image 'performance-report-with-alpine.png', 'Screenshot of Lighthouse report after conversion to Alpine.js' %}
 
 This again was our dev environment, thus many opportunities shown here wouldn't apply in the live environment.
 
@@ -337,7 +337,7 @@ Deployment rolled through. The site still worked. And we scheduled another Light
 
 I'll let the result speak for itself:
 
-![Perfomance graph](performance-graph.png)
+{% image 'performance-graph.png', 'Performance graph' %}
 
 After Go-Live we noticed a few small things we optimized the following days, landing us a solid score of **62** in the end.
 
