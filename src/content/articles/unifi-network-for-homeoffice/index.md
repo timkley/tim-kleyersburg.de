@@ -30,7 +30,7 @@ But after some patience they where back in stock so I pulled the trigger. Orderi
 ## Unpacking
 The access points ship with a wall/ceiling mounting kit. The packaging was very thoughtful. All screws where in a small package you could access directly when opening the box. The flap in which it was stored is used to pull out the inner packaging and reveals the access point which itself is covered with a plastic cover for protection. The access point feels very high quality and has a smooth touch surface (I love those!).
 
-![Photograph of the Access Point Wifi 6 Lite](access-point-wifi6-lite.jpg)
+{% image 'access-point-wifi6-lite.jpg', 'Photograph of the Access Point Wifi 6 Lite' %}
 
 All in all the quality was even better than I expected (and I knew what I was getting into).
 
@@ -43,7 +43,8 @@ After trying some manual setups it turned out that there is a super simple way f
 
 ### Get a VPS or similar server
 You'll need a (fresh) Ubuntu installation for the next steps. These are the settings I chose for my DigitalOcean droplet:
-![Screenshot of my droplet settings](digital-ocean-droplet-settings.jpg)
+
+{% image 'digital-ocean-droplet-settings.jpg', 'Screenshot of my droplet settings' %}
 
 Although a server with 2 GB of RAM is recommended I didn't have any problems with the smaller option. If you want to make extra sure everything keeps running smoothly better directly select the bigger option for 10$.
 

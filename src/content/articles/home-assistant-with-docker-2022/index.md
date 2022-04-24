@@ -28,14 +28,14 @@ In this case though I highly recommend using the Imager tool to install Raspberr
 
 Go ahead and [download Raspberry Pi Imager](https://www.raspberrypi.com/software/) for your operating system.
 
-![Screenshot of the home screen of Raspberry Pi Imager](raspberry-pi-imager-home-screen.jpg)
+{% image 'raspberry-pi-imager-home-screen.jpg', 'Screenshot of the home screen of Raspberry Pi Imager' %}
 *Screenshot of the home screen of Raspberry Pi Imager*
 
 1. Select the OS of your choice, I went with Raspberry Pi OS Lite 32 Bit. (I didn't test the next step with other Linux distros)
 2. If you haven't already, insert the SD card in your computer and select it here.
 3. Click on the little cog in the bottom right corner to configure the installation with the following settings:
 
-![Screenshot of the advanced options of Raspberry Pi Imager](raspberry-pi-imager-settings.jpg)
+{% image 'raspberry-pi-imager-settings.jpg', 'Screenshot of the advanced options of Raspberry Pi Imager' %}
 *Screenshot of the advanced options of Raspberry Pi Imager*
 
 I customized the following things:

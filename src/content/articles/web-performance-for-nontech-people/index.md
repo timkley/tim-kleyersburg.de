@@ -189,8 +189,9 @@ A designer can take care of generating images in the appropriate sizes and forma
   Everything that applies to 3rd party scripts also applies to your own scripts but with one big advantage: you probably have your scripts under control and can rip out old jQuery dependencies. This is more easily said then done, of course. Give your developers time to evaluate and prepare concepts how to do bigger updates.
 * **Are you loading your scripts correctly?**
   There are many ways to trigger the loading of a script file. Some of them are good (because they don't block page rendering for example) and some are not that good (because they _do_ block your page from rendering correctly). If you can, always use the "defer" attribute so the rendering of your page is not blocked.  
-![Optimum head are, according to @csswizardy](optimum-head-order.jpg)
-  [via @smashingmag](https://twitter.com/smashingmag/status/1440697011985018881?s=27)
+
+{% image 'optimum-head-order.jpg', 'Optimum head are, according to @csswizardy' %}
+[via @smashingmag](https://twitter.com/smashingmag/status/1440697011985018881?s=27)
 
 ## Get your whole team on board
 

@@ -263,7 +263,7 @@ Assuming you want to use a custom subdomain for your workers named `workers` you
 
 It should look like this:
 
-![Screenshot of a Cloudflare workers DNS record](dns-record-for-cloudflare-workers.png)
+{% image 'dns-record-for-cloudflare-workers.png', 'Screenshot of a Cloudflare workers DNS record' %}
 
 This makes sure that routing works correctly.
 
