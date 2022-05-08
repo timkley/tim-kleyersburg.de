@@ -40,6 +40,9 @@ module.exports = (eleventyConfig) => {
     eleventyConfig.addPlugin(require('eleventy-plugin-torchlight'))
     eleventyConfig.addPlugin(require('@11ty/eleventy-plugin-rss'))
 
+    // Copy favicon
+    eleventyConfig.addPassthroughCopy({'src/favicon': '/'})
+
     eleventyConfig.addShortcode('version', () => {
         return String(Date.now())
     })
