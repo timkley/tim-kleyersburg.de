@@ -9,9 +9,9 @@
     {% block styles %}
         <link rel="stylesheet" type="text/css" media="screen" href="/bundle.css?v={% version %}"/>
 
-        <link rel="preload" href="/fonts/source-sans-pro-v14-latin-regular.woff2" as="font" crossorigin="anonymous"/>
-        <link rel="preload" href="/fonts/source-sans-pro-v14-latin-600.woff2" as="font" crossorigin="anonymous"/>
-        <link rel="preload" href="/fonts/source-sans-pro-v14-latin-700.woff2" as="font" crossorigin="anonymous"/>
+        <link rel="preload" href="/fonts/source-sans-pro-v14-latin-regular.woff2" as="font" type="font/woff2" crossorigin />
+        <link rel="preload" href="/fonts/source-sans-pro-v14-latin-600.woff2" as="font" type="font/woff2" crossorigin />
+        <link rel="preload" href="/fonts/source-sans-pro-v14-latin-700.woff2" as="font" type="font/woff2" crossorigin />
     {% endblock %}
 
     {% block meta_tags %}
