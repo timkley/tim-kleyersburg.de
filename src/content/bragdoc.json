@@ -49,6 +49,11 @@
       "title": "Deployed my first serverless function \uD83D\uDC68\u200D\uD83D\uDCBB",
       "date": "February 2022",
       "description": "Using Cloudflare Workers I deployed two functions to show my last tweet and scrobble on my homepage."
+    },
+    {
+      "title": "Reached > 600 clicks in a month through search engines",
+      "date": "May 2022",
+      "description": "I've connected my site to Googles Search Console to get more insight how my content is found. In May I received a notification that I've accumulated over 600 clicks through Google alone 😱. When starting to write articles I would have never thought to reach so many people in such short time."
     }
   ]
 }
