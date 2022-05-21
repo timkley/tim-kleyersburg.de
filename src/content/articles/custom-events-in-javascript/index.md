@@ -216,8 +216,6 @@ Below you can find an interactive demonstration of how this works. It uses Vue f
 </p>
 <script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
 
-I hope this helped you getting a better grasp of how custom events work, why they can be very powerful and make your code cleaner. If you have any question hit my up [on Twitter](https://twitter.com/timkley) 😊.
-
 ### Resources
 
 [Event - Web APIs | MDN](https://developer.mozilla.org/en-US/docs/Web/API/Event)  
