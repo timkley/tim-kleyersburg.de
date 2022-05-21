@@ -64,7 +64,7 @@ module.exports = (eleventyConfig) => {
         const wpm = 250
         const wordCount = content.split(' ').length
 
-        return Math.round(wordCount / wpm)
+        return Math.ceil(wordCount / wpm)
     })
 
     eleventyConfig.addFilter('formattedDate', (date) => {
