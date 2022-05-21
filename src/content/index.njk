@@ -6,8 +6,8 @@ layout: base.njk
 <div class="mx-auto mt-16 space-y-16 max-w-lg text-center sm:space-y-20 md:space-y-24">
     <div>
         {{ heading('h1', '👋 Hello world!') }}
-        <p class="leading-relaxed lg:text-xl">
-            I’m Tim, working in a digital agency, fascinated by web development and currently focusing on developer mentoring, process optimisation and
+        <p class="leading-relaxed md:text-xl">
+            I'm Tim, working in a digital agency, fascinated by web development and currently focusing on developer mentoring, process optimisation and
             everything in between.
         </p>
     </div>
@@ -21,11 +21,13 @@ layout: base.njk
         {{ heading('h2', 'Latest articles') }}
 
         {% set articleLimit = 5 %}
-        <ul class="space-y-3">
+        <ul class="space-y-4 text-left">
             {% for article in collections.article | reverse | limit(articleLimit) %}
-                <li>
-                    <a href="{{ article.url }}">{{ article.data.title }}</a>
-                    <span class="ml-1 text-gray-700 dark:text-gray-300">on {{ article.date | formattedDate }}</span>
+                <li class="flex justify-between">
+                    <div>
+                        <a href="{{ article.url }}">{{ article.data.title }}</a>
+                    </div>
+                    <span class="whitespace-nowrap ml-2 text-gray-700 dark:text-gray-300">{{ article.date | formattedDate }}</span>
                 </li>
             {% endfor %}
         </ul>
