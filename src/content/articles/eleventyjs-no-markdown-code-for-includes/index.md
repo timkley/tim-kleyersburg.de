@@ -1,6 +1,7 @@
 ---
 date: 2022-03-19
 title: '11ty quick tip: Nunjucks include in markdown without indentation'
+hero: 'hero-image.jpg'
 metaDescription: "If you're not careful, included files are not correctly rendered."
 ---
 

@@ -1,6 +1,7 @@
 ---
 date: 2021-09-08
 title: 'Customisable TailwindCSS colours without build step'
+hero: 'hero-image.jpg'
 metaDescription: 'How to let the customers set their own colours in your product / application.'
 ---
 

@@ -1,6 +1,7 @@
 ---
 date: 2022-05-21
 title: 'Alpine Expression Error: Cannot set properties of null (setting _x_dataStack)'
+hero: 'hero-image.jpg'
 metaDescription: 'How to fix this Alpine.js Expression Error'
 ---
 
