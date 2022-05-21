@@ -43,7 +43,15 @@ layout: base.njk
                 <li class="pt-10 md:pt-16 first:pt-0">
                     <p class="text-sm text-gray-600 dark:text-gray-300">{{ item.date }}</p>
                     <p class="mt-2 mb-1 text-xl font-bold dark:text-white">{{ item.title }}</p>
-                    <p class="mb-3 text-gray-600 dark:text-gray-400">🏢 {{ item.employer }}</p>
+                    <p class="mb-3 text-gray-600 dark:text-gray-400">
+                        {% if item.link %}
+                            <a href="{{ item.link }}">
+                        {% endif %}
+                        🏢 {{ item.employer }}
+                        {% if item.link %}
+                            </a>
+                        {% endif %}
+                    </p>
                     {{ item.content }}
                 </li>
             {% endfor %}
