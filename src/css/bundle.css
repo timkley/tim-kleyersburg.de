@@ -9,7 +9,6 @@
     font-weight: 400;
     src: local(''),
     url('/fonts/source-sans-pro-v14-latin-regular.woff2') format('woff2'); /* Chrome 26+, Opera 23+, Firefox 39+ */
-    font-display: swap;
 }
 /* source-sans-pro-600 - latin */
 @font-face {
@@ -18,7 +17,6 @@
     font-weight: 600;
     src: local(''),
     url('/fonts/source-sans-pro-v14-latin-600.woff2') format('woff2'); /* Chrome 26+, Opera 23+, Firefox 39+ */
-    font-display: swap;
 }
 /* source-sans-pro-700 - latin */
 @font-face {
@@ -27,7 +25,6 @@
     font-weight: 700;
     src: local(''),
     url('/fonts/source-sans-pro-v14-latin-700.woff2') format('woff2'); /* Chrome 26+, Opera 23+, Firefox 39+ */
-    font-display: swap;
 }
 
 a {
