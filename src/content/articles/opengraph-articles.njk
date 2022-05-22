@@ -8,23 +8,23 @@ pagination:
     alias: article
 ---
 
-<div class="relative z-10 pt-16 pl-24 max-w-4xl prose">
-    <h1 class="text-7xl mb-4">
+<div class="relative z-10 pt-10 pl-16 max-w-5xl prose">
+    <h1 class="text-7xl mb-6">
         {{ article.data.title }}
     </h1>
-    <div class="text-3xl flex items-center space-x-2">
-        <div class="flex-shrink-0 w-6 h-6 overflow-hidden rounded-full">
-            <img class="my-0" src="{{ author.avatarUrl }}" alt="{{ author.name }}"/>
-        </div>
-        <div>
+    <div class="text-3xl flex items-center space-x-3">
+        <div class="flex items-center">
             {{ author.name }}
-            <span class="text-gray-500">
-                on {{ article.data.date | formattedDate }}
-            </span>
+            <div class="-mt-1 mr-1 w-12 h-12">
+                {% include 'castle.svg' %}
+            </div>
         </div>
+        <span class="text-gray-500">
+            on {{ article.data.date | formattedDate }}
+        </span>
     </div>
 
-    <p class="text-5xl text-gray-600 mt-24 leading-relaxed">
+    <p class="text-5xl text-gray-600 mt-16 leading-relaxed">
         {{ article.data.metaDescription }}
     </p>
 </div>
