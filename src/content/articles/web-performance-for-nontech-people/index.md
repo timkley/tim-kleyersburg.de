@@ -3,6 +3,8 @@ date: 2022-02-16
 title: 'Web performance for non-tech-people'
 hero: 'hero-image.jpg'
 metaDescription: 'Why is everyone talking about web performance these days?'
+tags:
+  - performance
 ---
 
 With the [introduction of Web Vitals](https://blog.chromium.org/2020/05/introducing-web-vitals-essential-metrics.html) by Google in May 2020, almost everyone

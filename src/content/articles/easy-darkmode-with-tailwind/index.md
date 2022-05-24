@@ -3,6 +3,8 @@ date: 2022-01-01
 title: 'Easy dark mode with TailwindCSS'
 hero: 'hero-image.jpg'
 metaDescription: 'If you are using TailwindCSS, implementing dark mode is super simple.'
+tags:
+    - css       
 ---
 
 Implementing dark mode with TailwindCSS is not that new. Experimental support was added in [September 2020](https://github.com/tailwindlabs/tailwindcss/pull/2279) and being promoted to a first class citizen in November 2020 when TailwindCSS was updated to v2.

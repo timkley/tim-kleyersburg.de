@@ -3,6 +3,9 @@ date: 2022-03-18
 title: 'Create an API proxy with Cloudflare Workers'
 hero: 'hero-image.jpg'
 metaDescription: 'Use Cloudflare Workers as a proxy for other API services without running your own server.'
+tags:
+  - api
+  - javascript
 ---
 
 In this article we'll discover how to use [Cloudflare Workers](https://workers.cloudflare.com/) to consume third party APIs without the need for your own server or compromising on security.  

@@ -3,6 +3,8 @@ date: 2022-04-14
 title: 'JavaScript: Custom Events explained'
 hero: 'hero-image.jpg'
 metaDescription: 'How to use events to make your site more maintainable'
+tags:
+	- javascript
 ---
 
 In every bigger project I've worked on (especially in e-commerce) there comes a time where you need to tie different parts of your JavaScript together. Maybe you want to track something when a user interacts with your site or does something of value (like adding a product to the cart). Or you need to trigger some behaviour in a totally different component.

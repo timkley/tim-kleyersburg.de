@@ -29,6 +29,15 @@
                 {{ content | readtime }} minutes to read
             </div>
         </div>
+        <div class="flex flex-wrap gap-3 mt-6 mb-10">
+            {% for tag in tags %}
+                {% if tag !== 'article' %}
+                	<div class="rounded-full bg-slate-300 px-3 text-sm py-1 ">
+                        {{ tag }}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
 
         {{ content | safe }}
 

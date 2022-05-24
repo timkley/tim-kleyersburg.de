@@ -3,6 +3,9 @@ date: 2021-08-04
 title: 'From Vue to Alpine.js: Our journey'
 hero: 'hero-image.jpg'
 metaDescription: 'How we swapped the whole frontend architecture from Vue to Alpine.js for a big ecommerce client.'
+tags:
+    - javascript
+    - performance
 ---
 ## The problem
 

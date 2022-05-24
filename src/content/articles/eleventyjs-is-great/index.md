@@ -3,6 +3,8 @@ date: 2022-01-03
 title: 'Going all in with Jamstack and Eleventy'
 hero: hero-image.jpg
 metaDescription: 'I rebuilt my personal site with Eleventy, a static site generator, and am loving it!'
+tags:
+	- 11ty
 ---
 
 I wanted to create a new version of my website for quite some time. [The old version](https://github.com/timkley/tim-kleyersburg.de/tree/54da506cab1f437faf98c4c87e5c89dd82b99222) was just one site which was also statically generated HTML. I was using `gulp` along with a plugin so I could use [Twig templates](https://twig.symfony.com/doc/2.x/), mainly because I hate to repeat myself in templates, even if it's just a few hundred lines of markup.
