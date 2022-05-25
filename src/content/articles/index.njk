@@ -1,15 +1,19 @@
 ---
 layout: base
 override:tags: []
+pagination:
+    data: collections.article
+    reverse: true
+    size: 10
 ---
 
-<div class="mx-auto space-y-3 max-w-3xl">
+<div class="mx-auto max-w-3xl">
     <ul class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-8">
-        {% for article in collections.article | reverse %}
+        {% for article in pagination.items %}
             <a href="{{ article.url }}" class="overflow-hidden text-xl font-semibold bg-gray-100 rounded-md border-b-0 shadow-md group hover:text-slate-900 dark:hover:bg-gray-800 dark:text-white dark:hover:text-white text-slate-900 hover:bg-gray-50 hover:shadow-lg dark:bg-gray-700">
                 <div class="h-40 bg-gray-500">
                     {% if article.data.hero %}
-                        <img class="object-cover w-full h-full group-hover:saturate-150" src="{{ article.url }}{{ article.data.hero }}" alt="{{ article.data.title }}">
+                    <img class="object-cover w-full h-full group-hover:saturate-150" src="{{ article.url }}{{ article.data.hero }}" alt="{{ article.data.title }}">
                     {% endif %}
                 </div>
                 <div class="p-3">
@@ -21,4 +25,13 @@ override:tags: []
             </a>
         {% endfor %}
     </ul>
+    
+    <div class="flex justify-center gap-6 mt-10">
+        {% if pagination.href.previous %}
+            <a href="{{ pagination.href.previous }}">< Previous Page</a>
+        {% endif %}
+        {% if pagination.href.next %}
+            <a href="{{ pagination.href.next }}">Next Page ></a>
+        {% endif %}
+    </div>
 </div>
