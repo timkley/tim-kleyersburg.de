@@ -49,12 +49,12 @@ module.exports = (eleventyConfig) => {
 
     eleventyConfig.addNunjucksAsyncShortcode('image', imageShortcode);
 
-    eleventyConfig.addShortcode('ogImage', function (url) {
+    eleventyConfig.addShortcode('ogImage', (url) => {
         const imageService = process.env.ELEVENTY_ENV === 'production' ? 'https://www.tim-kleyersburg.de/screenshot' : 'http://localhost:9999/.netlify/functions/screenshot';
         const openGraphImageUrl = process.env.ELEVENTY_ENV === 'production' ? `https://www.tim-kleyersburg.de/opengraph/${url}` : `http://localhost:8080/opengraph/${url}`
 
         return `${imageService}/${encodeURIComponent(openGraphImageUrl)}`
-    });
+    })
 
     eleventyConfig.addFilter('limit', (array, limit) => {
         return array.slice(0, limit)
@@ -69,11 +69,6 @@ module.exports = (eleventyConfig) => {
 
     eleventyConfig.addFilter('formattedDate', (date) => {
         return date.toLocaleDateString('en-gb', {year: 'numeric', month: 'long', day: 'numeric'})
-    })
-
-    eleventyConfig.addFilter('console', (value) => {
-        const str = util.inspect(value);
-        return `<div style="font-family: monospace; white-space: pre-wrap;">${unescape(str)}</div>`
     })
 
     return {

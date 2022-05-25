@@ -1,0 +1,19 @@
+---
+layout: base.njk
+eleventyComputed:
+  title: Tagged “{{ tag }}”
+  metaDescription: View all articles tagged as “{{ tag }}”
+pagination:
+  data: collections
+  size: 1
+  alias: tag
+  filter:
+    - all
+    - article
+  addAllPagesToCollections: true
+permalink: /tags/{{ tag | slug }}/
+---
+<h1 class="text-center text-2xl font-bold mb-8">All articles tagged “{{ tag }}”</h1>
+
+{% set items = collections[tag] %}
+{% include 'article-list.njk' %}
