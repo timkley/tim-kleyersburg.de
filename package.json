@@ -29,6 +29,7 @@
     "eleventy-plugin-torchlight": "^0.1.7",
     "esbuild": "^0.14.25",
     "postcss": "^8.4.5",
+    "prettier": "2.6.2",
     "puppeteer-core": "^13.1.2",
     "tailwindcss": "^3.0.16"
   }
