@@ -13,14 +13,14 @@ The most straightforward approach is to just add the needed functionality to the
 
 ```js
 function addToCart(productId) {
-	// add product to cart
-	// ...
+    // add product to cart
+    // ...
 
-	// code you'll often see in Google Tag Manager integrations
-	dataLayer.push({
-		event: 'addToCart',
-		// ...
-	})
+    // code you'll often see in Google Tag Manager integrations
+    dataLayer.push({
+        event: 'addToCart',
+        // ...
+    })
 }
 ```
 
@@ -28,19 +28,19 @@ If you are only doing this for one integration it might be fine. But imagine you
 
 ```js
 function addToCart(productId) {
-	// add product to cart
-	// ...
+    // add product to cart
+    // ...
 
-	dataLayer.push({
-		event: 'addToCart',
-		// ...
-	})
+    dataLayer.push({
+        event: 'addToCart',
+        // ...
+    })
 
-	otherIntegration.trackAddToCart()
+    otherIntegration.trackAddToCart()
 
-	anotherServiceWhichNeedsMuchMoreWork.startTransaction()
-	anotherServiceWhichNeedsMuchMoreWork.addProduct()
-	anotherServiceWhichNeedsMuchMoreWork.sendTransaction()
+    anotherServiceWhichNeedsMuchMoreWork.startTransaction()
+    anotherServiceWhichNeedsMuchMoreWork.addProduct()
+    anotherServiceWhichNeedsMuchMoreWork.sendTransaction()
 }
 ```
 
@@ -57,9 +57,9 @@ Basically events are things that can happen on your site. You can listen for the
 These are the events like mouse clicks, taps, key presses and so on. If you want, paste the following snippet into the console of your browser dev tools. It'll log every event that is happening to the console.
 
 ```js
-Object.keys(window).forEach(key => {
-    if(/./.test(key)){
-        window.addEventListener(key.slice(2), event => {
+Object.keys(window).forEach((key) => {
+    if (/./.test(key)) {
+        window.addEventListener(key.slice(2), (event) => {
             console.log(key, event)
         })
     }
@@ -81,10 +81,7 @@ Custom events have to be dispatched manually when the specific event actually ha
 First, define your custom event. It needs a name, I'll use `custom-event` in this case, and accepts an optional second object parameter which includes all properties a normal event can set as well as an additional `detail` property which can return details about your specific event.
 
 ```js
-const customEvent = new CustomEvent(
-	'custom-event',
-	{ detail: 'your-details' }
-)
+const customEvent = new CustomEvent('custom-event', { detail: 'your-details' })
 ```
 
 Secondly, you'll need to dispatch the event. Events can be dispatched from any `HTMLElement`. Depending on your use case you'll either use a specific element or just use the window element:
@@ -99,18 +96,17 @@ Lets rewrite our first example to something more maintainable:
 
 ```js
 function addToCart(productId) {
-	// add product to cart
-	// ...
+    // add product to cart
+    // ...
 
-	const addToCartEvent = new CustomEvent(
-		'add-to-cart',
-		{ detail: { productId: productId } }
-	)
-	window.dispatchEvent(addToCartEvent)
+    const addToCartEvent = new CustomEvent('add-to-cart', {
+        detail: { productId: productId },
+    })
+    window.dispatchEvent(addToCartEvent)
 }
 ```
 
-I like to use a little helper function for creating and dispatching global events for better readability.    
+I like to use a little helper function for creating and dispatching global events for better readability.  
 I also like the ability to pass the original event (this can be useful if you dispatch your custom event with a built-in attribute like `onsubmit` and want to have access to the original event).
 
 ```js
@@ -123,7 +119,7 @@ function customEvent(name, payload = null, originalEvent = null) {
     const customEvent = new CustomEvent(name, {
         detail: {
             payload: payload,
-            originalEvent: originalEvent
+            originalEvent: originalEvent,
         },
     })
 
@@ -135,10 +131,10 @@ Let's now use our helper to dispatch the event:
 
 ```js
 function addToCart(productId) {
-	// add product to cart
-	// ...
+    // add product to cart
+    // ...
 
-	customEvent('add-to-cart', { productId: productId })
+    customEvent('add-to-cart', { productId: productId })
 }
 ```
 
@@ -150,11 +146,11 @@ In another part of our code (maybe in a file called `tracking.js`) we can now wr
 
 ```js
 function addToCartHandler(event) {
-	// the handler will accept the event
-	// you can access the payload from the `detail` property
-	const productId = event.detail.productId
+    // the handler will accept the event
+    // you can access the payload from the `detail` property
+    const productId = event.detail.productId
 
-	// do your thing, like tracking or any other functionality
+    // do your thing, like tracking or any other functionality
 }
 
 // attach your custom event listener

@@ -7,6 +7,7 @@ tags:
     - javascript
     - performance
 ---
+
 ## The problem
 
 We relaunched the e-commerce site from one of our clients in the end of 2019. It was a big relaunch, impacting the overall design, template and frontend architecture.  
@@ -14,8 +15,8 @@ The only thing pretty much left unchanged was the backend.
 
 The main goals defined with the client were:
 
-- optimise PageSpeed metrics
-- Improve usability and therefore conversion rate
+-   optimise PageSpeed metrics
+-   Improve usability and therefore conversion rate
 
 After months of implementing, the client, and we, were happy with the results. We hit green ratings in all 4 of Lighthouse's categories and the conversion rate improved significantly.
 
@@ -45,8 +46,8 @@ The site was no SPA, instead we wrapped the whole site with a `#app` div which w
 
 ```html
 <notepad-star
-        :product-id="{% raw %}{{ product_id }}{% endraw %}"
-        :initial-star="{% raw %}{{ is_stared(product_id) ? 'true' : 'false' }}{% endraw %}"
+    :product-id="{% raw %}{{ product_id }}{% endraw %}"
+    :initial-star="{% raw %}{{ is_stared(product_id) ? 'true' : 'false' }}{% endraw %}"
 >
     <div>
         <button @click.prevent="toggle">Toggle</button>
@@ -54,7 +55,7 @@ The site was no SPA, instead we wrapped the whole site with a `#app` div which w
 </notepad-star>
 ```
 
-> `product_id` is a server side variable and `is_stared(product_id)` a Twig functions. Both are passed into the Vue component as props. 
+> `product_id` is a server side variable and `is_stared(product_id)` a Twig functions. Both are passed into the Vue component as props.
 
 ## Analysing the problem
 
@@ -69,14 +70,14 @@ The most significant part of the Performance Report was the „Evaluating script
 
 {% image 'performance-report-before.png', 'Screenshot of Lighthouse report' %}
 
-*Live environment*
+_Live environment_
 
 Our first step was to comment out the script tag so see how that improved our metrics.  
 Turns out, pretty significantly:
 
 {% image 'performance-report-no-scripts.png', 'Screenshot of Lighthouse report without scripts' %}
 
-*Note: This report was generated in our development environment. We have a difference of about 10-15% to the live environment.*
+_Note: This report was generated in our development environment. We have a difference of about 10-15% to the live environment._
 
 ## What needed to be done
 
@@ -93,14 +94,14 @@ We experienced some render blocking because of quick and dirty implementations w
 
 We tested different combinations of preloading and pre-connecting and ended up with the following results:
 
-- Preload for key assets like the CCM script
-- Preconnect for GTM
-- Preloading of our own key assets (like webfonts or our main css/js file)
+-   Preload for key assets like the CCM script
+-   Preconnect for GTM
+-   Preloading of our own key assets (like webfonts or our main css/js file)
 
 The following tools were used:
 
-- Lighthouse: provides direct insight which assets should be preloaded
-- Firefox: the devtools tell you which fonts you are preloading but aren‘t used within the first seconds
+-   Lighthouse: provides direct insight which assets should be preloaded
+-   Firefox: the devtools tell you which fonts you are preloading but aren‘t used within the first seconds
 
 ## Part 2-4: Optimising the rest
 
@@ -118,11 +119,11 @@ export const searchOverlay = {
         return {
             showSearchOverlay: false,
         }
-    }
+    },
 }
 ```
 
-*Example of global state / functionality provided by a mixin*
+_Example of global state / functionality provided by a mixin_
 
 ### Different versions of Vue
 
@@ -144,16 +145,16 @@ Next, we put together the components and interactivity we currently provide on t
 
 Here are some examples of components we have on the site:
 
-- Live search
-- Dynamic offcanvas cart
-- A flyout menu
-- Modals
+-   Live search
+-   Dynamic offcanvas cart
+-   A flyout menu
+-   Modals
 
 We also have some smaller functions (previously provided by mixins). Those functions are mostly used for things that don‘t need a separate component because they hold little to no state but should be easily be triggerable from everywhere, like:
 
-- Dynamically changing a product variant
-- Opening the shipping modal
-- Showing / hiding a global information banner
+-   Dynamically changing a product variant
+-   Opening the shipping modal
+-   Showing / hiding a global information banner
 
 One thing all these things had in common: many of them needed to communicate with each other.
 
@@ -161,9 +162,9 @@ The components were not the most complex, mostly providing interactivity or prev
 
 What we needed (and wanted) from a new framework was:
 
-- Reactivity (templates rerender when data changes)
-- Event system for easy communication between components
-- Small footprint
+-   Reactivity (templates rerender when data changes)
+-   Event system for easy communication between components
+-   Small footprint
 
 ### Enter Alpine.js
 
@@ -210,24 +211,24 @@ import { MODAL_OPEN, MODAL_OPENED, MODAL_CLOSE } from '@/enums/events'
 
 window.modal = () => ({
     open: false,
-    init () {
+    init() {
         if (this.instantDisplay !== undefined) {
             this.open = true
         }
     },
-    close () {
+    close() {
         this.open = false
         customEvent(MODAL_CLOSE, this.name)
     },
     wrapper: {
-        async [`@${MODAL_OPEN}.window`] (e) {
+        async [`@${MODAL_OPEN}.window`](e) {
             if (modalToOpen !== e.payload.name) {
                 return
             }
 
             customEvent(MODAL_OPENED, this.name)
             this.open = true
-        }
+        },
     },
 })
 ```
@@ -258,7 +259,7 @@ export default function (name, payload = null, originalEvent = null) {
     const customEvent = new CustomEvent(name, {
         detail: {
             payload: payload,
-            originalEvent: originalEvent
+            originalEvent: originalEvent,
         },
     })
 
@@ -286,12 +287,12 @@ This is what the provider for the live search roughly looks like:
 import customEvent from '@/helper/customEvent'
 import { SEARCH_GET } from '@/enums/events'
 
-async function getResultFor (searchTerm) {
+async function getResultFor(searchTerm) {
     let result = undefined
 
     await fetch(`/search?q=${searchTerm}`)
-        .then(response => response.json())
-        .then(data => {
+        .then((response) => response.json())
+        .then((data) => {
             result = data
         })
 
@@ -312,13 +313,13 @@ We have one store for each part, these are the few lines of code we use to manag
 ```javascript
 Spruce.store('megamenu', {
     activeId: null,
-    toggle (id) {
+    toggle(id) {
         if (id === this.activeId) {
             this.activeId = null
             return
         }
         this.activeId = id
-    }
+    },
 })
 ```
 
@@ -359,7 +360,7 @@ Debugbear is a service which monitors your core web vitals, does Lighthouse test
 
 Debugbear helped us not only in better understanding what caused problems, but also in having confidence into our optimizations.
 
-Debugbear provides great value for its dollars. And Matt is a great guy, we had problems with our credit card, he generously renewed our trial multiple times so we could continue to test everything without having to fear the deadline.  
+Debugbear provides great value for its dollars. And Matt is a great guy, we had problems with our credit card, he generously renewed our trial multiple times so we could continue to test everything without having to fear the deadline.
 
 ## Final words
 

@@ -1,8 +1,6 @@
 module.exports = {
     mode: 'jit',
-    content: [
-        'src/content/**/*.{json,njk,md}'
-    ],
+    content: ['src/content/**/*.{json,njk,md}'],
     theme: {
         extend: {
             fontFamily: {
@@ -15,18 +13,18 @@ module.exports = {
                         a: {
                             fontWeight: 400,
                             textDecoration: 'none',
-                            wordBreak: 'break-word'
+                            wordBreak: 'break-word',
                         },
                         blockquote: {
                             fontWeight: 400,
                             fontStyle: 'normal',
-                            quotes: 'none'
+                            quotes: 'none',
                         },
                         code: {
                             backgroundColor: theme('colors.gray.200'),
                             borderRadius: theme('borderRadius.sm'),
                             fontStyle: 'initial',
-                            padding: `2px ${theme('padding.1')}`
+                            padding: `2px ${theme('padding.1')}`,
                         },
                         'code::before': {
                             content: '',
@@ -36,27 +34,29 @@ module.exports = {
                         },
                         img: {
                             borderRadius: theme('borderRadius.lg'),
-                            boxShadow: theme('boxShadow.md')
+                            boxShadow: theme('boxShadow.md'),
                         },
                         '@media (min-width: 90ch)': {
                             pre: {
-                                marginInline: `calc(${theme('spacing.12')} * -1)`
-                            }
-                        }
-                    }
+                                marginInline: `calc(${theme(
+                                    'spacing.12'
+                                )} * -1)`,
+                            },
+                        },
+                    },
                 },
-                'invert': {
+                invert: {
                     css: {
                         code: {
-                            backgroundColor: theme('colors.gray.700')
-                        }
-                    }
-                }
-            })
+                            backgroundColor: theme('colors.gray.700'),
+                        },
+                    },
+                },
+            }),
         },
     },
     plugins: [
         require('@tailwindcss/line-clamp'),
-        require('@tailwindcss/typography')
+        require('@tailwindcss/typography'),
     ],
 }

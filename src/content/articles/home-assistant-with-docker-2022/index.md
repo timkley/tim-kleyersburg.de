@@ -4,7 +4,7 @@ title: 'Home Assistant with Docker on Raspberry Pi - the 2022 guide'
 hero: 'hero-image.jpg'
 metaDescription: 'An up to date guide how to set up a fresh installation of Home Assistant with Docker'
 tags:
-  - smarthome
+    - smarthome
 ---
 
 It finally happened: there was a Raspberry Pi 4 with 8GB RAM in stock that wasn't outrageously priced.
@@ -31,21 +31,21 @@ In this case though I highly recommend using the Imager tool to install Raspberr
 Go ahead and [download Raspberry Pi Imager](https://www.raspberrypi.com/software/) for your operating system.
 
 {% image 'raspberry-pi-imager-home-screen.jpg', 'Screenshot of the home screen of Raspberry Pi Imager' %}
-*Screenshot of the home screen of Raspberry Pi Imager*
+_Screenshot of the home screen of Raspberry Pi Imager_
 
 1. Select the OS of your choice, I went with Raspberry Pi OS Lite 32 Bit. (I didn't test the next step with other Linux distros)
 2. If you haven't already, insert the SD card in your computer and select it here.
 3. Click on the little cog in the bottom right corner to configure the installation with the following settings:
 
 {% image 'raspberry-pi-imager-settings.jpg', 'Screenshot of the advanced options of Raspberry Pi Imager' %}
-*Screenshot of the advanced options of Raspberry Pi Imager*
+_Screenshot of the advanced options of Raspberry Pi Imager_
 
 I customized the following things:
 
-- updated hostname to `rpi` because it's shorter
-- enabled SSH and set an authorized key (if you already have a default key present this will be filled in automatically)
-- configured wireless LAN with my network details. I'm planning to wire the Pi up at some point, but not having to fumble around with cables made the setup easier for me
-- set the locale settings to my timezone and my preferred keyboard layout
+-   updated hostname to `rpi` because it's shorter
+-   enabled SSH and set an authorized key (if you already have a default key present this will be filled in automatically)
+-   configured wireless LAN with my network details. I'm planning to wire the Pi up at some point, but not having to fumble around with cables made the setup easier for me
+-   set the locale settings to my timezone and my preferred keyboard layout
 
 Now, don't forget to press **Save**. You are now ready to write everything to your SD card. Depending on the speed of your card this may take a few minutes.
 
@@ -68,6 +68,7 @@ To update the packages and your Pi to the latest version run the following comma
 ```sh
 sudo apt update && sudo apt full-upgrade
 ```
+
 [Official source](https://www.raspberrypi.com/documentation/computers/os.html#updating-and-upgrading-raspberry-pi-os)
 
 **Important:** make sure to reboot before advancing to the next step. Unlike some experiences you've made a few years ago when installing device drivers, this isn't optional. If you skip it the installation of Docker will most likely fail.
@@ -75,11 +76,10 @@ sudo apt update && sudo apt full-upgrade
 ```sh
 sudo reboot
 ```
+
 This will reboot your Pi and you are ready for the next step.
 
 ### 3. Installing Docker and docker-compose
-
-
 
 #### 3.1 Installing Docker
 
@@ -147,19 +147,19 @@ Put the following contents in the `docker-compose.yml` file. You'll probably nee
 
 ```yaml
 ---
-version: "2.1"
+version: '2.1'
 services:
-  homeassistant:
-    image: lscr.io/linuxserver/homeassistant
-    container_name: homeassistant
-    network_mode: host
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=Europe/Berlin
-    volumes:
-      - /home/pi/docker/homeAssistant/data:/config
-    restart: unless-stopped
+    homeassistant:
+        image: lscr.io/linuxserver/homeassistant
+        container_name: homeassistant
+        network_mode: host
+        environment:
+            - PUID=1000
+            - PGID=1000
+            - TZ=Europe/Berlin
+        volumes:
+            - /home/pi/docker/homeAssistant/data:/config
+        restart: unless-stopped
 ```
 
 The last option `restart: unless-stopped` makes sure to boot our container back up after rebooting your Pi unless you have manuallly stopped the container.

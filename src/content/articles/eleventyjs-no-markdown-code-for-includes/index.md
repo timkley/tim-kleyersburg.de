@@ -17,19 +17,21 @@ When I was writing my [Create an API proxy with Cloudflare Workers](/api-proxy-w
 I knew I could set [a default template engine for markdown files](https://www.11ty.dev/docs/config/#default-template-engine-for-markdown-files), which is used to parse the files before markdown renders the rest of the file. Since I'm using [Nunjucks](https://mozilla.github.io/nunjucks/) for the rest of my site I changed the default from `liquid` to `njk` in my `.eleventy.js` configuration file:
 
 ```js
-module.exports = function(eleventyConfig) {
-  return {
-    markdownTemplateEngine: 'njk'
-  }
-};
+module.exports = function (eleventyConfig) {
+    return {
+        markdownTemplateEngine: 'njk',
+    }
+}
 ```
 
 Next, I tried to simply include the same widget I was including on my homepage by writing:
 
 {% raw %}
+
 ```
 {% include 'last-tweet.njk' %}
 ```
+
 {% endraw %}
 
 Unfortunately, this wasn't working as expected and looked like this:
@@ -68,11 +70,13 @@ To understand what the problem was let's take a quick look how I implemented tha
     Dynamic track title and artist
 {% endblock %}
 ```
+
 {% endraw %}
 
 Turns out: my problem was my notorious need for correctly indenting everything. When providing the content for the blocks I naturally indented everything between the `block` statements, therefore adding to much indentation. Changing it to the following solved my problem:
 
 {% raw %}
+
 ```
 {% extends '_last-thing.njk' %}
 
@@ -86,6 +90,7 @@ Turns out: my problem was my notorious need for correctly indenting everything. 
 Dynamic track title and artist [tl! add]
 {% endblock %}
 ```
+
 {% endraw %}
 
 But that's ugly. [Whitespace control](https://mozilla.github.io/nunjucks/templating.html#whitespace-control) to the rescue! Quoting from the docs:
@@ -95,6 +100,7 @@ But that's ugly. [Whitespace control](https://mozilla.github.io/nunjucks/templat
 Yep, that's what I wanted. My first instinct was to use it on the `include`. But that was wrong, because my extra whitespace was clearly coming from my blocks. So I changed my implementation of `last-tweet.njk` to this:
 
 {% raw %}
+
 ```
 {% extends '_last-thing.njk' %}
 
@@ -110,6 +116,7 @@ Yep, that's what I wanted. My first instinct was to use it on the `include`. But
 {% endblock %} [tl! remove]
 {%- endblock -%} [tl! add]
 ```
+
 {% endraw %}
 
 **That's it!** You should now be able to include a nunjucks template without any code indentation from markdown messing up your HTML.

@@ -1,3 +1,4 @@
 _site
 cache
-*.md
+package-lock.json
+*.njk

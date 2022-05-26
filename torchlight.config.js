@@ -30,7 +30,7 @@ module.exports = {
 
         // If there are any diff indicators for a line, put them
         // in place of the line number to save horizontal space.
-        diffIndicatorsInPlaceOfLineNumbers: true
+        diffIndicatorsInPlaceOfLineNumbers: true,
 
         // When lines are collapsed, this is the text that will
         // be shown to indicate that they can be expanded.
@@ -48,18 +48,11 @@ module.exports = {
         output: '',
 
         // Globs to include when looking for files to highlight.
-        includeGlobs: [
-            '**/*.htm',
-            '**/*.html'
-        ],
+        includeGlobs: ['**/*.htm', '**/*.html'],
 
         // String patterns to ignore (not globs). The entire file
         // path will be searched and if any of these strings
         // appear, the file will be ignored.
-        excludePatterns: [
-            '/node_modules/',
-            '/vendor/',
-            'opengraph'
-        ]
-    }
+        excludePatterns: ['/node_modules/', '/vendor/', 'opengraph'],
+    },
 }

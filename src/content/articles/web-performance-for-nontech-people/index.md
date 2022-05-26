@@ -4,7 +4,7 @@ title: 'Web performance for non-tech-people'
 hero: 'hero-image.jpg'
 metaDescription: 'Why is everyone talking about web performance these days?'
 tags:
-  - performance
+    - performance
 ---
 
 With the [introduction of Web Vitals](https://blog.chromium.org/2020/05/introducing-web-vitals-essential-metrics.html) by Google in May 2020, almost everyone
@@ -53,7 +53,7 @@ So let's break it down into smaller parts to better understand the differences a
 5. After the servers work is done, it sends a **response** back to you. This response contains the HTML of the page you want to look at.
 6. Now your browser starts processing this response. It also starts downloading assets (like CSS for styles, JavaScript for interactivity, or images for
    something beautiful to look at).
-7. After all this is done you can finally view the webpage in all its glory. 
+7. After all this is done you can finally view the webpage in all its glory.
 
 For simplicity's sake we'll only focus on points 4 to 7.
 
@@ -118,9 +118,9 @@ Yellow Lab Tools doesn't analyse Core Web Vitals but a lot other factors that ar
 
 [webhint.io](https://webhint.io) _by Microsoft_
 
-webhint can be used as a [browser extension](https://webhint.io/docs/user-guide/extensions/extension-browser/), as CLI using `npx` or [directly in VS Code](https://webhint.io/docs/user-guide/extensions/vscode-webhint/). It not only scans for performance issues but also for things to improve in terms of accessibility, security and more. It is backed up by a lot of documentation which explains what you could and should do. 
+webhint can be used as a [browser extension](https://webhint.io/docs/user-guide/extensions/extension-browser/), as CLI using `npx` or [directly in VS Code](https://webhint.io/docs/user-guide/extensions/vscode-webhint/). It not only scans for performance issues but also for things to improve in terms of accessibility, security and more. It is backed up by a lot of documentation which explains what you could and should do.
 
-----
+---
 
 But what good is the best hammer if you don't know what a nail is. So let's dive deeper into some metrics, focusing again on the Core Web Vitals.
 
@@ -147,11 +147,11 @@ Measures visual stability and quantifies the amount of unexpected layout shift o
 
 Think back to that ad that loads later than the rest of the page, causing the articles paragraph to _shift_ down. But it is not only ads: slow loading images, custom fonts or scripts that load more content can cause layouts to shift unexpectedly.
 
-This metric falls in "visual stability" the category. 
+This metric falls in "visual stability" the category.
 
 There are a lot more metrics than the ones listed here, but I think these cause the most confusion for a lot of people. If you are interested in learning more about the other metrics you can find them [here](https://web.dev/metrics/).
 
----- 
+---
 
 ## Best practices performance
 
@@ -167,14 +167,14 @@ But let's take a look at a few actionable insights.
 
 When optimising images you should take the following things into account:
 
-* 👩‍🎨 **Are my images properly cropped and sized?**
-  You don't want to just provide the raw image as it came from Adobe Stock or your camera. Make sure to crop it to only what is needed and has a maximum width
-  of your websites viewport.
-* 👩‍🎨 **Am I using modern file formats, such as [`webp`](https://caniuse.com/webp) or [`avif`](https://caniuse.com/avif)?**
-  Please make sure to provide fallbacks for older browsers before making a complete switch to modern formats.
-* 👩‍💻 **Am I taking proper care of serving different images for different devices?**
-  Devices with a high-dpi screen need images with more pixels so they appear sharp. But these are much bigger than their average-dpi counterpart and therefore
-  take longer to load. You should only load these big images if a high-dpi device is used.
+-   👩‍🎨 **Are my images properly cropped and sized?**
+    You don't want to just provide the raw image as it came from Adobe Stock or your camera. Make sure to crop it to only what is needed and has a maximum width
+    of your websites viewport.
+-   👩‍🎨 **Am I using modern file formats, such as [`webp`](https://caniuse.com/webp) or [`avif`](https://caniuse.com/avif)?**
+    Please make sure to provide fallbacks for older browsers before making a complete switch to modern formats.
+-   👩‍💻 **Am I taking proper care of serving different images for different devices?**
+    Devices with a high-dpi screen need images with more pixels so they appear sharp. But these are much bigger than their average-dpi counterpart and therefore
+    take longer to load. You should only load these big images if a high-dpi device is used.
 
 > 👩‍🎨 = designer  
 > 👩‍💻 = developer
@@ -185,12 +185,12 @@ A designer can take care of generating images in the appropriate sizes and forma
 
 > I'll use some of the weak explanations used by performance tools because a deep dive into script performance is definitely not "non-tech". But I'll try to provide actionable insights along the way.
 
-* **Am I only loading scripts I need?**
-  When auditing web pages for bad performance many times 3rd party scripts are the culprit for good performance. These script load big libraries like jQuery to perform simple tasks and cause a slow down of your page. Evaluate carefully what scripts you include in your page.
-* **Are your own scripts optimised?**
-  Everything that applies to 3rd party scripts also applies to your own scripts but with one big advantage: you probably have your scripts under control and can rip out old jQuery dependencies. This is more easily said then done, of course. Give your developers time to evaluate and prepare concepts how to do bigger updates.
-* **Are you loading your scripts correctly?**
-  There are many ways to trigger the loading of a script file. Some of them are good (because they don't block page rendering for example) and some are not that good (because they _do_ block your page from rendering correctly). If you can, always use the "defer" attribute so the rendering of your page is not blocked.  
+-   **Am I only loading scripts I need?**
+    When auditing web pages for bad performance many times 3rd party scripts are the culprit for good performance. These script load big libraries like jQuery to perform simple tasks and cause a slow down of your page. Evaluate carefully what scripts you include in your page.
+-   **Are your own scripts optimised?**
+    Everything that applies to 3rd party scripts also applies to your own scripts but with one big advantage: you probably have your scripts under control and can rip out old jQuery dependencies. This is more easily said then done, of course. Give your developers time to evaluate and prepare concepts how to do bigger updates.
+-   **Are you loading your scripts correctly?**
+    There are many ways to trigger the loading of a script file. Some of them are good (because they don't block page rendering for example) and some are not that good (because they _do_ block your page from rendering correctly). If you can, always use the "defer" attribute so the rendering of your page is not blocked.
 
 {% image 'optimum-head-order.jpg', 'Optimum head are, according to @csswizardy' %}
 [via @smashingmag](https://twitter.com/smashingmag/status/1440697011985018881?s=27)

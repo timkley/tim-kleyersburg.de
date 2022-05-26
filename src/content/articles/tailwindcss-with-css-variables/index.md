@@ -17,9 +17,9 @@ module.exports = {
         extend: {
             colors: {
                 'primary-dark': '#1c3d5a',
-                'primary': '#3490dc',
+                primary: '#3490dc',
                 'primary-light': '#bcdefa',
-            }
+            },
         },
     },
     // ... rest of the config
@@ -50,9 +50,9 @@ module.exports = {
         extend: {
             colors: {
                 'primary-dark': 'var(--primary-dark)',
-                'primary': 'var(--primary)',
+                primary: 'var(--primary)',
                 'primary-light': 'var(--primary-light)',
-            }
+            },
         },
     },
     // ... rest of the config
@@ -84,7 +84,7 @@ Setting a CSS variable from JavaScript is as simple as calling the `setProperty`
 Since we set those variables for `:root` the `documentElement` made sense for us:
 
 ```js
-document.documentElement.style.setProperty(`--variable-name`, newValue);
+document.documentElement.style.setProperty(`--variable-name`, newValue)
 ```
 
 ### CodePen example

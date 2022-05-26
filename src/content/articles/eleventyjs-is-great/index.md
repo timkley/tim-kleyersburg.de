@@ -9,13 +9,13 @@ tags:
 
 I wanted to create a new version of my website for quite some time. [The old version](https://github.com/timkley/tim-kleyersburg.de/tree/54da506cab1f437faf98c4c87e5c89dd82b99222) was just one site which was also statically generated HTML. I was using `gulp` along with a plugin so I could use [Twig templates](https://twig.symfony.com/doc/2.x/), mainly because I hate to repeat myself in templates, even if it's just a few hundred lines of markup.
 
-I learned the hard way that missing abstraction is the source of many bugs that never should have occurred in the first place. In my early days it was much easier to just copy and paste the (seemingly final) pieces of code, swap out their contents and *be done with it* ™.
+I learned the hard way that missing abstraction is the source of many bugs that never should have occurred in the first place. In my early days it was much easier to just copy and paste the (seemingly final) pieces of code, swap out their contents and _be done with it_ ™.
 
-Jokes on me: I never should have assumed there's such a thing as *being done* when it comes to the web. Everything is subject to change, at any time. Some may call this a curse, to me it's one of the greatest things about the web. Every mistake can be undone, nothing is final. Accepting this premise greatly reduced my anxiety about shipping the perfect thing on the first try.
+Jokes on me: I never should have assumed there's such a thing as _being done_ when it comes to the web. Everything is subject to change, at any time. Some may call this a curse, to me it's one of the greatest things about the web. Every mistake can be undone, nothing is final. Accepting this premise greatly reduced my anxiety about shipping the perfect thing on the first try.
 
 > Ship early, iterate, improve.
 
-I don't know about you, but I know what *I* did last summer. I wanted to redesign my website and start to write articles about things I care.
+I don't know about you, but I know what _I_ did last summer. I wanted to redesign my website and start to write articles about things I care.
 
 At first I tried to come up with a solution with my existing setup but couldn't really see how to integrate a blog into my site.
 
@@ -28,7 +28,7 @@ Developer experience is important to me. I want to be able to make my own decisi
 I knew I did not want to install a CMS. At first [Statamic](https://statamic.com) seemed like an obvious choice. We are using it for every new site we build in [our agency](https://www.wacg.de) and I like everything about it.  
 But: a CMS also has drawbacks. In my case I didn't want another system I have to manage. I didn't want its shiny cool features. I just wanted to create content and present myself as easy as possible.
 
-So I explored something else. 
+So I explored something else.
 
 ## Jamstack: the elephant in the room
 
