@@ -59,4 +59,12 @@ module.exports = {
         require('@tailwindcss/line-clamp'),
         require('@tailwindcss/typography'),
     ],
+    corePlugins: {
+        textOpacity: false,
+        backgroundOpacity: false,
+        borderOpacity: false,
+        divideOpacity: false,
+        placeholderOpacity: false,
+        ringOpacity: false
+    }
 }
