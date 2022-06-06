@@ -29,7 +29,9 @@
                 {{ content | readtime }} minutes to read
             </div>
         </div>
-        {% include 'tag-list.njk' %}
+        <div class="mt-2">
+            {% include 'tag-list.njk' %}
+        </div>
 
         {{ content | safe }}
 
