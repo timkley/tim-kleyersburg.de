@@ -7,6 +7,7 @@ tags:
     - smarthome
     - quicktip
 ---
+{% from 'macros.njk' import alert %}
 
 From time to time you'll want to update your Home Assistant instance you've [previously set up](/articles/home-assistant-with-docker-2022/) to the latest version.
 
@@ -27,7 +28,11 @@ docker-compose pull
 This will pull the latest images used in your `docker-compose.yml` file.  
 While you wait, why dont't you read [the official documentation](https://docs.docker.com/compose/reference/pull/)? 🙂
 
-!This will _not_ interrupt the running containers just yet, so your Home Assistant instance is still available through this process.
+{% set content %}
+This will _not_ interrupt the running containers just yet, so your Home Assistant instance is still available through this process.
+{% endset %}
+
+{{ alert(content) }}
 
 ### Recreate the Home Assistant instance
 
