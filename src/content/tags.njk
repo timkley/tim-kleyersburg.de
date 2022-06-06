@@ -18,6 +18,6 @@ permalink: /tags/{{ tag | slug }}/
 <div class="mx-auto max-w-3xl">
   {{ heading('h1', 'All articles tagged “' + tag +'”') }}
 
-  {% set items = collections[tag] %}
+  {% set items = collections[tag] | reverse %}
   {% include 'article-list.njk' %}
 </div>
