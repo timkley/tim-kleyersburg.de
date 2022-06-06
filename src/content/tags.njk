@@ -13,11 +13,11 @@ pagination:
   addAllPagesToCollections: true
 permalink: /tags/{{ tag | slug }}/
 ---
-<h1 class="text-center text-2xl font-bold mb-8">All articles tagged “{{ tag }}”</h1>
-<div>
-  <div>
+{% from 'macros.njk' import heading %}
 
-    </div>
+<div class="mx-auto max-w-3xl">
+  {{ heading('h1', 'All articles tagged “' + tag +'”') }}
+
+  {% set items = collections[tag] %}
+  {% include 'article-list.njk' %}
 </div>
-{% set items = collections[tag] %}
-{% include 'article-list.njk' %}
