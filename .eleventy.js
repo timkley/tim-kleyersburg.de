@@ -25,6 +25,16 @@ module.exports = (eleventyConfig) => {
     eleventyConfig.addPlugin(require('eleventy-plugin-torchlight'))
     eleventyConfig.addPlugin(require('@11ty/eleventy-plugin-rss'))
 
+    // can be removed after upgradung to 11ty@v2
+    // see: https://github.com/11ty/eleventy/issues/2438
+    let markdownIt = require('markdown-it')
+    let options = {
+        breaks:true, 
+        html: true,
+        linkify: true
+    }
+    eleventyConfig.setLibrary('md', markdownIt(options).disable('code'))
+
     return {
         markdownTemplateEngine: 'njk',
         dir: {
