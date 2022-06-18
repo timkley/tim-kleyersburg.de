@@ -2,7 +2,7 @@
 date: 2022-06-06
 title: 'How to update your docker-containers running Home Assistant'
 hero: 'hero-image.jpg'
-metaDescription: 'Updating Home Assistant with docker-compose is quick and easy'
+metaDescription: 'Learn the commands you need to run to update Home Assistant with docker-compose'
 tags:
     - smarthome
     - quicktip
@@ -43,5 +43,9 @@ docker-compose up -d
 ```
 
 This will recreate the containers with the newest images that got pulled before.
+
+If you've done everything like described above, the output should look something like this:
+
+{% image 'update-commands.jpg', 'Screenshot of the commands outputted in a terminal window' %}
 
 Now revisit your Home Assistant dashboard and enjoy the newest version 😎
