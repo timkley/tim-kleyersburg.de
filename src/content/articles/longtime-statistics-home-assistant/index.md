@@ -5,7 +5,6 @@ hero: 'hero-image.jpg'
 metaDescription: 'Use the raw data from the Home Assistant database and some SQL to visualise data over longer periods of time.'
 tags:
     - smarthome
-    - quicktip
 ---
 {% from 'macros.njk' import alert %}
 
