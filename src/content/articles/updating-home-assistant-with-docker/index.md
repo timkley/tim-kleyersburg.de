@@ -6,7 +6,9 @@ metaDescription: 'Learn the commands you need to run to update Home Assistant wi
 tags:
     - smarthome
     - quicktip
+    - docker
 ---
+
 {% from 'macros.njk' import alert %}
 
 From time to time you'll want to update your Home Assistant instance you've [previously set up](/articles/home-assistant-with-docker-2022/) to the latest version.
@@ -36,7 +38,7 @@ This will _not_ interrupt the running containers just yet, so your Home Assistan
 
 ### Recreate the Home Assistant instance
 
-When this process is finished you can now recreate the containers running the same command as for the first time you started your containers: 
+When this process is finished you can now recreate the containers running the same command as for the first time you started your containers:
 
 ```sh
 docker-compose up -d

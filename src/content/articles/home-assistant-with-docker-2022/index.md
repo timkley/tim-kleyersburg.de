@@ -5,6 +5,7 @@ hero: 'hero-image.jpg'
 metaDescription: 'An up to date guide how to set up a fresh installation of Home Assistant with Docker'
 tags:
     - smarthome
+    - docker
 ---
 
 It finally happened: there was a Raspberry Pi 4 with 8GB RAM in stock that wasn't outrageously priced.
