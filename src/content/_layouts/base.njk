@@ -2,7 +2,7 @@
 <html lang="de" class="scroll-smooth">
 <head>
     <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="{{ metaViewport|default('width=device-width, initial-scale=1') }}">
     <meta name="description" content="{{ metaDescription|default('Get to know me.') }}">
     <title>{{ title|default('Tim Kleyersburg') }}</title>
 
@@ -79,7 +79,7 @@
             </div>
         </div>
     </div>
-        
+
     <footer class="fixed bottom-0 w-full h-1 bg-gradient-to-r from-blue-700 to-blue-300"></footer>
 {% endblock %}
 
