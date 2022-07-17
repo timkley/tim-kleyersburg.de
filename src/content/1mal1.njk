@@ -56,7 +56,13 @@
                             ⌫
                         </button>
                         <button
-                                class="{{ tileClass }} col-start-3"
+                                class="{{ tileClass }}"
+                                @click="handleKey(0)"
+                        >
+                            0
+                        </button>
+                        <button
+                                class="{{ tileClass }}"
                                 @click="handleKey('enter')"
                         >
                             ⏎
@@ -73,7 +79,9 @@
                 </div>
             </template>
             <template x-if="status === 'finished'">
-                {{ heading('h2', 'Das hast du ganz toll gemacht! 🥳') }}
+                <h1 class="tracking-wide font-bold text-4xl dark:text-white mb-12">
+                    Das hast du ganz toll gemacht! 🥳 💯
+                </h1>
             </template>
         </div>
     </div>
