@@ -7,62 +7,55 @@
 {% block header %}{% endblock %}
 
 {% block content %}
-    {% set tileClass = 'bg-gray-100 rounded flex items-center justify-center font-bold text-3xl' %}
+    {% set tileClass = 'w-16 h-16 bg-gray-100 dark:bg-gray-700 rounded flex items-center justify-center font-bold text-3xl' %}
     <div class="text-center">
-        <div x-data="multi"
-             class="h-[100svh] sm:h-auto"
-        >
+        <div x-data="multi">
             <template x-if="status === 'playing'">
                 <div>
-                    {{ heading('h1', '1 mal 1') }}
+                    <h1 class="tracking-wide font-bold text-4xl dark:text-white mb-12">🤖 1 mal 1 💯</h1>
+                    <div class="flex items-center justify-center mb-3"
+                         :class="{'flex-row-reverse': Math.random() > 0.5}">
+                        <div
+                                class="{{ tileClass }} relative overflow-hidden !bg-cyan-400/30"
+                                x-text="term[0]">
+                        </div>
+                        <div class="w-10 text-center text-2xl font-bold">×</div>
+                        <div
+                                class="{{ tileClass }} relative overflow-hidden !bg-pink-400/30"
+                                x-text="term[1]">
+                        </div>
+                    </div>
                     <div class="text-gray-500 mb-2">
                         <span>noch</span>
                         <span x-text="decks.initial.length + decks.lost.length"></span>
                         <span>Aufgaben</span>
                     </div>
-                    <div class="flex justify-center space-x-4 mb-3">
-                        <div>
-                            <span x-text="decks.won.length"></span>
-                            <span>gewusst</span>
-                        </div>
-                        <div>
-                            <span x-text="decks.lost.length"></span>
-                            <span>noch mal üben</span>
-                        </div>
-                    </div>
-                    <div class="flex items-center justify-center mb-3"
-                         :class="{'flex-row-reverse': Math.random() > 0.5}">
-                        <div class="{{ tileClass }} w-12 h-12"
-                             x-text="term[0]"></div>
-                        <div class="w-6 text-center font-bold">×</div>
-                        <div class="{{ tileClass }} w-12 h-12"
-                             x-text="term[1]"></div>
-                    </div>
+
                     <div>
                         <input
-                                class="border-2 rounded focus:outline-none focus:border-gray-400 px-3 py-2 text-3xl text-center w-24 font-bold"
+                                class="border-2 rounded focus:outline-none focus:border-gray-400 dark:bg-gray-700 px-3 py-2 text-3xl text-center w-24 font-bold"
                                 type="text"
                                 x-model="guess"
                                 autofocus
                                 @keyup.enter="solve">
                     </div>
-                    <div class="max-w-[300px] mx-auto grid grid-cols-3 grid-rows-4 gap-3 justify-items-center mt-4 sm:hidden">
+                    <div class="w-fit mx-auto grid grid-cols-3 grid-rows-4 gap-3 justify-items-center mt-4 sm:hidden">
                         {% for i in range(1,10) %}
                             <button
-                                    class="{{ tileClass }} aspect-square w-full h-full focus:bg-gray-200"
+                                    class="{{ tileClass }} focus:bg-gray-200"
                                     @click="handleKey({{ i }})"
                             >
                                 {{ i }}
                             </button>
                         {% endfor %}
                         <button
-                                class="{{ tileClass }} w-full"
+                                class="{{ tileClass }}"
                                 @click="handleKey('backspace')"
                         >
                             ⌫
                         </button>
                         <button
-                                class="{{ tileClass }} w-full col-start-3"
+                                class="{{ tileClass }} col-start-3"
                                 @click="handleKey('enter')"
                         >
                             ⏎
@@ -86,7 +79,7 @@
 {% endblock %}
 
 {% block footer %}
-    <div class="flex justify-center space-x-2 items-center px-4 mt-12">
+    <div class="flex justify-center space-x-2 items-center px-4">
         <span>made by</span> {% include 'logo.njk' %}
     </div>
 {% endblock %}
