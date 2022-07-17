@@ -38,6 +38,7 @@
                             type="text"
                             x-model="guess"
                             autofocus
+                            inputmode="numeric"
                             @keyup.enter="solve">
                     </div>
                     <img x-show="no" x-transition class="absolute left-0 bottom-0 ml-4 mb-4 w-80 h-80 object-cover rounded-full bg-red-300" src="/img/ohno.png">
