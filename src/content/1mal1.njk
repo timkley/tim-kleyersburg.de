@@ -1,0 +1,134 @@
+{% extends 'src/content/_layouts/base.njk' %}
+{% set title = '1 mal 1 üben' %}
+{% set description = 'Übe das 1 mal 1 ganz einfach!' %}
+
+{% from 'macros.njk' import heading %}
+
+{% block header %}{% endblock %}
+
+{% block content %}
+    <div class="text-center">
+        <div x-data="multi">
+            <template x-if="status === 'playing'">
+                <div>
+                    {{ heading('h1', '1 mal 1') }}
+                    <div class="text-gray-500 mb-2">
+                        <span>noch</span>
+                        <span x-text="decks.initial.length + decks.lost.length"></span>
+                        <span>Aufgaben</span>
+                    </div>
+                    <div class="flex justify-center space-x-4 mb-3">
+                        <div>
+                            <span x-text="decks.won.length"></span>
+                            <span>gewusst</span>
+                        </div>
+                        <div>
+                            <span x-text="decks.lost.length"></span>
+                            <span>noch mal üben</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-center mb-3" :class="{'flex-row-reverse': Math.random() > 0.5}">
+                        <div class="w-12 h-12 bg-gray-100 rounded flex items-center justify-center font-bold text-3xl" x-text="term[0]"></div>
+                        <div class="w-6 text-center font-bold">×</div>
+                        <div class="w-12 h-12 bg-gray-100 rounded flex items-center justify-center font-bold text-3xl" x-text="term[1]"></div>
+                    </div>
+                    <div>
+                        <input
+                            class="border-2 rounded focus:outline-none focus:border-gray-400 px-3 py-2 text-3xl text-center w-24 font-bold"
+                            type="text"
+                            x-model="guess"
+                            autofocus
+                            @keyup.enter="solve">
+                    </div>
+                    <img x-show="no" x-transition class="absolute left-0 bottom-0 ml-4 mb-4 w-80 h-80 object-cover rounded-full bg-red-300" src="/img/ohno.png">
+                    <img x-show="yes" x-transition class="absolute left-0 bottom-0 ml-4 mb-4 w-80 h-80 object-cover rounded-full bg-green-300" src="/img/ohyes.png">
+                </div>
+            </template>
+            <template x-if="status === 'finished'">
+                {{ heading('h2', 'Das hast du ganz toll gemacht! 🥳') }}
+            </template>
+        </div>
+    </div>
+{% endblock %}
+
+{% block footer %}
+	<div class="flex justify-center space-x-2 items-center px-4 mt-12">
+        <span>made by</span> {% include 'logo.njk' %}
+    </div>
+{% endblock %}
+
+{% block scripts %}
+	{{ super() }}
+    <script type="text/javascript">
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('multi', () => ({
+                guess: '',
+                status: 'playing',
+                yes: false,
+                no: false,
+                deck: 'initial',
+                decks: {
+                    initial: [],
+                    won: [],
+                    lost: []
+                },
+                index: undefined,
+                init() {
+                    this.generateDataSet()
+                    this.randomDeckIndex()
+                },
+                solve() {
+                    if (parseInt(this.guess) === this.solution) {
+                        this.decks.won.push(this.decks.initial[this.index])
+                        this.yes = true
+
+                        setTimeout(() => {
+                            this.yes = false
+                        }, 1300)
+                    } else {
+                        this.decks.lost.push(this.decks.initial[this.index])
+                        this.no = true
+
+                        setTimeout(() => {
+                            this.no = false
+                        }, 1300)
+                    }
+
+                    this.decks[this.deck].splice(this.index, 1)
+                    this.guess = ''
+
+                    if (this.decks.initial.length === 0) {
+                        if (this.decks.lost.length === 0) {
+                            this.status = 'finished'
+                            return
+                        } else {
+                            this.deck = 'lost'
+                        }
+                    }
+                    this.randomDeckIndex()
+                },
+                get term() {
+                    return this.decks[this.deck][this.index].split('x')
+                },
+                get solution() {
+                    return this.term[0] * this.term[1]
+                },
+                randomDeckIndex() {
+                    this.index = Math.floor(Math.random() * this.decks[this.deck].length)
+                },
+                generateDataSet() {
+                    let i = 2
+                    let j = 2
+                    while (i <= 9) {
+                        while (j <= 9) {
+                            this.decks.initial.push(`${i}x${j}`)
+                            j++
+                        }
+                        i++
+                        j = i
+                    }
+                }
+            }))
+        })
+    </script>
+{% endblock %}
