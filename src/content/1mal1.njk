@@ -7,8 +7,11 @@
 {% block header %}{% endblock %}
 
 {% block content %}
+    {% set tileClass = 'bg-gray-100 rounded flex items-center justify-center font-bold text-3xl' %}
     <div class="text-center">
-        <div x-data="multi">
+        <div x-data="multi"
+             class="h-screen sm:h-auto"
+        >
             <template x-if="status === 'playing'">
                 <div>
                     {{ heading('h1', '1 mal 1') }}
@@ -27,22 +30,52 @@
                             <span>noch mal üben</span>
                         </div>
                     </div>
-                    <div class="flex items-center justify-center mb-3" :class="{'flex-row-reverse': Math.random() > 0.5}">
-                        <div class="w-12 h-12 bg-gray-100 rounded flex items-center justify-center font-bold text-3xl" x-text="term[0]"></div>
+                    <div class="flex items-center justify-center mb-3"
+                         :class="{'flex-row-reverse': Math.random() > 0.5}">
+                        <div class="{{ tileClass }} w-12 h-12"
+                             x-text="term[0]"></div>
                         <div class="w-6 text-center font-bold">×</div>
-                        <div class="w-12 h-12 bg-gray-100 rounded flex items-center justify-center font-bold text-3xl" x-text="term[1]"></div>
+                        <div class="{{ tileClass }} w-12 h-12"
+                             x-text="term[1]"></div>
                     </div>
                     <div>
                         <input
-                            class="border-2 rounded focus:outline-none focus:border-gray-400 px-3 py-2 text-3xl text-center w-24 font-bold"
-                            type="text"
-                            x-model="guess"
-                            autofocus
-                            inputmode="numeric"
-                            @keyup.enter="solve">
+                                class="border-2 rounded focus:outline-none focus:border-gray-400 px-3 py-2 text-3xl text-center w-24 font-bold"
+                                type="text"
+                                x-model="guess"
+                                autofocus
+                                @keyup.enter="solve">
                     </div>
-                    <img x-show="no" x-transition class="absolute left-0 bottom-0 ml-4 mb-4 w-80 h-80 object-cover rounded-full bg-red-300" src="/img/ohno.png">
-                    <img x-show="yes" x-transition class="absolute left-0 bottom-0 ml-4 mb-4 w-80 h-80 object-cover rounded-full bg-green-300" src="/img/ohyes.png">
+                    <div class="max-w-xs mx-auto grid grid-cols-3 grid-rows-4 gap-3 justify-items-center mt-4 sm:hidden">
+                        {% for i in range(1,10) %}
+                            <button
+                                    class="{{ tileClass }} aspect-square w-full h-full focus:bg-gray-200"
+                                    @click="handleKey({{ i }})"
+                            >
+                                {{ i }}
+                            </button>
+                        {% endfor %}
+                        <button
+                                class="{{ tileClass }} w-full"
+                                @click="handleKey('backspace')"
+                        >
+                            ⌫
+                        </button>
+                        <button
+                                class="{{ tileClass }} w-full col-start-3"
+                                @click="handleKey('enter')"
+                        >
+                            ⏎
+                        </button>
+                    </div>
+                    <img x-show="no"
+                         x-transition
+                         class="absolute left-0 bottom-0 ml-4 mb-4 w-80 h-80 object-cover rounded-full bg-red-300"
+                         src="/img/ohno.png">
+                    <img x-show="yes"
+                         x-transition
+                         class="absolute left-0 bottom-0 ml-4 mb-4 w-80 h-80 object-cover rounded-full bg-green-300"
+                         src="/img/ohyes.png">
                 </div>
             </template>
             <template x-if="status === 'finished'">
@@ -53,13 +86,14 @@
 {% endblock %}
 
 {% block footer %}
-	<div class="flex justify-center space-x-2 items-center px-4 mt-12">
+    <div class="flex justify-center space-x-2 items-center px-4 mt-12">
         <span>made by</span> {% include 'logo.njk' %}
     </div>
 {% endblock %}
 
 {% block scripts %}
-	{{ super() }}
+    {{ super() }}
+
     <script type="text/javascript">
         document.addEventListener('alpine:init', () => {
             Alpine.data('multi', () => ({
@@ -106,13 +140,20 @@
                             this.deck = 'lost'
                         }
                     }
+
                     this.randomDeckIndex()
                 },
-                get term() {
-                    return this.decks[this.deck][this.index].split('x')
-                },
-                get solution() {
-                    return this.term[0] * this.term[1]
+                handleKey(key) {
+                    switch (key) {
+                        case 'backspace':
+                            this.guess = this.guess.slice(0, -1)
+                            break;
+                        case 'enter':
+                            this.solve()
+                            break;
+                        default:
+                            this.guess += key
+                    }
                 },
                 randomDeckIndex() {
                     this.index = Math.floor(Math.random() * this.decks[this.deck].length)
@@ -128,7 +169,13 @@
                         i++
                         j = i
                     }
-                }
+                },
+                get term() {
+                    return this.decks[this.deck][this.index].split('x')
+                },
+                get solution() {
+                    return this.term[0] * this.term[1]
+                },
             }))
         })
     </script>
