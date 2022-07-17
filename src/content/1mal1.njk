@@ -10,7 +10,7 @@
     {% set tileClass = 'bg-gray-100 rounded flex items-center justify-center font-bold text-3xl' %}
     <div class="text-center">
         <div x-data="multi"
-             class="h-screen sm:h-auto"
+             class="h-[100svh] sm:h-auto"
         >
             <template x-if="status === 'playing'">
                 <div>
@@ -46,7 +46,7 @@
                                 autofocus
                                 @keyup.enter="solve">
                     </div>
-                    <div class="max-w-xs mx-auto grid grid-cols-3 grid-rows-4 gap-3 justify-items-center mt-4 sm:hidden">
+                    <div class="max-w-[300px] mx-auto grid grid-cols-3 grid-rows-4 gap-3 justify-items-center mt-4 sm:hidden">
                         {% for i in range(1,10) %}
                             <button
                                     class="{{ tileClass }} aspect-square w-full h-full focus:bg-gray-200"
