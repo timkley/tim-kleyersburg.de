@@ -8,7 +8,7 @@
 {% block header %}{% endblock %}
 
 {% block content %}
-    {% set tileClass = 'w-16 h-16 bg-gray-100 dark:bg-gray-700 rounded flex items-center justify-center font-bold text-3xl' %}
+    {% set tileClass = 'w-16 h-16 bg-sky-100 dark:bg-slate-700 rounded flex items-center justify-center font-bold text-3xl' %}
     <div class="text-center" x-data="multi">
         <template x-if="status === 'finished'">
             <h1 class="tracking-wide font-bold text-4xl dark:text-white mt-12 mb-12">
@@ -38,7 +38,7 @@
 
                 <div>
                     <input
-                            class="border-2 rounded focus:outline-none focus:border-gray-400 dark:bg-gray-700 px-3 py-2 text-3xl text-center w-24 font-bold"
+                            class="border-2 rounded dark:border-gray-600 focus:outline-none focus:border-gray-400 dark:bg-gray-700 px-3 py-2 text-3xl text-center w-24 font-bold"
                             type="text"
                             x-model="guess"
                             autofocus
