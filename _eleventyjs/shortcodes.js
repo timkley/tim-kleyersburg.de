@@ -1,5 +1,4 @@
 const path = require('path')
-const util = require('util')
 const Image = require('@11ty/eleventy-img')
 
 async function imageShortcode(
