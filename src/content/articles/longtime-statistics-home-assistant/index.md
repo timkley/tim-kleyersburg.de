@@ -6,19 +6,20 @@ metaDescription: 'Use the raw data from the Home Assistant database and some SQL
 tags:
     - smarthome
 ---
+
 {% from 'macros.njk' import alert %}
 
 This article is for you, if:
 
-* you want to visualise Home Assistant statistics over a longer period than the dashboard allows
-* you want to know more about how the database of Home Assistant works generally
+-   you want to visualise Home Assistant statistics over a longer period than the dashboard allows
+-   you want to know more about how the database of Home Assistant works generally
 
 You'll learn the following:
 
-* How the default database of Home Assistant works
-* How to connect to the database and run simple queries
-* Use a little more complex SQL to generate daily data
-* How to generate a chart using a free, open-source tool
+-   How the default database of Home Assistant works
+-   How to connect to the database and run simple queries
+-   Use a little more complex SQL to generate daily data
+-   How to generate a chart using a free, open-source tool
 
 If you want to skip the basics you can jump to [Querying and exporting data](#querying-and-exporting-data).
 
@@ -33,7 +34,7 @@ There are a few tables which Home Assistant uses to record all things that happe
 ## Connecting to the database
 
 {% set content %}
-	To follow the next steps you need to have SSH access to the machine running Home Assistant.
+To follow the next steps you need to have SSH access to the machine running Home Assistant.
 {% endset %}
 
 {{ alert(content) }}
@@ -108,7 +109,7 @@ Make sure to replace `id` with the correct ID of the sensor you want to query.
 Since the statistics platform writes to this table every hour, depending on the age of your sensor, you will get a lot of rows back. My sensor is about 2 months old, which resulted in 1.600 rows of data. Since I wanted to visualize how a sensors internal battery declined over the period of multiple weeks one data point per day will be enough:
 
 ```sql
-SELECT date(created), mean 
+SELECT date(created), mean
 /* using the date function we can strip the time from the created field */
 FROM "statistics"
 WHERE "metadata_id" = id

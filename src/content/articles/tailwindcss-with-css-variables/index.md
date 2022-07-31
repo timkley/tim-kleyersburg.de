@@ -13,16 +13,16 @@ The project was built with [TailwindCSS](https://tailwindcss.com) and our config
 
 ```js
 module.exports = {
-    theme: {
-        extend: {
-            colors: {
-                'primary-dark': '#1c3d5a',
-                primary: '#3490dc',
-                'primary-light': '#bcdefa',
-            },
-        },
-    },
-    // ... rest of the config
+	theme: {
+		extend: {
+			colors: {
+				'primary-dark': '#1c3d5a',
+				primary: '#3490dc',
+				'primary-light': '#bcdefa',
+			},
+		},
+	},
+	// ... rest of the config
 }
 ```
 
@@ -46,16 +46,16 @@ We changed our `tailwind.config.js` to this:
 
 ```js
 module.exports = {
-    theme: {
-        extend: {
-            colors: {
-                'primary-dark': 'var(--primary-dark)',
-                primary: 'var(--primary)',
-                'primary-light': 'var(--primary-light)',
-            },
-        },
-    },
-    // ... rest of the config
+	theme: {
+		extend: {
+			colors: {
+				'primary-dark': 'var(--primary-dark)',
+				primary: 'var(--primary)',
+				'primary-light': 'var(--primary-light)',
+			},
+		},
+	},
+	// ... rest of the config
 }
 ```
 
@@ -63,11 +63,11 @@ Now we could just set the colours from our server side rendered templates like t
 
 ```html
 <style>
-    :root {
-        --primary-dark: #1c3d5a;
-        --primary: #3490dc;
-        --primary-light: #bcdefa;
-    }
+	:root {
+		--primary-dark: #1c3d5a;
+		--primary: #3490dc;
+		--primary-light: #bcdefa;
+	}
 </style>
 ```
 

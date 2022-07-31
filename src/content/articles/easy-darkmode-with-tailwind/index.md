@@ -15,16 +15,16 @@ Since my site is very simple the changes were just a few lines of code. Just use
 
 ```html
 <body class="bg-gray-50">
-    <!-- [tl! --] -->
-    <body class="bg-gray-50 dark:bg-gray-800 dark:text-gray-100">
-        <!-- [tl! ++] -->
-    </body>
+	<!-- [tl! --] -->
+	<body class="bg-gray-50 dark:bg-gray-800 dark:text-gray-100">
+		<!-- [tl! ++] -->
+	</body>
 </body>
 ```
 
 ```postcss
 a {
-    @apply hover:text-gray-700 // [tl! --]
+	@apply hover:text-gray-700 // [tl! --]
     @apply hover:text-gray-700 dark:hover:text-gray-400 // [tl! ++];
 }
 ```
@@ -33,8 +33,8 @@ After updating the Typography plugin to the latest version using `npm install -D
 
 ```html
 <div class="prose">
-    <!-- [tl! --] -->
-    <div class="prose dark:prose-invert"><!-- [tl! ++] --></div>
+	<!-- [tl! --] -->
+	<div class="prose dark:prose-invert"><!-- [tl! ++] --></div>
 </div>
 ```
 

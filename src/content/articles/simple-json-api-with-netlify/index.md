@@ -4,7 +4,7 @@ title: 'How to build a simple JSON API with Netlify functions'
 hero: 'hero-image.jpg'
 metaDescription: 'Serverless functions are a great way to return random strings as JSON'
 tags:
-- api
+    - api
 ---
 
 {% from 'macros.njk' import alert %}
@@ -40,7 +40,7 @@ hello-world
 └── netlify
     └── functions
         └── hello-world.js
- 
+
 2 directories, 1 file
 ```
 
@@ -69,7 +69,7 @@ This is because our file is still empty and no function was exported. Every file
 
 ```javascript
 exports.handler = (event, context) => {
-    // ...
+	// ...
 }
 ```
 
@@ -80,10 +80,10 @@ The function must return an object which is compatible with the [JavaScript Resp
 
 ```javascript
 exports.handler = async (event, context) => {
-    return {
-        statusCode: 200,
-        body: 'Hello World!',
-    }
+	return {
+		statusCode: 200,
+		body: 'Hello World!',
+	}
 }
 ```
 
@@ -97,24 +97,24 @@ Instead of jokes let's return some Star Wars jokes. Rename your `hello-world.js`
 
 ```javascript
 exports.handler = async (event, context) => {
-  const quotes = [
-    'I find your lack of faith disturbing.',
-    'Do. Or do not. There is no try.',
-    'A long time ago in a galaxy far, far away...',
-  ]
- 
-  const randomQuote = quotes[Math.floor(Math.random() * quotes.length)]
- 
-  const response = JSON.stringify({'quote': randomQuote})
- 
-  return {
-    statusCode: 200,
-    body: response,
-    headers: {
-      'Content-Type': 'application/json; charset=utf-8',
-      'Access-Control-Allow-Origin': '*',
-    }
-  }
+	const quotes = [
+		'I find your lack of faith disturbing.',
+		'Do. Or do not. There is no try.',
+		'A long time ago in a galaxy far, far away...',
+	]
+
+	const randomQuote = quotes[Math.floor(Math.random() * quotes.length)]
+
+	const response = JSON.stringify({ quote: randomQuote })
+
+	return {
+		statusCode: 200,
+		body: response,
+		headers: {
+			'Content-Type': 'application/json; charset=utf-8',
+			'Access-Control-Allow-Origin': '*',
+		},
+	}
 }
 ```
 

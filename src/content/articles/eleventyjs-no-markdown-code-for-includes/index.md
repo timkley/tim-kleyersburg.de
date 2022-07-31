@@ -18,9 +18,9 @@ I knew I could set [a default template engine for markdown files](https://www.11
 
 ```js
 module.exports = function (eleventyConfig) {
-    return {
-        markdownTemplateEngine: 'njk',
-    }
+	return {
+		markdownTemplateEngine: 'njk',
+	}
 }
 ```
 
@@ -70,6 +70,7 @@ To understand what the problem was let's take a quick look how I implemented tha
     Dynamic track title and artist
 {% endblock %}
 ```
+
 {% endraw %}
 
 Turns out: my problem was my notorious need for correctly indenting everything. When providing the content for the blocks I naturally indented everything between the `block` statements, therefore adding to much indentation. Changing it to the following solved my problem:
@@ -89,6 +90,7 @@ Turns out: my problem was my notorious need for correctly indenting everything. 
 Dynamic track title and artist [tl! add]
 {% endblock %}
 ```
+
 {% endraw %}
 
 But that's ugly. [Whitespace control](https://mozilla.github.io/nunjucks/templating.html#whitespace-control) to the rescue! Quoting from the docs:
@@ -98,6 +100,7 @@ But that's ugly. [Whitespace control](https://mozilla.github.io/nunjucks/templat
 Yep, that's what I wanted. My first instinct was to use it on the `include`. But that was wrong, because my extra whitespace was clearly coming from my blocks. So I changed my implementation of `last-tweet.njk` to this:
 
 {% raw %}
+
 ```
 {% extends '_last-thing.njk' %}
 

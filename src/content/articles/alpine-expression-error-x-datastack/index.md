@@ -22,7 +22,7 @@ You need to change it to this (instead of a `div` you may use any other valid HT
 
 ```html
 <template x-if="loading">
-    <div>Loading...</div>
+	<div>Loading...</div>
 </template>
 ```
 

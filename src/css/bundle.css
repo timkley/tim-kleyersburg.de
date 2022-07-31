@@ -3,35 +3,36 @@
 @tailwind utilities;
 
 @layer base {
-    @font-face {
-        font-family: 'Source Sans Pro';
-        font-style: normal;
-        font-weight: 400;
-        src: local(''),
-        url('/fonts/source-sans-pro-v14-latin-regular.woff2') format('woff2');
-    }
+	@font-face {
+		font-family: 'Source Sans Pro';
+		font-style: normal;
+		font-weight: 400;
+		src: local(''),
+			url('/fonts/source-sans-pro-v14-latin-regular.woff2')
+				format('woff2');
+	}
 
-    @font-face {
-        font-family: 'Source Sans Pro';
-        font-style: normal;
-        font-weight: 600;
-        src: local(''),
-        url('/fonts/source-sans-pro-v14-latin-600.woff2') format('woff2');
-    }
+	@font-face {
+		font-family: 'Source Sans Pro';
+		font-style: normal;
+		font-weight: 600;
+		src: local(''),
+			url('/fonts/source-sans-pro-v14-latin-600.woff2') format('woff2');
+	}
 
-    @font-face {
-        font-family: 'Source Sans Pro';
-        font-style: normal;
-        font-weight: 700;
-        src: local(''),
-        url('/fonts/source-sans-pro-v14-latin-700.woff2') format('woff2');
-    }
+	@font-face {
+		font-family: 'Source Sans Pro';
+		font-style: normal;
+		font-weight: 700;
+		src: local(''),
+			url('/fonts/source-sans-pro-v14-latin-700.woff2') format('woff2');
+	}
 
-    html {
-        -webkit-tap-highlight-color: transparent;
-    }
+	html {
+		-webkit-tap-highlight-color: transparent;
+	}
 
-    a {
-        @apply transition dark:text-white hover:text-sky-700 dark:hover:text-sky-200 border-b border-sky-400 hover:border-sky-600;
-    }
+	a {
+		@apply transition dark:text-white hover:text-sky-700 dark:hover:text-sky-200 border-b border-sky-400 hover:border-sky-600;
+	}
 }

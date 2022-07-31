@@ -46,12 +46,12 @@ The site was no SPA, instead we wrapped the whole site with a `#app` div which w
 
 ```html
 <notepad-star
-    :product-id="{% raw %}{{ product_id }}{% endraw %}"
-    :initial-star="{% raw %}{{ is_stared(product_id) ? 'true' : 'false' }}{% endraw %}"
+	:product-id="{% raw %}{{ product_id }}{% endraw %}"
+	:initial-star="{% raw %}{{ is_stared(product_id) ? 'true' : 'false' }}{% endraw %}"
 >
-    <div>
-        <button @click.prevent="toggle">Toggle</button>
-    </div>
+	<div>
+		<button @click.prevent="toggle">Toggle</button>
+	</div>
 </notepad-star>
 ```
 
@@ -115,11 +115,11 @@ Before optimising we first needed to understand the problem on a deeper level. A
 
 ```javascript
 export const searchOverlay = {
-    data() {
-        return {
-            showSearchOverlay: false,
-        }
-    },
+	data() {
+		return {
+			showSearchOverlay: false,
+		}
+	},
 }
 ```
 
@@ -210,26 +210,26 @@ import customEvent from '@/helper/customEvent'
 import { MODAL_OPEN, MODAL_OPENED, MODAL_CLOSE } from '@/enums/events'
 
 window.modal = () => ({
-    open: false,
-    init() {
-        if (this.instantDisplay !== undefined) {
-            this.open = true
-        }
-    },
-    close() {
-        this.open = false
-        customEvent(MODAL_CLOSE, this.name)
-    },
-    wrapper: {
-        async [`@${MODAL_OPEN}.window`](e) {
-            if (modalToOpen !== e.payload.name) {
-                return
-            }
+	open: false,
+	init() {
+		if (this.instantDisplay !== undefined) {
+			this.open = true
+		}
+	},
+	close() {
+		this.open = false
+		customEvent(MODAL_CLOSE, this.name)
+	},
+	wrapper: {
+		async [`@${MODAL_OPEN}.window`](e) {
+			if (modalToOpen !== e.payload.name) {
+				return
+			}
 
-            customEvent(MODAL_OPENED, this.name)
-            this.open = true
-        },
-    },
+			customEvent(MODAL_OPENED, this.name)
+			this.open = true
+		},
+	},
 })
 ```
 
@@ -251,19 +251,19 @@ This is what our `customEvent` helper looks like.
 
 ```javascript
 export default function (name, payload = null, originalEvent = null) {
-    // options should be an object with:
-    // name: 'string',
-    // payload: 'object'
-    // originalEvent: 'this', if you need the actual target that was clicked
+	// options should be an object with:
+	// name: 'string',
+	// payload: 'object'
+	// originalEvent: 'this', if you need the actual target that was clicked
 
-    const customEvent = new CustomEvent(name, {
-        detail: {
-            payload: payload,
-            originalEvent: originalEvent,
-        },
-    })
+	const customEvent = new CustomEvent(name, {
+		detail: {
+			payload: payload,
+			originalEvent: originalEvent,
+		},
+	})
 
-    window.dispatchEvent(customEvent)
+	window.dispatchEvent(customEvent)
 }
 ```
 
@@ -288,17 +288,17 @@ import customEvent from '@/helper/customEvent'
 import { SEARCH_GET } from '@/enums/events'
 
 async function getResultFor(searchTerm) {
-    let result = undefined
+	let result = undefined
 
-    await fetch(`/search?q=${searchTerm}`)
-        .then((response) => response.json())
-        .then((data) => {
-            result = data
-        })
+	await fetch(`/search?q=${searchTerm}`)
+		.then((response) => response.json())
+		.then((data) => {
+			result = data
+		})
 
-    customEvent(SEARCH_GET, result)
+	customEvent(SEARCH_GET, result)
 
-    return result
+	return result
 }
 
 export { getResultFor }
@@ -312,14 +312,14 @@ We have one store for each part, these are the few lines of code we use to manag
 
 ```javascript
 Spruce.store('megamenu', {
-    activeId: null,
-    toggle(id) {
-        if (id === this.activeId) {
-            this.activeId = null
-            return
-        }
-        this.activeId = id
-    },
+	activeId: null,
+	toggle(id) {
+		if (id === this.activeId) {
+			this.activeId = null
+			return
+		}
+		this.activeId = id
+	},
 })
 ```
 

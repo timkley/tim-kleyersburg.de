@@ -125,14 +125,14 @@ In fact, the following code, directly taken from the basic cloudflare template, 
 ```js
 // 1. listen for fetch events
 addEventListener('fetch', (event) => {
-    event.respondWith(handleRequest(event.request))
+	event.respondWith(handleRequest(event.request))
 })
 
 // 2. event handler which returns a Response object
 async function handleRequest(request) {
-    return new Response('Hello worker!', {
-        headers: { 'content-type': 'text/plain' },
-    })
+	return new Response('Hello worker!', {
+		headers: { 'content-type': 'text/plain' },
+	})
 }
 ```
 
@@ -163,9 +163,9 @@ We'll gradually build up our `handleRequest` method step by step so you can foll
 ```js
 // Note that we are using an `async` function. This will become important from step 2 onward
 async function handleRequest(event) {
-    // You can find the API documentation here: https://www.last.fm/api/show/user.getRecentTracks
-    // We use template strings to interpolate our secret API key into the URL
-    const url = `http://ws.audioscrobbler.com/2.0/?format=json&method=user.getrecenttracks&user=your-username&limit=1&api_key=${LASTFM_API_KEY}`
+	// You can find the API documentation here: https://www.last.fm/api/show/user.getRecentTracks
+	// We use template strings to interpolate our secret API key into the URL
+	const url = `http://ws.audioscrobbler.com/2.0/?format=json&method=user.getrecenttracks&user=your-username&limit=1&api_key=${LASTFM_API_KEY}`
 }
 ```
 
@@ -175,17 +175,17 @@ async function handleRequest(event) {
 
 ```js
 async function handleRequest(event) {
-    const url = `http://ws.audioscrobbler.com/2.0/?format=json&method=user.getrecenttracks&user=your-username&limit=1&api_key=${LASTFM_API_KEY}`
+	const url = `http://ws.audioscrobbler.com/2.0/?format=json&method=user.getrecenttracks&user=your-username&limit=1&api_key=${LASTFM_API_KEY}`
 
-    // we'll use `fetch` in combination with `await` so we don't have to manually resolve the returned `Promise`
-    // this is why we defined the whole function as `async`, so we can use `await`
-    const response = await fetch(url)
+	// we'll use `fetch` in combination with `await` so we don't have to manually resolve the returned `Promise`
+	// this is why we defined the whole function as `async`, so we can use `await`
+	const response = await fetch(url)
 
-    // `fetch` will resolve to a [Response object](https://developer.mozilla.org/en-US/docs/Web/API/Response)
-    // We will use the `json` method to return the responses results as a JavaScript object
-    // note that we'll again use `await` since .json() returns a `Promise`
+	// `fetch` will resolve to a [Response object](https://developer.mozilla.org/en-US/docs/Web/API/Response)
+	// We will use the `json` method to return the responses results as a JavaScript object
+	// note that we'll again use `await` since .json() returns a `Promise`
 
-    const result = await response.json()
+	const result = await response.json()
 }
 ```
 
@@ -195,21 +195,21 @@ async function handleRequest(event) {
 
 ```js
 async function handleRequest(event) {
-    const url = `http://ws.audioscrobbler.com/2.0/?format=json&method=user.getrecenttracks&user=your-username&limit=1&api_key=${LASTFM_API_KEY}`
+	const url = `http://ws.audioscrobbler.com/2.0/?format=json&method=user.getrecenttracks&user=your-username&limit=1&api_key=${LASTFM_API_KEY}`
 
-    const response = await fetch(url)
-    const result = await response.json()
+	const response = await fetch(url)
+	const result = await response.json()
 
-    return new Response(
-        // we'll use JSON.stringify() to convert the returned JavaScript object to a string which can be sent in a response
-        JSON.stringify(response),
-        {
-            headers: {
-                // we'll set a CORS header to allow access to this resource from everywhere
-                'Access-Control-Allow-Origin': '*',
-            },
-        }
-    )
+	return new Response(
+		// we'll use JSON.stringify() to convert the returned JavaScript object to a string which can be sent in a response
+		JSON.stringify(response),
+		{
+			headers: {
+				// we'll set a CORS header to allow access to this resource from everywhere
+				'Access-Control-Allow-Origin': '*',
+			},
+		}
+	)
 }
 ```
 
@@ -223,35 +223,35 @@ Currently we will make a request to the Last.FM API every time our serverless fu
 
 ```js
 async function handleRequest(event) {
-    // Initialize the default cache
-    const cache = caches.default
+	// Initialize the default cache
+	const cache = caches.default
 
-    // use .match() to see if we have a cache hit, if so return the caches response early
-    let response = await cache.match(event.request)
-    if (response) {
-        return response
-    }
+	// use .match() to see if we have a cache hit, if so return the caches response early
+	let response = await cache.match(event.request)
+	if (response) {
+		return response
+	}
 
-    // we'll chain our await calls to get the JSON response in one line
-    const lastfmResponse = await (
-        await fetch(
-            `http://ws.audioscrobbler.com/2.0/?format=json&method=user.getrecenttracks&user=timmotheus&limit=1&api_key=${LASTFM_API_KEY}`
-        )
-    ).json()
+	// we'll chain our await calls to get the JSON response in one line
+	const lastfmResponse = await (
+		await fetch(
+			`http://ws.audioscrobbler.com/2.0/?format=json&method=user.getrecenttracks&user=timmotheus&limit=1&api_key=${LASTFM_API_KEY}`
+		)
+	).json()
 
-    response = new Response(JSON.stringify(response), {
-        headers: {
-            'Access-Control-Allow-Origin': '*',
-            // We set a max-age of 300 seconds which is equivalent to 5 minutes.
-            // If the last response is older than that the cache.match() call returns nothing and and a new response is fetched
-            'Cache-Control': 'max-age: 300',
-        },
-    })
+	response = new Response(JSON.stringify(response), {
+		headers: {
+			'Access-Control-Allow-Origin': '*',
+			// We set a max-age of 300 seconds which is equivalent to 5 minutes.
+			// If the last response is older than that the cache.match() call returns nothing and and a new response is fetched
+			'Cache-Control': 'max-age: 300',
+		},
+	})
 
-    // before returning the response we put a clone of our response object into the cache so it can be resolved later
-    event.waitUntil(cache.put(event.request, response.clone()))
+	// before returning the response we put a clone of our response object into the cache so it can be resolved later
+	event.waitUntil(cache.put(event.request, response.clone()))
 
-    return response
+	return response
 }
 ```
 
