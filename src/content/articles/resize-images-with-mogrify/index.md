@@ -36,6 +36,6 @@ Let's break this command down bit by bit:
 `-extent`: Extends the image to 500 x 500 pixels, our final format. Since `gravity` is set to `center` it gets extended equally on all 4 sides.
 `-background`: Define a background color
 `-format`: Defines the format
-`"*"`: Double quotes converts the wildcard to a blob
+`"*"`: Double quotes ensure that the wildcard glob is not expanded by the shell, but mogrify itself.
 
 If you now run this command in a folder with all your images you will have perfectly square images which can be directly used without any CSS tricks.
