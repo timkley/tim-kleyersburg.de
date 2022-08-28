@@ -12,9 +12,18 @@
     {% set tileClass = 'w-16 h-16 bg-sky-100 dark:bg-slate-700 rounded flex items-center justify-center font-bold text-3xl' %}
     <div class="text-center" x-data="multi">
         <template x-if="status === 'finished'">
-            <h1 class="tracking-wide font-bold text-4xl dark:text-white mt-12 mb-12">
-                Das hast du ganz toll gemacht! 🥳 💯
-            </h1>
+            <div>
+                <h1 class="tracking-wide font-bold text-4xl dark:text-white mt-12 mb-12">
+                    Das hast du ganz toll gemacht! 🥳 💯
+                </h1>
+
+                <p class="text-lg mb-1">
+                    Du hattest <span class="font-bold" x-text="errors"></span> Fehler.
+                </p>
+                <p class="text-lg">
+                    Du hast <span class="font-bold" x-text="duration"></span> gebraucht.
+                </p>
+            </div>
         </template>
         <template x-if="status === 'playing'">
             <div>
@@ -106,12 +115,17 @@
                 decks: {
                     initial: [],
                     won: [],
-                    lost: []
+                    lost: [],
                 },
+                errors: 0,
+                gameStart: undefined,
+                gameEnd: undefined,
                 index: undefined,
                 init() {
                     this.generateDataSet()
                     this.randomDeckIndex()
+
+                    this.gameStart = new Date()
                 },
                 solve() {
                     if (parseInt(this.guess) === this.solution) {
@@ -120,14 +134,15 @@
 
                         setTimeout(() => {
                             this.yes = false
-                        }, 1300)
+                        }, 1200)
                     } else {
+                        this.errors++
                         this.decks.lost.push(this.currentDeck[this.index])
                         this.no = true
 
                         setTimeout(() => {
                             this.no = false
-                        }, 1300)
+                        }, 1200)
                     }
 
                     this.currentDeck.splice(this.index, 1)
@@ -136,6 +151,7 @@
                     if (this.decks.initial.length === 0) {
                         if (this.decks.lost.length === 0) {
                             this.status = 'finished'
+                            this.gameEnd = new Date()
                         } else {
                             this.deck = 'lost'
                         }
@@ -161,8 +177,8 @@
                 generateDataSet() {
                     let i = 2
                     let j = 2
-                    while (i <= 9) {
-                        while (j <= 9) {
+                    while (i <= 2) {
+                        while (j <= 2) {
                             this.decks.initial.push(`${i}x${j}`)
                             j++
                         }
@@ -178,6 +194,18 @@
                 },
                 get currentDeck() {
                     return this.decks[this.deck]
+                },
+                get duration() {
+                    if (!this.gameStart || !this.gameEnd) {
+                        return
+                    }
+
+                    let time = (this.gameEnd - this.gameStart) / 1000
+
+                    let minutes = Math.floor(time / 60)
+                    let seconds = Math.floor(time % 60)
+
+                    return `${minutes} Minuten und ${seconds} Sekunden`
                 }
             }))
         })
