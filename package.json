@@ -6,7 +6,7 @@
 		"url": "https://github.com/timkley/tim-kleyersburg.de"
 	},
 	"scripts": {
-		"dev:eleventy": "npx @11ty/eleventy --serve",
+		"dev:eleventy": "npx @11ty/eleventy --serve --incremental",
 		"dev:esbuild": "npx esbuild src/js/bundle.js --bundle --watch --outfile=_site/bundle.js",
 		"dev:tailwindcss": "npx tailwindcss -i src/css/bundle.css -o _site/bundle.css --watch",
 		"build:eleventy": "npx @11ty/eleventy",
