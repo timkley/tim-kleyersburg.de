@@ -55,7 +55,6 @@ Although a server with 2 GB of RAM is recommended I didn't have any problems wit
 I didn't activate the auto backup functionality because I plan to just backup the UniFi Controller settings from time to time.
 
 You could also use [Hetzner Cloud](https://www.hetzner.com/cloud) or [Netcup](https://www.netcup.de/vserver/vps.php) if those better suit your budget or needs.
-I'm thinking about switching to Netcup because it costs half but has double the RAM.
 
 To access your network controller make sure to point an A record (like `network.your-domain.com`) to your servers IP address. This is necessary if you want to access your network controller remotely with Let's Encrypt activated.
 
@@ -66,19 +65,18 @@ Community member _AmazedMender16_ [has provided an easy installation script](htt
 Basically you'll need to do the following steps:
 
 1. Login as root to the provisioned machine
-2. Make sure the `ca-certificates` package is installed
-3. Download the script
+2. Download the script
 
 ```bash
-wget https://get.glennr.nl/unifi/install/unifi-6.5.55.sh
+wget https://get.glennr.nl/unifi/install/unifi-7.2.93.sh
 ```
 
-4. Execute the script
-   `bash unifi-6.5.55.sh`
+3. Execute the script
+   `bash unifi-7.2.93.sh --email your@email.com --fqdn network.your-domain.com`
 
-You'll find all available script options in the forum thread I linked above, if you provide none the script will ask for your input while installing.
+You'll find all available script options in the forum thread I linked above, if you provide none yourself the script uses defaults, which you probably don't want.
 
-This process takes about 10 minutes from start to finish. You can then access your network controller with the domain you specified. The default ports are 8080 for an unsecured connection and 8443 for a secured connection. If everything was set up correctly you'll be automatically redirected to HTTPS.
+This process takes about 5 to 10 minutes from start to finish. You can then access your network controller with the domain you specified. The default ports are 8080 for an unsecured connection and 8443 for a secured connection. If everything could be set up correctly you'll be automatically redirected to HTTPS.
 
 You now need to set up a new administrator account which you'll use to access your controller. I used a local account for this since I didn't want to create a Ubiquity account and didn't need one for remote access since now the network controller itself was already remotely accessible.
 
@@ -88,7 +86,7 @@ After you finished these setup steps your network controller is ready to adopt y
 
 You could adopt your access points with the [UniFi Network Mobile app](https://www.ui.com/download-software/) available for iPhone and Android if you have a controller in the same network as your access points. But this doesn't work with a remote controller.
 
-UniFi access points use a so called "inform URL" to announce their presence to nearby controllers. A remote controller isn't nearby so you'll have to manually set the inform URL for your access points.
+UniFi access points use a so called "inform URL" to announce their presence to nearby controllers. A remote controller isn't nearby, so you'll have to manually set the inform URL for your access points.
 
 I found a great solution in this blog post: [How to adopt a UniFi AP with a remote controller](https://blog.ktz.me/how-to-adopt-a-unifi-ap-with-a-remote-controller/)
 
@@ -124,4 +122,4 @@ But it still didn't work. The following was my thought process I went through to
 -   reactivated the wireless connection in the Fritz Box and connected to it.
 -   ssh'ed into the AP. This time it worked!
 
-Now I could just follow the steps outlined above and now I have 2 working access points 🎉
+Now I could just follow the steps outlined above, and now I have 2 working access points 🎉
