@@ -10,24 +10,22 @@
 {% block content %}
     <div class="mx-auto mb-24 prose dark:prose-invert lg:prose-lg md:mt-8 lg:mt-16">
         <h1>{{ title }}</h1>
-        <div class="items-center sm:flex sm:space-x-3">
-            <div class="flex items-center space-x-2 not-prose">
-                <div class="overflow-hidden flex-shrink-0 w-6 h-6 rounded-full">
-                    <img class="my-0" src="{{ author.avatarUrl }}" alt="{{ author.name }}"/>
-                </div>
-                <div>
-                    {{ author.name }}
-                    <span class="text-gray-500 dark:text-gray-400">
-                        on {{ page.date | formattedDate }}
-                    </span>
-                </div>
+        <div class="flex items-center not-prose">
+            <div class="overflow-hidden flex-shrink-0 w-6 h-6 mr-2 rounded-full">
+                <img class="my-0" src="{{ author.avatarUrl }}" alt="{{ author.name }}"/>
             </div>
-            <div class="hidden sm:block">
-                •
+            <div>
+                {{ author.name }}
+                <span class="text-gray-500 dark:text-gray-400">
+                    on {{ page.date | formattedDate }}
+                    {%- if updated_at -%}
+                        , last updated on {{ updated_at | formattedDate }}
+                    {%- endif -%}
+                </span>
             </div>
-            <div class="inline-flex items-center text-gray-500 whitespace-nowrap dark:text-gray-400">
-                {{ content | readtime }} minutes to read
-            </div>
+        </div>
+        <div class="text-gray-500 dark:text-gray-400 whitespace-nowrap mt-1">
+            {{ content | readtime }} minutes to read
         </div>
         <div class="mt-2">
             {% include 'tag-list.njk' %}
@@ -37,8 +35,9 @@
 
         <hr>
 
-		<p class="mt-4">
-            I hope this post helped you! If you have any question hit me up on <a href="https://twitter.com/timkley">Twitter</a> 😊.
+        <p class="mt-4">
+            I hope this post helped you! If you have any question hit me up on <a href="https://twitter.com/timkley">Twitter</a>
+            😊.
         </p>
 
         {% if global.environment == 'development' and seo.socialImage %}

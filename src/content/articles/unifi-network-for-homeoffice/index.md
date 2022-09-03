@@ -1,5 +1,6 @@
 ---
 date: 2022-01-06
+updated_at: 2022-09-03
 title: 'UniFi network at home: how to easily setup'
 hero: 'access-point-wifi6-lite.jpg'
 metaDescription: "Let's use a droplet from DigitalOcean to set up a network controller to manage a few access points."
