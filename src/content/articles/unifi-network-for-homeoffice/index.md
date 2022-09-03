@@ -5,6 +5,8 @@ hero: 'access-point-wifi6-lite.jpg'
 metaDescription: "Let's use a droplet from DigitalOcean to set up a network controller to manage a few access points."
 ---
 
+{% from 'macros.njk' import alert %}
+
 > This small tutorial is directed at people who want a great wireless network experience in their own home but this setup might also be suitable for small businesses with just a few access points.
 
 We recently moved into a new flat. COVID doesn't seem to go away in the near future and our company will offer working completely remote with or without the virus. So having a good internet and network connection was one of my personal priorities. We were lucky enough to get a fiber connection installed just in time for our move.  
@@ -60,23 +62,28 @@ To access your network controller make sure to point an A record (like `network.
 
 ### Installing the UniFi Network Application
 
+{% set content %}
+The following steps where successfully tested on Ubuntu 22.04 and with v7.2.92 of the Unifi Controller
+{% endset %}
+
+{{ alert(content) }}
+
 Community member _AmazedMender16_ [has provided an easy installation script](https://community.ui.com/questions/UniFi-Installation-Scripts-or-UniFi-Easy-Update-Script-or-UniFi-Lets-Encrypt-or-UniFi-Easy-Encrypt-/ccbc7530-dd61-40a7-82ec-22b17f027776) which takes away all the hassle of installing the network controller.
 
 Basically you'll need to do the following steps:
 
 1. Login as root to the provisioned machine
-2. Download the script
+2. Download and execute the install and the encrypt script with the following two commands
 
-```bash
-wget https://get.glennr.nl/unifi/install/unifi-7.2.93.sh
+```shell
+rm unifi-latest.sh &> /dev/null; wget https://get.glennr.nl/unifi/install/install_latest/unifi-latest.sh && bash unifi-latest.sh
+
+rm unifi-easy-encrypt.sh &> /dev/null; wget https://get.glennr.nl/unifi/extra/unifi-easy-encrypt.sh && bash unifi-easy-encrypt.sh
 ```
 
-3. Execute the script
-   `bash unifi-7.2.93.sh --email your@email.com --fqdn network.your-domain.com`
+You'll find all available script options in the forum thread I linked above, if you provide none yourself the script uses defaults or asks for your input (like which domain name to use).
 
-You'll find all available script options in the forum thread I linked above, if you provide none yourself the script uses defaults, which you probably don't want.
-
-This process takes about 5 to 10 minutes from start to finish. You can then access your network controller with the domain you specified. The default ports are 8080 for an unsecured connection and 8443 for a secured connection. If everything could be set up correctly you'll be automatically redirected to HTTPS.
+This process takes about 5 to 10 minutes from start to finish. You can then access your network controller with the domain you specified. The default ports are 8080 for an unsecured connection and 8443 for a secured connection. If you've used the encrypt command above you will be automatically redirected to HTTPS.
 
 You now need to set up a new administrator account which you'll use to access your controller. I used a local account for this since I didn't want to create a Ubiquity account and didn't need one for remote access since now the network controller itself was already remotely accessible.
 
@@ -86,7 +93,7 @@ After you finished these setup steps your network controller is ready to adopt y
 
 You could adopt your access points with the [UniFi Network Mobile app](https://www.ui.com/download-software/) available for iPhone and Android if you have a controller in the same network as your access points. But this doesn't work with a remote controller.
 
-UniFi access points use a so called "inform URL" to announce their presence to nearby controllers. A remote controller isn't nearby, so you'll have to manually set the inform URL for your access points.
+UniFi access points use default "inform URL" to announce their presence to local controllers. A remote controller doesn't match the default inform URL, so you'll have to manually set the inform URL for your access points.
 
 I found a great solution in this blog post: [How to adopt a UniFi AP with a remote controller](https://blog.ktz.me/how-to-adopt-a-unifi-ap-with-a-remote-controller/)
 
