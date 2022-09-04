@@ -25,8 +25,6 @@ module.exports = (eleventyConfig) => {
 	eleventyConfig.addPlugin(require('eleventy-plugin-torchlight'))
 	eleventyConfig.addPlugin(require('@11ty/eleventy-plugin-rss'))
 
-	// can be removed after upgradung to 11ty@v2
-	// see: https://github.com/11ty/eleventy/issues/2438
 	let markdownIt = require('markdown-it')
 	let markdownItAnchor = require('markdown-it-anchor')
 	let markdownLibrary = markdownIt({
@@ -34,6 +32,8 @@ module.exports = (eleventyConfig) => {
 		html: true,
 		linkify: true,
 	})
+		// can be removed after upgrading to 11ty@v2
+		// see: https://github.com/11ty/eleventy/issues/2438
 		.disable('code')
 		.use(markdownItAnchor, {
 			permalink: markdownItAnchor.permalink.ariaHidden({
