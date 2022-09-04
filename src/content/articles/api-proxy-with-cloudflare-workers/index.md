@@ -32,11 +32,11 @@ Instead, we'll use a serverless function on Cloudflare so achieve the same thing
 ## Here's what we're gonna do
 
 1. Create a new account on Cloudflare
-1. Install `wrangler`, Cloudflares CLI
-1. Login and generate a new project
-1. Set up a development environment
-1. Write the code
-1. Deploy 🎉
+2. Install `wrangler`, Cloudflares CLI
+3. Login and generate a new project
+4. Set up a development environment
+5. Write the code
+6. Deploy 🎉
 
 ### Create a new account on Cloudflare
 
