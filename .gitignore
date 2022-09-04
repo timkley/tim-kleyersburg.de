@@ -3,3 +3,5 @@ _tmp/
 .DS_Store
 node_modules/
 cache
+# Local Netlify folder
+.netlify
