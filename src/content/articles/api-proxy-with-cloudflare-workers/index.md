@@ -1,11 +1,24 @@
 ---
 date: 2022-03-18
+updated_at: 2022-09-04
 title: 'Create an API proxy with Cloudflare Workers'
 hero: 'hero-image.jpg'
 metaDescription: 'Use Cloudflare Workers as a proxy for other API services without running your own server.'
 tags:
     - api
     - javascript
+---
+
+{% from 'macros.njk' import alert %}
+
+{%- set content -%}
+September 2022: Because of the events around [#dropkiwifarms](https://www.dropkiwifarms.net/) I've decided to not use Cloudflare anymore. Even though Cloudflare did the, in my opinion, [morally right thing](https://blog.cloudflare.com/kiwifarms-blocked/), I can't justify the further usage of their services and will move on in the next weeks.
+
+I'll leave the original article below as is. If you'd like an alternative for Cloudflare Workers specifically, take a look in my article [Simple JSON API with Netflify](/articles/simple-json-api-with-netlify) where we use Netlify functions to build something similar.
+{%- endset -%}
+
+{{ alert(content) }}
+
 ---
 
 In this article we'll discover how to use [Cloudflare Workers](https://workers.cloudflare.com/) to consume third party APIs without the need for your own server or compromising on security.  
