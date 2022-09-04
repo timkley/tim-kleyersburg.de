@@ -28,7 +28,7 @@ docker-compose pull
 ```
 
 This will pull the latest images used in your `docker-compose.yml` file.  
-While you wait, why dont't you read [the official documentation](https://docs.docker.com/compose/reference/pull/)? 🙂
+While you wait, why don't you read [the official documentation](https://docs.docker.com/compose/reference/pull/)? 🙂
 
 {% set content %}
 This will _not_ interrupt the running containers just yet, so your Home Assistant instance is still available through this process.
