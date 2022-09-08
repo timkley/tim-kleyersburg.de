@@ -12,4 +12,7 @@
     <template x-if="result">
         {% block content %}{% endblock %}
     </template>
+    <template x-if="!result">
+        <div>loading...</div>
+    </template>
 </div>
