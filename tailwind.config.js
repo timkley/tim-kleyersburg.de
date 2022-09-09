@@ -21,7 +21,7 @@ module.exports = {
 							quotes: 'none',
 						},
 						code: {
-							backgroundColor: theme('colors.gray.200'),
+							backgroundColor: theme('colors.sky.200'),
 							borderRadius: theme('borderRadius.sm'),
 							fontStyle: 'initial',
 							padding: `2px ${theme('padding.1')}`,
@@ -40,8 +40,11 @@ module.exports = {
 				},
 				invert: {
 					css: {
+						'pre code': {
+							backgroundColor: 'transparent',
+						},
 						code: {
-							backgroundColor: theme('colors.gray.700'),
+							backgroundColor: theme('colors.sky.900'),
 						},
 					},
 				},

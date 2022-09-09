@@ -16,7 +16,7 @@
             </div>
             <div>
                 {{ author.name }}
-                <span class="text-gray-500 dark:text-gray-400">
+                <span class="text-slate-500 dark:text-slate-400">
                     on {{ page.date | formattedDate }}
                     {%- if updated_at -%}
                         , last updated on {{ updated_at | formattedDate }}
@@ -24,7 +24,7 @@
                 </span>
             </div>
         </div>
-        <div class="text-gray-500 dark:text-gray-400 whitespace-nowrap mt-1">
+        <div class="text-slate-500 dark:text-slate-400 whitespace-nowrap mt-1">
             {{ content | readtime }} minutes to read
         </div>
         <div class="mt-2 mb-3">
@@ -36,8 +36,7 @@
         <hr>
 
         <p class="mt-4">
-            I hope this post helped you! If you have any question hit me up on <a href="https://twitter.com/timkley">Twitter</a>
-            😊.
+            I hope this post helped you! If you have any questions, hit me up on <a href="https://twitter.com/timkley">Twitter</a> 😊.
         </p>
 
         {% if global.environment == 'development' and seo.socialImage %}
