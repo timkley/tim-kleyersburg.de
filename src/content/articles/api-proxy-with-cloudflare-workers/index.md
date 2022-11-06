@@ -14,7 +14,7 @@ tags:
 {%- set content -%}
 September 2022: Because of the events around [#dropkiwifarms](https://www.dropkiwifarms.net/) I've decided to not use Cloudflare anymore. Even though Cloudflare did the, in my opinion, [morally right thing](https://blog.cloudflare.com/kiwifarms-blocked/), I can't justify the further usage of their services and will move on in the next weeks.
 
-I'll leave the original article below as is. If you'd like an alternative for Cloudflare Workers specifically, take a look in my article [Simple JSON API with Netflify](/articles/simple-json-api-with-netlify) where we use Netlify functions to build something similar.
+I'll leave the original article below as is. If you'd like an alternative for Cloudflare Workers specifically, take a look in my article [Simple JSON API with Netlify](/articles/simple-json-api-with-netlify) where we use Netlify functions to build something similar.
 {%- endset -%}
 
 {{ alert(content) }}
