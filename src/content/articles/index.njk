@@ -12,10 +12,10 @@ pagination:
     {% include 'article-list.njk' %}
     <div class="flex justify-center gap-6 mt-10">
         {% if pagination.href.previous %}
-            <a href="{{ pagination.href.previous }}">&lt; Previous Page</a>
+            <a href="{{ pagination.href.previous }}">← Previous Page</a>
         {% endif %}
         {% if pagination.href.next %}
-            <a href="{{ pagination.href.next }}">Next Page &gt;</a>
+            <a href="{{ pagination.href.next }}">Next Page →</a>
         {% endif %}
     </div>
 </div>
