@@ -36,3 +36,15 @@
 		@apply transition dark:text-white hover:text-sky-700 dark:hover:text-sky-200 border-b border-sky-400 hover:border-sky-600;
 	}
 }
+
+@layer components {
+	:is(h1, h2, h3, h4, h5, h6):has(.header-anchor) {
+		@apply relative;
+	}
+
+	@screen md {
+		.header-anchor {
+			@apply absolute top-0 left-0 -ml-4;
+		}
+	}
+}

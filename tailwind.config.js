@@ -1,6 +1,9 @@
 module.exports = {
 	mode: 'jit',
 	content: ['src/content/**/*.{json,njk,md}'],
+	safelist: [
+		'header-anchor'
+	],
 	theme: {
 		extend: {
 			fontFamily: {
