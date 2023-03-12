@@ -6,8 +6,9 @@ module.exports = (eleventyConfig, options) => {
 	eleventyConfig.addFilter('readtime', (content) => {
 		const wpm = 250
 		const wordCount = content.split(' ').length
+		const minutes = Math.ceil(wordCount / wpm)
 
-		return Math.ceil(wordCount / wpm)
+		return minutes + (minutes === 1 ? ' minute' : ' minutes')
 	})
 
 	eleventyConfig.addFilter('formattedDate', (date) => {
