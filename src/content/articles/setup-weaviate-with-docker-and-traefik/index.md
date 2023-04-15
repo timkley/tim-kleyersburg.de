@@ -10,6 +10,12 @@ tags:
 
 {% from 'macros.njk' import alert %}
 
+{% set content %}
+Update 2023-04-15: Since version 1.18 of Weaviate you can use [API key authentication](https://weaviate.io/developers/weaviate/configuration/authentication#api-key), thus making the header authentication plugin unnecessary.
+{% endset %}
+
+{{ alert(content) }}
+
 ## What is Weaviate?
 
 > Weaviate is an open-source vector search engine.
