@@ -39,8 +39,15 @@
             I hope this post helped you! If you have any questions, hit me up on <a href="https://twitter.com/timkley">Twitter</a> 😊.
         </p>
 
+        {%- set items = collections.all | related -%}
+
+        {%- if items.length %}
+            <p>You might find these related articles helpful or interesting, make sure to check them out!</p>
+            {% include 'article-list.njk' %}
+        {%- endif -%}
+
         {% if global.environment == 'development' and seo.socialImage %}
-            <a href="/opengraph{{ page.url }}">Open Graph Image</a>
+            <a href="/opengraph{{ page.url }}" class="inline-block mt-10">Open Graph Image</a>
         {% endif %}
     </div>
 {% endblock %}
