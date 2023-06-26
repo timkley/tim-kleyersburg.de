@@ -12,10 +12,7 @@ layout: base.njk
         </p>
     </div>
 
-    <div class="grid sm:grid-cols-2 gap-8">
-        {% include 'last-scrobble.njk' %}
-        {% include 'last-tweet.njk' %}
-    </div>
+    {% include 'last-scrobble.njk' %}
 
     <div>
         {{ heading('h2', 'Latest articles') }}
