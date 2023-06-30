@@ -30,7 +30,7 @@ Everything important happens in the file `server/plugin.go`.
 
 I wanted to be able to quickly change the webhook URL without having to recompile the plugin. For this I added a configuration option to the plugin.
 
-You to this by adding a struct called `Configuration` to the plugin struct:
+You do this by adding a struct called `Configuration` to the plugin struct:
 
 ```go
 type Configuration struct {
@@ -48,10 +48,10 @@ type BotWebhookPlugin struct {
 }
 ```
 
-To react to messaged we'll implement the `MessageHasBeenPosted` function. For easier reading I've removed the error handling from the code snippets.
+To react to messages we'll implement the `MessageHasBeenPosted` function. For easier reading I've removed the error handling from the code snippets.
 
 ```go
-func (p *BotWebhookPlugin) MessageHasBeenPosted(c *plugin.Context, post *model.Post) {
+func (p *BotWebhookPlugin) MessageHasBeenPosted(post *model.Post) {
   // get the channel from the post
   // we need this to check if the message was sent to the bot
 	channel, err := p.API.GetChannel(post.ChannelId)
