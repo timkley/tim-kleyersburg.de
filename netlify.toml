@@ -1,8 +1,13 @@
 [functions]
-directory = "_functions"
+	directory = "_functions"
 
 [[redirects]]
-from = "/screenshot/*"
-to = "/.netlify/functions/screenshot"
-status = 200
-force = true
+	from = "/screenshot/*"
+	to = "/.netlify/functions/screenshot"
+	status = 200
+	force = true
+
+[[redirects]]
+	from = "/articles/home-assistant-with-docker-2022/"
+	to = "/articles/home-assistant-with-docker-2023/"
+	status = 301
