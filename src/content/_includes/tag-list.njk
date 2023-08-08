@@ -2,7 +2,7 @@
 	{% for tag in tags %}
 		{% if tag !== 'article' %}
 			<a
-				class="rounded-full bg-sky-100 tracking-wide hover:bg-sky-200 dark:bg-gray-700 dark:hover:bg-slate-600 dark:text-slate-100 dark:hover:text-slate-100 px-3 text-sm py-1"
+				class="border border-dashed hover:border-solid rounded-full bg-sky-200/25 tracking-wide dark:bg-gray-700 dark:hover:bg-slate-600 dark:text-slate-100 dark:hover:text-slate-100 px-3 text-sm py-1"
 				href="/tags/{{ tag | slug }}"
 			>
 				{{ tag }}
