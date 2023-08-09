@@ -1,6 +1,11 @@
 <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-6">
     {% for item in items %}
         <a href="{{ item.url }}" class="flex flex-col overflow-hidden text-xl font-semibold bg-sky-200/25 dark:bg-slate-700 rounded-md border-b-0 shadow-md group text-slate-900 hover:text-slate-900 hover:bg-sky-200/10 hover:shadow-lg dark:hover:bg-slate-600 dark:text-white dark:hover:text-white">
+            <div class="h-40 bg-gray-500">
+                {% if item.data.image %}
+                    <img src="{{ item.url }}{{ item.data.image }}" class="h-full w-full object-cover my-0" alt="{{ item.data.title }}">
+                {% endif %}
+            </div>
             <div class="p-3 flex-grow flex flex-col justify-between">
                 {{ item.data.title }}
                 <div class="text-lg font-normal text-gray-700 dark:text-gray-300">
