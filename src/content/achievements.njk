@@ -6,26 +6,25 @@ layout: base.njk
 <div class="mx-auto mt-16 space-y-16 max-w-lg text-center sm:space-y-20 md:space-y-24">
     <div>
         <div class="my-8 lg:my-12">
-            {{ heading('h1', 'My personal Brag Document 😎') }}
+            {{ heading('h1', 'Achievements') }}
         </div>
-        <p class="leading-relaxed lg:text-xl">
-            Inspired by <a href="https://www.bragdocs.com">bragdocs.com</a>, this is a collection of my personal and professional achievements.
+        <p class="md:text-xl [text-wrap:pretty]">
+            This is a loose collections of personal and professional achievements which milestones that made me happy or proud.
         </p>
+
     </div>
 
     <div>
-        {{ heading('h2', 'Brags') }}
-
         <ul class="text-left mt-12">
-            {% for brag in brags|reverse %}
+            {% for achievement in achievements|reverse %}
                 <div class="relative pt-2 pb-6 md:pb-8 lg:pb-12 pl-4 border-l-2 border-gray-500">
                     <div class="flex items-center text-sm text-gray-400">
                         <div class="absolute -left-1 w-2 h-2 bg-gray-50 rounded-full border-2 border-gray-500 -translate-x-px dark:bg-gray-800"></div>
-                        {{ brag.date }}
+                        {{ achievement.date }}
                     </div>
-                    <div class="mb-3 text-lg font-semibold dark:text-white">{{ brag.title }}</div>
+                    <div class="mb-3 text-lg font-semibold dark:text-white">{{ achievement.title }}</div>
 
-                    {{ brag.description | safe }}
+                    {{ achievement.description | safe }}
                 </div>
             {% endfor %}
         </ul>
