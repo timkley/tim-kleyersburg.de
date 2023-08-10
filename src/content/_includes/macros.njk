@@ -1,7 +1,7 @@
 {% macro heading(tag = 'div', content = '') %}
     {% set classes = {
-        'h1': 'text-3xl lg:text-4xl dark:text-white font-bold mb-5',
-        'h2': 'text-2xl dark:text-white font-bold mb-4'
+        'h1': 'text-3xl lg:text-4xl dark:text-white font-bold mb-6 sm:mb-8',
+        'h2': 'text-2xl dark:text-white font-bold mb-4 sm:mb-6'
     } %}
 
     <{{ tag }} class="{{ classes[tag]|default('') }}">
