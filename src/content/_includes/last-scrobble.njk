@@ -1,14 +1,29 @@
-{% extends '_last-thing.njk' %}
-{% set type = 'scrobble' %}
-
-{%- block link -%}
-    <a href="https://www.last.fm/user/Timmotheus">@timmotheus</a>
-{%- endblock -%}
-
-{%- block content -%}
-    <div class="text-center">
-        <img width="64" height="64" class="mx-auto mb-2 rounded shadow" :src="result.image[1]['#text']" :srcset="`${result.image[1]['#text']} 1x, ${result.image[2]['#text']} 2x`" alt="Album image of the last scrobble" :alt="`${result.artist['#text']} - ${result.name}`">
-        <div class="font-bold truncate" x-text="result.name"></div>
-        <div class="text-sm truncate" x-text="result.artist['#text']"></div>
+<div
+        class="p-2 mx-auto w-64 h-48 bg-sky-100 transition hover:bg-sky-100/80 rounded shadow-md sm:w-60 dark:bg-slate-700 dark:hover:bg-slate-700/80"
+        x-data="{ result: undefined }"
+        x-init="result = await (await fetch('https://www.tim-kleyersburg.de/.netlify/functions/last-scrobble')).json()"
+>
+    <div class="mb-5 text-center">
+        <span class="text-sm text-gray-700 dark:text-gray-300">
+            Last Scrobble
+        </span>
+        <a href="https://www.last.fm/user/Timmotheus">@timmotheus</a>
     </div>
-{%- endblock -%}
+    <template x-if="result">
+        <div class="text-center">
+            <img width="64" height="64" class="mx-auto mb-2 rounded shadow"
+                 :src="result.image[1]['#text']"
+                 :srcset="`${result.image[1]['#text']} 1x, ${result.image[2]['#text']} 2x`"
+                 alt="Album image of the last scrobble" :alt="`${result.artist['#text']} - ${result.name}`">
+            <div class="font-bold truncate" x-text="result.name"></div>
+            <div class="text-sm truncate" x-text="result.artist['#text']"></div>
+        </div>
+    </template>
+    <template x-if="!result">
+        <div class="text-center animate-pulse">
+            <div class="w-16 h-16 rounded mx-auto bg-sky-50 dark:bg-slate-800 mb-2"></div>
+            <div class="h-4 mb-2 rounded-full bg-sky-50 dark:bg-slate-800"></div>
+            <div class="h-4 rounded-full bg-sky-50 dark:bg-slate-800"></div>
+        </div>
+    </template>
+</div>
