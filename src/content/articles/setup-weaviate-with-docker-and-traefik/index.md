@@ -45,7 +45,7 @@ I've used labels to configure Traefik for this container.
 version: '3.4'
 services:
   weaviate:
-    image: semitechnologies/weaviate:1.17.4
+    image: cr.weaviate.io/semitechnologies/weaviate:1.17.4
     ports:
     - 8080:8080
     restart: on-failure:0
@@ -92,7 +92,7 @@ Then you can add the following to your `docker-compose.yml` file:
 version: '3.4'
 services:
   weaviate:
-    image: semitechnologies/weaviate:1.17.4
+    image: cr.weaviate.io/semitechnologies/weaviate:1.17.4
     ports:
       - 8080:8080
     restart: on-failure:0
