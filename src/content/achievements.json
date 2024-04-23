@@ -3,12 +3,12 @@
 		{
 			"title": "Created my very first website \uD83D\uDC68\u200D\uD83D\uDCBB",
 			"date": "2002",
-			"description": "I'm not sure when exactly I used HTML to create a website and make it accessible to the world. I know I used Geocities to host it. What a time."
+			"description": "I'm not sure when exactly I used HTML the first time to create a website and make it accessible to the world. But I still remember I used Geocities to host it. What a time."
 		},
 		{
 			"title": "Learned the electric guitar \uD83C\uDFB8",
 			"date": "2004",
-			"description": "Playing guitar is one of maybe 3 hobbies that stayed with me since I started it. I love rock and metal and being able to play some of my favorite songs is a lot of fun."
+			"description": "Playing guitar is one of maybe 2 hobbies that stayed with me since I started it. I love rock and metal and being able to play some of my favorite songs still is a lot of fun."
 		},
 		{
 			"title": "Became a dad \uD83D\uDC23",
@@ -28,7 +28,7 @@
 		{
 			"title": "Got promoted to CTO",
 			"date": "August 2020",
-			"description": "Chris was kind enough to put so much trust in me that he gave me the position of CTO. I was able to take on a lot of responsibility and I'm proud of it."
+			"description": "Chris was kind enough to put so much trust in me that he gave me the position of CTO. Since then I took on a lot of further responsibilities and honed my skills in a multitude of areas."
 		},
 		{
 			"title": "Rewrote a Vue.js website to AlpineJS \uD83D\uDC68\u200D\uD83D\uDCBB",
@@ -48,7 +48,7 @@
 		{
 			"title": "Deployed my first serverless function \uD83D\uDC68\u200D\uD83D\uDCBB",
 			"date": "February 2022",
-			"description": "Using Cloudflare Workers I deployed two functions to show my last tweet and scrobble on my homepage."
+			"description": "Using Cloudflare Workers I deployed two functions to show my last scrobble on my website."
 		},
 		{
 			"title": "Reached > 600 clicks in a month through search engines",
@@ -64,6 +64,11 @@
 			"title": "Reached > 3000 clicks in a month through search engines",
 			"date": "December 2022",
 			"description": "In December I received another notification that I've now reached 3.000 clicks. 5 times more than roughly a half year earlier. I'm really happy that my articles are found by so many people. \uD83E\uDD17"
+		},
+		{
+			"title": "Dived deeper into the world of automation",
+			"date": "2023",
+			"description": "I've always been interested in automating things. But in 2023 I really dived deeper into the world of automation. Driven by the goal of removing mundane tasks from the todo list of our team and myself, I've created many workflows that allowed us to remove those bullshit tasks from our agenda."
 		}
 	]
 }
