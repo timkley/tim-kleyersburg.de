@@ -4,6 +4,7 @@ title: 'Mattermost plugin to send a webhook when a bot is messaged'
 metaDescription: 'How to use a plugin to send out a webhook when to chat with a bot account'
 tags:
     - api
+    - mattermost
 ---
 
 I wanted to be able to message my bot in Mattermost and have him respond to me.

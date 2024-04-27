@@ -6,6 +6,7 @@ metaDescription: 'Using the Mattermost API this bot will be able to send message
 tags:
     - api
     - automation
+    - mattermost
 ---
 
 You can use a Mattermost bot and the Mattermost API to automate writing messages to your users. I couldn't find any tutorials how to make it seem like the bot messaged you or one of your users. If you want to achieve exactly that, this article is for you.
