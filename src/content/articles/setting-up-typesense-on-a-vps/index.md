@@ -1,5 +1,5 @@
 ---
-date: 2023-04-25
+date: 2024-04-25
 title: 'Set up Typesense on Ubuntu 22.04 including SSL'
 hero: 'image.jpg'
 metaDescription: 'Learn how to easily setup Typesense including SSL certificates on a cheap VPS'
