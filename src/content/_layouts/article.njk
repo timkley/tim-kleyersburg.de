@@ -45,9 +45,5 @@
             <p>You might find these related articles helpful or interesting, make sure to check them out!</p>
             {% include 'article-list.njk' %}
         {%- endif -%}
-
-        {% if global.environment == 'development' and seo.socialImage %}
-            <a href="/opengraph{{ page.url }}" class="inline-block mt-10">Open Graph Image</a>
-        {% endif %}
     </div>
 {% endblock %}

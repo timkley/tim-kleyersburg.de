@@ -34,17 +34,4 @@ module.exports = (eleventyConfig, options) => {
 	})
 
 	eleventyConfig.addNunjucksAsyncShortcode('image', imageShortcode)
-
-	eleventyConfig.addShortcode('ogImage', (url) => {
-		const imageService =
-			process.env.ELEVENTY_ENV === 'production'
-				? 'https://www.tim-kleyersburg.de/screenshot'
-				: 'http://localhost:9999/.netlify/functions/screenshot'
-		const openGraphImageUrl =
-			process.env.ELEVENTY_ENV === 'production'
-				? `https://www.tim-kleyersburg.de/opengraph/${url}`
-				: `http://localhost:8080/opengraph/${url}`
-
-		return `${imageService}/${encodeURIComponent(openGraphImageUrl)}`
-	})
 }

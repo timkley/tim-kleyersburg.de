@@ -5,8 +5,5 @@
 		"name": "Tim Kleyersburg",
 		"avatarUrl": "/img/avatar_small.jpg"
 	},
-	"image": "image.jpg",
-	"seo": {
-		"socialImage": true
-	}
+	"image": "image.jpg"
 }

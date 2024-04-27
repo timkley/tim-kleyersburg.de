@@ -20,10 +20,6 @@
         <meta property="og:description" content="{{ metaDescription|default('Get to know me.') }}"/>
         <meta property="og:url" content="https://www.tim-kleyersburg.de{{ page.url }}"/>
         <meta property="og:site_name" content="Tim Kleyersburg"/>
-        {% if seo.socialImage %}
-            <meta property="og:image" content="{% ogImage page.url %}"/>
-            <meta name="twitter:image" content="{% ogImage page.url %}"/>
-        {% endif %}
         <meta name="twitter:card" content="summary_large_image"/>
         <meta name="twitter:description" content="{{ metaDescription|default('Get to know me') }}"/>
         <meta name="twitter:title" content='{{ title|default('Tim Kleyersburg') }}'/>
