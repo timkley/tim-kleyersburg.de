@@ -1,6 +1,7 @@
 ---
 date: 2022-04-02
-title: 'Home Assistant with Docker on Raspberry Pi - the 2023 guide'
+updated_at: 2024-06-04
+title: 'Home Assistant with Docker on Raspberry Pi - the 2024 guide'
 hero: 'hero-image.jpg'
 metaDescription: 'An up to date guide how to set up a fresh installation of Home Assistant with Docker'
 tags:
@@ -8,7 +9,7 @@ tags:
     - docker
 ---
 
-Update 2023-07-31: I had to reinstall my Raspberry Pi and have updated the guide accordingly.
+Update 2024-06-04: updated the guide for the "new" year.
 
 Finally, a Raspberry Pi 4 with 8GB RAM came into stock that wasn't outrageously priced.
 
