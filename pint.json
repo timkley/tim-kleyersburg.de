@@ -1,0 +1,8 @@
+{
+    "exclude": [
+        "resources/views/flux"
+    ],
+    "notPath": [
+        "resources/views/einmaleins.blade.php"
+    ]
+}

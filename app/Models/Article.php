@@ -1,0 +1,53 @@
+<?php
+
+namespace App\Models;
+
+use BenBjurstrom\Prezet\Models\Document;
+use Illuminate\Database\Eloquent\Collection;
+use Spatie\Feed\FeedItem;
+
+class Article
+{
+    public static function find(string $slug)
+    {
+        return Document::query()
+            ->where('slug', $slug)
+            ->when(config('app.env') !== 'local', function ($query) {
+                return $query->where('draft', false);
+            })
+            ->firstOrFail();
+    }
+
+    public static function published()
+    {
+        return Document::where('draft', false)
+            ->orderBy('date', 'desc');
+    }
+
+    public static function related(Document $document): Collection
+    {
+        return Document::query()
+            ->where('slug', '!=', $document->slug)
+            ->whereHas('tags', function ($query) use ($document) {
+                $query->whereIn('tag_id', $document->tags->pluck('id'));
+            })
+            ->where('draft', false)
+            ->inRandomOrder()
+            ->limit(4)
+            ->get();
+    }
+
+    public static function getAllFeedItems()
+    {
+        return self::published()
+            ->get()
+            ->map(fn (Document $document) => FeedItem::create([
+                'id' => $document->slug,
+                'title' => $document->frontmatter->title,
+                'summary' => $document->frontmatter->excerpt,
+                'updated' => $document->created_at,
+                'link' => route('prezet.show', $document->slug),
+                'authorName' => 'Tim Kleyersburg',
+            ]));
+    }
+}

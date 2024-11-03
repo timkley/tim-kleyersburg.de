@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
+    <url>
+        <loc>http://timkley-dev.test/articles/installing-librechat-ai-with-traefik</loc>
+        <lastmod>2024-11-03T09:35:51+01:00</lastmod>
+
+            </url>
+    <url>
+        <loc>http://timkley-dev.test/articles/setting-up-typesense-on-a-vps</loc>
+        <lastmod>2024-11-03T09:35:53+01:00</lastmod>
+
+            </url>
+    <url>
+        <loc>http://timkley-dev.test/articles/mattermost-plugin-chatbot</loc>
+        <lastmod>2024-11-03T09:35:55+01:00</lastmod>
+
+            </url>
+    <url>
+        <loc>http://timkley-dev.test/articles/ai-driven-doc-search</loc>
+        <lastmod>2024-11-03T09:35:56+01:00</lastmod>
+
+            </url>
+    <url>
+        <loc>http://timkley-dev.test/articles/reconnect-unavailable-zigbee-device-home-assistant</loc>
+        <lastmod>2024-11-03T09:35:58+01:00</lastmod>
+
+            </url>
+    <url>
+        <loc>http://timkley-dev.test/articles/setup-weaviate-with-docker-and-traefik</loc>
+        <lastmod>2024-11-03T09:36:00+01:00</lastmod>
+
+            </url>
+    <url>
+        <loc>http://timkley-dev.test/articles/docker-uses-too-much-space</loc>
+        <lastmod>2024-11-03T09:36:02+01:00</lastmod>
+
+            </url>
+    <url>
+        <loc>http://timkley-dev.test/articles/eliminate-meetings-distractions-in-mattermost</loc>
+        <lastmod>2024-11-03T09:36:04+01:00</lastmod>
+
+            </url>
+    <url>
+        <loc>http://timkley-dev.test/articles/migrate-mattermost</loc>
+        <lastmod>2024-11-03T09:36:05+01:00</lastmod>
+
+            </url>
+    <url>
+        <loc>http://timkley-dev.test/articles/mattermost-bot-to-message-users</loc>
+        <lastmod>2024-11-03T09:36:07+01:00</lastmod>
+
+            </url>
+    <url>
+        <loc>http://timkley-dev.test/articles/resize-images-with-mogrify</loc>
+        <lastmod>2024-11-03T09:36:09+01:00</lastmod>
+
+            </url>
+    <url>
+        <loc>http://timkley-dev.test/articles/simple-json-api-with-netlify</loc>
+        <lastmod>2024-11-03T09:36:11+01:00</lastmod>
+
+            </url>
+    <url>
+        <loc>http://timkley-dev.test/articles/simple-analytics-with-umami</loc>
+        <lastmod>2024-11-03T09:36:12+01:00</lastmod>
+
+            </url>
+    <url>
+        <loc>http://timkley-dev.test/articles/longtime-statistics-home-assistant</loc>
+        <lastmod>2024-11-03T09:36:14+01:00</lastmod>
+
+            </url>
+    <url>
+        <loc>http://timkley-dev.test/articles/updating-home-assistant-with-docker</loc>
+        <lastmod>2024-11-03T09:36:17+01:00</lastmod>
+
+            </url>
+    <url>
+        <loc>http://timkley-dev.test/articles/alpine-expression-error-x-datastack</loc>
+        <lastmod>2024-11-03T09:36:20+01:00</lastmod>
+
+            </url>
+    <url>
+        <loc>http://timkley-dev.test/articles/custom-events-in-javascript</loc>
+        <lastmod>2024-11-03T09:36:23+01:00</lastmod>
+
+            </url>
+    <url>
+        <loc>http://timkley-dev.test/articles/home-assistant-with-docker-2024</loc>
+        <lastmod>2024-11-03T09:36:26+01:00</lastmod>
+
+            </url>
+    <url>
+        <loc>http://timkley-dev.test/articles/eleventyjs-no-markdown-code-for-includes</loc>
+        <lastmod>2024-11-03T09:36:29+01:00</lastmod>
+
+            </url>
+    <url>
+        <loc>http://timkley-dev.test/articles/api-proxy-with-cloudflare-workers</loc>
+        <lastmod>2024-11-03T09:36:32+01:00</lastmod>
+
+            </url>
+    <url>
+        <loc>http://timkley-dev.test/articles/web-performance-for-nontech-people</loc>
+        <lastmod>2024-11-03T09:36:35+01:00</lastmod>
+
+            </url>
+    <url>
+        <loc>http://timkley-dev.test/articles/unifi-network-for-homeoffice</loc>
+        <lastmod>2024-11-03T09:36:38+01:00</lastmod>
+
+            </url>
+    <url>
+        <loc>http://timkley-dev.test/articles/eleventyjs-is-great</loc>
+        <lastmod>2024-11-03T09:36:41+01:00</lastmod>
+
+            </url>
+    <url>
+        <loc>http://timkley-dev.test/articles/easy-darkmode-with-tailwind</loc>
+        <lastmod>2024-11-03T09:36:44+01:00</lastmod>
+
+            </url>
+    <url>
+        <loc>http://timkley-dev.test/articles/gitlab-to-github</loc>
+        <lastmod>2024-11-03T09:36:47+01:00</lastmod>
+
+            </url>
+    <url>
+        <loc>http://timkley-dev.test/articles/you-should-learn-vim</loc>
+        <lastmod>2024-11-03T09:36:50+01:00</lastmod>
+
+            </url>
+    <url>
+        <loc>http://timkley-dev.test/articles/tailwindcss-with-css-variables</loc>
+        <lastmod>2024-11-03T09:36:53+01:00</lastmod>
+
+            </url>
+    <url>
+        <loc>http://timkley-dev.test/articles/from-vue-to-alpinejs</loc>
+        <lastmod>2024-11-03T09:36:55+01:00</lastmod>
+
+            </url>
+</urlset>
