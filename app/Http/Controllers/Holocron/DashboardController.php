@@ -25,7 +25,7 @@ class DashboardController extends Controller
         return [
             new DashboardCard(
                 'Schule Emi',
-                route('holocron.school'),
+                route('holocron.school.index'),
                 'academic-cap',
                 [
                     $homeworks,

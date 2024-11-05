@@ -7,7 +7,14 @@ use Illuminate\Http\Request;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
-        web: __DIR__.'/../routes/web.php',
+        web: [
+            __DIR__.'/../routes/public/pages.php',
+            __DIR__.'/../routes/public/articles.php',
+            __DIR__.'/../routes/holocron/auth.php',
+            __DIR__.'/../routes/holocron/dashboard.php',
+            __DIR__.'/../routes/holocron/helpers.php',
+            __DIR__.'/../routes/holocron/school.php',
+        ],
         commands: __DIR__.'/../routes/console.php',
         health: '/up',
     )
