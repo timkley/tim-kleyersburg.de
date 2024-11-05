@@ -8,6 +8,8 @@
         "php": "^8.2",
         "benbjurstrom/prezet": "^0.17.0",
         "blade-ui-kit/blade-heroicons": "^2.4",
+        "bugsnag/bugsnag-laravel": "^2.0",
+        "laravel-notification-channels/discord": "^1.6",
         "laravel/framework": "^11.9",
         "laravel/tinker": "^2.9",
         "livewire/flux": "^1.0",
@@ -60,19 +62,19 @@
             "Composer\\Config::disableProcessTimeout",
             "npx concurrently -c \"#93c5fd,#c4b5fd,#fb7185,#fdba74\" \"php artisan serve\" \"php artisan queue:listen --tries=1\" \"php artisan pail --timeout=0\" \"npm run dev\" --names=server,queue,logs,vite"
         ],
-        "test": [
-            "php artisan test"
+        "phpstan": [
+            "./vendor/bin/phpstan --memory-limit=2G"
         ],
         "pint": [
             "./vendor/bin/pint --blade"
         ],
-        "phpstan": [
-            "./vendor/bin/phpstan analyse --memory-limit=2G"
+        "test": [
+            "@php artisan test --exclude-group=network"
         ],
         "prepush": [
-            "composer test",
-            "composer phpstan",
-            "composer pint"
+            "@phpstan",
+            "@test",
+            "@pint"
         ]
     },
     "extra": {
