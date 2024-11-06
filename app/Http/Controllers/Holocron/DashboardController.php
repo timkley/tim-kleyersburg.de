@@ -32,6 +32,11 @@ class DashboardController extends Controller
                     $exams,
                 ]
             ),
+            new DashboardCard(
+                'Pulse',
+                '/holocron/pulse',
+                'chart-bar',
+            )
         ];
     }
 }

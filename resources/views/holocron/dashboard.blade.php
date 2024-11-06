@@ -7,7 +7,7 @@
                 class="border-0"
                 href="{{ $card->link }}"
             >
-                <flux:card class="hover:bg-white/75 dark:hover:bg-white/5">
+                <flux:card class="hover:bg-white/75 dark:hover:bg-white/5 h-full">
                     <div>
                         <flux:heading
                             class="flex items-center gap-2 font-semibold"
