@@ -2,7 +2,12 @@
 
 namespace App\Services;
 
+use App\Services\Untis\Exam;
+use App\Services\Untis\Homework;
+use App\Services\Untis\Lesson;
 use Carbon\Carbon;
+use Illuminate\Http\Client\Request;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Http;
 
 class Untis
@@ -30,9 +35,9 @@ class Untis
         );
     }
 
-    public function timetable(Carbon $startDate, Carbon $endDate)
+    public function timetable(Carbon $startDate, Carbon $endDate): Collection
     {
-        return $this->request(
+        $response = $this->request(
             method: 'post',
             data: [
                 'id' => '1',
@@ -60,9 +65,12 @@ class Untis
                 ],
             ]
         );
+
+        return collect(data_get($response, 'result'))
+            ->map(fn ($lesson) => Lesson::createFromApi($lesson));
     }
 
-    public function homeworks(Carbon $startDate, Carbon $endDate)
+    public function homeworks(Carbon $startDate, Carbon $endDate): Collection
     {
         $response = $this->request(
             url: 'api/homeworks/lessons',
@@ -86,13 +94,13 @@ class Untis
 
             return $homework;
         });
-
         $response['data']['homeworks'] = $mergedHomeworks->toArray();
 
-        return data_get($response, 'data.homeworks');
+        return collect(data_get($response, 'data.homeworks'))
+            ->map(fn ($homework) => Homework::createFromApi($homework));
     }
 
-    public function exams(Carbon $startDate, Carbon $endDate)
+    public function exams(Carbon $startDate, Carbon $endDate): Collection
     {
         $response = $this->request(
             url: 'api/exams',
@@ -103,12 +111,13 @@ class Untis
             ]
         );
 
-        return data_get($response, 'data.exams');
+        return collect(data_get($response, 'data.exams'))
+            ->map(fn ($exam) => Exam::createFromApi($exam));
     }
 
     public function request(string $method = 'get', string $url = 'jsonrpc.do', array $data = [], array $parameters = [])
     {
-        $response = Http::beforeSending(fn ($request) => logger('Request', [$request]))
+        $response = Http::beforeSending(fn (Request $request) => logger('Request', [$request->url(), $request->data(), $request->method()]))
             ->withoutRedirecting()
             ->asJson()
             ->baseUrl("https://$this->server.webuntis.com/WebUntis")
@@ -122,7 +131,7 @@ class Untis
                 array_merge($data, ['jsonrpc' => '2.0'])
             );
 
-        logger('Request', [$response, $response->json()]);
+        logger('Response', [$response, $response->json()]);
 
         $unauthenticated = data_get($response, 'error.code') === -8520;
 
