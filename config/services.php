@@ -13,4 +13,8 @@ return [
         'user' => env('UNTIS_USER'),
         'password' => env('UNTIS_PASSWORD'),
     ],
+
+    'discord' => [
+        'token' => env('DISCORD_BOT_TOKEN'),
+    ],
 ];

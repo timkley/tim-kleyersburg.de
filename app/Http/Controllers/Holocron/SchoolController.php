@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Holocron;
 
 use App\Http\Controllers\Controller;
 use App\Services\Untis;
-use Illuminate\Support\Carbon;
 
 class SchoolController extends Controller
 {
@@ -27,25 +26,12 @@ class SchoolController extends Controller
 
     private function news()
     {
-        return cache()->remember('holocron.school.news', now()->addMinutes(15), fn () => $this->untis->news());
+        return cache()->flexible('holocron.school.news', [now()->addMinutes(15), now()->addYear()], fn () => $this->untis->news());
     }
 
     private function timetable()
     {
-        $timetable = cache()->flexible('holocron.school.timetable', [now()->addMinutes(15), now()->addYear()], fn () => $this->untis->timetable(now(), now()->addDays(6)));
-
-        return collect($timetable['result'])->map(function ($lesson) {
-            $start = Carbon::createFromFormat('Ymd Hi', $lesson['date'].' '.str_pad($lesson['startTime'], 4, '0', STR_PAD_LEFT));
-            $end = Carbon::createFromFormat('Ymd Hi', $lesson['date'].' '.str_pad($lesson['endTime'], 4, '0', STR_PAD_LEFT));
-
-            return [
-                'id' => $lesson['id'],
-                'subject' => data_get($lesson, 'su.0.longname'),
-                'start' => $start,
-                'end' => $end,
-                'cancelled' => data_get($lesson, 'code') === 'cancelled',
-            ];
-        });
+        return cache()->flexible('holocron.school.timetable', [now()->addMinutes(15), now()->addYear()], fn () => $this->untis->timetable(today(), today()->addDays(14)));
     }
 
     private function homeworks()

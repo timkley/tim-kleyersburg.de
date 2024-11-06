@@ -1,5 +1,6 @@
 <?php
 
+use App\Jobs\Holocron\School\CheckForNewThings;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -20,6 +21,9 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->redirectGuestsTo(fn (Request $request) => route('holocron.login'));
+    })
+    ->withSchedule(function (\Illuminate\Console\Scheduling\Schedule $schedule) {
+        $schedule->job(CheckForNewThings::class)->twiceDaily(7, 18);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

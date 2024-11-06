@@ -19,11 +19,11 @@
                 <flux:rows>
                     @foreach ($homeworks as $homework)
                         <flux:row>
-                            <flux:cell>{{ $homework['lesson']['subject'] }}</flux:cell>
-                            <flux:cell>{{ Carbon::createFromFormat('Ymd', $homework['date'])->format('d.m.Y') }}</flux:cell>
+                            <flux:cell>{{ $homework->subject }}</flux:cell>
+                            <flux:cell>{{ $homework->date->format('d.m.Y') }}</flux:cell>
                             <flux:cell>
-                                {{ Carbon::createFromFormat('Ymd', $homework['dueDate'])->format('d.m.Y') }}
-                                @if ($homework['completed'])
+                                {{ $homework->dueDate->format('d.m.Y') }}
+                                @if ($homework->done)
                                     <flux:badge
                                         size="sm"
                                         class="ml-2"
@@ -32,7 +32,7 @@
                                     >
                                 @endif
                             </flux:cell>
-                            <flux:cell class="md:whitespace-normal">{!! str($homework['text'])->markdown() !!}</flux:cell>
+                            <flux:cell class="md:whitespace-normal">{!! str($homework->text)->markdown() !!}</flux:cell>
                         </flux:row>
                     @endforeach
                 </flux:rows>
@@ -51,9 +51,9 @@
                 <flux:rows>
                     @foreach ($exams as $exam)
                         <flux:row>
-                            <flux:cell>{{ Carbon::createFromFormat('Ymd', $exam['examDate'])->format('d.m.Y') }}</flux:cell>
-                            <flux:cell>{{ $exam['subject'] }}</flux:cell>
-                            <flux:cell class="whitespace-normal">{!! str($exam['text'])->markdown() !!}</flux:cell>
+                            <flux:cell>{{ $exam->subject }}</flux:cell>
+                            <flux:cell>{{ $exam->date->format('d.m.Y') }}</flux:cell>
+                            <flux:cell class="whitespace-normal">{!! str($exam->text)->markdown() !!}</flux:cell>
                         </flux:row>
                     @endforeach
                 </flux:rows>
@@ -80,12 +80,12 @@
                     calendar: null,
                     events: {!!
                         json_encode($timetable->map(fn ($lesson) => [
-                            'id' => $lesson['id'],
-                            'title' => $lesson['subject'],
-                            'start' => $lesson['start'],
-                            'end' => $lesson['end'],
-                            'backgroundColor' => $lesson['cancelled'] ? '#f87171' : '#60a5fa',
-                            'borderColor' => $lesson['cancelled'] ? '#f87171' : '#60a5fa',
+                            'id' => $lesson->id,
+                            'title' => $lesson->subject,
+                            'start' => $lesson->start,
+                            'end' => $lesson->end,
+                            'backgroundColor' => $lesson->cancelled ? '#f87171' : '#60a5fa',
+                            'borderColor' => $lesson->cancelled ? '#f87171' : '#60a5fa',
                         ])->values())
                     !!},
                     init() {
