@@ -10,8 +10,6 @@ parameters:
     # Level 9 is the highest level
     level: 5
 
-    ignoreErrors:
-        - '#^Call to method .+ on an unknown class Spatie\\.+\\Ray.$#'#
 #    excludePaths:
 #        - ./*/*/FileToBeExcluded.php
 #
