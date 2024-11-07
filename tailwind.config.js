@@ -18,6 +18,7 @@ export default {
             },
             fontFamily: {
                 sans: ['Source Sans Pro', 'sans-serif'],
+                ibm: ['IBM Plex Sans', 'sans-serif'],
             },
             typography: (theme) => ({
                 DEFAULT: {

@@ -9,7 +9,7 @@
         <x-seo::meta />
     </x-slot>
 
-    <div class="prose mx-auto mb-24 lg:prose-lg dark:prose-invert md:mt-8 lg:mt-16">
+    <div class="prose mx-auto mb-24 lg:prose-lg dark:prose-invert md:mt-8 lg:mt-16 prose-headings:font-ibm prose-headings:font-semibold">
         <h1 class="[text-wrap:balance]">{{ $frontmatter->title }}</h1>
         <div class="not-prose flex items-center">
             <div class="mr-2 h-6 w-6 flex-shrink-0 overflow-hidden rounded-full">
