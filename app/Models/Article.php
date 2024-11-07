@@ -20,18 +20,19 @@ class Article
 
     public static function published()
     {
-        return Document::where('draft', false)
+        return Document::when(fn($query) => config('app.env') !== 'local', function ($query) {
+                return $query->where('draft', false);
+            })
             ->orderBy('date', 'desc');
     }
 
     public static function related(Document $document): Collection
     {
-        return Document::query()
+        return self::published()
             ->where('slug', '!=', $document->slug)
             ->whereHas('tags', function ($query) use ($document) {
                 $query->whereIn('tag_id', $document->tags->pluck('id'));
             })
-            ->where('draft', false)
             ->inRandomOrder()
             ->limit(4)
             ->get();
