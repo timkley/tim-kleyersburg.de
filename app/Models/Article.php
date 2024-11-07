@@ -20,9 +20,9 @@ class Article
 
     public static function published()
     {
-        return Document::when(fn($query) => config('app.env') !== 'local', function ($query) {
-                return $query->where('draft', false);
-            })
+        return Document::when(fn ($query) => config('app.env') !== 'local', function ($query) {
+            return $query->where('draft', false);
+        })
             ->orderBy('date', 'desc');
     }
 

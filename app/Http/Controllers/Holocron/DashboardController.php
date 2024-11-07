@@ -36,7 +36,7 @@ class DashboardController extends Controller
                 'Pulse',
                 '/holocron/pulse',
                 'chart-bar',
-            )
+            ),
         ];
     }
 }
