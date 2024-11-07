@@ -24,6 +24,6 @@ class ClassCancelled extends Notification
 
     public function toDiscord($notifiable)
     {
-        return DiscordMessage::create("Die Unterrichtsstunde {$this->lesson->subject} am {$this->lesson->start->format('d.m.Y')} fällt aus.");
+        return DiscordMessage::create("Die Unterrichtsstunde {$this->lesson->subject} am {$this->lesson->start->format('d.m.Y')} um {$this->lesson->start->format('H:i')} fällt aus.");
     }
 }

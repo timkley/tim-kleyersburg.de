@@ -16,5 +16,6 @@ return [
 
     'discord' => [
         'token' => env('DISCORD_BOT_TOKEN'),
+        'school_channel' => env('DISCORD_SCHOOL_CHANNEL'),
     ],
 ];

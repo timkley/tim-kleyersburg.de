@@ -10,6 +10,6 @@ class DiscordSchoolChannel
 
     public function routeNotificationForDiscord(): string
     {
-        return '1302734860573606058';
+        return config('services.discord.school_channel');
     }
 }

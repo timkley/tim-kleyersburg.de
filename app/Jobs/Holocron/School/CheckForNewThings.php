@@ -10,8 +10,10 @@ use App\Services\Untis;
 use App\Services\Untis\Exam;
 use App\Services\Untis\Homework;
 use App\Services\Untis\Lesson;
+use Illuminate\Contracts\Cache\Repository;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
+use Illuminate\Support\Sleep;
 
 class CheckForNewThings implements ShouldQueue
 {
@@ -47,14 +49,15 @@ class CheckForNewThings implements ShouldQueue
                     return;
                 }
 
-                $cached = cache()->has($key);
+                $cached = $this->cache()->has($key);
 
                 // if homework is already cached, don't notify
                 if ($cached) {
                     return;
                 }
 
-                cache()->put($key, true, $homework->dueDate->addWeek());
+                $this->cache()->put($key, true, $homework->dueDate->addWeek());
+                Sleep::for(300)->milliseconds();
                 (new DiscordSchoolChannel)->notify(new NewHomework($homework));
             });
     }
@@ -65,13 +68,14 @@ class CheckForNewThings implements ShouldQueue
 
         $exams->each(function (Exam $exam) {
             $key = 'holocron.school.exams.'.$exam->id;
-            $cached = cache()->has($key);
+            $cached = $this->cache()->has($key);
 
             if ($cached) {
                 return;
             }
 
-            cache()->put($key, true, now()->addMonth());
+            $this->cache()->put($key, true, now()->addMonth());
+            Sleep::for(300)->milliseconds();
             (new DiscordSchoolChannel)->notify(new NewExam($exam));
         });
     }
@@ -84,14 +88,20 @@ class CheckForNewThings implements ShouldQueue
             ->filter(fn (Lesson $lesson) => $lesson->cancelled)
             ->each(function (Lesson $lesson) {
                 $key = 'holocron.school.lessons.'.$lesson->id;
-                $cached = cache()->has($key);
+                $cached = $this->cache()->has($key);
 
                 if ($cached) {
                     return;
                 }
 
-                cache()->put($key, true, $lesson->end);
+                $this->cache()->put($key, true, $lesson->end);
+                Sleep::for(300)->milliseconds();
                 (new DiscordSchoolChannel)->notify(new ClassCancelled($lesson));
             });
+    }
+
+    private function cache(): Repository
+    {
+        return cache()->store('file_persistent');
     }
 }
