@@ -27,13 +27,13 @@ class ArticlesController extends Controller
     {
         $article = Article::find($slug);
 
-        $fm = Prezet::getFrontmatter($article->filepath);
+        $frontmatter = Prezet::getFrontmatter($article->filepath);
         $content = Prezet::getContent(Prezet::getMarkdown($article->filepath));
 
         $related = Article::related($article);
 
         return view('articles.show', [
-            'frontmatter' => $fm,
+            'frontmatter' => $frontmatter,
             'content' => $content,
             'minutesToRead' => ceil(str($content)->stripTags()->wordCount() / 250).' minutes',
             'related' => $related->pluck('frontmatter'),
