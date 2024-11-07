@@ -27,7 +27,9 @@ jobs:
         run: php -r "file_exists('.env') || copy('.env.example', '.env');"
 
       - name: Install composer dependencies
-        run: composer install --no-interaction --no-ansi --no-progress --no-suggest
+        run: |
+          composer config http-basic.composer.fluxui.dev "${{ secrets.FLUX_USERNAME }}" "${{ secrets.FLUX_LICENSE_KEY }}"
+          composer install --no-interaction --no-ansi --no-progress --no-suggest
 
       - name: Generate key
         run: php artisan key:generate
