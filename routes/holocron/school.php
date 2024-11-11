@@ -1,8 +1,8 @@
 <?php
 
-use App\Http\Controllers\Holocron\SchoolController;
+use App\Livewire\Holocron\School;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth')->name('holocron.school.')->prefix('holocron/school')->group(function () {
-    Route::get('/', SchoolController::class)->name('index');
+    Route::get('/', School::class)->name('index');
 });

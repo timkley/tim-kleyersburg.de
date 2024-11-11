@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Livewire\Pages;
 
 use App\Models\Article;
+use Livewire\Component;
 
-class HomeController extends Controller
+class Home extends Component
 {
-    public function __invoke()
+    public function render()
     {
         return view('home', [
             'articles' => $this->articles(),

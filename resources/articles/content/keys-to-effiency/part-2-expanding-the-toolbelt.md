@@ -1,15 +1,15 @@
 ---
-date: 2024-11-05
+date: 2024-11-15
 draft: true
 title: "Keys to Efficiency Part 2: Expanding the Toolbelt"
 excerpt: How to expand your digital toolbelt to work more efficiently.
 tags: [efficiency]
-rumbling: true
+rambling: true
 ---
 
-In [my previous post](/articles/keys-to-effiency/part-1-hard-skills), we explored the power at your fingertips to speed up everyday tasks and bring efficiency to the forefront of your workflow. But what happens when shortcuts alone aren’t enough? Some tasks are repetitive, complex, or simply lack a clear, simple shortcut. This is where specialized tools come in – tools that empower you to automate, centralize, and amplify your work, all while keeping your keyboard as your primary driver.
+In [my previous post](/articles/keys-to-effiency/part-1-hard-skills), we explored the power at your fingertips to speed up everyday tasks and bring efficiency to the forefront of your workflow. Let's imagine you invested the time to know how to use your hammer. And now you're hooked. You want more. That's when you notice: Many tasks are repetitive, complex, or simply lack a clear, simple shortcut. This is where specialized tools come in – tools that empower you to automate, centralize, and amplify your work, all while keeping your keyboard as your primary driver.
 
-Imagine your keyboard is a toolbox. Shortcuts are the basic tools you’ve learned to wield expertly, but sometimes you need more advanced instruments to get the job done efficiently. In this post, we’ll look at how certain productivity tools, such as [Raycast](https://www.raycast.com/) (for Mac users) and other automation tools, can extend your tool belt and help you optimize your workflow.
+Imagine your keyboard is not just a tool but a toolbox. Typing speed and shortcuts are the basic tools you’ve learned to wield expertly, but sometimes you need more advanced instruments to get the job done efficiently. In this post, we’ll look at how certain productivity tools, such as [Raycast](https://www.raycast.com/) (for Mac users) and other automation tools, can extend your tool belt and help you optimize your workflow.
 
 > **Disclaimer:** While Raycast is a Mac-specific tool, the principles we’ll discuss apply broadly. For Windows users, there are alternatives such as [PowerToys](https://github.com/microsoft/PowerToys) and [Wox](https://github.com/Wox-launcher/Wox), though functionality and integrations may vary.
 
@@ -45,7 +45,7 @@ Using tools like Raycast, you can interact with project management software, doc
 
 ### For the Devs: Experiment with Small Custom Scripts
 
-Once you’re comfortable, try using simple scripts or commands to automate repetitive actions, like renaming files in bulk, running a quick search across documents, or organizing new files. Even basic scripting can bring a huge efficiency boost.
+If you're comfortable in a code editor, try writing simple scripts or commands to automate repetitive actions, like renaming files in bulk, running a quick search across documents, or organizing new files. Even basic scripting can bring a huge efficiency boost. Or go beyond and create your own custom Raycast extensions to solve your unique problems.
 
 ## Keeping the Keyboard as Your Anchor
 

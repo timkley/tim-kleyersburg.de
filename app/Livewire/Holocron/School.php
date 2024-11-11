@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Holocron;
+namespace App\Livewire\Holocron;
 
-use App\Http\Controllers\Controller;
 use App\Services\Untis;
+use Livewire\Attributes\Layout;
+use Livewire\Component;
 
-class SchoolController extends Controller
+#[Layout('components.layouts.holocron')]
+class School extends Component
 {
     private Untis $untis;
 
@@ -14,9 +16,9 @@ class SchoolController extends Controller
         $this->untis = resolve(Untis::class);
     }
 
-    public function __invoke()
+    public function render()
     {
-        return view('holocron.school.index', [
+        return view('holocron.school', [
             'news' => $this->news(),
             'homeworks' => $this->homeworks(),
             'exams' => $this->exams(),

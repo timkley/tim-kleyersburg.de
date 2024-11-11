@@ -1,13 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\Holocron;
+namespace App\Livewire\Holocron;
 
 use App\Data\Holocron\DashboardCard;
-use App\Http\Controllers\Controller;
+use Livewire\Attributes\Layout;
+use Livewire\Component;
 
-class DashboardController extends Controller
+#[Layout('components.layouts.holocron')]
+class Dashboard extends Component
 {
-    public function __invoke()
+    public function render()
     {
         return view('holocron.dashboard', [
             'cards' => $this->cards(),

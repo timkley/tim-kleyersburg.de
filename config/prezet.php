@@ -48,6 +48,7 @@ return [
             League\CommonMark\Extension\HeadingPermalink\HeadingPermalinkExtension::class,
             League\CommonMark\Extension\ExternalLink\ExternalLinkExtension::class,
             League\CommonMark\Extension\FrontMatter\FrontMatterExtension::class,
+            League\CommonMark\Extension\SmartPunct\SmartPunctExtension::class,
             BenBjurstrom\Prezet\Extensions\MarkdownBladeExtension::class,
             BenBjurstrom\Prezet\Extensions\MarkdownImageExtension::class,
         ],

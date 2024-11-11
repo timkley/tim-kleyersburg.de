@@ -7,6 +7,7 @@
 
                 <a
                     href="{{ route('holocron.dashboard') }}"
+                    wire:navigate
                     class="border-0 font-mono text-sm font-semibold"
                 >
                     <x-heroicon-o-cpu-chip class="inline-block h-6 w-6" />

@@ -1,8 +1,8 @@
 <?php
 
+use App\Livewire\Holocron\Login;
 use Illuminate\Support\Facades\Route;
 
 Route::name('holocron.')->prefix('holocron')->group(function () {
-    Route::get('login', [App\Http\Controllers\Holocron\LoginController::class, 'show'])->name('login-form');
-    Route::post('login', [App\Http\Controllers\Holocron\LoginController::class, 'create'])->name('login');
+    Route::get('login', Login::class)->name('login');
 });

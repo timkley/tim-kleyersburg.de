@@ -14,5 +14,5 @@ class CustomFrontmatterData extends FrontmatterData
     public string $excerpt;
 
     #[Rules(['nullable', 'bool'])]
-    public ?bool $rumbling;
+    public ?bool $rambling;
 }

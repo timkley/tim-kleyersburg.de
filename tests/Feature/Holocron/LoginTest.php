@@ -3,22 +3,21 @@
 use App\Models\User;
 
 use function Pest\Laravel\get;
-use function Pest\Laravel\post;
 
 it('shows the login page', function () {
     $response = get(route('holocron.login'));
 
-    expect($response)->isSuccessful();
-    expect($response)->assertViewIs('holocron.login');
+    expect($response->status())->toBe(200);
 });
 
 it('is possible to login', function () {
     $user = User::factory()->create();
 
-    $response = post(route('holocron.login'), [
-        'email' => $user->email,
-        'password' => 'password',
-    ]);
+    $response = Livewire\Livewire::test('holocron.login')
+        ->set('email', $user->email)
+        ->set('password', 'password')
+        ->call('login')
+        ->assertSessionDoesntHaveErrors();
 
     expect($response)->isRedirect(route('holocron.dashboard'));
     expect(auth()->check())->toBeTrue();
@@ -27,11 +26,11 @@ it('is possible to login', function () {
 it('is not possible to login without correct credentials', function () {
     $user = User::factory()->create();
 
-    $response = post(route('holocron.login'), [
-        'email' => $user->email,
-        'password' => 'lol',
-    ]);
+    Livewire\Livewire::test('holocron.login')
+        ->set('email', $user->email)
+        ->set('password', 'lol')
+        ->call('login')
+        ->assertHasErrors();
 
-    expect($response)->assertSessionHasErrors();
     expect(auth()->check())->toBeFalse();
 });

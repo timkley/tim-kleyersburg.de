@@ -1,8 +1,8 @@
 @use(Illuminate\Support\Carbon)
 
-<x-layouts.holocron>
-    <x-slot:title>Schule Emi</x-slot>
+<x-slot:title>Schule Emi</x-slot>
 
+<div>
     <x-heading tag="h1">Schule Emi</x-heading>
 
     <div class="space-y-12">
@@ -28,8 +28,8 @@
                                         size="sm"
                                         class="ml-2"
                                         color="green"
-                                        >Erledigt</flux:badge
-                                    >
+                                        >Erledigt
+                                    </flux:badge>
                                 @endif
                             </flux:cell>
                             <flux:cell class="md:whitespace-normal">{!! str($homework->text)->markdown() !!}</flux:cell>
@@ -68,45 +68,45 @@
             ></div>
         </section>
     </div>
+</div>
 
-    <x-slot:scripts>
-        <script
-            defer
-            src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"
-        ></script>
-        <script>
-            document.addEventListener('alpine:init', () => {
-                Alpine.data('calendar', () => ({
-                    calendar: null,
-                    events: {!!
-                        json_encode($timetable->map(fn ($lesson) => [
-                            'id' => $lesson->id,
-                            'title' => $lesson->subject,
-                            'start' => $lesson->start,
-                            'end' => $lesson->end,
-                            'backgroundColor' => $lesson->cancelled ? '#f87171' : '#60a5fa',
-                            'borderColor' => $lesson->cancelled ? '#f87171' : '#60a5fa',
-                        ])->values())
-                    !!},
-                    init() {
-                        this.calendar = new FullCalendar.Calendar(this.$refs.calendar, {
-                            events: (info, success) => success(this.events),
-                            locale: 'de',
-                            firstDay: 1,
-                            hiddenDays: [0, 6],
-                            headerToolbar: {
-                                end: 'prev,next',
-                            },
-                            slotMinTime: '07:30',
-                            slotMaxTime: '16:30',
-                            initialDate: '{{ today()->nextWeekday()->format('Y-m-d') }}',
-                            initialView: 'timeGridWeek',
-                        })
+<x-slot:scripts>
+    <script
+        defer
+        src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"
+    ></script>
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('calendar', () => ({
+                calendar: null,
+                events: {!!
+                    json_encode($timetable->map(fn ($lesson) => [
+                        'id' => $lesson->id,
+                        'title' => $lesson->subject,
+                        'start' => $lesson->start,
+                        'end' => $lesson->end,
+                        'backgroundColor' => $lesson->cancelled ? '#f87171' : '#60a5fa',
+                        'borderColor' => $lesson->cancelled ? '#f87171' : '#60a5fa',
+                    ])->values())
+                !!},
+                init() {
+                    this.calendar = new FullCalendar.Calendar(this.$refs.calendar, {
+                        events: (info, success) => success(this.events),
+                        locale: 'de',
+                        firstDay: 1,
+                        hiddenDays: [0, 6],
+                        headerToolbar: {
+                            end: 'prev,next',
+                        },
+                        slotMinTime: '07:30',
+                        slotMaxTime: '16:30',
+                        initialDate: '{{ today()->nextWeekday()->format('Y-m-d') }}',
+                        initialView: 'timeGridWeek',
+                    })
 
-                        this.calendar.render()
-                    },
-                }))
-            })
-        </script>
-    </x-slot>
-</x-layouts.holocron>
+                    this.calendar.render()
+                },
+            }))
+        })
+    </script>
+</x-slot>

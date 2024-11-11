@@ -26,7 +26,10 @@
         rel="preconnect"
         href="https://fonts.bunny.net"
     />
-    <link href="https://fonts.bunny.net/css?family=ibm-plex-sans:600|source-sans-pro:400,600" rel="stylesheet" />
+    <link
+        href="https://fonts.bunny.net/css?family=ibm-plex-sans:600|source-sans-pro:400,600"
+        rel="stylesheet"
+    />
 
     <link
         rel="apple-touch-icon"
@@ -59,7 +62,11 @@
                 <x-logo />
 
                 <div class="space-x-2">
-                    <a href="/articles">Articles</a>
+                    <a
+                        href="{{ route('articles.index') }}"
+                        wire:navigate
+                        >Articles</a
+                    >
                 </div>
             </header>
         @endisset
