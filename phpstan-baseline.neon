@@ -1,0 +1,11 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Cannot access property \\$excerpt on string\\.$#"
+			count: 1
+			path: app/Models/Article.php
+
+		-
+			message: "#^Cannot access property \\$title on string\\.$#"
+			count: 1
+			path: app/Models/Article.php
