@@ -52,6 +52,14 @@ class Show extends Component
                 'model' => 'gpt-4o',
                 'messages' => [
                     [
+                        'role' => 'system',
+                        'content' => <<<EOT
+- only return markdown
+- make sure that frontmatter is valid, values must be enclosed in double quotes
+EOT
+
+                    ],
+                    [
                         'role' => 'user',
                         'content' => <<<EOT
 Rewrite the following blog post from the perspective of a frustrated, 35-year-old who’s fed up with the cluelessness around them. This person’s got no patience left for people who just can’t get a handle on the simplest things, keep burning up everyone’s time, and never make a single change to improve their sloppy workflows. Instead, they endlessly complain about how overwhelmed they are. As they type, they get progressively angrier, using more intense language, slurs, and visceral imagery—basically writing themselves into a bottomless rage. Expect the f-word to make increasingly frequent appearances as they rant. The core message should be:  _“Stop wasting my and your fucking time.”_
