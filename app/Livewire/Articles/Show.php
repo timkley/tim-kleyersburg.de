@@ -48,7 +48,7 @@ class Show extends Component
 
     private function rambleIt(string $original)
     {
-        return cache()->rememberForever('ramble.'.$this->article->id, function () use ($original) {
+        return cache()->store('file_persistent')->rememberForever('ramble.'.$this->article->id, function () use ($original) {
             $response = OpenAI::chat()->create([
                 'model' => 'gpt-4o',
                 'messages' => [
