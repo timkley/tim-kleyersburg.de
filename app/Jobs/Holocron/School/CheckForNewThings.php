@@ -31,7 +31,9 @@ class CheckForNewThings implements ShouldQueue
         $this->untis = $untis;
 
         $this->checkHomeworks();
+        Sleep::for(300)->milliseconds();
         $this->checkExams();
+        Sleep::for(300)->milliseconds();
         $this->checkLessons();
     }
 
