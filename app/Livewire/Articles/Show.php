@@ -25,6 +25,7 @@ class Show extends Component
         $markdown = Prezet::getMarkdown($this->article->filepath);
 
         if ($this->rambling) {
+            ray($this->rambleIt($markdown));
             $markdown = $this->rambleIt($markdown);
         }
 
@@ -55,7 +56,8 @@ class Show extends Component
                         'role' => 'system',
                         'content' => <<<EOT
 - only return markdown
-- make sure that frontmatter is valid, values must be enclosed in double quotes
+- don't include any code highlighting backticks
+- make sure that frontmatter is valid, values must be enclosed in double quotes if they are of type string
 EOT
 
                     ],
