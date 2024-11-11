@@ -59,9 +59,11 @@
 
     <hr />
 
-    <p class="font-semibold">You might find these related articles helpful or interesting, make sure to check them out!</p>
+    @if(count($related))
+        <p class="font-semibold">You might find these related articles helpful or interesting, make sure to check them out!</p>
 
-    <x-articles.list :articles="$related" />
+        <x-articles.list :articles="$related" />
+    @endif
 
     <p class="!mt-16">I hope this article helped you! If you have any questions, hit me up on <a href="https://x.com/timkley">X</a> 😊.</p>
 
