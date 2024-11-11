@@ -35,6 +35,7 @@ class Show extends Component
         return view('articles.show', [
             'frontmatter' => $frontmatter,
             'content' => $content,
+            'headings' => Prezet::getHeadings($content),
             'minutesToRead' => ceil(str($content)->stripTags()->wordCount() / 250).' minutes',
             'related' => $related->pluck('frontmatter'),
         ]);
