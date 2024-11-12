@@ -1,5 +1,5 @@
 ---
-date: 2024-11-15
+date: 2024-11-18
 draft: true
 title: "Keys to Efficiency Part 2: Expanding the Toolbelt"
 excerpt: How to expand your digital toolbelt to work more efficiently.
