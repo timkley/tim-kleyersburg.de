@@ -70,7 +70,7 @@ All in all, I had the feeling I was being held back by my not existing knowledge
 Being faster can be a motivator to learn Vim. It certainly was for me, after I saw _just how much faster I could be_.  
 It's the little things that let you feel like you are in much more control. Most of the time your mental process is very similar to how Vim works.
 
-An example: I write a lot of HTML, so working with tags is one of those things I need to do all the time. Selecting the whole tag, changing the content inside a paragraph tag, or just deleting the `<div>` alltogether.
+An example: I write a lot of HTML, so working with tags is one of those things I need to do all the time. Selecting the whole tag, changing the content inside a paragraph tag, or just deleting the `<div>` altogether.
 
 Let's compare the process:
 
@@ -86,15 +86,12 @@ Let's compare the process:
 2. Type `cit`
 3. Boom💥
 
-`cit` means **c**hange **i**nner **t**ag. I use it all the time and it was easy to remember because it just does what it says. Just remember you want to change the inner tag and you won't forget what to type.
+`cit` means **c**hange **i**nner **t**ag. I use it all the time, and it was easy to remember because it just does what it says. Just remember you want to change the inner tag, and you won't forget what to type.
 
 The above process doesn't look so much different written down, but I would argue the Vim way is 5 times faster. Maybe 10 times if you use your mouse to select what you want to change.
 
 > Vim takes so much pain out of the boring editing stuff when writing code that the experience of writing code becomes much more enjoyable. I now spend more time coding than I did before because I don't waste valuable time moving code blocks around or fiddling with the mouse to change some characters.  
 > The added time spent on programming probably also had and has a positive impact on my continued learning how to program.
-
-<video class="w-full mb-0" autoplay loop muted playsinline src="this-is-the-way.mp4"></video>
-[via GIPHY](https://giphy.com/gifs/disneyplus-star-wars-the-mandalorian-madalorian-Ld77zD3fF3Run8olIt)
 
 ## How I got into Vim and got better with it
 
