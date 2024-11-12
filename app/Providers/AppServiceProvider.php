@@ -31,7 +31,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Gate::define('viewPulse', function (?User $user) {
-            return auth()->check() ? Response::allow() : redirect()->route('holocron.login-form');
+            return auth()->check() ? Response::allow() : redirect()->route('holocron.login');
         });
     }
 }
