@@ -88,6 +88,7 @@ class CheckForNewThings implements ShouldQueue
 
         $lessons
             ->filter(fn (Lesson $lesson) => $lesson->cancelled)
+            ->filter(fn (Lesson $lesson) => $lesson->end->isFuture())
             ->each(function (Lesson $lesson) {
                 $key = 'holocron.school.lessons.'.$lesson->id;
                 $cached = $this->cache()->has($key);
