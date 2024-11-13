@@ -23,7 +23,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->redirectGuestsTo(fn (Request $request) => route('holocron.login'));
     })
     ->withSchedule(function (\Illuminate\Console\Scheduling\Schedule $schedule) {
-        $schedule->job(CheckForNewThings::class)->twiceDaily(7, 18);
+        $schedule->job(CheckForNewThings::class)->hourly()->unlessBetween('18:00', '7:00');
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
