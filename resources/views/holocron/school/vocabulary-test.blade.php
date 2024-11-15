@@ -8,7 +8,7 @@
     @unless ($finished)
         <div class="grid grid-cols-2 gap-4">
             <flux:card class="grid place-content-center">
-                <p class="text-center text-3xl">
+                <p class="break-words text-center text-xl sm:text-3xl">
                     {{ $lottery ? $word->german : $word->english }}
                 </p>
             </flux:card>
@@ -17,7 +17,7 @@
                 class="grid place-content-center overflow-hidden"
             >
                 <p
-                    class="text-center text-3xl blur-lg"
+                    class="break-words text-center text-xl blur-lg sm:text-3xl"
                     :class="{ 'blur-lg': $wire.blurred }"
                 >
                     {{ $lottery ? $word->english : $word->german }}
@@ -29,15 +29,26 @@
             <flux:button
                 wire:click="markAsCorrect({{ $word->id }})"
                 variant="primary"
-                >richtig</flux:button
+                >Gewusst!</flux:button
             >
             <flux:button
                 wire:click="markAsWrong({{ $word->id }})"
                 variant="danger"
-                >falsch</flux:button
+                >Wiederholen</flux:button
             >
         </div>
     @else
-        fertig
+        <p class="text-center text-2xl">Geschafft! 🥳</p>
     @endif
+
+    <flux:separator class="my-12" />
+
+    <div class="text-center">
+        <flux:button
+            href="{{ route('holocron.school.vocabulary.overview') }}"
+            variant="filled"
+            class="mx-auto"
+            >Zurück</flux:button
+        >
+    </div>
 </div>

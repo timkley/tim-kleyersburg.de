@@ -5,6 +5,7 @@ namespace App\Livewire\Holocron\School;
 use App\Models\VocabularyTest;
 use App\Models\VocabularyWord;
 use Livewire\Attributes\Layout;
+use Livewire\Attributes\Rule;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -13,8 +14,10 @@ class Vocabulary extends Component
 {
     use WithPagination;
 
+    #[Rule('required', 'string')]
     public string $german = '';
 
+    #[Rule('required', 'string')]
     public string $english = '';
 
     public $checkedWords;
@@ -29,6 +32,8 @@ class Vocabulary extends Component
 
     public function addWord(): void
     {
+        $this->validate();
+
         VocabularyWord::create([
             'german' => $this->german,
             'english' => $this->english,

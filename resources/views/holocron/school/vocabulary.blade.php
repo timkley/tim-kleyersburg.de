@@ -1,35 +1,7 @@
 <x-slot:title>Vokabeln lernen</x-slot>
 
 <div>
-    Vokabeln
-    <ul>
-        <li>Noch nie gemacht (correct / wrong = 0)</li>
-        <li>öfter falsch als richtig (wrong > correct)</li>
-        <li>selten gemacht (wrong + correct < 5)</li>
-    </ul>
-
     <x-heading tag="h2">Vokabeln</x-heading>
-
-    <form wire:submit="addWord">
-        <div class="flex gap-4">
-            <flux:input
-                wire:model="german"
-                label="Deutsch"
-            />
-            <flux:input
-                wire:model="english"
-                label="Englisch"
-            />
-        </div>
-
-        <flux:button
-            class="mt-3"
-            type="submit"
-            >Vokabel hinzufügen</flux:button
-        >
-    </form>
-
-    <flux:separator class="my-12" />
 
     <flux:table>
         <flux:columns>
@@ -38,6 +10,27 @@
             <flux:column>Angelegt am</flux:column>
         </flux:columns>
         <flux:rows>
+            <flux:row>
+                <flux:cell>
+                    <flux:input
+                        wire:model="german"
+                        wire:keydown.enter="addWord"
+                    />
+                </flux:cell>
+                <flux:cell>
+                    <flux:input
+                        wire:model="english"
+                        wire:keydown.enter="addWord"
+                    />
+                </flux:cell>
+                <flux:cell>
+                    <flux:button
+                        type="submit"
+                        wire:click="addWord"
+                        >Vokabel hinzufügen</flux:button
+                    >
+                </flux:cell>
+            </flux:row>
             @foreach ($words as $word)
                 <flux:row>
                     <flux:cell>{{ $word->german }}</flux:cell>
@@ -56,13 +49,16 @@
         </flux:rows>
     </flux:table>
 
+    <div class="mt-6">
+        {{ $words->links() }}
+    </div>
+
     <flux:button
+        class="my-6"
         variant="primary"
         wire:click="startTest"
-        >Test starten</flux:button
-    >
-
-    {{ $words->links() }}
+        >Test starten
+    </flux:button>
 
     <flux:separator class="my-12" />
 
@@ -85,7 +81,7 @@
                             {{ $test->updated_at->format('d.m.Y H:i') }}
                         </a>
                     </flux:cell>
-                    <flux:cell>{{ $test->word_ids->count() }} Vokabeln</flux:cell>
+                    <flux:cell>{{ $test->leftWords()->count() }} / {{ $test->word_ids->count() }} Vokabeln</flux:cell>
                     <flux:cell>{{ $test->error_count }} Fehler</flux:cell>
                     <flux:cell>
                         <flux:badge color="{{ $test->finished ? 'lime' : '' }}">
