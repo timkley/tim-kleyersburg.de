@@ -4,7 +4,7 @@
     $lottery = rand(0, 1);
 @endphp
 
-<div>
+<div class="mx-auto max-w-3xl">
     @unless ($finished)
         <div class="grid grid-cols-2 gap-4">
             <flux:card class="grid place-content-center">
@@ -24,6 +24,8 @@
                 </p>
             </flux:card>
         </div>
+
+        <div class="mt-6 text-center text-gray-500">noch {{ $test->leftWords()->count() }} Vokabeln übrig</div>
 
         <div class="mt-12 flex justify-center gap-4">
             <flux:button
