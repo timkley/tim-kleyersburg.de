@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Livewire\Holocron;
+namespace App\Livewire\Holocron\School;
 
 use App\Services\Untis;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 
 #[Layout('components.layouts.holocron')]
-class School extends Component
+class Overview extends Component
 {
     private Untis $untis;
 
@@ -18,7 +18,7 @@ class School extends Component
 
     public function render()
     {
-        return view('holocron.school', [
+        return view('holocron.school.overview', [
             'news' => $this->news(),
             'homeworks' => $this->homeworks(),
             'exams' => $this->exams(),

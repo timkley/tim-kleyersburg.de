@@ -35,6 +35,11 @@ class Dashboard extends Component
                 ]
             ),
             new DashboardCard(
+                'Schule Emi Vokabeln',
+                route('holocron.school.vocabulary.overview'),
+                'academic-cap',
+            ),
+            new DashboardCard(
                 'Pulse',
                 '/holocron/pulse',
                 'chart-bar',

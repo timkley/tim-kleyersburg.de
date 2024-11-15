@@ -9,3 +9,18 @@ parameters:
 			message: "#^Cannot access property \\$title on string\\.$#"
 			count: 1
 			path: app/Models/Article.php
+
+		-
+			message: "#^Cannot call method count\\(\\) on string\\.$#"
+			count: 2
+			path: app/Models/VocabularyTest.php
+
+		-
+			message: "#^Cannot call method push\\(\\) on string\\.$#"
+			count: 2
+			path: app/Models/VocabularyTest.php
+
+		-
+			message: "#^Cannot call method search\\(\\) on string\\.$#"
+			count: 2
+			path: app/Models/VocabularyTest.php

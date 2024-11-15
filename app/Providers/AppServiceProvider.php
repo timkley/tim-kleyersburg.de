@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Models\User;
 use App\Services\Untis;
 use Illuminate\Auth\Access\Response;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
@@ -30,6 +31,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Model::preventSilentlyDiscardingAttributes($this->app->isLocal());
+        Model::unguard();
+
         Gate::define('viewPulse', function (?User $user) {
             return auth()->check() ? Response::allow() : redirect()->route('holocron.login');
         });

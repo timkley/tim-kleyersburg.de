@@ -59,7 +59,7 @@
 
     <hr />
 
-    @if(count($related))
+    @if (count($related))
         <p class="font-semibold">You might find these related articles helpful or interesting, make sure to check them out!</p>
 
         <x-articles.list :articles="$related" />
