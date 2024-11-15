@@ -66,7 +66,7 @@
 
     <flux:separator class="my-12" />
 
-    <x-heading tag="h2">Vergangene Tests</x-heading>
+    <x-heading tag="h2">Deine Tests</x-heading>
 
     <flux:table>
         <flux:columns>
@@ -77,9 +77,21 @@
         <flux:rows>
             @foreach ($tests as $test)
                 <flux:row>
-                    <flux:cell>{{ $test->updated_at->format('d.m.Y H:i') }}</flux:cell>
+                    <flux:cell>
+                        <a
+                            href="{{ route('holocron.school.vocabulary.test', $test->id) }}"
+                            wire:navigate
+                        >
+                            {{ $test->updated_at->format('d.m.Y H:i') }}
+                        </a>
+                    </flux:cell>
                     <flux:cell>{{ $test->word_ids->count() }} Vokabeln</flux:cell>
                     <flux:cell>{{ $test->error_count }} Fehler</flux:cell>
+                    <flux:cell>
+                        <flux:badge color="{{ $test->finished ? 'lime' : '' }}">
+                            {{ $test->finished ? 'Fertig' : 'Im Gange' }}
+                        </flux:badge>
+                    </flux:cell>
                 </flux:row>
             @endforeach
         </flux:rows>

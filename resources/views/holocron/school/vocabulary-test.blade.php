@@ -1,11 +1,15 @@
 <x-slot:title>Vokabeltest</x-slot>
 
+@php
+    $lottery = rand(0, 1);
+@endphp
+
 <div>
     @unless ($finished)
         <div class="grid grid-cols-2 gap-4">
             <flux:card class="grid place-content-center">
                 <p class="text-center text-3xl">
-                    {{ $word->german }}
+                    {{ $lottery ? $word->german : $word->english }}
                 </p>
             </flux:card>
             <flux:card
@@ -16,7 +20,7 @@
                     class="text-center text-3xl blur-lg"
                     :class="{ 'blur-lg': $wire.blurred }"
                 >
-                    {{ $word->english }}
+                    {{ $lottery ? $word->english : $word->german }}
                 </p>
             </flux:card>
         </div>
