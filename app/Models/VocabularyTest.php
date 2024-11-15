@@ -51,6 +51,8 @@ class VocabularyTest extends Model
 
     public function markAsCorrect(int $id): void
     {
+        $word = VocabularyWord::find($id);
+        $word->increment('right');
         $wordIndex = $this->word_ids->search($id);
 
         $this->update([
@@ -62,6 +64,8 @@ class VocabularyTest extends Model
 
     public function markAsWrong(int $id): void
     {
+        $word = VocabularyWord::find($id);
+        $word->increment('wrong');
         $wordIndex = $this->word_ids->search($id);
 
         $this->update([

@@ -84,6 +84,8 @@ it('can mark words as right or wrong', function () {
         ->call('markAsWrong', $words[1]->id);
 
     $test->refresh();
+    expect($words[0]->fresh()->right)->toBe(1);
+    expect($words[1]->fresh()->wrong)->toBe(1);
     expect($test->word_ids->count())->toBe(10);
     expect($test->correct_ids->count())->toBe(1);
     expect($test->wrong_ids->count())->toBe(1);
@@ -100,6 +102,8 @@ it('makes sure a wrong word can be marked as correct', function () {
         ->call('markAsCorrect', $words[0]->id);
 
     $test->refresh();
+    expect($words[0]->fresh()->right)->toBe(1);
+    expect($words[0]->fresh()->wrong)->toBe(1);
     expect($test->word_ids->count())->toBe(2);
     expect($test->correct_ids->count())->toBe(1);
     expect($test->wrong_ids->count())->toBe(1);
