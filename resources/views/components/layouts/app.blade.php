@@ -21,6 +21,7 @@
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
+    @fluxStyles
 
     <link
         rel="preconnect"
@@ -109,6 +110,7 @@
     </div>
 
     @livewireScripts
+    @fluxScripts
     {{ $scripts ?? '' }}
 
     @production

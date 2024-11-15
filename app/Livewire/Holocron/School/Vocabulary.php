@@ -20,11 +20,16 @@ class Vocabulary extends Component
     #[Rule('required', 'string')]
     public string $english = '';
 
-    public $checkedWords;
+    public string $filter = 'all';
+
+    public array $checkedWords = [];
 
     public function render()
     {
-        $words = VocabularyWord::latest()->paginate(50);
+        $words = VocabularyWord::when($this->filter === 'never', fn ($query) => $query->where('right', '=', 0)->where('wrong', '=', 0))
+            ->when($this->filter === 'bad', fn ($query) => $query->whereColumn('wrong', '>', 'right'))
+            ->latest()
+            ->get();
         $tests = VocabularyTest::latest()->get();
 
         return view('holocron.school.vocabulary', compact('words', 'tests'));
@@ -50,9 +55,14 @@ class Vocabulary extends Component
     public function startTest()
     {
         $vocabularyTest = VocabularyTest::create([
-            'word_ids' => VocabularyWord::pluck('id')->toArray(),
+            'word_ids' => VocabularyWord::when($this->checkedWords, fn ($query) => $query->whereIn('id', $this->checkedWords))->pluck('id')->toArray(),
         ]);
 
         return $this->redirect(route('holocron.school.vocabulary.test', [$vocabularyTest->id]));
+    }
+
+    public function updatedFilter()
+    {
+        $this->reset('checkedWords');
     }
 }
