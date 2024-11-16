@@ -24,6 +24,6 @@ class NewHomework extends Notification
 
     public function toDiscord($notifiable)
     {
-        return DiscordMessage::create("Es gibt neue Hausaufgaben: {$this->homework->subject}");
+        return DiscordMessage::create("Es gibt neue Hausaufgaben: {$this->homework->subject}. Fällig am {$this->homework->dueDate->format('d.m.Y')}. {$this->homework->text}");
     }
 }
