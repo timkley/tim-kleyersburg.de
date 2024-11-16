@@ -24,26 +24,32 @@ class Dashboard extends Component
         $exams = cache('holocron.school.exams');
         $exams = (is_null($exams) ? 'n/a' : count($exams)).' Klassenarbeiten';
 
-        return [
-            new DashboardCard(
-                'Schule Emi',
-                route('holocron.school.index'),
-                'academic-cap',
-                [
-                    $homeworks,
-                    $exams,
-                ]
-            ),
-            new DashboardCard(
-                'Schule Emi Vokabeln',
-                route('holocron.school.vocabulary.overview'),
-                'academic-cap',
-            ),
-            new DashboardCard(
+        $cards = [];
+
+        $cards[] = new DashboardCard(
+            'Schule Emi',
+            route('holocron.school.index'),
+            'academic-cap',
+            [
+                $homeworks,
+                $exams,
+            ]
+        );
+
+        $cards[] = new DashboardCard(
+            'Schule Emi Vokabeln',
+            route('holocron.school.vocabulary.overview'),
+            'academic-cap',
+        );
+
+        if (auth()->user()->email === 'timkley@gmail.com') {
+            $cards[] = new DashboardCard(
                 'Pulse',
                 '/holocron/pulse',
                 'chart-bar',
-            ),
-        ];
+            );
+        }
+
+        return $cards;
     }
 }
