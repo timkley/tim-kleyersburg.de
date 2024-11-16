@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use BenBjurstrom\Prezet\Models\Document;
+use BenBjurstrom\Prezet\Prezet;
 use Illuminate\Database\Eloquent\Collection;
 use Spatie\Feed\FeedItem;
 
@@ -45,7 +46,7 @@ class Article
             ->map(fn (Document $document) => FeedItem::create([
                 'id' => $document->slug,
                 'title' => $document->frontmatter->title,
-                'summary' => $document->frontmatter->excerpt,
+                'summary' => Prezet::getContent(Prezet::getMarkdown($document->filepath)),
                 'updated' => $document->created_at,
                 'link' => route('prezet.show', $document->slug),
                 'authorName' => 'Tim Kleyersburg',
