@@ -30,7 +30,7 @@ class Login extends Component
             'password' => ['required'],
         ]);
 
-        if (auth()->attempt($credentials)) {
+        if (auth()->attempt($credentials, remember: true)) {
             return $this->redirect(route('holocron.dashboard'));
         }
 
