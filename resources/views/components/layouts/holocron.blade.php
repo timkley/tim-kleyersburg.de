@@ -3,7 +3,7 @@
     <x-slot:header>
         <div class="mx-auto max-w-3xl">
             <div class="flex items-center justify-between gap-x-4">
-                <x-logo />
+                {{-- <x-logo /> --}}
 
                 <a
                     href="{{ route('holocron.dashboard') }}"

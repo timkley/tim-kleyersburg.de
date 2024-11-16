@@ -3,7 +3,7 @@
 <div class="grid grid-cols-2 gap-8 md:grid-cols-4">
     @foreach ($cards as $card)
         <a
-            class="border-0"
+            data-flux-button
             href="{{ $card->link }}"
         >
             <flux:card class="h-full hover:bg-white/75 dark:hover:bg-white/5">
