@@ -26,8 +26,7 @@ class Vocabulary extends Component
 
     public function render()
     {
-        $words = VocabularyWord::when($this->filter === 'never', fn ($query) => $query->where('right', '=', 0)->where('wrong', '=', 0))
-            ->when($this->filter === 'bad', fn ($query) => $query->whereColumn('wrong', '>', 'right'))
+        $words = VocabularyWord::when($this->filter === 'low_score', fn ($query) => $query->whereRaw('`right` - `wrong` < ?', [3]))
             ->latest()
             ->get();
         $tests = VocabularyTest::latest()->get();

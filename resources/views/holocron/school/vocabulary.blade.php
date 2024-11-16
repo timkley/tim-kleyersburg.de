@@ -3,7 +3,6 @@
 <div>
     <x-heading tag="h2">Vokabeln</x-heading>
 
-    <span x-text="$wire.checkedWords"></span>
     <div class="space-y-6">
         <flux:radio.group
             wire:model.live="filter"
@@ -15,16 +14,12 @@
                 value="all"
             />
             <flux:radio
-                label="Nie gemacht"
-                value="never"
-            />
-            <flux:radio
-                label="Mehr schlecht als recht"
-                value="bad"
+                label="Score < 3"
+                value="low_score"
             />
         </flux:radio.group>
 
-        <flux:checkbox.group wire:model="checkedWords">
+        <flux:checkbox.group wire:model.self="checkedWords">
             <flux:table>
                 <flux:columns>
                     <flux:column>
@@ -59,26 +54,10 @@
                         </flux:cell>
                     </flux:row>
                     @foreach ($words as $word)
-                        <flux:row wire:key="{{ $word->id }}">
-                            <flux:cell>
-                                <flux:checkbox value="{{ $word->id }}" />
-                            </flux:cell>
-                            <flux:cell>{{ $word->german }}</flux:cell>
-                            <flux:cell>{{ $word->english }}</flux:cell>
-                            <flux:cell
-                                >{{ $word->score() }} (<span class="text-green-500/80">{{ $word->right }}</span> /
-                                <span class="text-red-500/80">{{ $word->wrong }}</span>)</flux:cell
-                            >
-                            <flux:cell>{{ $word->created_at->format('d.m.Y H:i') }}</flux:cell>
-                            <flux:cell>
-                                <flux:button
-                                    wire:click="deleteWord({{ $word->id }})"
-                                    square
-                                >
-                                    <flux:icon.trash variant="mini" />
-                                </flux:button>
-                            </flux:cell>
-                        </flux:row>
+                        <livewire:holocron.school.vocabulary-word
+                            :$word
+                            :key="$word->id"
+                        />
                     @endforeach
                 </flux:rows>
             </flux:table>
@@ -114,7 +93,7 @@
                                 {{ $test->updated_at->format('d.m.Y H:i') }}
                             </a>
                         </flux:cell>
-                        <flux:cell>{{ $test->leftWords()->count() }} / {{ $test->word_ids->count() }} Vokabeln</flux:cell>
+                        <flux:cell>{{ $test->leftWords()->count() }} / {{ $test->word_ids->count() }}Vokabeln </flux:cell>
                         <flux:cell>{{ $test->error_count }} Fehler</flux:cell>
                         <flux:cell>
                             <flux:badge color="{{ $test->finished ? 'lime' : '' }}">
