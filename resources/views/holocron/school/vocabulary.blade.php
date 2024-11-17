@@ -93,7 +93,7 @@
                                 {{ $test->updated_at->format('d.m.Y H:i') }}
                             </a>
                         </flux:cell>
-                        <flux:cell>{{ $test->leftWords()->count() }} / {{ $test->word_ids->count() }}Vokabeln </flux:cell>
+                        <flux:cell>{{ $test->leftWords()->count() }} Vokabeln übrig</flux:cell>
                         <flux:cell>{{ $test->error_count }} Fehler</flux:cell>
                         <flux:cell>
                             <flux:badge color="{{ $test->finished ? 'lime' : '' }}">
