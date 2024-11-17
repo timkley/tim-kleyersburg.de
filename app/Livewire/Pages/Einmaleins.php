@@ -8,6 +8,6 @@ class Einmaleins extends Component
 {
     public function render()
     {
-        return view('einmaleins');
+        return view('pages.einmaleins');
     }
 }

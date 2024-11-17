@@ -5,14 +5,11 @@ namespace App\Livewire\Holocron\School;
 use App\Models\VocabularyTest as VocabularyTestModel;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
-use Livewire\WithPagination;
 
 #[Layout('components.layouts.holocron')]
 class VocabularyTest extends Component
 {
     public $blurred = true;
-
-    use WithPagination;
 
     public VocabularyTestModel $test;
 

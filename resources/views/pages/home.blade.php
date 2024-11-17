@@ -11,7 +11,7 @@
         </p>
     </div>
 
-    <livewire:home.last-scrobble />
+    <livewire:pages.components.last-scrobble />
 
     <div>
         <x-heading tag="h2">Latest articles</x-heading>

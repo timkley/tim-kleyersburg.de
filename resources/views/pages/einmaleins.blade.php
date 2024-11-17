@@ -13,7 +13,7 @@
 </x-slot:footer>
 
 @php
-    $tileClass = 'w-16 h-16 bg-sky-100 dark:bg-slate-700 rounded flex items-center justify-center font-bold text-3xl'
+    $tileClass = 'flex h-16 w-16 items-center justify-center rounded bg-sky-100 text-3xl font-bold dark:bg-slate-700'
 @endphp
 <div class="mt-6 text-center sm:mt-12" x-data="multi">
     <template x-if="status === 'finished'">

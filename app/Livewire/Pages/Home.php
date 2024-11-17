@@ -9,7 +9,7 @@ class Home extends Component
 {
     public function render()
     {
-        return view('home', [
+        return view('pages.home', [
             'articles' => $this->articles(),
             'cvItems' => $this->cvItems(),
             'contactItems' => $this->contactItems(),

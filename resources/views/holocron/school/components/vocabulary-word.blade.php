@@ -1,8 +1,5 @@
 <flux:row>
     <flux:cell>
-        <flux:checkbox value="{{ $word->id }}" />
-    </flux:cell>
-    <flux:cell>
         <flux:input
             wire:model.live="german"
             wire:keydown.enter="editWord"

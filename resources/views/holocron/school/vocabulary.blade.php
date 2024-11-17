@@ -17,56 +17,56 @@
                 label="Score < 3"
                 value="low_score"
             />
+            <flux:radio
+                label="Score > 3"
+                value="high_score"
+            />
         </flux:radio.group>
 
-        <flux:checkbox.group wire:model.self="checkedWords">
-            <flux:table>
-                <flux:columns>
-                    <flux:column>
-                        <flux:checkbox.all />
-                    </flux:column>
-                    <flux:column>Deutsch</flux:column>
-                    <flux:column>Englisch</flux:column>
-                    <flux:column>Score</flux:column>
-                    <flux:column>Angelegt am</flux:column>
-                </flux:columns>
-                <flux:rows>
-                    <flux:row>
-                        <flux:cell></flux:cell>
-                        <flux:cell>
-                            <flux:input
-                                wire:model="german"
-                                wire:keydown.enter="addWord"
-                            />
-                        </flux:cell>
-                        <flux:cell>
-                            <flux:input
-                                wire:model="english"
-                                wire:keydown.enter="addWord"
-                            />
-                        </flux:cell>
-                        <flux:cell>
-                            <flux:button
-                                type="submit"
-                                wire:click="addWord"
-                                >Vokabel hinzufügen
-                            </flux:button>
-                        </flux:cell>
-                    </flux:row>
-                    @foreach ($words as $word)
-                        <livewire:holocron.school.vocabulary-word
-                            :$word
-                            :key="$word->id"
+        <flux:table>
+            <flux:columns>
+                <flux:column>Deutsch</flux:column>
+                <flux:column>Englisch</flux:column>
+                <flux:column>Score</flux:column>
+                <flux:column>Angelegt am</flux:column>
+            </flux:columns>
+            <flux:rows>
+                <flux:row>
+                    <flux:cell>
+                        <flux:input
+                            wire:model="german"
+                            wire:keydown.enter="addWord"
                         />
-                    @endforeach
-                </flux:rows>
-            </flux:table>
-        </flux:checkbox.group>
+                    </flux:cell>
+                    <flux:cell>
+                        <flux:input
+                            wire:model="english"
+                            wire:keydown.enter="addWord"
+                        />
+                    </flux:cell>
+                    <flux:cell>
+                        <flux:button
+                            type="submit"
+                            wire:click="addWord"
+                            >Vokabel hinzufügen
+                        </flux:button>
+                    </flux:cell>
+                </flux:row>
+                @foreach ($words as $word)
+                    <livewire:holocron.school.components.vocabulary-word
+                        :$word
+                        :key="$word->id"
+                    />
+                @endforeach
+            </flux:rows>
+        </flux:table>
+
+        {{ $words->links() }}
 
         <flux:button
             variant="primary"
             wire:click="startTest"
-            >Test starten
+            >Test mit {{ $words->total() }} Vokabeln starten
         </flux:button>
     </div>
 

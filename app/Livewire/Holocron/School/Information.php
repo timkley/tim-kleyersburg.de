@@ -7,7 +7,7 @@ use Livewire\Attributes\Layout;
 use Livewire\Component;
 
 #[Layout('components.layouts.holocron')]
-class Overview extends Component
+class Information extends Component
 {
     private Untis $untis;
 
@@ -18,7 +18,7 @@ class Overview extends Component
 
     public function render()
     {
-        return view('holocron.school.overview', [
+        return view('holocron.school.information', [
             'news' => $this->news(),
             'homeworks' => $this->homeworks(),
             'exams' => $this->exams(),

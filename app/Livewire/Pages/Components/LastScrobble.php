@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Home;
+namespace App\Livewire\Pages\Components;
 
 use Illuminate\Support\Facades\Http;
 use Livewire\Attributes\Lazy;
@@ -23,11 +23,11 @@ class LastScrobble extends Component
             return data_get($response->json(), 'recenttracks.track.0');
         });
 
-        return view('livewire.home.last-scrobble', compact('track'));
+        return view('pages.components.last-scrobble', compact('track'));
     }
 
     public function placeholder()
     {
-        return view('livewire.home.last-scrobble');
+        return view('pages.components.last-scrobble');
     }
 }

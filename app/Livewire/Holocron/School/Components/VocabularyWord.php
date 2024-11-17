@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Holocron\School;
+namespace App\Livewire\Holocron\School\Components;
 
 use App\Models\VocabularyWord as VocabularyWordModel;
 use Livewire\Component;
@@ -23,7 +23,7 @@ class VocabularyWord extends Component
 
     public function render()
     {
-        return view('livewire.holocron.school.vocabulary-word');
+        return view('holocron.school.components.vocabulary-word');
     }
 
     public function updated($property, $value): void
