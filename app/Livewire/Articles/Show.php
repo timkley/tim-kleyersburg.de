@@ -57,6 +57,7 @@ class Show extends Component
                         'content' => <<<'EOT'
 - only return markdown
 - don't include any code highlighting backticks
+- keep the heading structure of the article
 - make sure that frontmatter is valid, values must be enclosed in double quotes if they are of type string
 EOT
 
