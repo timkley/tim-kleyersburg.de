@@ -2,12 +2,10 @@
 
 namespace App\Livewire\Holocron\School;
 
+use App\Livewire\Holocron\HolocronComponent;
 use App\Models\VocabularyTest as VocabularyTestModel;
-use Livewire\Attributes\Layout;
-use Livewire\Component;
 
-#[Layout('components.layouts.holocron')]
-class VocabularyTest extends Component
+class VocabularyTest extends HolocronComponent
 {
     public $blurred = true;
 

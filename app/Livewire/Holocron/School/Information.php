@@ -2,12 +2,10 @@
 
 namespace App\Livewire\Holocron\School;
 
+use App\Livewire\Holocron\HolocronComponent;
 use App\Services\Untis;
-use Livewire\Attributes\Layout;
-use Livewire\Component;
 
-#[Layout('components.layouts.holocron')]
-class Information extends Component
+class Information extends HolocronComponent
 {
     private Untis $untis;
 
