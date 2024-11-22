@@ -147,15 +147,23 @@ class Untis
     private function login(): void
     {
         $loginData = cache()->remember('untis.sessionid', now()->addMinutes(10), function () {
-            $response = $this->request(method: 'post', data: [
-                'id' => '1',
-                'method' => 'authenticate',
-                'params' => [
-                    'user' => $this->username,
-                    'password' => $this->password,
-                    'client' => 'WebUntis Test',
-                ],
-            ]);
+            $response = retry(3, function() {
+                $response = $this->request(method: 'post', data: [
+                    'id' => '1',
+                    'method' => 'authenticate',
+                    'params' => [
+                        'user' => $this->username,
+                        'password' => $this->password,
+                        'client' => 'WebUntis Test',
+                    ],
+                ]);
+
+                if (data_get($response, 'error.code') === -8520 || !data_get($response, 'result.sessionId')) {
+                    throw new \Exception('Login failed');
+                }
+
+                return $response;
+            }, 2000);
 
             return [
                 data_get($response, 'result.sessionId'),
