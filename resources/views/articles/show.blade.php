@@ -8,11 +8,11 @@
     <x-seo::meta />
 </x-slot>
 
-<div class="prose mx-auto mb-24 lg:prose-lg dark:prose-invert prose-headings:font-ibm prose-headings:font-semibold md:mt-8 lg:mt-16">
+<div class="prose lg:prose-lg dark:prose-invert prose-headings:font-ibm prose-headings:font-semibold mx-auto mb-24 md:mt-8 lg:mt-16">
     <h1 class="[text-wrap:balance]">{{ $frontmatter->title }}</h1>
     <div class="not-prose mb-12">
         <div class="flex items-center">
-            <div class="mr-2 h-6 w-6 flex-shrink-0 overflow-hidden rounded-full">
+            <div class="mr-2 h-6 w-6 shrink-0 overflow-hidden rounded-full">
                 <img
                     class="my-0"
                     src="/img/avatar_small.jpg"
@@ -39,7 +39,7 @@
     </div>
 
     @if ($frontmatter->rambling)
-        <flux:card class="not-prose !p-4">
+        <flux:card class="not-prose p-4!">
             <p>
                 You know when you sometimes get really agitated when writing or thinking about something? This was one of those times. Click the
                 button to see what probably was going on inside my head.
@@ -65,7 +65,7 @@
         <x-articles.list :articles="$related" />
     @endif
 
-    <p class="!mt-16">I hope this article helped you! If you have any questions, hit me up on <a href="https://x.com/timkley">X</a> 😊.</p>
+    <p class="mt-16!">I hope this article helped you! If you have any questions, hit me up on <a href="https://x.com/timkley">X</a> 😊.</p>
 
     @env('local')
         <hr />

@@ -13,7 +13,7 @@
 </x-slot:footer>
 
 @php
-    $tileClass = 'flex h-16 w-16 items-center justify-center rounded bg-sky-100 text-3xl font-bold dark:bg-slate-700'
+    $tileClass = 'flex h-16 w-16 items-center justify-center rounded-sm bg-sky-100 text-3xl font-bold dark:bg-slate-700'
 @endphp
 <div class="mt-6 text-center sm:mt-12" x-data="multi">
     <template x-if="status === 'finished'">
@@ -36,12 +36,12 @@
             <div class="mb-3 flex items-center justify-center"
                  :class="{'flex-row-reverse': Math.random() > 0.5}">
                 <div
-                    class="{{ $tileClass }} relative overflow-hidden !bg-cyan-400/30"
+                    class="{{ $tileClass }} relative overflow-hidden bg-cyan-400/30!"
                     x-text="term[0]">
                 </div>
                 <div class="w-10 text-center text-2xl font-bold">×</div>
                 <div
-                    class="{{ $tileClass }} relative overflow-hidden !bg-pink-400/30"
+                    class="{{ $tileClass }} relative overflow-hidden bg-pink-400/30!"
                     x-text="term[1]">
                 </div>
             </div>
@@ -53,7 +53,7 @@
 
             <div>
                 <input
-                    class="w-24 rounded border-2 px-3 py-2 text-center text-3xl font-bold focus:border-gray-400 focus:outline-none dark:border-gray-600 dark:bg-gray-700"
+                    class="w-24 rounded-sm border-2 px-3 py-2 text-center text-3xl font-bold focus:border-gray-400 focus:outline-hidden dark:border-gray-600 dark:bg-gray-700"
                     type="text"
                     x-model="guess"
                     autofocus

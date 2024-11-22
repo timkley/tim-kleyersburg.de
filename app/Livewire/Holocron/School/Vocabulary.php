@@ -2,15 +2,13 @@
 
 namespace App\Livewire\Holocron\School;
 
+use App\Livewire\Holocron\HolocronComponent;
 use App\Models\VocabularyTest;
 use App\Models\VocabularyWord;
-use Livewire\Attributes\Layout;
 use Livewire\Attributes\Rule;
-use Livewire\Component;
 use Livewire\WithPagination;
 
-#[Layout('components.layouts.holocron')]
-class Vocabulary extends Component
+class Vocabulary extends HolocronComponent
 {
     use WithPagination;
 
