@@ -72,11 +72,11 @@
             default => '',
         })
         ->add(match ($variant) { // Shadows...
-            'primary' => 'shadow-[inset_0px_1px_theme(colors.sky.900),inset_0px_2px_theme(colors.white/.15)] dark:shadow-none',
-            'danger' => 'shadow-[inset_0px_1px_theme(colors.red.500),inset_0px_2px_theme(colors.white/.15)] dark:shadow-none',
+            'primary' => 'shadow-[inset_0px_1px_var(--color-sky-900),inset_0px_2px_theme(--color-white/.15)] dark:shadow-none',
+            'danger' => 'shadow-[inset_0px_1px_var(--color-red-500),inset_0px_2px_theme(--color-white/.15)] dark:shadow-none',
             'outline' => match ($size) {
-                'base' => 'shadow-sm',
-                'sm' => 'shadow-sm',
+                'base' => 'shadow-xs',
+                'sm' => 'shadow-xs',
                 'xs' => 'shadow-none',
             },
             default => '',
@@ -84,16 +84,16 @@
         ->add(match ($variant) { // Grouped border treatments...
             'ghost' => '',
             'subtle' => '',
-            'outline' => '[[data-flux-button-group]_&]:border-l-0 [:is([data-flux-button-group]>&:first-child,_[data-flux-button-group]_:first-child>&)]:border-l-[1px]',
-            'filled' => '[[data-flux-button-group]_&]:border-r [:is([data-flux-button-group]>&:last-child,_[data-flux-button-group]_:last-child>&)]:border-r-0 [[data-flux-button-group]_&]:border-sky-200/80 [[data-flux-button-group]_&]:dark:border-sky-900/50',
-            'danger' => '[[data-flux-button-group]_&]:border-r [:is([data-flux-button-group]>&:last-child,_[data-flux-button-group]_:last-child>&)]:border-r-0 [[data-flux-button-group]_&]:border-red-600 [[data-flux-button-group]_&]:dark:border-red-900/25',
-            default => '[[data-flux-button-group]_&]:border-r [:is([data-flux-button-group]>&:last-child,_[data-flux-button-group]_:last-child>&)]:border-r-0 [[data-flux-button-group]_&]:border-black [[data-flux-button-group]_&]:dark:border-sky-900/25',
+            'outline' => 'in-data-flux-button-group:border-l-0 [:is([data-flux-button-group]>&:first-child,_[data-flux-button-group]_:first-child>&)]:border-l-[1px]',
+            'filled' => 'in-data-flux-button-group:border-r [:is([data-flux-button-group]>&:last-child,_[data-flux-button-group]_:last-child>&)]:border-r-0 in-data-flux-button-group:border-sky-200/80 dark:in-data-flux-button-group:border-sky-900/50',
+            'danger' => 'in-data-flux-button-group:border-r [:is([data-flux-button-group]>&:last-child,_[data-flux-button-group]_:last-child>&)]:border-r-0 in-data-flux-button-group:border-red-600 dark:in-data-flux-button-group:border-red-900/25',
+            default => 'in-data-flux-button-group:border-r [:is([data-flux-button-group]>&:last-child,_[data-flux-button-group]_:last-child>&)]:border-r-0 in-data-flux-button-group:border-black dark:in-data-flux-button-group:border-sky-900/25',
         })
         ->add($loading ? [ // Loading states...
             '*:transition-opacity',
             $type === 'submit' ? '[&[disabled]>:not([data-flux-loading-indicator])]:opacity-0' : '[&[data-flux-loading]>:not([data-flux-loading-indicator])]:opacity-0',
             $type === 'submit' ? '[&[disabled]>[data-flux-loading-indicator]]:opacity-100' : '[&[data-flux-loading]>[data-flux-loading-indicator]]:opacity-100',
-            $type === 'submit' ? '[&[disabled]]:pointer-events-none' : '[&[data-flux-loading]]:pointer-events-none',
+            $type === 'submit' ? '[&[disabled]]:pointer-events-none' : 'data-flux-loading:pointer-events-none',
         ] : []);
 
     // Exempt subtle and ghost buttons from receiving border roundness overrides from button.group...

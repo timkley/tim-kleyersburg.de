@@ -54,8 +54,8 @@
         href="/site.webmanifest"
     />
 </head>
-<body class="flex flex-col p-2 sm:p-3 md:p-4 bg-gradient-to-tr from-blue-700 to-blue-300 dark:from-blue-700 dark:to-blue-900 min-h-screen font-sans {{ $additionalBodyClasses ?? '' }}">
-    <div class="h-lvh flex-1 rounded bg-sky-50 px-6 py-4 text-slate-900 selection:bg-blue-200 sm:rounded-md md:rounded-lg dark:bg-slate-800 dark:text-slate-300">
+<body class="flex flex-col p-2 sm:p-3 md:p-4 bg-linear-to-tr from-blue-700 to-blue-300 dark:from-blue-700 dark:to-blue-900 min-h-screen font-sans {{ $additionalBodyClasses ?? '' }}">
+    <div class="h-lvh flex-1 rounded-sm bg-sky-50 px-6 py-4 text-slate-900 selection:bg-blue-200 sm:rounded-md md:rounded-lg dark:bg-slate-800 dark:text-slate-300">
         @isset($header)
             {{ $header }}
         @else
@@ -83,7 +83,7 @@
                         class="inline-flex items-center text-slate-600 dark:text-slate-300"
                         href="https://github.com/timkley/tim-kleyersburg.de"
                     >
-                        <div class="mr-1 h-4 w-4 flex-shrink-0">
+                        <div class="mr-1 h-4 w-4 shrink-0">
                             <svg
                                 class="fill-current"
                                 role="img"

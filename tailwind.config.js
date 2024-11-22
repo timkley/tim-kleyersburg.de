@@ -1,24 +1,7 @@
-import colors from 'tailwindcss/colors'
-import typography from '@tailwindcss/typography'
-
 /** @type {import('tailwindcss').Config} */
 export default {
-    content: [
-        './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
-        './vendor/livewire/flux-pro/stubs/**/*.blade.php',
-        './vendor/livewire/flux/stubs/**/*.blade.php',
-        './storage/framework/views/*.php',
-        './resources/**/*.blade.php',
-    ],
     theme: {
         extend: {
-            colors: {
-                gray: colors.slate,
-            },
-            fontFamily: {
-                sans: ['Source Sans Pro', 'sans-serif'],
-                ibm: ['IBM Plex Sans', 'sans-serif'],
-            },
             typography: (theme) => ({
                 DEFAULT: {
                     css: {
@@ -64,5 +47,4 @@ export default {
             })
         },
     },
-    plugins: [typography],
 }
