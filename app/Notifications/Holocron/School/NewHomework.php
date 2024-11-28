@@ -12,10 +12,7 @@ class NewHomework extends Notification
 {
     use Queueable;
 
-    public function __construct(public Homework $homework)
-    {
-        //
-    }
+    public function __construct(public Homework $homework) {}
 
     public function via(object $notifiable): array
     {
@@ -24,6 +21,6 @@ class NewHomework extends Notification
 
     public function toDiscord($notifiable)
     {
-        return DiscordMessage::create("Es gibt neue Hausaufgaben: {$this->homework->subject}. Fällig am {$this->homework->dueDate->format('d.m.Y')}. {$this->homework->text}");
+        return DiscordMessage::create("Es gibt neue Hausaufgaben: {$this->homework->subject}. Fällig am **{$this->homework->dueDate->format('d.m.Y')}**. {$this->homework->text}");
     }
 }

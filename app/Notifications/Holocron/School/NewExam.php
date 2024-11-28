@@ -12,10 +12,7 @@ class NewExam extends Notification
 {
     use Queueable;
 
-    public function __construct(public Exam $exam)
-    {
-        //
-    }
+    public function __construct(public Exam $exam) {}
 
     public function via(object $notifiable): array
     {
@@ -24,6 +21,6 @@ class NewExam extends Notification
 
     public function toDiscord($notifiable)
     {
-        return DiscordMessage::create("Eine neue Klassenarbeit wurde angekündigt: {$this->exam->subject}");
+        return DiscordMessage::create("Eine neue Klassenarbeit wurde angekündigt: **{$this->exam->subject}** am {$this->exam->date->format('d.m.Y')}.");
     }
 }
