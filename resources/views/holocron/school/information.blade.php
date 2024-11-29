@@ -100,7 +100,7 @@
                         },
                         slotMinTime: '07:30',
                         slotMaxTime: '16:30',
-                        initialDate: '{{ today()->nextWeekday()->format('Y-m-d') }}',
+                        initialDate: '{{ today()->isWeekday() ? today()->format('Y-m-d') : today()->nextWeekday()->format('Y-m-d') }}',
                         initialView: 'timeGridWeek',
                     })
 
