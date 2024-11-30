@@ -12,7 +12,9 @@ class ClassCancelled extends Notification
 {
     use Queueable;
 
-    public function __construct(public Lesson $lesson) {}
+    public function __construct(public Lesson $lesson)
+    {
+    }
 
     public function via(object $notifiable): array
     {

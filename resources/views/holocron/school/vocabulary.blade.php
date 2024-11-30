@@ -96,9 +96,21 @@
                         <flux:cell>{{ $test->leftWords()->count() }} Vokabeln übrig</flux:cell>
                         <flux:cell>{{ $test->error_count }} Fehler</flux:cell>
                         <flux:cell>
-                            <flux:badge color="{{ $test->finished ? 'lime' : '' }}">
-                                {{ $test->finished ? 'Fertig' : 'Im Gange' }}
-                            </flux:badge>
+                            <div class="flex items-center gap-x-3">
+                                <flux:badge color="{{ $test->finished ? 'lime' : '' }}">
+                                    {{ $test->finished ? 'Fertig' : 'Im Gange' }}
+                                </flux:badge>
+
+                                @can('isTim')
+                                    <flux:button
+                                        wire:click="deleteTest({{ $test->id }})"
+                                        icon="trash"
+                                        variant="danger"
+                                        size="xs"
+                                        square
+                                    />
+                                @endcan
+                            </div>
                         </flux:cell>
                     </flux:row>
                 @endforeach

@@ -35,7 +35,11 @@ class AppServiceProvider extends ServiceProvider
         Model::unguard();
 
         Gate::define('viewPulse', function (?User $user) {
-            return auth()->check() ? Response::allow() : redirect()->route('holocron.login');
+            return auth()->user()?->isTim() ? Response::allow() : redirect()->route('holocron.login');
+        });
+
+        Gate::define('isTim', function (?User $user) {
+            return auth()->user()?->isTim() ? Response::allow() : redirect()->route('holocron.login');
         });
     }
 }

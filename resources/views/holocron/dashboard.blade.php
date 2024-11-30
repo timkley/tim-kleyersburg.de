@@ -22,7 +22,7 @@
         </div>
     </flux:card>
 
-    @if (auth()->user()->email === 'timkley@gmail.com')
+    @if (auth()->user()->isTim())
         <a
             data-flux-button
             href="/holocron/pulse"

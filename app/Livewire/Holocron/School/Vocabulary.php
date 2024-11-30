@@ -5,6 +5,7 @@ namespace App\Livewire\Holocron\School;
 use App\Livewire\Holocron\HolocronComponent;
 use App\Models\VocabularyTest;
 use App\Models\VocabularyWord;
+use Illuminate\Support\Facades\Gate;
 use Livewire\Attributes\Rule;
 use Livewire\WithPagination;
 
@@ -52,6 +53,15 @@ class Vocabulary extends HolocronComponent
         ]);
 
         return $this->redirect(route('holocron.school.vocabulary.test', [$vocabularyTest->id]));
+    }
+
+    public function deleteTest(int $id)
+    {
+        if (! Gate::allows('isTim')) {
+            abort(403);
+        }
+
+        VocabularyTest::find($id)->delete();
     }
 
     private function filteredWords()

@@ -12,7 +12,9 @@ class NewExam extends Notification
 {
     use Queueable;
 
-    public function __construct(public Exam $exam) {}
+    public function __construct(public Exam $exam)
+    {
+    }
 
     public function via(object $notifiable): array
     {

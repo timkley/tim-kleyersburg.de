@@ -45,4 +45,9 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function isTim(): bool
+    {
+        return $this->email === 'timkley@gmail.com';
+    }
 }
