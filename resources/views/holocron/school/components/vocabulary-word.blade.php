@@ -2,14 +2,12 @@
     <flux:cell>
         <flux:input
             wire:model.live="german"
-            wire:keydown.enter="editWord"
             value="{{ $word->german }}"
         />
     </flux:cell>
     <flux:cell>
         <flux:input
             wire:model.live="english"
-            wire:keydown.enter="editWord"
             value="{{ $word->english }}"
         />
     </flux:cell>
