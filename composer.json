@@ -17,7 +17,8 @@
         "livewire/flux-pro": "^1.0",
         "livewire/livewire": "^3.5",
         "openai-php/laravel": "^0.10.2",
-        "spatie/laravel-feed": "^4.4"
+        "spatie/laravel-feed": "^4.4",
+        "timkley/denk": "^0.0.2"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.14",
