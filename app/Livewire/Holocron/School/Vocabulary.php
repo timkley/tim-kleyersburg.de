@@ -67,6 +67,7 @@ class Vocabulary extends HolocronComponent
     private function filteredWords()
     {
         return VocabularyWord::when($this->filter === 'low_score', fn ($query) => $query->whereRaw('`right` - `wrong` < ?', [3]))
+            ->when($this->filter === 'middle_score', fn ($query) => $query->whereRaw('`right` - `wrong` >= ?', [5]))
             ->when($this->filter === 'high_score', fn ($query) => $query->whereRaw('`right` - `wrong` >= ?', [3]))
             ->latest();
     }

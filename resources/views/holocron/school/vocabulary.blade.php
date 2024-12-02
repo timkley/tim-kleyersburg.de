@@ -18,6 +18,10 @@
                 value="low_score"
             />
             <flux:radio
+                label="Score < 5"
+                value="middle_score"
+            />
+            <flux:radio
                 label="Score > 3"
                 value="high_score"
             />
