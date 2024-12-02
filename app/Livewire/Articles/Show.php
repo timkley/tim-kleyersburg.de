@@ -36,7 +36,7 @@ class Show extends Component
             'frontmatter' => $frontmatter,
             'content' => $content,
             'headings' => Prezet::getHeadings($content),
-            'minutesToRead' => ceil(str($content)->stripTags()->wordCount() / 250) . ' minutes',
+            'minutesToRead' => ceil(str($content)->stripTags()->wordCount() / 250).' minutes',
             'related' => $related->pluck('frontmatter'),
         ]);
     }
@@ -48,10 +48,10 @@ class Show extends Component
 
     private function rambleIt(string $original)
     {
-        return cache()->store('file_persistent')->rememberForever('ramble.' . $this->article->id, function () use ($original) {
+        return cache()->store('file_persistent')->rememberForever('ramble.'.$this->article->id, function () use ($original) {
             return Denk::text()
                 ->systemPrompt(
-                    <<<EOT
+                    <<<'EOT'
 - only return markdown
 - don't include any code highlighting backticks
 - keep the heading structure of the article

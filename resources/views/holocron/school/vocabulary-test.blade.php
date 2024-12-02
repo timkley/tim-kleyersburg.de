@@ -29,12 +29,12 @@
 
         <div class="mt-12 flex justify-center gap-4">
             <flux:button
-                wire:click="markAsCorrect({{ $word->id }})"
+                wire:click="markAsCorrect({{ $word->id }}); right.play()"
                 variant="primary"
                 >Gewusst!</flux:button
             >
             <flux:button
-                wire:click="markAsWrong({{ $word->id }})"
+                wire:click="markAsWrong({{ $word->id }}); wrong.play()"
                 variant="danger"
                 >Wiederholen</flux:button
             >
@@ -53,4 +53,19 @@
             >Zurück</flux:button
         >
     </div>
+
+    @persist('audio-files')
+        <div class="hidden">
+            <audio
+                id="right"
+                src="/sounds/right.mp3"
+                controls
+            ></audio>
+            <audio
+                id="wrong"
+                src="/sounds/wrong.mp3"
+                controls
+            ></audio>
+        </div>
+    @endpersist
 </div>
