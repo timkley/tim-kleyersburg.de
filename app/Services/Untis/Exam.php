@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Services\Untis;
 
 use Illuminate\Support\Carbon;
@@ -20,7 +22,7 @@ class Exam
         return self::create(
             $item['id'] ?? hash('sha-256', $item['subject'].$item['examDate']),
             $item['subject'],
-            \Illuminate\Support\Carbon::createFromFormat('Ymd', $item['examDate']),
+            Carbon::createFromFormat('Ymd', $item['examDate']),
             $item['text']
         );
     }

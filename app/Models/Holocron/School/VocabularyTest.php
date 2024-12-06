@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Models;
+declare(strict_types=1);
+
+namespace App\Models\Holocron\School;
 
 use Illuminate\Database\Eloquent\Casts\AsCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -10,16 +12,6 @@ class VocabularyTest extends Model
 {
     /** @use HasFactory<\Database\Factories\VocabularyTestFactory> */
     use HasFactory;
-
-    protected function casts(): array
-    {
-        return [
-            'word_ids' => AsCollection::class,
-            'correct_ids' => AsCollection::class,
-            'wrong_ids' => AsCollection::class,
-            'finished' => 'boolean',
-        ];
-    }
 
     protected $attributes = [
         'correct_ids' => '[]',
@@ -73,6 +65,16 @@ class VocabularyTest extends Model
         ]);
 
         $this->checkIfTestIsFinished();
+    }
+
+    protected function casts(): array
+    {
+        return [
+            'word_ids' => AsCollection::class,
+            'correct_ids' => AsCollection::class,
+            'wrong_ids' => AsCollection::class,
+            'finished' => 'boolean',
+        ];
     }
 
     private function checkIfTestIsFinished(): void

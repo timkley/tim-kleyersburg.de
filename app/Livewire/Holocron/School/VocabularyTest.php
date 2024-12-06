@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\Holocron\School;
 
 use App\Livewire\Holocron\HolocronComponent;
-use App\Models\VocabularyTest as VocabularyTestModel;
+use App\Models\Holocron\School\VocabularyTest as VocabularyTestModel;
 
 class VocabularyTest extends HolocronComponent
 {

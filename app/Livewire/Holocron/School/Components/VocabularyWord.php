@@ -1,8 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\Holocron\School\Components;
 
-use App\Models\VocabularyWord as VocabularyWordModel;
+use App\Models\Holocron\School\VocabularyWord as VocabularyWordModel;
 use Livewire\Component;
 
 class VocabularyWord extends Component

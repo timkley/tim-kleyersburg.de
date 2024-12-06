@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Data;
+declare(strict_types=1);
+
+namespace App\Data\Articles;
 
 use BenBjurstrom\Prezet\Data\FrontmatterData;
 use WendellAdriel\ValidatedDTO\Attributes\Rules;

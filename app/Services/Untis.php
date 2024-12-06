@@ -1,11 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Services;
 
 use App\Services\Untis\Exam;
 use App\Services\Untis\Homework;
 use App\Services\Untis\Lesson;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Http\Client\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Http;
@@ -159,11 +162,13 @@ class Untis
                 ]);
 
                 if (data_get($response, 'error.code') === -8520 || ! data_get($response, 'result.sessionId')) {
-                    throw new \Exception('Login failed');
+                    throw new Exception('Login failed');
                 }
 
                 return $response;
-            }, 2000);
+            }, function (int $attempt, Exception $exception) {
+                return $attempt * 2000;
+            });
 
             return [
                 data_get($response, 'result.sessionId'),

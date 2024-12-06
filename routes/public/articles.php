@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Livewire\Articles\Index;
 use App\Livewire\Articles\Show;
 use BenBjurstrom\Prezet\Http\Controllers\ImageController;

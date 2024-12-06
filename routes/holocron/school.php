@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Livewire\Holocron\School\Information;
 use App\Livewire\Holocron\School\Vocabulary;
 use App\Livewire\Holocron\School\VocabularyTest;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     /*
     |--------------------------------------------------------------------------
@@ -27,7 +29,7 @@ return [
     */
 
     'data' => [
-        'frontmatter' => \App\Data\CustomFrontmatterData::class,
+        'frontmatter' => \App\Data\Articles\CustomFrontmatterData::class,
     ],
 
     /*

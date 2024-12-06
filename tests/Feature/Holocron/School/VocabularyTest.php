@@ -1,7 +1,9 @@
 <?php
 
-use App\Models\VocabularyTest;
-use App\Models\VocabularyWord;
+declare(strict_types=1);
+
+use App\Models\Holocron\School\VocabularyTest;
+use App\Models\Holocron\School\VocabularyWord;
 
 it('knows the score of a vocabulary', function (int $right, int $wrong, int $result) {
     $word = VocabularyWord::factory()->make([
@@ -70,7 +72,7 @@ it('has a correct words relationship', function () {
         'word_ids' => $words->pluck('id')->toArray(),
     ]);
 
-    expect($test->words())->toBeInstanceOf(\Illuminate\Support\Collection::class)->toHaveCount(10);
+    expect($test->words())->toBeInstanceOf(Illuminate\Support\Collection::class)->toHaveCount(10);
 });
 
 it('can mark words as right or wrong', function () {
@@ -118,5 +120,5 @@ it('knows which words are left', function () {
     $test->markAsCorrect($words[0]->id);
     $test->markAsWrong($words[1]->id);
 
-    expect($test->leftWords())->toBeInstanceOf(\Illuminate\Support\Collection::class)->toHaveCount(9);
+    expect($test->leftWords())->toBeInstanceOf(Illuminate\Support\Collection::class)->toHaveCount(9);
 });

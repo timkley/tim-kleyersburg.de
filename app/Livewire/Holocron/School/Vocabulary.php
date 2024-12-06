@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\Holocron\School;
 
 use App\Livewire\Holocron\HolocronComponent;
-use App\Models\VocabularyTest;
-use App\Models\VocabularyWord;
+use App\Models\Holocron\School\VocabularyTest;
+use App\Models\Holocron\School\VocabularyWord;
 use Illuminate\Support\Facades\Gate;
 use Livewire\Attributes\Rule;
 use Livewire\WithPagination;

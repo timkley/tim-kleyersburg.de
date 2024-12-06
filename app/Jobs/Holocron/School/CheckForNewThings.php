@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Jobs\Holocron\School;
 
 use App\Notifications\DiscordSchoolChannel;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Services\Untis;
 
 use Illuminate\Support\Carbon;
@@ -22,8 +24,8 @@ class Lesson
         return self::create(
             $item['id'] ?? hash('sha-256', $subject.$item['start']),
             $subject,
-            Carbon::createFromFormat('Ymd Hi', $item['date'].' '.str_pad($item['startTime'], 4, '0', STR_PAD_LEFT)),
-            Carbon::createFromFormat('Ymd Hi', $item['date'].' '.str_pad($item['endTime'], 4, '0', STR_PAD_LEFT)),
+            Carbon::createFromFormat('Ymd Hi', $item['date'].' '.mb_str_pad($item['startTime'], 4, '0', STR_PAD_LEFT)),
+            Carbon::createFromFormat('Ymd Hi', $item['date'].' '.mb_str_pad($item['endTime'], 4, '0', STR_PAD_LEFT)),
             data_get($item, 'code') === 'cancelled',
         );
     }
