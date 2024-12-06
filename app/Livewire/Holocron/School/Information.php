@@ -6,6 +6,8 @@ namespace App\Livewire\Holocron\School;
 
 use App\Livewire\Holocron\HolocronComponent;
 use App\Services\Untis;
+use Illuminate\Support\Collection;
+use Illuminate\View\View;
 
 class Information extends HolocronComponent
 {
@@ -16,7 +18,7 @@ class Information extends HolocronComponent
         $this->untis = resolve(Untis::class);
     }
 
-    public function render()
+    public function render(): View
     {
         return view('holocron.school.information', [
             'news' => $this->news(),
@@ -26,22 +28,22 @@ class Information extends HolocronComponent
         ]);
     }
 
-    private function news()
+    private function news(): array
     {
         return cache()->flexible('holocron.school.news', [now()->addMinutes(15), now()->addYear()], fn () => $this->untis->news());
     }
 
-    private function timetable()
+    private function timetable(): Collection
     {
         return cache()->flexible('holocron.school.timetable', [now()->addMinutes(15), now()->addYear()], fn () => $this->untis->timetable(today(), today()->addDays(14)));
     }
 
-    private function homeworks()
+    private function homeworks(): Collection
     {
         return cache()->flexible('holocron.school.homeworks', [now()->addMinutes(15), now()->addYear()], fn () => $this->untis->homeworks(today()->subDays(21), today()->addDays(21)));
     }
 
-    private function exams()
+    private function exams(): Collection
     {
         return cache()->flexible('holocron.school.exams', [now()->addMinutes(15), now()->addYear()], fn () => $this->untis->exams(today(), today()->addDays(21)));
     }

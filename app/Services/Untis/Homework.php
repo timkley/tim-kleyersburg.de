@@ -17,7 +17,7 @@ class Homework
         return new self($id, $subject, $date, $dueDate, $text, $done);
     }
 
-    public static function createFromApi(array $item)
+    public static function createFromApi(array $item): self
     {
         return self::create(
             $item['id'] ?? hash('sha-256', $item['lesson']['subject'].$item['date'].$item['dueDate']),

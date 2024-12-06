@@ -17,7 +17,7 @@ class Exam
         return new self($id, $subject, $date, $text);
     }
 
-    public static function createFromApi(array $item)
+    public static function createFromApi(array $item): self
     {
         return self::create(
             $item['id'] ?? hash('sha-256', $item['subject'].$item['examDate']),
