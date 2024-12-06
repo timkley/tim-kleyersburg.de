@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class VocabularyWord extends Model
 {
-    /** @use HasFactory<\Database\Factories\VocabularyWordFactory> */
+    /** @use HasFactory<\Database\Factories\Holocron\School\VocabularyWordFactory> */
     use HasFactory;
 
     public function score(): int

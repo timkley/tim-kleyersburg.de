@@ -29,7 +29,7 @@ return [
     */
 
     'data' => [
-        'frontmatter' => \App\Data\Articles\CustomFrontmatterData::class,
+        'frontmatter' => App\Data\Articles\CustomFrontmatterData::class,
     ],
 
     /*

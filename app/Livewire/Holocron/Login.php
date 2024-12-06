@@ -5,13 +5,14 @@ declare(strict_types=1);
 namespace App\Livewire\Holocron;
 
 use Illuminate\Validation\ValidationException;
+use Illuminate\View\View;
 use Livewire\Component;
 
 class Login extends Component
 {
-    public $email = '';
+    public string $email = '';
 
-    public $password = '';
+    public string $password = '';
 
     public function mount()
     {
@@ -20,7 +21,7 @@ class Login extends Component
         }
     }
 
-    public function render()
+    public function render(): View
     {
         return view('holocron.login');
     }

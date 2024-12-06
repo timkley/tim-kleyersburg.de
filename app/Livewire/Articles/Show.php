@@ -8,20 +8,21 @@ use App\Models\Article;
 use BenBjurstrom\Prezet\Models\Document;
 use BenBjurstrom\Prezet\Prezet;
 use Denk\Facades\Denk;
+use Illuminate\View\View;
 use Livewire\Component;
 
 class Show extends Component
 {
     public Document $article;
 
-    public $rambling = false;
+    public bool $rambling = false;
 
-    public function mount(string $slug)
+    public function mount(string $slug): void
     {
         $this->article = Article::find($slug);
     }
 
-    public function render()
+    public function render(): View
     {
         $frontmatter = Prezet::getFrontmatter($this->article->filepath);
         $markdown = Prezet::getMarkdown($this->article->filepath);
@@ -48,7 +49,7 @@ class Show extends Component
         $this->rambling = ! $this->rambling;
     }
 
-    private function rambleIt(string $original)
+    private function rambleIt(string $original): string
     {
         return cache()->store('file_persistent')->rememberForever('ramble.'.$this->article->id, function () use ($original) {
             return Denk::text()

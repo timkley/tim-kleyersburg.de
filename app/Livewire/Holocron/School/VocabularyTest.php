@@ -6,6 +6,7 @@ namespace App\Livewire\Holocron\School;
 
 use App\Livewire\Holocron\HolocronComponent;
 use App\Models\Holocron\School\VocabularyTest as VocabularyTestModel;
+use Illuminate\View\View;
 
 class VocabularyTest extends HolocronComponent
 {
@@ -13,7 +14,7 @@ class VocabularyTest extends HolocronComponent
 
     public VocabularyTestModel $test;
 
-    public function render()
+    public function render(): View
     {
         $word = $this->test->leftWords()->count() ? $this->test->leftWords()->random() : null;
 

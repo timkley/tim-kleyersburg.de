@@ -5,11 +5,12 @@ declare(strict_types=1);
 namespace App\Livewire\Pages;
 
 use App\Models\Article;
+use Illuminate\View\View;
 use Livewire\Component;
 
 class Home extends Component
 {
-    public function render()
+    public function render(): View
     {
         return view('pages.home', [
             'articles' => $this->articles(),

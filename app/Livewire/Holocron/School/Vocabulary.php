@@ -8,6 +8,7 @@ use App\Livewire\Holocron\HolocronComponent;
 use App\Models\Holocron\School\VocabularyTest;
 use App\Models\Holocron\School\VocabularyWord;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\View\View;
 use Livewire\Attributes\Rule;
 use Livewire\WithPagination;
 
@@ -23,7 +24,7 @@ class Vocabulary extends HolocronComponent
 
     public string $filter = 'all';
 
-    public function render()
+    public function render(): View
     {
         $words = $this->filteredWords()->paginate(10);
         $tests = VocabularyTest::latest()->get();
@@ -57,7 +58,7 @@ class Vocabulary extends HolocronComponent
         return $this->redirect(route('holocron.school.vocabulary.test', [$vocabularyTest->id]));
     }
 
-    public function deleteTest(int $id)
+    public function deleteTest(int $id): void
     {
         if (! Gate::allows('isTim')) {
             abort(403);

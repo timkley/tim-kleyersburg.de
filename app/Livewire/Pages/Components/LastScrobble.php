@@ -5,13 +5,14 @@ declare(strict_types=1);
 namespace App\Livewire\Pages\Components;
 
 use Illuminate\Support\Facades\Http;
+use Illuminate\View\View;
 use Livewire\Attributes\Lazy;
 use Livewire\Component;
 
 #[Lazy]
 class LastScrobble extends Component
 {
-    public function render()
+    public function render(): View
     {
         $track = cache()->remember('last-scrobble', now()->addMinutes(5), function () {
             $response = Http::withQueryParameters([

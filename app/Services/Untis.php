@@ -17,18 +17,18 @@ class Untis
 {
     public string $sessionId;
 
-    public string $personType;
+    public int $personType;
 
-    public string $personId;
+    public int $personId;
 
-    public string $klasseId;
+    public int $klasseId;
 
     public function __construct(public string $server, public string $school, public string $username, public string $password)
     {
         $this->login();
     }
 
-    public function news()
+    public function news(): array
     {
         return $this->request(
             url: 'api/public/news/newsWidgetData',

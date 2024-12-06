@@ -11,7 +11,7 @@ class TestCommand extends Command
 {
     protected $signature = 't';
 
-    public function handle()
+    public function handle(): void
     {
         CheckForNewThings::dispatch();
     }

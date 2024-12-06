@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class VocabularyTest extends Model
 {
-    /** @use HasFactory<\Database\Factories\VocabularyTestFactory> */
+    /** @use HasFactory<\Database\Factories\Holocron\School\VocabularyTestFactory> */
     use HasFactory;
 
     protected $attributes = [
@@ -67,6 +67,14 @@ class VocabularyTest extends Model
         $this->checkIfTestIsFinished();
     }
 
+    /**
+     * @return array{
+     *     word_ids: 'Illuminate\Database\Eloquent\Casts\AsCollection',
+     *     correct_ids: 'Illuminate\Database\Eloquent\Casts\AsCollection',
+     *     wrong_ids: 'Illuminate\Database\Eloquent\Casts\AsCollection',
+     *     finished: 'boolean'
+     * }
+     */
     protected function casts(): array
     {
         return [

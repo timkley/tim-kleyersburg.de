@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Livewire\Holocron\School\Components;
 
 use App\Models\Holocron\School\VocabularyWord as VocabularyWordModel;
+use Illuminate\View\View;
 use Livewire\Component;
 
 class VocabularyWord extends Component
@@ -15,7 +16,7 @@ class VocabularyWord extends Component
 
     public string $english = '';
 
-    public function mount(VocabularyWordModel $word)
+    public function mount(VocabularyWordModel $word): void
     {
         $this->word = $word;
 
@@ -23,7 +24,7 @@ class VocabularyWord extends Component
         $this->english = $word->english;
     }
 
-    public function render()
+    public function render(): View
     {
         return view('holocron.school.components.vocabulary-word');
     }
