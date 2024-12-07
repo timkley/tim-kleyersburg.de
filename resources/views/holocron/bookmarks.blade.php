@@ -41,12 +41,14 @@
                 <flux:button.group>
                     <flux:button
                         wire:click="recrawl({{ $bookmark->id }})"
+                        wire:target="recrawl({{ $bookmark->id }})"
                         icon="arrow-path"
                         size="sm"
                         square
                     />
                     <flux:button
                         wire:click="deleteTest({{ $bookmark->id }})"
+                        wire:target="deleteTest({{ $bookmark->id }})"
                         wire:confirm="Willste sicher löschen?"
                         icon="trash"
                         variant="danger"
