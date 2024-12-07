@@ -18,10 +18,10 @@
 
             <flux:card class="flex justify-between">
                 <div>
-                    <p class="text-lg font-bold">{{ $title }}</p>
+                    <p class="text-lg font-bold line-clamp-2">{{ $title }}</p>
                     <div class="space-y-4">
                         @if($bookmark->description)
-                            <div>{{ $bookmark->description }}</div>
+                            <div class="line-clamp-2">{{ $bookmark->description }}</div>
                         @endif
 
                         <a href="{{ $bookmark->url }}" target="_blank" class="inline-flex items-center gap-1">
