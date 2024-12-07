@@ -14,7 +14,7 @@ return Application::configure(basePath: dirname(__DIR__))
             __DIR__.'/../routes/public/pages.php',
             __DIR__.'/../routes/public/articles.php',
             __DIR__.'/../routes/holocron/auth.php',
-            __DIR__.'/../routes/holocron/dashboard.php',
+            __DIR__.'/../routes/holocron/pages.php',
             __DIR__.'/../routes/holocron/helpers.php',
             __DIR__.'/../routes/holocron/school.php',
         ],

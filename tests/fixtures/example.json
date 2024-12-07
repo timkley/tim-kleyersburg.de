@@ -1,0 +1,10 @@
+{
+    "success": true,
+    "data": {
+        "markdown": "Test markdown",
+        "metadata": {
+            "title": "Example title",
+            "description": "Example description"
+        }
+    }
+}

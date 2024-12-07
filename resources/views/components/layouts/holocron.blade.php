@@ -22,5 +22,10 @@
     </div>
 
     <x-slot:footer></x-slot>
+
+    @persist('toast')
+        <flux:toast />
+    @endpersist
+
     <x-slot:scripts>{{ $scripts ?? '' }}</x-slot>
 </x-layouts.app>

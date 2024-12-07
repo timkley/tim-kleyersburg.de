@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6cfe451e445902d5b2ed91bb6a082d1a",
+    "content-hash": "ac868f2f7934a7229b12b293febbd4d4",
     "packages": [
         {
             "name": "archtechx/laravel-seo",
@@ -7643,16 +7643,16 @@
         },
         {
             "name": "timkley/denk",
-            "version": "0.0.2",
+            "version": "0.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/timkley/denk.git",
-                "reference": "e092bd17f1e2c267698aab840c3480a3e1a2c2f2"
+                "reference": "0a05e3e8bf59036ebf547c24fbbfb28ee741e876"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/timkley/denk/zipball/e092bd17f1e2c267698aab840c3480a3e1a2c2f2",
-                "reference": "e092bd17f1e2c267698aab840c3480a3e1a2c2f2",
+                "url": "https://api.github.com/repos/timkley/denk/zipball/0a05e3e8bf59036ebf547c24fbbfb28ee741e876",
+                "reference": "0a05e3e8bf59036ebf547c24fbbfb28ee741e876",
                 "shasum": ""
             },
             "require": {
@@ -7700,9 +7700,9 @@
             "description": "OpenAI helpers",
             "support": {
                 "issues": "https://github.com/timkley/denk/issues",
-                "source": "https://github.com/timkley/denk/tree/v0.0.2"
+                "source": "https://github.com/timkley/denk/tree/v0.0.3"
             },
-            "time": "2024-12-01T19:35:35+00:00"
+            "time": "2024-12-02T14:39:31+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
