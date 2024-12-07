@@ -59,5 +59,7 @@
         @endforeach
     </div>
 
-    {{ $bookmarks->links() }}
+    <div class="mt-8">
+        {{ $bookmarks->links() }}
+    </div>
 </div>
