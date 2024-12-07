@@ -36,6 +36,8 @@ class Bookmarks extends HolocronComponent
         ]);
 
         CrawlBookmarkInformation::dispatch($bookmark);
+
+        $this->reset('url');
     }
 
     public function recrawl(int $id): void
