@@ -8,6 +8,7 @@ use App\Jobs\Holocron\CrawlBookmarkInformation;
 use App\Models\Holocron\Bookmark;
 use Flux;
 use Illuminate\View\View;
+use Livewire\Attributes\Renderless;
 use Livewire\Attributes\Title;
 use Livewire\Attributes\Validate;
 use Livewire\WithPagination;
@@ -40,6 +41,7 @@ class Bookmarks extends HolocronComponent
         $this->reset('url');
     }
 
+    #[Renderless]
     public function recrawl(int $id): void
     {
         CrawlBookmarkInformation::dispatch(Bookmark::find($id));
