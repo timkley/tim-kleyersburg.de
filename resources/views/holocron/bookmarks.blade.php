@@ -11,7 +11,7 @@
         @foreach($bookmarks as $bookmark)
             @php
                 $parsedUrl = parse_url($bookmark->url);
-                $cleanUrl = rtrim($parsedUrl['host'] . $parsedUrl['path'], '/');
+                $cleanUrl = rtrim($parsedUrl['host'] . ($parsedUrl['path'] ?? ''), '/');
                 $title = $bookmark->title ?? $cleanUrl;
                 $base64Favicon = $bookmark->favicon ? 'data:image/x-icon;base64,' . base64_encode($bookmark->favicon) : null;
             @endphp
