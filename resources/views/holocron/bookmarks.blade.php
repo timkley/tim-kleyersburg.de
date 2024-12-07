@@ -3,14 +3,15 @@
         <flux:input.group>
             <flux:input wire:model="url" placeholder="URL"/>
 
-            <flux:button icon="plus">Speichern</flux:button>
+            <flux:button type="submit" icon="plus">Speichern</flux:button>
         </flux:input.group>
     </form>
 
     <div class="mt-8 grid gap-4 sm:grid-cols-2">
         @foreach($bookmarks as $bookmark)
             @php
-                $cleanUrl = parse_url($bookmark->url, PHP_URL_HOST);
+                $parsedUrl = parse_url($bookmark->url);
+                $cleanUrl = rtrim($parsedUrl['host'] . $parsedUrl['path'], '/');
                 $title = $bookmark->title ?? $cleanUrl;
                 $base64Favicon = $bookmark->favicon ? 'data:image/x-icon;base64,' . base64_encode($bookmark->favicon) : null;
             @endphp
