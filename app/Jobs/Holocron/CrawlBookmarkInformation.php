@@ -44,7 +44,7 @@ class CrawlBookmarkInformation implements ShouldQueue
     protected function createSummary(string $body): string
     {
         return Denk::text()
-            ->prompt('Summarize the given content in 2 sentences or less, exclude things like login, contact, footer information and focus on the purpose itself: '.$body)
+            ->prompt('Summarize the given content in 2 sentences or less, exclude things like login, contact, cookie or footer information and focus on the purpose itself: '.$body)
             ->generate();
     }
 }
