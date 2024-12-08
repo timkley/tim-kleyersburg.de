@@ -20,4 +20,8 @@ return [
         'token' => env('DISCORD_BOT_TOKEN'),
         'school_channel' => env('DISCORD_SCHOOL_CHANNEL'),
     ],
+
+    'firecrawl' => [
+        'api_key' => env('FIRECRAWL_API_KEY'),
+    ]
 ];

@@ -25,7 +25,7 @@ class CrawlBookmarkInformation implements ShouldQueue
 
         $faviconResponse = Http::get($parsedUrl['scheme'].'://'.$parsedUrl['host'].'/favicon.ico');
         $favicon = $faviconResponse->ok() ? $faviconResponse->body() : null;
-        $crawl = Http::post('https://firecrawl.wacg.dev/v1/scrape', [
+        $crawl = Http::withToken(config('services.firecrawl.api_key'))->post('https://firecrawl.wacg.dev/v1/scrape', [
             'url' => $url,
         ])->json();
 
