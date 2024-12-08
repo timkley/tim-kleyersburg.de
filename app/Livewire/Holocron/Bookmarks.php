@@ -39,6 +39,8 @@ class Bookmarks extends HolocronComponent
         CrawlBookmarkInformation::dispatch($bookmark);
 
         $this->reset('url');
+
+        Flux::toast('Lesezeichen wurde hinzugefügt.');
     }
 
     #[Renderless]
@@ -46,11 +48,13 @@ class Bookmarks extends HolocronComponent
     {
         CrawlBookmarkInformation::dispatch(Bookmark::find($id));
 
-        Flux::toast('Bookmark information is being recrawled.');
+        Flux::toast('Lesezeichen wird neu gecrawlt.');
     }
 
     public function delete(int $id): void
     {
         Bookmark::find($id)->delete();
+
+        Flux::toast('Lesezeichen gelöscht.');
     }
 }
