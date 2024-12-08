@@ -9,11 +9,9 @@ use App\Models\Holocron\Bookmark;
 use Flux;
 use Illuminate\View\View;
 use Livewire\Attributes\Renderless;
-use Livewire\Attributes\Title;
 use Livewire\Attributes\Validate;
 use Livewire\WithPagination;
 
-#[Title('Lesezeichen')]
 class Bookmarks extends HolocronComponent
 {
     use WithPagination;

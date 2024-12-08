@@ -1,4 +1,8 @@
+<x-slot:title>Lesezeichen</x-slot>
+
 <div>
+    <x-heading tag="h2">Lesezeichen</x-heading>
+
     <form class="max-w-sm" wire:submit="submit">
         <flux:input.group>
             <flux:input wire:model="url" placeholder="URL"/>
@@ -18,14 +22,15 @@
 
             <flux:card class="@container !p-4">
                 <div class="flex flex-col gap-3 @sm:flex-row justify-between h-full">
-                    <div>
+                    <div class="min-w-0">
                         <p class="text-lg font-bold line-clamp-2">{{ $title }}</p>
                         <div class="space-y-4">
                             @if($bookmark->description)
                                 <div class="line-clamp-2">{{ $bookmark->description }}</div>
                             @endif
 
-                            <a href="{{ $bookmark->url }}" target="_blank" class="inline-flex items-center gap-1 line-clamp-1 max-w-full">
+                            <a href="{{ $bookmark->url }}" target="_blank"
+                               class="inline-flex max-w-full items-center gap-1 line-clamp-1">
                                 @if(!is_null($base64Favicon))
                                     <img src="{{ $base64Favicon }}" alt="{{ $title }}" class="size-4"/>
                                 @else

@@ -4,6 +4,7 @@ title: "Keys to Efficiency Part 2: Expanding the Toolbelt"
 excerpt: How to expand your digital toolbelt to work more efficiently.
 tags: [efficiency]
 rambling: true
+image: /articles/img/ogimages/keys-to-effiency-part-2-expanding-the-toolbelt.webp
 ---
 
 In [my previous post](/articles/keys-to-effiency/part-1-hard-skills), we explored the power at your fingertips to speed up everyday tasks and bring efficiency to the forefront of your workflow. Let's imagine you invested the time to know how to use your hammer. And now you're hooked. You want more. That's when you notice: Many tasks are repetitive, complex, or simply lack a clear, simple shortcut. This is where specialized tools come in – tools that empower you to automate, centralize, and amplify your work, all while keeping your keyboard as your primary driver.

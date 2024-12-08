@@ -4,6 +4,7 @@ title: "Keys to Efficiency Part 3: Documenting for the Future"
 excerpt: Don't let your knowledge and experience go to waste and lose precious time.
 tags: [efficiency]
 rambling: true
+image: /articles/img/ogimages/keys-to-effiency-part-3-documenting-the-future.webp
 ---
 
 You've [honed your skills](/articles/keys-to-effiency/part-1-hard-skills) and [expanded your toolbelt](/articles/keys-to-effiency/part-2-expanding-the-toolbelt) – now it's time to ensure your knowledge and experience don't go to waste.

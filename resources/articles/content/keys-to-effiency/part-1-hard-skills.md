@@ -4,6 +4,7 @@ title: "Keys to Efficiency Part 1: Hard Skills"
 excerpt: Imagine a carpenter who needs 10 minutes just to hold his hammer correctly – unimaginable, right?
 tags: [efficiency]
 rambling: true
+image: /articles/img/ogimages/keys-to-effiency-part-1-hard-skills.webp
 ---
 
 **Efficiency is a mindset**. You don't get efficient by learning just one or two skills alone. Instead, you want to master the basics and get into a mental state where you’re always looking for ways to improve. This series is about building a foundation of skills and hopefully inspiring you to keep questioning and improving your workflows.
