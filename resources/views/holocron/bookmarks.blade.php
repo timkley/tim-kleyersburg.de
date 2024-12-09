@@ -52,6 +52,7 @@
                             icon="arrow-path"
                             size="sm"
                             square
+                            tooltip="Neu crawlen"
                         />
                         <flux:button
                             wire:click="deleteTest({{ $bookmark->id }})"
@@ -61,6 +62,7 @@
                             variant="danger"
                             size="sm"
                             square
+                            tooltip="Löschen"
                         />
                     </flux:button.group>
                 </div>
