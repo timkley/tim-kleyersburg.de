@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace App\Jobs\Holocron\School;
 
+use App\Data\Untis\Exam;
+use App\Data\Untis\Homework;
+use App\Data\Untis\Lesson;
 use App\Notifications\DiscordSchoolChannel;
 use App\Notifications\Holocron\School\ClassCancelled;
 use App\Notifications\Holocron\School\NewExam;
 use App\Notifications\Holocron\School\NewHomework;
 use App\Services\Untis;
-use App\Services\Untis\Exam;
-use App\Services\Untis\Homework;
-use App\Services\Untis\Lesson;
 use Illuminate\Contracts\Cache\Repository;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;

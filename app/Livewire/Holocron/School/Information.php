@@ -40,7 +40,7 @@ class Information extends HolocronComponent
 
     private function homeworks(): Collection
     {
-        return cache()->flexible('holocron.school.homeworks', [now()->addMinutes(15), now()->addYear()], fn () => $this->untis->homeworks(today()->subDays(21), today()->addDays(21)));
+        return cache()->flexible('holocron.school.homeworks', [now()->addMinutes(15), now()->addYear()], fn () => $this->untis->homeworks(today()->subDays(10), today()->addDays(21)));
     }
 
     private function exams(): Collection

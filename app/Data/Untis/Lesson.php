@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Services\Untis;
+namespace App\Data\Untis;
 
 use Illuminate\Support\Carbon;
 

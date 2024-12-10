@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Services;
 
-use App\Services\Untis\Exam;
-use App\Services\Untis\Homework;
-use App\Services\Untis\Lesson;
+use App\Data\Untis\Exam;
+use App\Data\Untis\Homework;
+use App\Data\Untis\Lesson;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Client\Request;

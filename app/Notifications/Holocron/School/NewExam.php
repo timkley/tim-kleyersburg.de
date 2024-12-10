@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Notifications\Holocron\School;
 
-use App\Services\Untis\Exam;
+use App\Data\Untis\Exam;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use NotificationChannels\Discord\DiscordChannel;
