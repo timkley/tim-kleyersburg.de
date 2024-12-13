@@ -126,7 +126,10 @@ it('knows which words are left', function () {
 
 it('accessible by non admins', function () {
     $user = User::factory()->create();
-    $test = VocabularyTest::factory()->create();
+    $words = VocabularyWord::factory()->count(10)->create();
+    $test = VocabularyTest::factory()->create([
+        'word_ids' => $words->pluck('id')->toArray(),
+    ]);
 
     $this->actingAs($user)
         ->get(route('holocron.school.vocabulary.overview', $test))
