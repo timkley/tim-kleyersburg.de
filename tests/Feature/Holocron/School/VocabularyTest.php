@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use App\Models\Holocron\School\VocabularyTest;
 use App\Models\Holocron\School\VocabularyWord;
+use App\Models\User;
 
 it('knows the score of a vocabulary', function (int $right, int $wrong, int $result) {
     $word = VocabularyWord::factory()->make([
@@ -121,4 +122,13 @@ it('knows which words are left', function () {
     $test->markAsWrong($words[1]->id);
 
     expect($test->leftWords())->toBeInstanceOf(Illuminate\Support\Collection::class)->toHaveCount(9);
+});
+
+it('accessible by non admins', function () {
+    $user = User::factory()->create();
+    $test = VocabularyTest::factory()->create();
+
+    $this->actingAs($user)
+        ->get(route('holocron.school.vocabulary.overview', $test))
+        ->assertStatus(200);
 });

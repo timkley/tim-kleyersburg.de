@@ -3,29 +3,39 @@
 <div>
     <x-heading tag="h2">Lesezeichen</x-heading>
 
-    <form class="max-w-sm" wire:submit="submit">
+    <form
+        class="max-w-sm"
+        wire:submit="submit"
+    >
         <flux:input.group>
-            <flux:input wire:model="url" placeholder="URL"/>
+            <flux:input
+                wire:model="url"
+                placeholder="URL"
+            />
 
-            <flux:button type="submit" icon="plus">Speichern</flux:button>
+            <flux:button
+                type="submit"
+                icon="plus"
+                >Speichern</flux:button
+            >
         </flux:input.group>
     </form>
 
     <div class="mt-8 grid gap-4 sm:grid-cols-2">
-        @foreach($bookmarks as $bookmark)
+        @foreach ($bookmarks as $bookmark)
             @php
                 $parsedUrl = parse_url($bookmark->url);
-                $cleanUrl = rtrim($parsedUrl['host'] . ($parsedUrl['path'] ?? ''), '/');
+                $cleanUrl = rtrim($parsedUrl['host'].($parsedUrl['path'] ?? ''), '/');
                 $title = $bookmark->title ?? $cleanUrl;
-                $base64Favicon = $bookmark->favicon ? 'data:image/x-icon;base64,' . base64_encode($bookmark->favicon) : null;
+                $base64Favicon = $bookmark->favicon ? 'data:image/x-icon;base64,'.base64_encode($bookmark->favicon) : null;
             @endphp
 
             <flux:card class="@container !p-4">
                 <div class="flex flex-col gap-3 @sm:flex-row justify-between h-full">
                     <div class="min-w-0">
-                        <p class="text-lg font-bold line-clamp-2">{{ $title }}</p>
+                        <p class="line-clamp-2 text-lg font-bold">{{ $title }}</p>
                         <div class="space-y-4">
-                            @if($bookmark->description)
+                            @if ($bookmark->description)
                                 <div class="line-clamp-2">{{ $bookmark->description }}</div>
                             @endif
 
@@ -39,7 +49,7 @@
                                 <span class="truncate">{{ $cleanUrl }}</span>
                             </a>
 
-                            @if($bookmark->summary)
+                            @if ($bookmark->summary)
                                 <div class="text-sm">{{ $bookmark->summary }}</div>
                             @endif
                         </div>

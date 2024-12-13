@@ -38,12 +38,14 @@
                 <flux:row>
                     <flux:cell>
                         <flux:input
+                            class="min-w-32"
                             wire:model="german"
                             wire:keydown.enter="addWord"
                         />
                     </flux:cell>
                     <flux:cell>
                         <flux:input
+                            class="min-w-32"
                             wire:model="english"
                             wire:keydown.enter="addWord"
                         />
@@ -97,23 +99,24 @@
                                 {{ $test->updated_at->format('d.m.Y H:i') }}
                             </a>
                         </flux:cell>
-                        <flux:cell>{{ $test->leftWords()->count() }} Vokabeln übrig</flux:cell>
-                        <flux:cell>{{ $test->error_count }} Fehler</flux:cell>
+                        <flux:cell>{{ $test->leftWords()->count() }} von {{ $test->words()->count() }} Vokabeln übrig</flux:cell>
+                        <flux:cell>{{ $test->error_count }} Fehler ({{ round(100 / $test->words()->count() * $test->error_count) }}&nbsp;%)</flux:cell>
                         <flux:cell>
                             <div class="flex items-center gap-x-3">
                                 <flux:badge color="{{ $test->finished ? 'lime' : '' }}">
                                     {{ $test->finished ? 'Fertig' : 'Im Gange' }}
                                 </flux:badge>
 
-                                @can('isTim')
+                                @if (auth()->user()->isTim())
                                     <flux:button
+                                        class="ml-auto"
                                         wire:click="deleteTest({{ $test->id }})"
                                         icon="trash"
                                         variant="danger"
                                         size="xs"
                                         square
                                     />
-                                @endcan
+                                @endif
                             </div>
                         </flux:cell>
                     </flux:row>

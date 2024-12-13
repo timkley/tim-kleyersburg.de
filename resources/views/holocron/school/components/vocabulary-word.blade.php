@@ -19,9 +19,9 @@
     <flux:cell>
         <flux:button
             wire:click="deleteWord({{ $word->id }})"
-            square
-        >
-            <flux:icon.trash variant="mini" />
-        </flux:button>
+            icon="trash"
+            variant="danger"
+            size="xs"
+        />
     </flux:cell>
 </flux:row>
