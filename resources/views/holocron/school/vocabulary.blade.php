@@ -29,8 +29,8 @@
 
         <flux:table>
             <flux:columns>
-                <flux:column>Deutsch</flux:column>
                 <flux:column>Englisch</flux:column>
+                <flux:column>Deutsch</flux:column>
                 <flux:column>Score</flux:column>
                 <flux:column>Angelegt am</flux:column>
             </flux:columns>
@@ -39,14 +39,14 @@
                     <flux:cell>
                         <flux:input
                             class="min-w-32"
-                            wire:model="german"
+                            wire:model="english"
                             wire:keydown.enter="addWord"
                         />
                     </flux:cell>
                     <flux:cell>
                         <flux:input
                             class="min-w-32"
-                            wire:model="english"
+                            wire:model="german"
                             wire:keydown.enter="addWord"
                         />
                     </flux:cell>

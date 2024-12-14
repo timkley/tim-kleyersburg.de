@@ -1,14 +1,14 @@
 <flux:row>
     <flux:cell>
         <flux:input
-            wire:model.live="german"
-            value="{{ $word->german }}"
+            wire:model.live="english"
+            value="{{ $word->english }}"
         />
     </flux:cell>
     <flux:cell>
         <flux:input
-            wire:model.live="english"
-            value="{{ $word->english }}"
+            wire:model.live="german"
+            value="{{ $word->german }}"
         />
     </flux:cell>
     <flux:cell>
