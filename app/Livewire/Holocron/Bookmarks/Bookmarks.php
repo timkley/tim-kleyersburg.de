@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\Livewire\Holocron;
+namespace App\Livewire\Holocron\Bookmarks;
 
 use App\Jobs\Holocron\CrawlBookmarkInformation;
+use App\Livewire\Holocron\HolocronComponent;
 use App\Models\Holocron\Bookmark;
 use Flux;
 use Illuminate\View\View;
-use Livewire\Attributes\Renderless;
 use Livewire\Attributes\Validate;
 use Livewire\WithPagination;
 
@@ -21,7 +21,7 @@ class Bookmarks extends HolocronComponent
 
     public function render(): View
     {
-        return view('holocron.bookmarks', [
+        return view('holocron.bookmarks.bookmarks', [
             'bookmarks' => Bookmark::latest()->simplePaginate(20),
         ]);
     }
@@ -39,14 +39,6 @@ class Bookmarks extends HolocronComponent
         $this->reset('url');
 
         Flux::toast('Lesezeichen wurde hinzugefügt.');
-    }
-
-    #[Renderless]
-    public function recrawl(int $id): void
-    {
-        CrawlBookmarkInformation::dispatch(Bookmark::find($id));
-
-        Flux::toast('Lesezeichen wird neu gecrawlt.');
     }
 
     public function delete(int $id): void

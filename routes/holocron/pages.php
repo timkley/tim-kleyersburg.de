@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use App\Livewire\Holocron\Bookmarks;
+use App\Livewire\Holocron\Bookmarks\Bookmarks;
 use App\Livewire\Holocron\Dashboard;
 use Illuminate\Support\Facades\Route;
 
