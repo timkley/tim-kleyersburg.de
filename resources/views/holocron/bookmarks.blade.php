@@ -39,23 +39,12 @@
                                 <div class="line-clamp-2">{{ $bookmark->description }}</div>
                             @endif
 
-                            <a
-                                href="{{ $bookmark->url }}"
-                                target="_blank"
-                                class="line-clamp-1 inline-flex max-w-full items-center gap-1"
-                            >
-                                <b_PFeUHG2S8ZvAqBzgOLzEQVtEajyJB
-                                    >
-
-                                    <img
-                                        src="{{ $base64Favicon }}"
-                                        alt="{{ $title }}"
-                                        class="size-4"
-                                    />
-                                <b_tBnKB
-                                    >
-
-                                    <flux:icon.arrow-top-right-on-square variant="micro" />
+                            <a href="{{ $bookmark->url }}" target="_blank"
+                               class="inline-flex max-w-full items-center gap-1 line-clamp-1">
+                                @if(!is_null($base64Favicon))
+                                    <img src="{{ $base64Favicon }}" alt="{{ $title }}" class="size-4"/>
+                                @else
+                                    <flux:icon.arrow-top-right-on-square variant="micro"/>
                                 @endif
                                 <span class="truncate">{{ $cleanUrl }}</span>
                             </a>
