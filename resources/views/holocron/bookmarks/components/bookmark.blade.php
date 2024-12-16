@@ -1,27 +1,21 @@
 @props(['bookmark'])
-@php
-    $parsedUrl = parse_url($bookmark->url);
-    $cleanUrl = rtrim($parsedUrl['host'].($parsedUrl['path'] ?? ''), '/');
-    $title = $bookmark->title ?? $cleanUrl;
-    $base64Favicon = $bookmark->favicon ? 'data:image/x-icon;base64,'.base64_encode($bookmark->favicon) : null;
-@endphp
 
 <flux:card class="@container !p-4">
     <div class="flex flex-col gap-3 @sm:flex-row justify-between h-full">
-        <div class="min-w-0">
-            <p class="line-clamp-2 text-lg font-bold">{{ $title }}</p>
+        <div class="min-w-0 flex-1">
+            <textarea class="outline-0 -ml-2 w-full resize-none rounded py-1 px-2 text-lg font-bold -mt-0.5 line-clamp-2 field-sizing-content focus:line-clamp-none focus:bg-black/10 dark:focus:bg-white/10" wire:model.live="title">{{ $title }}</textarea>
             <div class="space-y-4">
                 @if ($bookmark->description)
-                    <div class="line-clamp-2">{{ $bookmark->description }}</div>
+                    <textarea class="outline-0 -ml-2 w-full resize-none rounded py-1 px-2 text-lg font-bold -mt-0.5 line-clamp-2 field-sizing-content focus:line-clamp-none focus:bg-black/10 dark:focus:bg-white/10" wire:model.live="description">{{ $description }}</textarea>
                 @endif
 
                 <a href="{{ $bookmark->url }}" target="_blank"
                    class="inline-flex max-w-full items-center gap-1 line-clamp-1">
-                    @if(!is_null($base64Favicon))
+                    @unless(is_null($base64Favicon))
                         <img src="{{ $base64Favicon }}" alt="{{ $title }}" class="size-4"/>
                     @else
                         <flux:icon.arrow-top-right-on-square variant="micro"/>
-                    @endif
+                    @endunless
                     <span class="truncate">{{ $cleanUrl }}</span>
                 </a>
 

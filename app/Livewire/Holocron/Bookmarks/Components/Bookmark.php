@@ -17,16 +17,27 @@ class Bookmark extends HolocronComponent
 
     public ?string $title;
 
+    public ?string $description;
+
+    public string $cleanUrl;
+
+    public ?string $base64Favicon;
+
     public function mount(BookmarkModel $bookmark): void
     {
         $this->bookmark = $bookmark;
+        $parsedUrl = parse_url($this->bookmark->url);
+        $cleanUrl = rtrim($parsedUrl['host'].($parsedUrl['path'] ?? ''), '/');
 
-        $this->title = $bookmark->title;
+        $this->title = $bookmark->title ?? $cleanUrl;
+        $this->description = $bookmark->description;
+        $this->cleanUrl = $cleanUrl;
+        $this->base64Favicon = $bookmark->favicon ? 'data:image/x-icon;base64,'.base64_encode($bookmark->favicon) : null;
     }
 
     public function render(): View
     {
-        return view('holocron.bookmarks.components.bookmark', [ ]);
+        return view('holocron.bookmarks.components.bookmark', []);
     }
 
     #[Renderless]
@@ -35,5 +46,12 @@ class Bookmark extends HolocronComponent
         CrawlBookmarkInformation::dispatch($this->bookmark);
 
         Flux::toast('Lesezeichen wird neu gecrawlt.');
+    }
+
+    public function updated($property, $value): void
+    {
+        $this->bookmark->update([
+            $property => $value,
+        ]);
     }
 }

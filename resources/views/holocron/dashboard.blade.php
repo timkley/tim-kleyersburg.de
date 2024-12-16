@@ -3,10 +3,16 @@
 <x-slot:title>Holocron Dashboard</x-slot>
 
 <div>
-    <x-heading class="flex items-center gap-x-3" tag="h2">
+    <x-heading
+        class="flex items-center gap-x-3"
+        tag="h2"
+    >
         Dashboard
-        @if(auth()->user()->isTim())
-            <a data-flux-button href="/holocron/pulse">
+        @if (auth()->user()->isTim())
+            <a
+                data-flux-button
+                href="/holocron/pulse"
+            >
                 <flux:badge icon="chart-bar">Pulse</flux:badge>
             </a>
         @endif
@@ -28,9 +34,7 @@
                             <flux:icon.link />
                             Lesezeichen
                         </flux:heading>
-                        <flux:subheading>
-                            {{ Bookmark::count() }} Lesezeichen
-                        </flux:subheading>
+                        <flux:subheading> {{ Bookmark::count() }} Lesezeichen </flux:subheading>
                     </div>
                 </flux:card>
             </a>
