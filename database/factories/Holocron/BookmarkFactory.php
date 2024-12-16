@@ -19,11 +19,11 @@ class BookmarkFactory extends Factory
     public function definition(): array
     {
         return [
-            'url' => $this->faker->url,
+            'url' => fake()->url(),
             'favicon' => 'asdf',
-            'title' => $this->faker->sentence,
-            'description' => $this->faker->sentence,
-            'summary' => $this->faker->sentence,
+            'title' => fake()->sentence,
+            'description' => fake()->sentence,
+            'summary' => fake()->paragraph,
         ];
     }
 }

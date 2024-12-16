@@ -17,7 +17,7 @@ it('is not reachable when unauthenticated', function () {
 it('can add a bookmark', function () {
     Queue::fake([CrawlBookmarkInformation::class]);
 
-    Livewire::test('holocron.bookmarks')
+    Livewire::test('holocron.bookmarks.bookmarks')
         ->set('url', 'https://example.com')
         ->call('submit');
 
@@ -27,22 +27,22 @@ it('can add a bookmark', function () {
 it('validates', function () {
     Queue::fake([CrawlBookmarkInformation::class]);
 
-    Livewire::test('holocron.bookmarks')
+    Livewire::test('holocron.bookmarks.bookmarks')
         ->set('url', 'asdf')
         ->call('submit')
         ->assertHasErrors();
 
-    Livewire::test('holocron.bookmarks')
+    Livewire::test('holocron.bookmarks.bookmarks')
         ->set('url', '')
         ->call('submit')
         ->assertHasErrors();
 
-    Livewire::test('holocron.bookmarks')
+    Livewire::test('holocron.bookmarks.bookmarks')
         ->set('url', 'https://example.com')
         ->call('submit')
         ->assertHasNoErrors();
 
-    Livewire::test('holocron.bookmarks')
+    Livewire::test('holocron.bookmarks.bookmarks')
         ->set('url', 'https://example.com')
         ->call('submit')
         ->assertHasErrors();
@@ -51,7 +51,7 @@ it('validates', function () {
 it('can delete a bookmark', function () {
     $bookmark = Bookmark::factory()->create();
 
-    Livewire::test('holocron.bookmarks')
+    Livewire::test('holocron.bookmarks.bookmarks')
         ->call('delete', $bookmark->id);
 
     expect(Bookmark::where('id', $bookmark->id)->exists())->toBeFalse();
@@ -87,8 +87,8 @@ it('dispatches a job that crawls for more content', function () {
 
 it('can recrawl information', function () {
     Queue::fake();
-    Livewire::test('holocron.bookmarks')
-        ->call('recrawl', Bookmark::factory()->create()->id);
+    Livewire::test('holocron.bookmarks.components.bookmark', ['bookmark' => Bookmark::factory()->create()])
+        ->call('recrawl');
 
     Queue::assertPushed(CrawlBookmarkInformation::class);
 });
