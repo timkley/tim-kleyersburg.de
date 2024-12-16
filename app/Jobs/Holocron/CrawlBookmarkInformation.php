@@ -31,7 +31,7 @@ class CrawlBookmarkInformation implements ShouldQueue
 
         $title = data_get($crawl, 'data.metadata.title');
         $description = data_get($crawl, 'data.metadata.description');
-        $summary = $this->createSummary(data_get($crawl, 'data.markdown') ?? data_get($crawl, 'data.rawHtml'));
+        $summary = $this->createSummary($description . ' ' . data_get($crawl, 'data.markdown') ?? data_get($crawl, 'data.rawHtml'));
 
         $this->bookmark->update([
             'favicon' => $favicon,
