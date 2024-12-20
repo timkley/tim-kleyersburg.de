@@ -19,9 +19,9 @@
         <title>{{ $title ?? config('app.name') }}</title>
     @endif
 
+    @fluxStyles
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
-    @fluxStyles
 
     <link
         rel="preconnect"

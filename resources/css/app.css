@@ -3,7 +3,6 @@
 @config '../../tailwind.config.js';
 
 @theme {
-    --color-gray: --color-slate;
     --font-sans: 'Source Sans Pro', 'sans-serif';
     --font-ibm: 'IBM Plex Sans', 'sans-serif';
 }
@@ -15,6 +14,18 @@
 @layer base {
     html {
         -webkit-tap-highlight-color: transparent;
+    }
+
+    :root {
+        --color-accent: var(--color-sky-600);
+        --color-accent-content: var(--color-sky-600);
+        --color-accent-foreground: var(--color-white);
+    }
+
+    .dark {
+        --color-accent: var(--color-sky-600);
+        --color-accent-content: var(--color-sky-400);
+        --color-accent-foreground: var(--color-white);
     }
 
     a:not([data-flux-button]) {
