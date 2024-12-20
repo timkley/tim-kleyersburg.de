@@ -28,7 +28,6 @@
         <flux:button.group>
             <flux:button
                 wire:click="recrawl"
-                wire:target="recrawl"
                 icon="arrow-path"
                 size="sm"
                 square
@@ -36,7 +35,6 @@
             />
             <flux:button
                 wire:click="$parent.delete({{ $bookmark->id }})"
-                wire:target="$parent.delete({{ $bookmark->id }})"
                 wire:confirm="Willst du das Lesezeichen wirklich löschen?"
                 icon="trash"
                 variant="danger"
