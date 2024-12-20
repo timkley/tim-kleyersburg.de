@@ -3,10 +3,10 @@
 <flux:card class="@container !p-4">
     <div class="flex flex-col gap-3 @sm:flex-row justify-between h-full">
         <div class="min-w-0 flex-1">
-            <textarea class="outline-0 -ml-2 w-full resize-none rounded py-1 px-2 text-lg font-bold -mt-0.5 line-clamp-2 field-sizing-content focus:line-clamp-none focus:bg-black/10 dark:focus:bg-white/10" wire:model.live="title">{{ $title }}</textarea>
+            <textarea class="outline-0 -ml-2 w-full resize-none rounded py-1 px-2 text-lg font-bold -mt-0.5 line-clamp-2 field-sizing-content focus:line-clamp-none hover:bg-black/3 focus:bg-black/5 dark:focus:bg-white/10" wire:model.live="title">{{ $title }}</textarea>
             <div class="space-y-4">
                 @if ($bookmark->description)
-                    <textarea class="outline-0 -ml-2 w-full resize-none rounded py-1 px-2 text-lg font-bold -mt-0.5 line-clamp-2 field-sizing-content focus:line-clamp-none focus:bg-black/10 dark:focus:bg-white/10" wire:model.live="description">{{ $description }}</textarea>
+                    <textarea class="outline-0 -ml-2 w-full resize-none rounded py-1 px-2 mt-0.5 line-clamp-2 field-sizing-content focus:line-clamp-none hover:bg-black/3 focus:bg-black/5 dark:focus:bg-white/10" wire:model.live="description">{{ $description }}</textarea>
                 @endif
 
                 <a href="{{ $bookmark->url }}" target="_blank"

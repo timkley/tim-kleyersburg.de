@@ -13,7 +13,7 @@
                 data-flux-button
                 href="/holocron/pulse"
             >
-                <flux:badge icon="chart-bar">Pulse</flux:badge>
+                <flux:badge color="sky" icon="chart-bar">Pulse</flux:badge>
             </a>
         @endif
     </x-heading>
