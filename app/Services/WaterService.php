@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Http;
 
 class WaterService
 {
-    public static function goal(): float
+    public static function goal(): int
     {
         $weight = auth()->user()->settings?->weight;
         $temperature = self::highestTemperature();
@@ -22,21 +22,25 @@ class WaterService
             default => null,
         };
 
-        return $goal * 1000;
+        return (int) $goal * 1000;
     }
 
-    public static function dailyIntake()
+    public static function dailyIntake(): int
     {
         return WaterIntake::whereDate('created_at', now())->sum('amount');
     }
 
-    public static function remaining(): float|int
+    public static function remaining(): int
     {
         return self::goal() - self::dailyIntake();
     }
 
-    public static function percentage(): float|int
+    public static function percentage(): int
     {
+        if (self::goal() === 0) {
+            return 0;
+        }
+
         return self::dailyIntake() / self::goal() * 100;
     }
 
