@@ -24,4 +24,8 @@ return [
     'firecrawl' => [
         'api_key' => env('FIRECRAWL_API_KEY'),
     ],
+
+    'weatherapi' => [
+        'api_key' => env('WEATHERAPI_API_KEY'),
+    ],
 ];

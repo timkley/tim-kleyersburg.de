@@ -11,7 +11,7 @@
 <div class="prose lg:prose-lg dark:prose-invert prose-headings:font-ibm prose-headings:font-semibold mx-auto mb-24 md:mt-8 lg:mt-16">
     <h1 class="[text-wrap:balance]">{{ $frontmatter->title }}</h1>
     <div class="not-prose mb-12">
-        <div class="flex items-center">
+        <div class="flex items-start">
             <div class="mr-2 h-6 w-6 shrink-0 overflow-hidden rounded-full">
                 <img
                     class="my-0"
@@ -19,15 +19,15 @@
                     alt="Tim Kleyersburg"
                 />
             </div>
-            <div>
+            <div class="leading-snug">
                 Tim Kleyersburg
                 <span class="text-slate-500 dark:text-slate-400">
                     on {{ $frontmatter->createdAt->format('F j, Y') }}
                     @if ($frontmatter->updatedAt && ! $frontmatter->updatedAt->isSameDay($frontmatter->createdAt) && ! $frontmatter->updatedAt->lt($frontmatter->createdAt))
-                        <span class="mx-1">•</span> last updated on {{ $frontmatter->updatedAt->format('F j, Y') }}
+                        <span class="mx-0.5">•</span> last updated on {{ $frontmatter->updatedAt->format('F j, Y') }}
                     @endif
 
-                    <span class="mx-1">•</span> {{ $minutesToRead }} to read
+                    <span class="mx-0.5">•</span> {{ $minutesToRead }} to read
                 </span>
             </div>
         </div>

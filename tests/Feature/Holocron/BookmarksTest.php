@@ -10,7 +10,7 @@ use OpenAI\Responses\Chat\CreateResponse;
 use function Pest\Laravel\get;
 
 it('is not reachable when unauthenticated', function () {
-    get(route('holocron.dashboard'))
+    get(route('holocron.bookmarks'))
         ->assertRedirect(route('holocron.login'));
 });
 

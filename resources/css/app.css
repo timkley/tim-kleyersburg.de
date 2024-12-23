@@ -3,7 +3,7 @@
 @config '../../tailwind.config.js';
 
 @theme {
-    --font-sans: 'Source Sans Pro', 'sans-serif';
+    --font-sans: 'Inter', 'sans-serif';
     --font-ibm: 'IBM Plex Sans', 'sans-serif';
 }
 

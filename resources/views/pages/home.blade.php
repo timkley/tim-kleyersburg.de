@@ -30,7 +30,7 @@
 
         <ul class="space-y-10 divide-y divide-gray-300 text-left md:space-y-16 dark:divide-gray-700">
             @foreach ($cvItems as $item)
-                <li class="pt-10 first:pt-0 md:pt-16">
+                <li class="pb-10 md:pb-16">
                     <p class="text-sm text-gray-600 dark:text-gray-300">{{ $item['date'] }}</p>
                     <p class="mb-1 mt-2 text-xl font-bold dark:text-white">{{ $item['title'] }}</p>
                     <p class="mb-3 text-gray-600 dark:text-gray-400">

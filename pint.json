@@ -55,6 +55,7 @@
         "resources/views/flux"
     ],
     "notPath": [
-        "resources/views/einmaleins.blade.php"
+        "resources/views/einmaleins.blade.php",
+        "resources/views/holocron/bookmarks/components/bookmark.blade.php"
     ]
 }

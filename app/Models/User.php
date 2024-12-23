@@ -4,11 +4,14 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+/**
+ * @property ?UserSetting $settings
+ */
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
@@ -38,6 +41,11 @@ class User extends Authenticatable
     public function isTim(): bool
     {
         return $this->email === 'timkley@gmail.com';
+    }
+
+    public function settings(): HasOne
+    {
+        return $this->hasOne(UserSetting::class);
     }
 
     /**

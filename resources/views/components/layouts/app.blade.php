@@ -28,7 +28,7 @@
         href="https://fonts.bunny.net"
     />
     <link
-        href="https://fonts.bunny.net/css?family=ibm-plex-sans:600|source-sans-pro:400,600"
+        href="https://fonts.bunny.net/css?family=ibm-plex-sans:600|inter:400,500,600"
         rel="stylesheet"
     />
 
