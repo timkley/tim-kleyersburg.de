@@ -41,7 +41,7 @@ class WaterService
             return 0;
         }
 
-        return self::dailyIntake() / self::goal() * 100;
+        return (int) (self::dailyIntake() / self::goal() * 100);
     }
 
     protected static function highestTemperature(string $query = 'Fellbach'): float
