@@ -22,7 +22,7 @@ class WaterService
             default => null,
         };
 
-        return (int) $goal * 1000;
+        return (int) ($goal * 1000);
     }
 
     public static function dailyIntake(): int
