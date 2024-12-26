@@ -3,16 +3,12 @@
 <div>
     @if ($goal)
         <x-heading tag="h2">Wassereinnahme</x-heading>
-        <p>Bereits {{ str_replace('.', ',', round($waterIntake / 1000, 1)) }}&nbsp;l getrunken</p>
-        <p>Es fehlen noch {{ str_replace('.', ',', round($remaining / 1000, 1)) }}&nbsp;l</p>
-        <p>{{ round($percentage) }}%</p>
 
         <form
             wire:submit="addWaterIntake"
-            class="mt-8 max-w-xs"
+            class="mb-8 max-w-xs"
         >
             <flux:field>
-                <flux:label>Trinkmenge</flux:label>
                 <flux:input.group>
                     <flux:input
                         wire:model="intake"
@@ -24,6 +20,9 @@
                 </flux:input.group>
             </flux:field>
         </form>
+
+        <p>Bereits {{ str_replace('.', ',', round($waterIntake / 1000, 1)) }}&nbsp;l getrunken</p>
+        <p>Es fehlen noch {{ str_replace('.', ',', round($remaining / 1000, 1)) }}&nbsp;l</p>
     @else
         <form
             wire:submit="setWeight"
