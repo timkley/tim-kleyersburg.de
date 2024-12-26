@@ -16,8 +16,10 @@
                         placeholder="Trinkmenge eingeben"
                         inputmode="numeric"
                     />
-                    <flux:input.group.suffix>ml</flux:input.group.suffix>
+                    <flux:input.group.suffix wire:click="addWaterIntake">ml</flux:input.group.suffix>
                 </flux:input.group>
+
+                <flux:error name="intake" />
             </flux:field>
         </form>
 
