@@ -22,7 +22,7 @@
         @endif
     </x-heading>
 
-    <div class="grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-8">
+    <div class="grid sm:grid-cols-2 gap-4 md:grid-cols-3 md:gap-8">
         @if (auth()->user()->isTim())
             <a
                 data-flux-button
