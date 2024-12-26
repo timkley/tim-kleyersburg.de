@@ -18,7 +18,7 @@
                         wire:model="intake"
                         icon="beaker"
                         placeholder="Trinkmenge eingeben"
-                        type="number"
+                        inputmode="numeric"
                     />
                     <flux:input.group.suffix>ml</flux:input.group.suffix>
                 </flux:input.group>
