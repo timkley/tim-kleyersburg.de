@@ -25,14 +25,14 @@ class WaterService
         return (int) ($goal * 1000);
     }
 
-    public static function dailyIntake(): int
+    public static function todaysIntake(): int
     {
         return WaterIntake::whereDate('created_at', now())->sum('amount');
     }
 
     public static function remaining(): int
     {
-        return self::goal() - self::dailyIntake();
+        return self::goal() - self::todaysIntake();
     }
 
     public static function percentage(): int
@@ -41,7 +41,7 @@ class WaterService
             return 0;
         }
 
-        return (int) (self::dailyIntake() / self::goal() * 100);
+        return (int) (self::todaysIntake() / self::goal() * 100);
     }
 
     protected static function highestTemperature(string $query = 'Fellbach'): float

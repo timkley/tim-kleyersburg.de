@@ -12,7 +12,7 @@ class Dashboard extends HolocronComponent
     public function render(): View
     {
         return view('holocron.dashboard', [
-            'waterIntake' => WaterService::dailyIntake(),
+            'waterIntake' => WaterService::todaysIntake(),
             'remainingWater' => WaterService::remaining(),
         ]);
     }

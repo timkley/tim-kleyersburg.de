@@ -17,7 +17,7 @@ class Water extends HolocronComponent
     public function render(): View
     {
         $goal = WaterService::goal();
-        $waterIntake = WaterService::dailyIntake();
+        $waterIntake = WaterService::todaysIntake();
         $remaining = WaterService::remaining();
         $percentage = WaterService::percentage();
 
