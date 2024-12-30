@@ -19,6 +19,7 @@ return [
     'discord' => [
         'token' => env('DISCORD_BOT_TOKEN'),
         'school_channel' => env('DISCORD_SCHOOL_CHANNEL'),
+        'tim_channel' => '1323291795811078205',
     ],
 
     'firecrawl' => [
