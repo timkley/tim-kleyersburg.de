@@ -24,7 +24,9 @@
         </form>
 
         <p>Bereits {{ str_replace('.', ',', round($waterIntake / 1000, 1)) }}&nbsp;l getrunken</p>
-        <p>Es fehlen noch {{ str_replace('.', ',', round($remaining / 1000, 1)) }}&nbsp;l</p>
+        @if ($remainingWater > 0)
+            <p>Es fehlen noch {{ str_replace('.', ',', round($remainingWater / 1000, 1)) }}&nbsp;l</p>
+        @endif
     @else
         <form
             wire:submit="setWeight"

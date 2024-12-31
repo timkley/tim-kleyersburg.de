@@ -18,10 +18,10 @@ class Water extends HolocronComponent
     {
         $goal = WaterService::goal();
         $waterIntake = WaterService::todaysIntake();
-        $remaining = WaterService::remaining();
+        $remainingWater = WaterService::remaining();
         $percentage = WaterService::percentage();
 
-        return view('holocron.water', compact('goal', 'waterIntake', 'remaining', 'percentage'));
+        return view('holocron.water', compact('goal', 'waterIntake', 'remainingWater', 'percentage'));
     }
 
     public function addWaterIntake(): void

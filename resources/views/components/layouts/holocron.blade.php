@@ -7,7 +7,7 @@
                 wire:navigate
                 class="inline-flex items-center gap-1.5 !border-0 font-mono text-sm font-semibold"
             >
-                <x-heroicon-o-cpu-chip class="inline-block h-6 w-6" />
+                <flux:icon.cpu-chip />
                 <span> Holocron </span>
             </a>
         </div>
