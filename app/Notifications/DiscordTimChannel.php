@@ -12,6 +12,6 @@ class DiscordTimChannel
 
     public function routeNotificationForDiscord(): string
     {
-        return config('services.discord.school_channel');
+        return config('services.discord.tim_channel');
     }
 }
