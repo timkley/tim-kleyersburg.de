@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Jobs\Holocron\Health\CheckSufficientCreatineIntake;
 use App\Jobs\Holocron\Health\CheckSufficientWaterIntake;
 use App\Jobs\Holocron\School\CheckForNewThings;
 use Illuminate\Foundation\Application;
@@ -28,6 +29,7 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withSchedule(function (Illuminate\Console\Scheduling\Schedule $schedule) {
         $schedule->job(CheckForNewThings::class)->hourly()->unlessBetween('18:00', '7:00');
         $schedule->job(CheckSufficientWaterIntake::class)->hourly();
+        $schedule->job(CheckSufficientCreatineIntake::class)->hourly();
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
