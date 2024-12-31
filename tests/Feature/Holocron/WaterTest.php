@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Models\Holocron\Health\Intake;
 use App\Models\User;
 
 use function Pest\Laravel\get;
@@ -51,3 +52,32 @@ it('knows the goal', function ($weight, $temperature, $expected) {
         3060,
     ],
 ]);
+
+it('successfully adds water intake', function () {
+    $user = User::factory()->create(['email' => 'timkley@gmail.com']);
+
+    Http::fake([
+        'https://api.weatherapi.com/*' => Http::response([
+            'forecast' => [
+                'forecastday' => [
+                    [
+                        'day' => [
+                            'maxtemp_c' => 23,
+                        ],
+                    ],
+                ],
+            ],
+        ]),
+    ]);
+
+    Livewire::actingAs($user)
+        ->test('holocron.water')
+        ->set('intake', 500)
+        ->call('addWaterIntake');
+
+    $intake = Intake::first();
+
+    expect($intake->type->value)->toBe('water');
+    expect($intake->unit->value)->toBe('ml');
+    expect($intake->amount)->toBe(500);
+});

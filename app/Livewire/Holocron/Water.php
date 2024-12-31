@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Livewire\Holocron;
 
-use App\Models\WaterIntake;
+use App\Models\Holocron\Health\Intake;
 use App\Services\WaterService;
 use Illuminate\View\View;
 
@@ -30,8 +30,10 @@ class Water extends HolocronComponent
             'intake' => ['required', 'numeric'],
         ]);
 
-        WaterIntake::create([
+        Intake::create([
+            'type' => 'water',
             'amount' => $this->intake,
+            'unit' => 'ml',
         ]);
 
         $this->reset('intake');

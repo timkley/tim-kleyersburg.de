@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace App\Services;
 
+use App\Enums\Holocron\Health\IntakeTypes;
+use App\Models\Holocron\Health\Intake;
 use App\Models\User;
-use App\Models\WaterIntake;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 
@@ -29,7 +30,7 @@ class WaterService
 
     public static function todaysIntake(): int
     {
-        return WaterIntake::whereDate('created_at', now())->sum('amount');
+        return Intake::where('type', IntakeTypes::Water)->whereDate('created_at', now())->sum('amount');
     }
 
     public static function remaining(): int
