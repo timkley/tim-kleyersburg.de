@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services;
 
+use App\Models\User;
 use App\Models\WaterIntake;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
@@ -12,7 +13,8 @@ class WaterService
 {
     public static function goal(): int
     {
-        $weight = auth()->user()->settings?->weight;
+        $user = User::where('email', 'timkley@gmail.com')->sole();
+        $weight = $user->settings?->weight;
         $temperature = self::highestTemperature();
         $goal = $weight * 0.033;
 

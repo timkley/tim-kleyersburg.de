@@ -12,7 +12,7 @@ it('is not reachable when unauthenticated', function () {
 });
 
 it('knows the goal', function ($weight, $temperature, $expected) {
-    $user = User::factory()->create();
+    $user = User::factory()->create(['email' => 'timkley@gmail.com']);
     $user->settings()->create([
         'weight' => $weight,
     ]);
