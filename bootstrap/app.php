@@ -27,9 +27,9 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->redirectGuestsTo(fn (Request $request) => route('holocron.login'));
     })
     ->withSchedule(function (Illuminate\Console\Scheduling\Schedule $schedule) {
-        $schedule->job(CheckForNewThings::class)->hourly()->unlessBetween('18:00', '7:00');
-        $schedule->job(CheckSufficientWaterIntake::class)->hourly()->unlessBetween('20:00', '8:00');
-        $schedule->job(CheckSufficientCreatineIntake::class)->hourly()->unlessBetween('21:00', '10:00');
+        $schedule->job(CheckForNewThings::class)->hourly()->between('7:00', '18:00');
+        $schedule->job(CheckSufficientWaterIntake::class)->hourly()->between('8:00', '20:00');
+        $schedule->job(CheckSufficientCreatineIntake::class)->everyTwoHours()->between('10:00', '21:00');
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
