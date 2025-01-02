@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Notifications\Holocron\Health;
 
+use Denk\Facades\Denk;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use NotificationChannels\Discord\DiscordChannel;
@@ -24,6 +25,10 @@ class InsufficientCreatineIntake extends Notification
 
     public function toDiscord($notifiable)
     {
-        return DiscordMessage::create('Du hast zu wenig Kreatin zu dir genommen. Das ist schlecht für deine Muskeln!');
+        $text = Denk::text()
+            ->prompt('Erstelle einen kurzen Text um Tim daran zu erinnern, sein Kreatin zu nehmen, damit er kein Lauch bleibt.')
+            ->generate();
+
+        return DiscordMessage::create($text);
     }
 }

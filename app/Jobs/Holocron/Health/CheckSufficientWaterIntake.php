@@ -22,10 +22,11 @@ class CheckSufficientWaterIntake implements ShouldQueue
     public function handle(): void
     {
         $actual = WaterService::percentage();
+        $remaining = WaterService::remaining();
         $expected = $this->expectedPercentage();
 
         if ($actual < $expected) {
-            (new DiscordTimChannel())->notify(new InsufficientWaterIntake());
+            (new DiscordTimChannel())->notify(new InsufficientWaterIntake($remaining));
         }
     }
 
