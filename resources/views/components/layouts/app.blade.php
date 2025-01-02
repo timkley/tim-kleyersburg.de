@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html
     lang="de"
-    class="scroll-smooth bg-linear-to-tr from-blue-700 to-blue-300 dark:from-blue-700 dark:to-blue-900"
+    class="bg-linear-to-tr scroll-smooth from-blue-700 to-blue-300 dark:from-blue-700 dark:to-blue-900"
 >
 <head>
     <meta charset="utf-8" />
@@ -9,8 +9,14 @@
         name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
     />
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta
+        name="apple-mobile-web-app-capable"
+        content="yes"
+    />
+    <meta
+        name="apple-mobile-web-app-status-bar-style"
+        content="black-translucent"
+    />
     @if (isset($seo))
         {!! $seo !!}
     @else
