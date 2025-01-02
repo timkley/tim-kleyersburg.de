@@ -29,9 +29,8 @@ class InsufficientWaterIntake extends Notification
 
         $text = Denk::text()
             ->systemPrompt(<<<EOT
-- verwende deutsche Sprache
-- halte dich kurz: maximal 1-2 kurze Sätze
-- verwende schwarzen Humor
+- halte dich sehr kurz: maximal 1-2 kurze Sätze
+- verwende richtig lustigen Humor
 EOT
 )
             ->prompt('Erstelle einen kurzen Text um Tim daran zu erinnern, genug Wasser zu trinken. Er muss heute noch '.$remainingInLiters.' Liter trinken.')
