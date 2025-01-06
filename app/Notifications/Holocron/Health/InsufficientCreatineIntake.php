@@ -26,7 +26,7 @@ class InsufficientCreatineIntake extends Notification
     public function toDiscord($notifiable)
     {
         $text = Denk::text()
-            ->prompt('Erstelle einen kurzen Text um Tim daran zu erinnern, sein Kreatin zu nehmen, damit er kein Lauch bleibt.')
+            ->prompt('Erstelle eine knackige Benachrichtigung um Tim daran zu erinnern, sein Kreatin einzunehmen.')
             ->generate();
 
         return DiscordMessage::create($text);
