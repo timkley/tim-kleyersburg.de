@@ -28,7 +28,7 @@ return Application::configure(basePath: dirname(__DIR__))
     })
     ->withSchedule(function (Illuminate\Console\Scheduling\Schedule $schedule) {
         $schedule->job(CheckForNewThings::class)->hourly()->between('7:00', '18:00');
-        $schedule->job(CheckSufficientWaterIntake::class)->hourly()->between('8:00', '20:00');
+        $schedule->job(CheckSufficientWaterIntake::class)->everyTwoHours()->between('8:00', '20:00');
         $schedule->job(CheckSufficientCreatineIntake::class)->everyTwoHours(25)->between('10:00', '21:00');
     })
     ->withExceptions(function (Exceptions $exceptions) {
