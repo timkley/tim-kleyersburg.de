@@ -1,162 +1,162 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
     <url>
-        <loc>http://tim-kleyersburg.de.test/articles/setup-firecrawl-with-docker-and-traefik</loc>
+        <loc>http://timkley-dev.test/articles/setup-firecrawl-with-docker-and-traefik</loc>
         <lastmod>2024-12-08T10:46:30+01:00</lastmod>
 
             </url>
     <url>
-        <loc>http://tim-kleyersburg.de.test/articles/keys-to-effiency/part-3-documenting-the-future</loc>
+        <loc>http://timkley-dev.test/articles/keys-to-effiency/part-3-documenting-the-future</loc>
         <lastmod>2024-12-08T10:46:32+01:00</lastmod>
 
             </url>
     <url>
-        <loc>http://tim-kleyersburg.de.test/articles/keys-to-effiency/part-2-expanding-the-toolbelt</loc>
+        <loc>http://timkley-dev.test/articles/keys-to-effiency/part-2-expanding-the-toolbelt</loc>
         <lastmod>2024-12-08T10:46:34+01:00</lastmod>
 
             </url>
     <url>
-        <loc>http://tim-kleyersburg.de.test/articles/keys-to-effiency/part-1-hard-skills</loc>
+        <loc>http://timkley-dev.test/articles/keys-to-effiency/part-1-hard-skills</loc>
         <lastmod>2024-12-08T10:46:36+01:00</lastmod>
 
             </url>
     <url>
-        <loc>http://tim-kleyersburg.de.test/articles/installing-librechat-ai-with-traefik</loc>
+        <loc>http://timkley-dev.test/articles/installing-librechat-ai-with-traefik</loc>
         <lastmod>2024-12-08T10:46:38+01:00</lastmod>
 
             </url>
     <url>
-        <loc>http://tim-kleyersburg.de.test/articles/setting-up-typesense-on-a-vps</loc>
+        <loc>http://timkley-dev.test/articles/setting-up-typesense-on-a-vps</loc>
         <lastmod>2024-12-08T10:46:40+01:00</lastmod>
 
             </url>
     <url>
-        <loc>http://tim-kleyersburg.de.test/articles/mattermost-plugin-chatbot</loc>
+        <loc>http://timkley-dev.test/articles/mattermost-plugin-chatbot</loc>
         <lastmod>2024-12-08T10:46:42+01:00</lastmod>
 
             </url>
     <url>
-        <loc>http://tim-kleyersburg.de.test/articles/ai-driven-doc-search</loc>
+        <loc>http://timkley-dev.test/articles/ai-driven-doc-search</loc>
         <lastmod>2024-12-08T10:46:43+01:00</lastmod>
 
             </url>
     <url>
-        <loc>http://tim-kleyersburg.de.test/articles/reconnect-unavailable-zigbee-device-home-assistant</loc>
+        <loc>http://timkley-dev.test/articles/reconnect-unavailable-zigbee-device-home-assistant</loc>
         <lastmod>2024-12-08T10:46:45+01:00</lastmod>
 
             </url>
     <url>
-        <loc>http://tim-kleyersburg.de.test/articles/setup-weaviate-with-docker-and-traefik</loc>
+        <loc>http://timkley-dev.test/articles/setup-weaviate-with-docker-and-traefik</loc>
         <lastmod>2024-12-08T10:46:47+01:00</lastmod>
 
             </url>
     <url>
-        <loc>http://tim-kleyersburg.de.test/articles/docker-uses-too-much-space</loc>
+        <loc>http://timkley-dev.test/articles/docker-uses-too-much-space</loc>
         <lastmod>2024-12-08T10:46:49+01:00</lastmod>
 
             </url>
     <url>
-        <loc>http://tim-kleyersburg.de.test/articles/eliminate-meetings-distractions-in-mattermost</loc>
+        <loc>http://timkley-dev.test/articles/eliminate-meetings-distractions-in-mattermost</loc>
         <lastmod>2024-12-08T10:46:51+01:00</lastmod>
 
             </url>
     <url>
-        <loc>http://tim-kleyersburg.de.test/articles/migrate-mattermost</loc>
+        <loc>http://timkley-dev.test/articles/migrate-mattermost</loc>
         <lastmod>2024-12-08T10:46:53+01:00</lastmod>
 
             </url>
     <url>
-        <loc>http://tim-kleyersburg.de.test/articles/mattermost-bot-to-message-users</loc>
+        <loc>http://timkley-dev.test/articles/mattermost-bot-to-message-users</loc>
         <lastmod>2024-12-08T10:46:55+01:00</lastmod>
 
             </url>
     <url>
-        <loc>http://tim-kleyersburg.de.test/articles/resize-images-with-mogrify</loc>
+        <loc>http://timkley-dev.test/articles/resize-images-with-mogrify</loc>
         <lastmod>2024-12-08T10:46:57+01:00</lastmod>
 
             </url>
     <url>
-        <loc>http://tim-kleyersburg.de.test/articles/simple-json-api-with-netlify</loc>
+        <loc>http://timkley-dev.test/articles/simple-json-api-with-netlify</loc>
         <lastmod>2024-12-08T10:46:59+01:00</lastmod>
 
             </url>
     <url>
-        <loc>http://tim-kleyersburg.de.test/articles/simple-analytics-with-umami</loc>
+        <loc>http://timkley-dev.test/articles/simple-analytics-with-umami</loc>
         <lastmod>2024-12-08T10:47:00+01:00</lastmod>
 
             </url>
     <url>
-        <loc>http://tim-kleyersburg.de.test/articles/longtime-statistics-home-assistant</loc>
+        <loc>http://timkley-dev.test/articles/longtime-statistics-home-assistant</loc>
         <lastmod>2024-12-08T10:47:02+01:00</lastmod>
 
             </url>
     <url>
-        <loc>http://tim-kleyersburg.de.test/articles/updating-home-assistant-with-docker</loc>
+        <loc>http://timkley-dev.test/articles/updating-home-assistant-with-docker</loc>
         <lastmod>2024-12-08T10:47:04+01:00</lastmod>
 
             </url>
     <url>
-        <loc>http://tim-kleyersburg.de.test/articles/alpine-expression-error-x-datastack</loc>
+        <loc>http://timkley-dev.test/articles/alpine-expression-error-x-datastack</loc>
         <lastmod>2024-12-08T10:47:06+01:00</lastmod>
 
             </url>
     <url>
-        <loc>http://tim-kleyersburg.de.test/articles/custom-events-in-javascript</loc>
+        <loc>http://timkley-dev.test/articles/custom-events-in-javascript</loc>
         <lastmod>2024-12-08T10:47:08+01:00</lastmod>
 
             </url>
     <url>
-        <loc>http://tim-kleyersburg.de.test/articles/home-assistant-with-docker-2024</loc>
+        <loc>http://timkley-dev.test/articles/home-assistant-with-docker-2024</loc>
         <lastmod>2024-12-08T10:47:10+01:00</lastmod>
 
             </url>
     <url>
-        <loc>http://tim-kleyersburg.de.test/articles/eleventyjs-no-markdown-code-for-includes</loc>
+        <loc>http://timkley-dev.test/articles/eleventyjs-no-markdown-code-for-includes</loc>
         <lastmod>2024-12-08T10:47:12+01:00</lastmod>
 
             </url>
     <url>
-        <loc>http://tim-kleyersburg.de.test/articles/api-proxy-with-cloudflare-workers</loc>
-        <lastmod>2024-12-08T10:47:14+01:00</lastmod>
+        <loc>http://timkley-dev.test/articles/api-proxy-with-cloudflare-workers</loc>
+        <lastmod>2025-01-07T20:01:45+01:00</lastmod>
 
             </url>
     <url>
-        <loc>http://tim-kleyersburg.de.test/articles/web-performance-for-nontech-people</loc>
-        <lastmod>2024-12-08T10:47:16+01:00</lastmod>
+        <loc>http://timkley-dev.test/articles/web-performance-for-nontech-people</loc>
+        <lastmod>2025-01-07T20:01:45+01:00</lastmod>
 
             </url>
     <url>
-        <loc>http://tim-kleyersburg.de.test/articles/unifi-network-for-homeoffice</loc>
+        <loc>http://timkley-dev.test/articles/unifi-network-for-homeoffice</loc>
         <lastmod>2024-12-08T10:47:18+01:00</lastmod>
 
             </url>
     <url>
-        <loc>http://tim-kleyersburg.de.test/articles/eleventyjs-is-great</loc>
-        <lastmod>2024-12-08T10:47:19+01:00</lastmod>
+        <loc>http://timkley-dev.test/articles/eleventyjs-is-great</loc>
+        <lastmod>2025-01-07T20:01:45+01:00</lastmod>
 
             </url>
     <url>
-        <loc>http://tim-kleyersburg.de.test/articles/easy-darkmode-with-tailwind</loc>
+        <loc>http://timkley-dev.test/articles/easy-darkmode-with-tailwind</loc>
         <lastmod>2024-12-08T10:47:21+01:00</lastmod>
 
             </url>
     <url>
-        <loc>http://tim-kleyersburg.de.test/articles/gitlab-to-github</loc>
+        <loc>http://timkley-dev.test/articles/gitlab-to-github</loc>
         <lastmod>2024-12-08T10:47:23+01:00</lastmod>
 
             </url>
     <url>
-        <loc>http://tim-kleyersburg.de.test/articles/you-should-learn-vim</loc>
-        <lastmod>2024-12-08T10:47:25+01:00</lastmod>
+        <loc>http://timkley-dev.test/articles/you-should-learn-vim</loc>
+        <lastmod>2025-01-07T20:01:45+01:00</lastmod>
 
             </url>
     <url>
-        <loc>http://tim-kleyersburg.de.test/articles/tailwindcss-with-css-variables</loc>
+        <loc>http://timkley-dev.test/articles/tailwindcss-with-css-variables</loc>
         <lastmod>2024-12-08T10:47:27+01:00</lastmod>
 
             </url>
     <url>
-        <loc>http://tim-kleyersburg.de.test/articles/from-vue-to-alpinejs</loc>
+        <loc>http://timkley-dev.test/articles/from-vue-to-alpinejs</loc>
         <lastmod>2024-12-08T10:47:29+01:00</lastmod>
 
             </url>
