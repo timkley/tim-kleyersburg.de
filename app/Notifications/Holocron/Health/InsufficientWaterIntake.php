@@ -28,7 +28,7 @@ class InsufficientWaterIntake extends Notification
         $remainingInLiters = round($this->remaining / 1000, 1);
 
         $text = Denk::text()
-            ->prompt('Erstelle eine knackige Benachrichtigung um Tim daran zu erinnern, genug Wasser zu trinken. Er muss heute noch '.$remainingInLiters.' Liter trinken.')
+            ->prompt('Erstelle eine kurze Benachrichtigung um Tim daran zu erinnern, genug Wasser zu trinken. Er muss heute noch '.$remainingInLiters.' Liter trinken. Keine Emojis.')
             ->generate();
 
         return DiscordMessage::create($text);
