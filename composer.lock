@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a4ef1c41ef8e5ebc63203666b6cc2327",
+    "content-hash": "3b09404b7c3f62183a5c1eaddb59885c",
     "packages": [
         {
             "name": "archtechx/laravel-seo",
@@ -65,28 +65,99 @@
             "time": "2024-11-22T23:46:28+00:00"
         },
         {
-            "name": "benbjurstrom/prezet",
-            "version": "v0.17.0",
+            "name": "benbjurstrom/laravel-sitemap-lite",
+            "version": "7.3.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/benbjurstrom/prezet.git",
-                "reference": "50c3df27514baf5467492203fad06ebfa9fd8e90"
+                "url": "https://github.com/benbjurstrom/laravel-sitemap-lite.git",
+                "reference": "6f7c93dd70219a78da34a851e571ee1648f14ab4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/benbjurstrom/prezet/zipball/50c3df27514baf5467492203fad06ebfa9fd8e90",
-                "reference": "50c3df27514baf5467492203fad06ebfa9fd8e90",
+                "url": "https://api.github.com/repos/benbjurstrom/laravel-sitemap-lite/zipball/6f7c93dd70219a78da34a851e571ee1648f14ab4",
+                "reference": "6f7c93dd70219a78da34a851e571ee1648f14ab4",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^10.0|^11.0",
+                "nesbot/carbon": "^2.71|^3.0",
+                "php": "^8.2||^8.3||^8.4",
+                "spatie/laravel-package-tools": "^1.16.1"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.6.6",
+                "orchestra/testbench": "^8.14|^9.0",
+                "pestphp/pest": "^2.24",
+                "spatie/pest-plugin-snapshots": "^2.1",
+                "spatie/phpunit-snapshot-assertions": "^5.1.2",
+                "spatie/temporary-directory": "^2.2"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Spatie\\Sitemap\\SitemapServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\Sitemap\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Freek Van der Herten",
+                    "email": "freek@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Create and generate sitemaps with ease",
+            "homepage": "https://github.com/benbjurstrom/laravel-sitemap-lite",
+            "keywords": [
+                "laravel-sitemap",
+                "laravel-sitemap-lite",
+                "spatie"
+            ],
+            "support": {
+                "source": "https://github.com/benbjurstrom/laravel-sitemap-lite/tree/7.3.0"
+            },
+            "funding": [
+                {
+                    "url": "https://spatie.be/open-source/support-us",
+                    "type": "custom"
+                }
+            ],
+            "time": "2024-12-22T00:19:55+00:00"
+        },
+        {
+            "name": "benbjurstrom/prezet",
+            "version": "v0.20.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/benbjurstrom/prezet.git",
+                "reference": "7683cf12c96a9d154ce99caeade5c0a1595b5031"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/benbjurstrom/prezet/zipball/7683cf12c96a9d154ce99caeade5c0a1595b5031",
+                "reference": "7683cf12c96a9d154ce99caeade5c0a1595b5031",
                 "shasum": ""
             },
             "require": {
                 "archtechx/laravel-seo": "^0.10.1",
+                "benbjurstrom/laravel-sitemap-lite": "^7.3",
                 "ext-dom": "*",
                 "ext-gd": "*",
                 "illuminate/contracts": "^10.0||^11.0",
                 "league/commonmark": "^2.4",
                 "php": "^8.2",
                 "spatie/laravel-package-tools": "^1.16",
-                "spatie/laravel-sitemap": "^7.2",
                 "symfony/yaml": "^6.2|^7.1",
                 "wendelladriel/laravel-validated-dto": "^3.5"
             },
@@ -139,7 +210,7 @@
             ],
             "support": {
                 "issues": "https://github.com/benbjurstrom/prezet/issues",
-                "source": "https://github.com/benbjurstrom/prezet/tree/v0.17.0"
+                "source": "https://github.com/benbjurstrom/prezet/tree/v0.20.1"
             },
             "funding": [
                 {
@@ -147,7 +218,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-10-16T23:16:30+00:00"
+            "time": "2024-12-23T21:09:15+00:00"
         },
         {
             "name": "brick/math",
@@ -4573,81 +4644,6 @@
                 }
             ],
             "time": "2024-12-30T13:13:39+00:00"
-        },
-        {
-            "name": "spatie/laravel-sitemap",
-            "version": "7.3.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/spatie/laravel-sitemap.git",
-                "reference": "7ee63b6f57029691d88ded10c9a5ec25747bec18"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-sitemap/zipball/7ee63b6f57029691d88ded10c9a5ec25747bec18",
-                "reference": "7ee63b6f57029691d88ded10c9a5ec25747bec18",
-                "shasum": ""
-            },
-            "require": {
-                "guzzlehttp/guzzle": "^7.8",
-                "illuminate/support": "^10.0|^11.0",
-                "nesbot/carbon": "^2.71|^3.0",
-                "php": "^8.2||^8.3||^8.4",
-                "spatie/laravel-package-tools": "^1.16.1"
-            },
-            "require-dev": {
-                "mockery/mockery": "^1.6.6",
-                "orchestra/testbench": "^8.14|^9.0",
-                "pestphp/pest": "^2.24",
-                "spatie/crawler": "^8.4",
-                "spatie/pest-plugin-snapshots": "^2.1",
-                "spatie/phpunit-snapshot-assertions": "^5.1.2",
-                "spatie/temporary-directory": "^2.2"
-            },
-            "suggest": {
-                "spatie/crawler": "Required to use the crawler feature"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Spatie\\Sitemap\\SitemapServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Spatie\\Sitemap\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Freek Van der Herten",
-                    "email": "freek@spatie.be",
-                    "homepage": "https://spatie.be",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Create and generate sitemaps with ease",
-            "homepage": "https://github.com/spatie/laravel-sitemap",
-            "keywords": [
-                "laravel-sitemap",
-                "spatie"
-            ],
-            "support": {
-                "source": "https://github.com/spatie/laravel-sitemap/tree/7.3.1"
-            },
-            "funding": [
-                {
-                    "url": "https://spatie.be/open-source/support-us",
-                    "type": "custom"
-                }
-            ],
-            "time": "2025-01-06T09:46:59+00:00"
         },
         {
             "name": "symfony/clock",

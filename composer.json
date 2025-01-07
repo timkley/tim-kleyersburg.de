@@ -6,7 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.3",
-        "benbjurstrom/prezet": "^0.17.0",
+        "benbjurstrom/prezet": "^0.20.0",
         "bugsnag/bugsnag-laravel": "^2.0",
         "laravel-notification-channels/discord": "^1.6",
         "laravel/framework": "^11.9",
