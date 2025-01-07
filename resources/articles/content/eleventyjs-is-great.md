@@ -71,7 +71,7 @@ The official documentation is a good place to start. It explains all concepts in
 
 🔗 [11ty.rocks](https://11ty.rocks/)
 
-11ty.rocks is a collection of many great resources, tutorials, plugins and much more, created by [Stephanie Eckles](https://twitter.com/5t3ph). The site itself is, of course, also built with Eleventy. You can browse the source code on [GitHub](https://github.com/5t3ph/11ty-rocks).
+11ty.rocks is a collection of many great resources, tutorials, plugins and much more, created by [Stephanie Eckles](https://x.com/5t3ph). The site itself is, of course, also built with Eleventy. You can browse the source code on [GitHub](https://github.com/5t3ph/11ty-rocks).
 
 🔗 [learneleventyfromscratch.com](https://learneleventyfromscratch.com/)
 

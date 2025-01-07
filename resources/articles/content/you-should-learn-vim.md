@@ -9,7 +9,7 @@ image: /articles/img/ogimages/you-should-learn-vim.webp
 You probably heard of [Vim](https://www.vim.org/). Chances are you probably got stuck in Vim and angrily tried to exit it by smashing your mouse and keyboard.
 
 ![Picture of a Tweet mocking how it looks when first users of Vim try to quit it.](vim-meme.jpg)
-[Source](https://twitter.com/iamdevloper/status/1041999624775626752)
+[Source](https://x.com/iamdevloper/status/1041999624775626752)
 
 You maybe know by now to exit Vim by typing `:q` (or `:q!` if you want to be really sure Vim quits).  
 Typing a colon tells Vim you want to enter a command (given you are in the so-called "normal mode", which is the default mode of Vim after startup).
@@ -59,7 +59,7 @@ Two driving factors pushed me to learn Vim.
 
 One: my frustration not being able to edit a damn config file on a server without the fear of breaking it. Even after many years of programming.
 
-Second: seeing developers like [Jeffrey Way](https://twitter.com/jeffrey_way) on [Laracasts](https://laracasts.com) or my brother editing code like magic.
+Second: seeing developers like [Jeffrey Way](https://x.com/jeffrey_way) on [Laracasts](https://laracasts.com) or my brother editing code like magic.
 
 How did they do it? The most common denominator was the block cursor I knew from Vim's normal mode.
 

@@ -193,7 +193,7 @@ A designer can take care of generating images in the appropriate sizes and forma
     There are many ways to trigger the loading of a script file. Some of them are good (because they don't block page rendering for example) and some are not that good (because they _do_ block your page from rendering correctly). If you can, always use the "defer" attribute so the rendering of your page is not blocked.
 
 ![Optimum head are, according to @csswizardy](optimum-head-order.jpg)
-[via @smashingmag](https://twitter.com/smashingmag/status/1440697011985018881?s=27)
+[via @smashingmag](https://x.com/smashingmag/status/1440697011985018881?s=27)
 
 ## Get your whole team on board
 

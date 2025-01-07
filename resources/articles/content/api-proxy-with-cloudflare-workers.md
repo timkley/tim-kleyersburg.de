@@ -299,4 +299,4 @@ You are now ready to deploy your worker to your own domain running the command `
 
 ---
 
-I hope this helped you to get your first worker deployed to Cloudflare! If you don't want to do the work if yourself just fork the repo [of my own worker](https://github.com/timkley/lastfm-cloudflare-worker). If you have any question hit my up [on Twitter](https://twitter.com/timkley)
+I hope this helped you to get your first worker deployed to Cloudflare! If you don't want to do the work if yourself just fork the repo [of my own worker](https://github.com/timkley/lastfm-cloudflare-worker). If you have any question hit my up [on Twitter](https://x.com/timkley)
