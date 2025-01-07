@@ -69,10 +69,6 @@ class Home extends Component
                 'url' => 'mailto:timkley@gmail.com',
             ],
             [
-                'title' => 'X',
-                'url' => 'https://x.com/user/timkley',
-            ],
-            [
                 'title' => 'GitHub',
                 'url' => 'https://github.com/timkley',
             ],
