@@ -1,6 +1,6 @@
 ---
 date: 2022-04-02
-updated_at: 2024-06-04
+updated_at: 2025-01-08
 title: Home Assistant with Docker on Raspberry Pi - the 2024 guide
 hero: hero-image.jpg
 excerpt: An up to date guide how to set up a fresh installation of Home Assistant with Docker
