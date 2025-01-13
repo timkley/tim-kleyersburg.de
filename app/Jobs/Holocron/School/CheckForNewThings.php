@@ -60,7 +60,7 @@ class CheckForNewThings implements ShouldQueue
                     return;
                 }
 
-                $this->cache()->put($key, true, $homework->dueDate->addWeek());
+                $this->cache()->put($key, true, $homework->dueDate->clone()->addWeek());
                 Sleep::for(300)->milliseconds();
                 (new DiscordSchoolChannel)->notify(new NewHomework($homework));
             });
