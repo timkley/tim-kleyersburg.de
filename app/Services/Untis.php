@@ -171,7 +171,7 @@ class Untis
 
                 return $response;
             }, function (int $attempt, Exception $exception) {
-                return $attempt * 2000;
+                return $attempt * 10000;
             });
 
             return [
