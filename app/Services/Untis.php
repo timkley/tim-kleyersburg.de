@@ -83,8 +83,12 @@ class Untis
             ]
         );
 
-        $homeworks = collect($response['data']['homeworks'])->sortBy('dueDate');
-        $lessons = collect($response['data']['lessons']);
+        try {
+            $homeworks = collect($response['data']['homeworks'])->sortBy('dueDate');
+            $lessons = collect($response['data']['lessons']);
+        } catch (Exception $e) {
+            return collect();
+        }
 
         $lessonsLookup = $lessons->keyBy('id');
 
