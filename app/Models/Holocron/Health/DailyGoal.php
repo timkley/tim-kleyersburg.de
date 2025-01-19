@@ -25,7 +25,7 @@ class DailyGoal extends Model
     {
         return self::firstOrCreate(
             [
-                'date' => today(),
+                'date' => today()->format('Y-m-d'),
                 'type' => $type,
             ],
             [
