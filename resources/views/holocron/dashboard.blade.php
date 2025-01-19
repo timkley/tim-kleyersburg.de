@@ -14,7 +14,8 @@
                 <flux:badge
                     color="sky"
                     icon="chart-bar"
-                    >Pulse
+                >
+                    Pulse
                 </flux:badge>
             </a>
         @endif
@@ -28,9 +29,9 @@
                     size="lg"
                 >
                     <flux:icon.trophy />
-                    Ziele
+                    Deine Ziele
                 </flux:heading>
-                <div class="mt-4 gap-8 grid sm:grid-cols-3">
+                <div class="mt-4 grid gap-x-16 gap-y-8 sm:grid-cols-2 md:gap-x-20 lg:grid-cols-3">
                     @foreach ($dailyGoals as $goal)
                         <x-dynamic-component
                             :component="'holocron.dashboard.goals.'.$goal->type->value"
@@ -57,15 +58,17 @@
                         <a
                             href="{{ route('holocron.school.information') }}"
                             wire:navigate
-                            >Informationen</a
                         >
+                            Informationen
+                        </a>
                     </p>
                     <p>
                         <a
                             href="{{ route('holocron.school.vocabulary.overview') }}"
                             wire:navigate
-                            >Vokabeln</a
                         >
+                            Vokabeln
+                        </a>
                     </p>
                 </flux:subheading>
             </div>

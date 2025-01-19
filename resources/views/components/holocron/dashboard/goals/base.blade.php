@@ -9,7 +9,12 @@
         <span> {{ $goal->amount }} / {{ $goal->goal }} {{ $goal->type->unit() }} </span>
 
         @if ($goal->reached)
-            <flux:badge color="lime" inset>Ziel erreicht</flux:badge>
+            <flux:badge
+                size="sm"
+                color="sky"
+                inset
+                >Ziel erreicht 🎉</flux:badge
+            >
         @endif
     </flux:heading>
 
