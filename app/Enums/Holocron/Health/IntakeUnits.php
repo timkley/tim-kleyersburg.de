@@ -9,4 +9,5 @@ enum IntakeUnits: string
     case Milliliters = 'ml';
     case Grams = 'g';
     case Pieces = 'pcs';
+    case Seconds = 's';
 }

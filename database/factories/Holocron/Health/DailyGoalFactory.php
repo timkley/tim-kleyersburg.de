@@ -9,9 +9,9 @@ use App\Enums\Holocron\Health\IntakeUnits;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Holocron\Health\Intake>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Holocron\Health\DailyGoal>
  */
-class IntakeFactory extends Factory
+class DailyGoalFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -22,8 +22,8 @@ class IntakeFactory extends Factory
     {
         return [
             'type' => IntakeTypes::Water,
-            'amount' => $this->faker->numberBetween(1, 100),
             'unit' => IntakeUnits::Milliliters,
+            'amount' => $this->faker->numberBetween(1, 100),
         ];
     }
 }

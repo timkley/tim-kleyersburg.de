@@ -22,8 +22,23 @@
 
     <div class="grid gap-4 sm:grid-cols-2 md:grid-cols-3 md:gap-8">
         @if (auth()->user()->isTim())
-            <livewire:holocron.dashboard.water />
-            <livewire:holocron.dashboard.creatine />
+            <flux:card class="sm:col-span-2 md:col-span-3">
+                <flux:heading
+                    class="flex items-center gap-2 font-semibold"
+                    size="lg"
+                >
+                    <flux:icon.shield-check />
+                    Ziele
+                </flux:heading>
+                <div class="mt-2 gap-4 sm:grid sm:grid-cols-3 md:gap-8">
+                    @foreach ($dailyGoals as $goal)
+                        <x-dynamic-component
+                            :component="'holocron.dashboard.goals.'.$goal->type->value"
+                            :goal="$goal"
+                        />
+                    @endforeach
+                </div>
+            </flux:card>
             <livewire:holocron.dashboard.bookmarks />
         @endif
 
@@ -39,10 +54,18 @@
 
                 <flux:subheading class="space-y-2">
                     <p>
-                        <a href="{{ route('holocron.school.information') }}">Informationen</a>
+                        <a
+                            href="{{ route('holocron.school.information') }}"
+                            wire:navigate
+                            >Informationen</a
+                        >
                     </p>
                     <p>
-                        <a href="{{ route('holocron.school.vocabulary.overview') }}">Vokabeln</a>
+                        <a
+                            href="{{ route('holocron.school.vocabulary.overview') }}"
+                            wire:navigate
+                            >Vokabeln</a
+                        >
                     </p>
                 </flux:subheading>
             </div>

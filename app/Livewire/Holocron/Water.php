@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Livewire\Holocron;
 
-use App\Models\Holocron\Health\Intake;
-use App\Services\WaterService;
+use App\Enums\Holocron\Health\IntakeTypes;
+use App\Models\Holocron\Health\DailyGoal;
 use Illuminate\View\View;
 
 class Water extends HolocronComponent
@@ -16,12 +16,12 @@ class Water extends HolocronComponent
 
     public function render(): View
     {
-        $goal = WaterService::goal();
-        $waterIntake = WaterService::todaysIntake();
-        $remainingWater = WaterService::remaining();
-        $percentage = WaterService::percentage();
+        $dailyGoal = DailyGoal::for(IntakeTypes::Water);
+        $goal = $dailyGoal->goal;
+        $amount = $dailyGoal->amount;
+        $remainingWater = $goal - $amount;
 
-        return view('holocron.water', compact('goal', 'waterIntake', 'remainingWater', 'percentage'));
+        return view('holocron.water', compact('goal', 'amount', 'remainingWater'));
     }
 
     public function addWaterIntake(): void
@@ -30,11 +30,7 @@ class Water extends HolocronComponent
             'intake' => ['required', 'numeric'],
         ]);
 
-        Intake::create([
-            'type' => 'water',
-            'amount' => $this->intake,
-            'unit' => 'ml',
-        ]);
+        DailyGoal::for(IntakeTypes::Water)->increment('amount', $this->intake);
 
         $this->reset('intake');
     }

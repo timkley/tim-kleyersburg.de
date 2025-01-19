@@ -27,7 +27,7 @@ class Bookmark extends HolocronComponent
     {
         $this->bookmark = $bookmark;
         $parsedUrl = parse_url($this->bookmark->url);
-        $cleanUrl = rtrim($parsedUrl['host'].($parsedUrl['path'] ?? ''), '/');
+        $cleanUrl = mb_rtrim($parsedUrl['host'].($parsedUrl['path'] ?? ''), '/');
 
         $this->title = $bookmark->title ?? $cleanUrl;
         $this->description = $bookmark->description;

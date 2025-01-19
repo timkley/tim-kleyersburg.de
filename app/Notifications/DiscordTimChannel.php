@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace App\Notifications;
 
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Notifications\Notification;
 
-class DiscordTimChannel
+class DiscordTimChannel extends Notification
 {
     use Notifiable;
 
