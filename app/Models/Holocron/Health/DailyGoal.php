@@ -18,14 +18,13 @@ class DailyGoal extends Model
     protected $casts = [
         'type' => IntakeTypes::class,
         'unit' => IntakeUnits::class,
-        'date' => 'date',
     ];
 
     public static function for(IntakeTypes $type)
     {
         return self::firstOrCreate(
             [
-                'date' => today()->format('Y-m-d'),
+                'date' => today()->toDateString(),
                 'type' => $type,
             ],
             [
