@@ -1,9 +1,9 @@
 @use(Illuminate\Support\Carbon)
 
-<x-slot:title>Schule Emi</x-slot>
+<x-slot:title>Schule</x-slot>
 
 <div>
-    <x-heading tag="h1">Schule Emi</x-heading>
+    <x-heading tag="h1">Schule</x-heading>
 
     <div class="space-y-12">
         <section>

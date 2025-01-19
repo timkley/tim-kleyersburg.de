@@ -34,7 +34,7 @@
                     size="lg"
                 >
                     <flux:icon.academic-cap />
-                    Schule Emi
+                    Schule
                 </flux:heading>
 
                 <flux:subheading class="space-y-2">
