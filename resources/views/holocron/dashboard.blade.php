@@ -30,7 +30,7 @@
                     <flux:icon.trophy />
                     Ziele
                 </flux:heading>
-                <div class="mt-2 gap-4 sm:grid sm:grid-cols-3 md:gap-8">
+                <div class="mt-4 gap-8 grid sm:grid-cols-3">
                     @foreach ($dailyGoals as $goal)
                         <x-dynamic-component
                             :component="'holocron.dashboard.goals.'.$goal->type->value"
