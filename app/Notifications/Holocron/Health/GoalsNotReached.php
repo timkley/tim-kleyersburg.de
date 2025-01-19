@@ -7,14 +7,15 @@ namespace App\Notifications\Holocron\Health;
 use Denk\Facades\Denk;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
+use Illuminate\Support\Collection;
 use NotificationChannels\Discord\DiscordChannel;
 use NotificationChannels\Discord\DiscordMessage;
 
-class InsufficientWaterIntake extends Notification
+class GoalsNotReached extends Notification
 {
     use Queueable;
 
-    public function __construct(public int $remaining)
+    public function __construct(public Collection $missedGoals)
     {
     }
 
@@ -25,22 +26,26 @@ class InsufficientWaterIntake extends Notification
 
     public function toDiscord($notifiable)
     {
-        $remainingInLiters = round($this->remaining / 1000, 1);
+        $missedGoals = $this->missedGoals->map(function ($goal) {
+            return "- {$goal->type->value} - achieved: {$goal->amount} - goal: {$goal->goal}";
+        })->implode(PHP_EOL);
 
         $text = Denk::text()
-            ->temperature(1.1)
-            ->systemPrompt(<<<EOT
+            ->systemPrompt(
+                <<<'EOT'
 Your job is to create notifications.
 
 - answer in german
 - make sure german grammar and dictation is correct, don't answer before you are sure it is correct
 - direct the message to the user
-- be consice
+- be concise
 - no emojis
-- be funny
+- you can be humorous
+
+Users name: Tim
 EOT
             )
-            ->prompt('Tim muss heute noch '.$remainingInLiters.' Liter Wasser trinken.')
+            ->prompt("Create a notification for the not achieved goals: $missedGoals")
             ->generate();
 
         return DiscordMessage::create($text);

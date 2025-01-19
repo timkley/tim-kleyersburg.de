@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-use App\Jobs\Holocron\Health\CheckSufficientCreatineIntake;
-use App\Jobs\Holocron\Health\CheckSufficientWaterIntake;
+use App\Jobs\Holocron\Health\CheckGoals;
+use App\Jobs\Holocron\Health\CreateDailyGoals;
 use App\Jobs\Holocron\School\CheckForNewThings;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -27,9 +27,9 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->redirectGuestsTo(fn (Request $request) => route('holocron.login'));
     })
     ->withSchedule(function (Illuminate\Console\Scheduling\Schedule $schedule) {
+        $schedule->job(CreateDailyGoals::class)->dailyAt('00:01');
         $schedule->job(CheckForNewThings::class)->hourly()->between('7:00', '18:00');
-        $schedule->job(CheckSufficientWaterIntake::class)->everyTwoHours()->between('8:00', '20:00');
-        $schedule->job(CheckSufficientCreatineIntake::class)->everyTwoHours(25)->between('10:00', '21:00');
+        $schedule->job(CheckGoals::class)->everyFourHours()->between('8:00', '20:00');
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

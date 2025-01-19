@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f20f252e6b8427cea0c440147c7001c1",
+    "content-hash": "27db032b237463b96707d0459a911b81",
     "packages": [
         {
             "name": "archtechx/laravel-seo",
@@ -282,16 +282,16 @@
         },
         {
             "name": "bugsnag/bugsnag",
-            "version": "v3.29.1",
+            "version": "v3.29.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bugsnag/bugsnag-php.git",
-                "reference": "7fff8512b237a57323f600975ada6376e2b912c1"
+                "reference": "437ac553e3dfb546b93a7191e031643b00da20f2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bugsnag/bugsnag-php/zipball/7fff8512b237a57323f600975ada6376e2b912c1",
-                "reference": "7fff8512b237a57323f600975ada6376e2b912c1",
+                "url": "https://api.github.com/repos/bugsnag/bugsnag-php/zipball/437ac553e3dfb546b93a7191e031643b00da20f2",
+                "reference": "437ac553e3dfb546b93a7191e031643b00da20f2",
                 "shasum": ""
             },
             "require": {
@@ -300,7 +300,7 @@
                 "php": ">=5.5"
             },
             "require-dev": {
-                "guzzlehttp/psr7": "^1.3",
+                "guzzlehttp/psr7": "^1.3|^2.0",
                 "mtdowling/burgomaster": "dev-master#72151eddf5f0cf101502b94bf5031f9c53501a04",
                 "php-mock/php-mock-phpunit": "^1.1|^2.1",
                 "phpunit/phpunit": "^4.8.36|^7.5.15|^9.3.10",
@@ -339,22 +339,22 @@
             ],
             "support": {
                 "issues": "https://github.com/bugsnag/bugsnag-php/issues",
-                "source": "https://github.com/bugsnag/bugsnag-php/tree/v3.29.1"
+                "source": "https://github.com/bugsnag/bugsnag-php/tree/v3.29.2"
             },
-            "time": "2023-05-10T11:07:22+00:00"
+            "time": "2025-01-13T16:29:41+00:00"
         },
         {
             "name": "bugsnag/bugsnag-laravel",
-            "version": "v2.28.0",
+            "version": "v2.28.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bugsnag/bugsnag-laravel.git",
-                "reference": "71bd75b022b32e45bf26712fb643e4f50182ff5a"
+                "reference": "9c34a060595814b7a140e4d5a63fd197d2485c8f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bugsnag/bugsnag-laravel/zipball/71bd75b022b32e45bf26712fb643e4f50182ff5a",
-                "reference": "71bd75b022b32e45bf26712fb643e4f50182ff5a",
+                "url": "https://api.github.com/repos/bugsnag/bugsnag-laravel/zipball/9c34a060595814b7a140e4d5a63fd197d2485c8f",
+                "reference": "9c34a060595814b7a140e4d5a63fd197d2485c8f",
                 "shasum": ""
             },
             "require": {
@@ -402,9 +402,9 @@
             ],
             "support": {
                 "issues": "https://github.com/bugsnag/bugsnag-laravel/issues",
-                "source": "https://github.com/bugsnag/bugsnag-laravel/tree/v2.28.0"
+                "source": "https://github.com/bugsnag/bugsnag-laravel/tree/v2.28.1"
             },
-            "time": "2024-06-03T09:01:13+00:00"
+            "time": "2025-01-13T16:35:27+00:00"
         },
         {
             "name": "bugsnag/bugsnag-psr-logger",
@@ -1653,16 +1653,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v11.37.0",
+            "version": "v11.38.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "6cb103d2024b087eae207654b3f4b26646119ba5"
+                "reference": "9d290aa90fcad44048bedca5219d2b872e98772a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/6cb103d2024b087eae207654b3f4b26646119ba5",
-                "reference": "6cb103d2024b087eae207654b3f4b26646119ba5",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/9d290aa90fcad44048bedca5219d2b872e98772a",
+                "reference": "9d290aa90fcad44048bedca5219d2b872e98772a",
                 "shasum": ""
             },
             "require": {
@@ -1863,20 +1863,20 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2025-01-02T20:10:21+00:00"
+            "time": "2025-01-15T00:06:46+00:00"
         },
         {
             "name": "laravel/prompts",
-            "version": "v0.3.2",
+            "version": "v0.3.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/prompts.git",
-                "reference": "0e0535747c6b8d6d10adca8b68293cf4517abb0f"
+                "reference": "749395fcd5f8f7530fe1f00dfa84eb22c83d94ea"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/prompts/zipball/0e0535747c6b8d6d10adca8b68293cf4517abb0f",
-                "reference": "0e0535747c6b8d6d10adca8b68293cf4517abb0f",
+                "url": "https://api.github.com/repos/laravel/prompts/zipball/749395fcd5f8f7530fe1f00dfa84eb22c83d94ea",
+                "reference": "749395fcd5f8f7530fe1f00dfa84eb22c83d94ea",
                 "shasum": ""
             },
             "require": {
@@ -1920,22 +1920,22 @@
             "description": "Add beautiful and user-friendly forms to your command-line applications.",
             "support": {
                 "issues": "https://github.com/laravel/prompts/issues",
-                "source": "https://github.com/laravel/prompts/tree/v0.3.2"
+                "source": "https://github.com/laravel/prompts/tree/v0.3.3"
             },
-            "time": "2024-11-12T14:59:47+00:00"
+            "time": "2024-12-30T15:53:31+00:00"
         },
         {
             "name": "laravel/pulse",
-            "version": "v1.3.2",
+            "version": "v1.3.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/pulse.git",
-                "reference": "f0bf3959faa89c05fa211632b6d2665131b017fc"
+                "reference": "d618c94a63ce097f88f96fe0bab1e598c3b6aee4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/pulse/zipball/f0bf3959faa89c05fa211632b6d2665131b017fc",
-                "reference": "f0bf3959faa89c05fa211632b6d2665131b017fc",
+                "url": "https://api.github.com/repos/laravel/pulse/zipball/d618c94a63ce097f88f96fe0bab1e598c3b6aee4",
+                "reference": "d618c94a63ce097f88f96fe0bab1e598c3b6aee4",
                 "shasum": ""
             },
             "require": {
@@ -2009,7 +2009,7 @@
                 "issues": "https://github.com/laravel/pulse/issues",
                 "source": "https://github.com/laravel/pulse"
             },
-            "time": "2024-12-12T18:17:53+00:00"
+            "time": "2025-01-02T15:49:30+00:00"
         },
         {
             "name": "laravel/serializable-closure",
@@ -2691,16 +2691,16 @@
         },
         {
             "name": "livewire/flux",
-            "version": "v1.1.2",
+            "version": "v1.1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/livewire/flux.git",
-                "reference": "d6b3db107835b42690f163e34863024393ec642e"
+                "reference": "1575a4d21b745f3f1bad004dc5a92d4b2c63547d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/livewire/flux/zipball/d6b3db107835b42690f163e34863024393ec642e",
-                "reference": "d6b3db107835b42690f163e34863024393ec642e",
+                "url": "https://api.github.com/repos/livewire/flux/zipball/1575a4d21b745f3f1bad004dc5a92d4b2c63547d",
+                "reference": "1575a4d21b745f3f1bad004dc5a92d4b2c63547d",
                 "shasum": ""
             },
             "require": {
@@ -2748,25 +2748,25 @@
             ],
             "support": {
                 "issues": "https://github.com/livewire/flux/issues",
-                "source": "https://github.com/livewire/flux/tree/v1.1.2"
+                "source": "https://github.com/livewire/flux/tree/v1.1.3"
             },
-            "time": "2024-12-23T15:36:06+00:00"
+            "time": "2025-01-14T21:26:58+00:00"
         },
         {
             "name": "livewire/flux-pro",
-            "version": "1.1.2",
+            "version": "1.1.3",
             "dist": {
                 "type": "zip",
-                "url": "https://composer.fluxui.dev/download/9dcb62e3-7e0c-4033-8420-84fd666c66e4/flux-pro-1.1.2.zip",
-                "reference": "b91883bff52d812bf1e1175224d65abaf21885ce",
-                "shasum": "731c5a9daac3139d6991b0be49ec58866adf90be"
+                "url": "https://composer.fluxui.dev/download/9df8207b-8cb7-40d5-af0a-e3ee3600fef2/flux-pro-1.1.3.zip",
+                "reference": "7c142479c85d6c6635bf775f4641671be5d16647",
+                "shasum": "f40fa28145e2ec71aa68e91e1aec2e2f318163fd"
             },
             "require": {
                 "illuminate/console": "^10.0|^11.0",
                 "illuminate/support": "^10.0|^11.0",
                 "illuminate/view": "^10.0|^11.0",
                 "laravel/prompts": "^0.1.24|^0.2|^0.3",
-                "livewire/flux": "1.1.2",
+                "livewire/flux": "1.1.3",
                 "livewire/livewire": "^3.5.12",
                 "php": "^8.1",
                 "symfony/console": "^6.0|^7.0"
@@ -2807,7 +2807,7 @@
                 "livewire",
                 "ui"
             ],
-            "time": "2024-12-23T15:43:51+00:00"
+            "time": "2025-01-14T21:30:25+00:00"
         },
         {
             "name": "livewire/livewire",
