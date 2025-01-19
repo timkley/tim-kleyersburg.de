@@ -29,7 +29,7 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withSchedule(function (Illuminate\Console\Scheduling\Schedule $schedule) {
         $schedule->job(CreateDailyGoals::class)->dailyAt('00:01');
         $schedule->job(CheckForNewThings::class)->hourly()->between('7:00', '18:00');
-        $schedule->job(CheckGoals::class)->everyFourHours()->between('8:00', '20:00');
+        $schedule->job(CheckGoals::class)->cron('30 9,12,16,19 * * *');
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
