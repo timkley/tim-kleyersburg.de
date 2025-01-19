@@ -27,7 +27,7 @@
                     class="flex items-center gap-2 font-semibold"
                     size="lg"
                 >
-                    <flux:icon.shield-check />
+                    <flux:icon.trophy />
                     Ziele
                 </flux:heading>
                 <div class="mt-2 gap-4 sm:grid sm:grid-cols-3 md:gap-8">
