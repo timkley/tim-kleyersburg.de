@@ -14,11 +14,17 @@ it('gets the daily goal for each type', function (IntakeTypes $type, int $amount
 
     Http::fake([
         'https://api.weatherapi.com/*' => Http::response([
+            'current' => [
+                'condition' => [
+                    'text' => 'Sunny',
+                ],
+            ],
             'forecast' => [
                 'forecastday' => [
                     [
                         'day' => [
                             'maxtemp_c' => $temperature ?? 20,
+                            'mintemp_c' => 10,
                         ],
                     ],
                 ],

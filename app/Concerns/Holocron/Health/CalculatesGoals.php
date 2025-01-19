@@ -7,6 +7,7 @@ namespace App\Concerns\Holocron\Health;
 use App\Enums\Holocron\Health\IntakeTypes;
 use App\Models\Holocron\Health\DailyGoal;
 use App\Models\User;
+use App\Services\Weather;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 
@@ -38,7 +39,7 @@ trait CalculatesGoals
     {
         $user = User::where('email', 'timkley@gmail.com')->sole();
         $weight = $user->settings?->weight;
-        $temperature = self::highestTemperature();
+        $temperature = Weather::today()->maxTemp;
         $goal = $weight * 0.033;
 
         match (true) {

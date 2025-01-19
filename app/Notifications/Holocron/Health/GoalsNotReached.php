@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Notifications\Holocron\Health;
 
+use App\Services\Weather;
 use Denk\Facades\Denk;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
@@ -32,11 +33,17 @@ class GoalsNotReached extends Notification
 
         $date = now()->toDateString();
         $time = now()->toTimeString();
+        $forecast = Weather::today();
+        $condition = $forecast->condition;
+        $maxTemp = $forecast->maxTemp;
+        $minTemp = $forecast->minTemp;
+
         $text = Denk::text()
             ->systemPrompt(
                 <<<EOT
 Your job is to create notifications.
 Today is the $date, it is currently $time, adjust the message accordingly.
+The weather is $condition, with a max temperature of $maxTemp and a min temperature of $minTemp.
 
 - answer in german
 - make sure german grammar and dictation is correct, don't answer before you are sure it is correct
