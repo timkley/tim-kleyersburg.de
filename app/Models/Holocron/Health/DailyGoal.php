@@ -23,16 +23,16 @@ class DailyGoal extends Model
 
     public static function for(IntakeTypes $type)
     {
-        $exists = self::where('type', $type)->whereDate('date', today())->exists();
-
-        return $exists
-            ? self::where('type', $type)->whereDate('date', today())->first()
-            : self::create([
+        return self::firstOrCreate(
+            [
                 'date' => today(),
                 'type' => $type,
+            ],
+            [
                 'unit' => $type->unit(),
                 'goal' => $type->goal(),
-            ]);
+            ]
+        );
     }
 
     protected function reached(): Attribute
