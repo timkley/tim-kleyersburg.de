@@ -4,13 +4,15 @@ declare(strict_types=1);
 
 namespace App\Models\Holocron\School;
 
+use Database\Factories\Holocron\School\VocabularyTestFactory;
 use Illuminate\Database\Eloquent\Casts\AsCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 
 class VocabularyTest extends Model
 {
-    /** @use HasFactory<\Database\Factories\Holocron\School\VocabularyTestFactory> */
+    /** @use HasFactory<VocabularyTestFactory> */
     use HasFactory;
 
     protected $attributes = [
@@ -18,9 +20,15 @@ class VocabularyTest extends Model
         'wrong_ids' => '[]',
     ];
 
+    private ?Collection $cachedWords = null;
+
     public function words()
     {
-        return VocabularyWord::whereIn('id', $this->word_ids ?? [])->get();
+        if ($this->cachedWords === null) {
+            $this->cachedWords = VocabularyWord::whereIn('id', $this->word_ids ?? [])->get();
+        }
+
+        return $this->cachedWords;
     }
 
     public function correct()
