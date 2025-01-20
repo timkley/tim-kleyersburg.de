@@ -29,7 +29,7 @@ class GoalsNotReached extends Notification
     public function toDiscord($notifiable)
     {
         $missedGoals = $this->missedGoals->map(function (DailyGoal $goal) {
-            return "- {$goal->type->value} - achieved: {$goal->amount} - goal: {$goal->goal} {$goal->type->unit()}";
+            return "- {$goal->type->value} - achieved: {$goal->amount} - goal: {$goal->goal} {$goal->type->unit()->value}";
         })->implode(PHP_EOL);
 
         $date = now()->toDateString();
