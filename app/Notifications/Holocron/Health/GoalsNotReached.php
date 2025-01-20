@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Notifications\Holocron\Health;
 
+use App\Models\Holocron\Health\DailyGoal;
 use App\Services\Weather;
 use Denk\Facades\Denk;
 use Illuminate\Bus\Queueable;
@@ -27,8 +28,8 @@ class GoalsNotReached extends Notification
 
     public function toDiscord($notifiable)
     {
-        $missedGoals = $this->missedGoals->map(function ($goal) {
-            return "- {$goal->type->value} - achieved: {$goal->amount} - goal: {$goal->goal} {$goal->type->unit}";
+        $missedGoals = $this->missedGoals->map(function (DailyGoal $goal) {
+            return "- {$goal->type->value} - achieved: {$goal->amount} - goal: {$goal->goal} {$goal->type->unit()}";
         })->implode(PHP_EOL);
 
         $date = now()->toDateString();
