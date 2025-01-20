@@ -27,7 +27,7 @@ class Vocabulary extends HolocronComponent
     public function render(): View
     {
         $words = $this->filteredWords()->paginate(10);
-        $tests = VocabularyTest::latest()->get();
+        $tests = VocabularyTest::limit(10)->latest()->get();
 
         return view('holocron.school.vocabulary', compact('words', 'tests'));
     }
