@@ -29,7 +29,8 @@ class GoalsNotReached extends Notification
     public function toDiscord($notifiable)
     {
         $missedGoals = $this->missedGoals->map(function (DailyGoal $goal) {
-            return "- {$goal->type->value} - achieved: {$goal->amount} - goal: {$goal->goal} {$goal->type->unit()->value}";
+            $remaining = $goal->goal - $goal->amount;
+            return "- {$goal->type->value}: $remaining {$goal->type->unit()->value} remaining";
         })->implode(PHP_EOL);
 
         $date = now()->toDateString();
@@ -44,14 +45,12 @@ class GoalsNotReached extends Notification
                 <<<EOT
 Your job is to create notifications.
 Today is the $date, it is currently $time, adjust the message accordingly.
-The weather is $condition, with a max temperature of $maxTemp and a min temperature of $minTemp.
+The weather condition is "$condition", with a max temperature of $maxTemp and a min temperature of $minTemp.
 
 - answer in german
 - make sure german grammar and dictation is correct, don't answer before you are sure it is correct
-- direct the message at the user
-- be concise and keep it as short as possible
+- be concise, keep it as short as possible try to keep it below 3 sentences
 - be motivational
-- no emojis
 - you can be humorous
 
 User name: Tim
