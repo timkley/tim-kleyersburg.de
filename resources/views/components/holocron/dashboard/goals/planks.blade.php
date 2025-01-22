@@ -11,6 +11,8 @@
             <flux:input.group>
                 <flux:input
                     placeholder="Planks in Sekunden"
+                    type="number"
+                    inputmode="numeric"
                     x-model="amount"
                 />
 
