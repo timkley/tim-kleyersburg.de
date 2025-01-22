@@ -23,6 +23,10 @@ class CheckGoals implements ShouldQueue
     {
         $goals = DailyGoal::whereDate('date', today())->whereColumn('amount', '<', 'goal')->get();
 
+        if ($goals->isEmpty()) {
+            return;
+        }
+
         (new DiscordTimChannel())->notify(new GoalsNotReached($goals));
     }
 }
