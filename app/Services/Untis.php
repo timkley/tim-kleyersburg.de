@@ -7,7 +7,7 @@ namespace App\Services;
 use App\Data\Untis\Exam;
 use App\Data\Untis\Homework;
 use App\Data\Untis\Lesson;
-use Carbon\Carbon;
+use Carbon\CarbonImmutable;
 use Exception;
 use Illuminate\Http\Client\Request;
 use Illuminate\Support\Collection;
@@ -38,7 +38,7 @@ class Untis
         );
     }
 
-    public function timetable(Carbon $startDate, Carbon $endDate): Collection
+    public function timetable(CarbonImmutable $startDate, CarbonImmutable $endDate): Collection
     {
         $response = $this->request(
             method: 'post',
@@ -73,7 +73,7 @@ class Untis
             ->map(fn ($lesson) => Lesson::createFromApi($lesson));
     }
 
-    public function homeworks(Carbon $startDate, Carbon $endDate): Collection
+    public function homeworks(CarbonImmutable $startDate, CarbonImmutable $endDate): Collection
     {
         $response = $this->request(
             url: 'api/homeworks/lessons',
@@ -107,7 +107,7 @@ class Untis
             ->map(fn ($homework) => Homework::createFromApi($homework));
     }
 
-    public function exams(Carbon $startDate, Carbon $endDate): Collection
+    public function exams(CarbonImmutable $startDate, CarbonImmutable $endDate): Collection
     {
         $response = $this->request(
             url: 'api/exams',

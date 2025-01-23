@@ -30,6 +30,7 @@ class GoalsNotReached extends Notification
     {
         $missedGoals = $this->missedGoals->map(function (DailyGoal $goal) {
             $remaining = $goal->goal - $goal->amount;
+
             return "- {$goal->type->value}: $remaining {$goal->type->unit()->value} remaining";
         })->implode(PHP_EOL);
 
