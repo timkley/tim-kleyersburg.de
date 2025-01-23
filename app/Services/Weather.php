@@ -11,7 +11,7 @@ class Weather
 {
     public static function today(string $query = 'Fellbach')
     {
-        $response = Cache::remember('weather', now()->endOfDay(), function () use ($query) {
+        $response = Cache::remember('weather', now()->addHours(2), function () use ($query) {
             return Http::get('https://api.weatherapi.com/v1/forecast.json', [
                 'key' => config('services.weatherapi.api_key'),
                 'q' => $query,
