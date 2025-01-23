@@ -12,13 +12,13 @@ image: /articles/img/ogimages/building-a-life-os.webp
 - what I learned
 - next steps
 
-## How I define Life OS
+## My personal definition of a Life OS
 
-The term "Life OS" is often associated with a note taking system helping you manage your life. It does so by given you structures to organize your thoughts, tasks, and goals.
+The term "Life OS" is often associated with a note taking system helping you manage your life. It does so by giving you structures to organize your thoughts, tasks, and goals.
 
-For me, that's not enough. An Operating System should be able to manage your life, not just help you manage it. It should be able to automate tasks, remind you of important things and be truly made for you.
+For me, that's not enough. An Operating System should be able to _manage_ your life, not just _help you manage_ it. It should be able to automate tasks, remind you of important things and be truly made for you.
 
-In my opinion a note taking system falls short of that. It's a great tool to help you manage your life, but it's not a Life OS.
+In my opinion a note taking system falls short of that. It's a great tool to help you manage your thoughts, but it's not a Life OS.
 
 ## Motivation behind building a Life OS
 
@@ -35,3 +35,15 @@ But: they have an API*. So I thought: why not build a system that combines all t
 So I started building a Life OS.
 
 _* The API sucks, also. But that's a different story._
+
+## What I built
+
+I've written about how I used [EleventyJS](/articles/eleventyjs-is-great) to rebuild my site as a static site and integrate a blog. While that worked great at first, I've found myself wanting more and more features that are not possible with a static site. Additionally, after the honeymoon phase I didn't enjoy using JavaScript for everything as much as I thought I would.
+
+So I decided to go back to my roots and use Laravel. I've been using Laravel for years. It's a great framework that allows me to build things quickly and efficiently.
+
+So I created a new Laravel project and started building my Life OS.
+
+What tipped me over to finally do it was the release of [Prezet](https://prezet.com). It's a package that allows for easy markdown blogging in Laravel. Since all the articles I've written before are in markdown it was a great fit and made the switch even easier.
+
+
