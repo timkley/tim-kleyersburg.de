@@ -122,23 +122,6 @@
 
     {{ $scripts ?? '' }}
 
-    <script>
-        document.addEventListener(
-            'visibilitychange',
-            () => {
-                if (!document.hidden) {
-                    fetch('/csrf')
-                        .then((response) => response.json())
-                        .then((data) => {
-                            document.getElementById('livewire-script').dataset.csrf = data.csrf_token
-                        })
-                        .catch((error) => console.error('Error fetching CSRF token:', error))
-                }
-            },
-            false,
-        )
-    </script>
-
     @production
         @if (! str_contains(request()->route()->action['prefix'] ?? '', 'holocron'))
             <script

@@ -8,4 +8,3 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', Home::class)->name('pages.home');
 Route::get('/einmaleins', Einmaleins::class)->name('pages.einmaleins');
-Route::get('/csrf', fn () => response()->json(['csrf_token' => csrf_token()]));

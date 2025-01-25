@@ -23,5 +23,24 @@
         <flux:toast />
     @endpersist
 
-    <x-slot:scripts>{{ $scripts ?? '' }}</x-slot>
+    <x-slot:scripts>
+        {{ $scripts ?? '' }}
+
+        <script>
+            document.addEventListener(
+                'visibilitychange',
+                () => {
+                    if (!document.hidden) {
+                        fetch('{{ route('holocron.helpers.csrf', absolute: false) }}')
+                            .then((response) => response.json())
+                            .then((data) => {
+                                document.getElementById('livewire-script').dataset.csrf = data.csrf_token
+                            })
+                            .catch((error) => console.error('Error fetching CSRF token:', error))
+                    }
+                },
+                false,
+            )
+        </script>
+    </x-slot>
 </x-layouts.app>
