@@ -123,26 +123,31 @@
     {{ $scripts ?? '' }}
 
     <script>
-        document.addEventListener('visibilitychange', () => {
-            if (!document.hidden) {
-                fetch('/csrf')
-                    .then(response => response.json())
-                    .then(data => {
-                        document.getElementById('livewire-script').dataset.csrf = data.csrf_token;
-                    })
-                    .catch(error => console.error('Error fetching CSRF token:', error));
-            }
-        }, false);
+        document.addEventListener(
+            'visibilitychange',
+            () => {
+                if (!document.hidden) {
+                    fetch('/csrf')
+                        .then((response) => response.json())
+                        .then((data) => {
+                            document.getElementById('livewire-script').dataset.csrf = data.csrf_token
+                        })
+                        .catch((error) => console.error('Error fetching CSRF token:', error))
+                }
+            },
+            false,
+        )
     </script>
 
     @production
-        <!-- TODO: don't load on Holocron pages -->
-        <script
-            async
-            defer
-            data-website-id="428e7134-523b-4449-aa87-f45e94f5d525"
-            src="https://c3po.wacg.dev/protocol.js"
-        ></script>
+        @if (! str_contains(request()->route()->action['prefix'] ?? '', 'holocron'))
+            <script
+                async
+                defer
+                data-website-id="428e7134-523b-4449-aa87-f45e94f5d525"
+                src="https://c3po.wacg.dev/protocol.js"
+            ></script>
+        @endif
     @endproduction
 </body>
 </html>
