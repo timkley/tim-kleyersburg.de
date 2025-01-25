@@ -119,9 +119,24 @@
 
     @livewireScripts
     @fluxScripts
+
     {{ $scripts ?? '' }}
 
+    <script>
+        document.addEventListener('visibilitychange', () => {
+            if (!document.hidden) {
+                fetch('/csrf')
+                    .then(response => response.json())
+                    .then(data => {
+                        document.getElementById('livewire-script').dataset.csrf = data.csrf_token;
+                    })
+                    .catch(error => console.error('Error fetching CSRF token:', error));
+            }
+        }, false);
+    </script>
+
     @production
+        <!-- TODO: don't load on Holocron pages -->
         <script
             async
             defer

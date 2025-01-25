@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
+use Livewire;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -38,6 +39,7 @@ class AppServiceProvider extends ServiceProvider
         $this->configureDates();
         $this->configureModels();
         $this->configureGates();
+        $this->configureLivewire();
     }
 
     private function configureDates(): void
@@ -61,5 +63,10 @@ class AppServiceProvider extends ServiceProvider
         Gate::define('isTim', function (?User $user) {
             return auth()->user()?->isTim() ? Response::allow() : redirect()->route('holocron.login');
         });
+    }
+
+    private function configureLivewire(): void
+    {
+        Livewire::useScriptTagAttributes(['id' => 'livewire-script']);
     }
 }
