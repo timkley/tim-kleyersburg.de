@@ -51,6 +51,10 @@ class Vocabulary extends HolocronComponent
 
     public function startTest()
     {
+        if ($this->filteredWords()->count() === 0) {
+            return;
+        }
+
         $vocabularyTest = VocabularyTest::create([
             'word_ids' => $this->filteredWords()->get()->pluck('id')->toArray(),
         ]);

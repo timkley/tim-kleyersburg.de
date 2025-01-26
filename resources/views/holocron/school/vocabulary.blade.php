@@ -72,6 +72,7 @@
         <flux:button
             variant="primary"
             wire:click="startTest"
+            :disabled="$words->isEmpty()"
             >Test mit {{ $words->total() }} Vokabeln starten
         </flux:button>
     </div>

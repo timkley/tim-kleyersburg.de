@@ -5,7 +5,7 @@
 @endphp
 
 <div class="mx-auto max-w-3xl">
-    @unless ($finished)
+    @unless ($finished || $word === null)
         <div class="grid grid-cols-2 gap-4">
             <flux:card class="grid place-content-center">
                 <p class="break-words text-center text-xl sm:text-3xl">
@@ -50,6 +50,7 @@
             href="{{ route('holocron.school.vocabulary.overview') }}"
             variant="filled"
             class="mx-auto"
+            wire:navigate
             >Zurück</flux:button
         >
     </div>
