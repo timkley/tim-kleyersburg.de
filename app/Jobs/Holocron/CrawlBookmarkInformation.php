@@ -14,9 +14,7 @@ class CrawlBookmarkInformation implements ShouldQueue
 {
     use Queueable;
 
-    public function __construct(public Bookmark $bookmark)
-    {
-    }
+    public function __construct(public Bookmark $bookmark) {}
 
     public function handle(): void
     {

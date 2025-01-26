@@ -8,9 +8,7 @@ use Illuminate\Support\Carbon;
 
 class Lesson
 {
-    public function __construct(public int $id, public string $subject, public Carbon $start, public Carbon $end, public bool $cancelled)
-    {
-    }
+    public function __construct(public int $id, public string $subject, public Carbon $start, public Carbon $end, public bool $cancelled) {}
 
     public static function create(int $id, string $subject, Carbon $start, Carbon $end, bool $cancelled): self
     {

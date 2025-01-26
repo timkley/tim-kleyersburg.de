@@ -14,9 +14,7 @@ class NewHomework extends Notification
 {
     use Queueable;
 
-    public function __construct(public Homework $homework)
-    {
-    }
+    public function __construct(public Homework $homework) {}
 
     public function via(object $notifiable): array
     {

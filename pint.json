@@ -50,12 +50,5 @@
         "self_static_accessor": true,
         "strict_comparison": true,
         "visibility_required": true
-    },
-    "exclude": [
-        "resources/views/flux"
-    ],
-    "notPath": [
-        "resources/views/einmaleins.blade.php",
-        "resources/views/holocron/bookmarks/components/bookmark.blade.php"
-    ]
+    }
 }

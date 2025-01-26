@@ -8,9 +8,7 @@ use Illuminate\Support\Carbon;
 
 class Homework
 {
-    public function __construct(public int $id, public string $subject, public Carbon $date, public Carbon $dueDate, public string $text, public bool $done)
-    {
-    }
+    public function __construct(public int $id, public string $subject, public Carbon $date, public Carbon $dueDate, public string $text, public bool $done) {}
 
     public static function create(int $id, string $subject, Carbon $date, Carbon $dueDate, string $text, bool $done): self
     {

@@ -27,6 +27,6 @@ class CheckGoals implements ShouldQueue
             return;
         }
 
-        (new DiscordTimChannel())->notify(new GoalsNotReached($goals));
+        (new DiscordTimChannel)->notify(new GoalsNotReached($goals));
     }
 }

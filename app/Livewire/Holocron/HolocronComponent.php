@@ -8,6 +8,4 @@ use Livewire\Attributes\Layout;
 use Livewire\Component;
 
 #[Layout('components.layouts.holocron')]
-class HolocronComponent extends Component
-{
-}
+class HolocronComponent extends Component {}

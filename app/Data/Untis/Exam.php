@@ -8,9 +8,7 @@ use Carbon\CarbonImmutable;
 
 class Exam
 {
-    public function __construct(public int $id, public string $subject, public CarbonImmutable $date, public string $text)
-    {
-    }
+    public function __construct(public int $id, public string $subject, public CarbonImmutable $date, public string $text) {}
 
     public static function create(int $id, string $subject, CarbonImmutable $date, string $text): self
     {
