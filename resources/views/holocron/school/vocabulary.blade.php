@@ -101,7 +101,7 @@
                         </flux:cell>
                         <flux:cell>{{ $test->leftWords()->count() }} von {{ $test->words()->count() }} Vokabeln übrig</flux:cell>
                         <flux:cell
-                            >{{ $test->error_count }} Fehler ({{ round(100 / $test->words()->count() * $test->error_count) }}&nbsp;%)</flux:cell
+                            >{{ $test->error_count }} Fehler ({{ $test->words()->count() ? round(100 / $test->words()->count() * $test->error_count) : 0 }}&nbsp;%)</flux:cell
                         >
                         <flux:cell>
                             <div class="flex items-center gap-x-3">
