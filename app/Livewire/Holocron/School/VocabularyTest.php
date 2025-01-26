@@ -12,6 +12,8 @@ class VocabularyTest extends HolocronComponent
 {
     public $blurred = true;
 
+    public string $mode = 'random';
+
     public VocabularyTestModel $test;
 
     public function render(): View

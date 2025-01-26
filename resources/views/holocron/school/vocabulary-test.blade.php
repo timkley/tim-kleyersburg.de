@@ -1,12 +1,21 @@
 <x-slot:title>Vokabeltest</x-slot>
 
 @php
-    $lottery = rand(0, 1);
+    $lottery = match ($mode) {
+        'random' => rand(0, 1),
+        'german' => 0,
+        'english' => 1,
+    }
 @endphp
 
 <div class="mx-auto max-w-3xl">
     @unless ($finished || $word === null)
-        <div class="grid grid-cols-2 gap-4">
+        <flux:radio.group wire:model.live="mode" variant="segmented">
+            <flux:radio label="Zufällig" value="random" />
+            <flux:radio label="🇩🇪 Deutsch" value="german" />
+            <flux:radio label="🇬🇧 Englisch" value="english" />
+        </flux:radio.group>
+        <div class="grid grid-cols-2 gap-4 mt-6">
             <flux:card class="grid place-content-center">
                 <p class="break-words text-center text-xl sm:text-3xl">
                     {{ $lottery ? $word->german : $word->english }}
@@ -31,13 +40,11 @@
             <flux:button
                 wire:click="markAsCorrect({{ $word->id }}); right.play()"
                 variant="primary"
-                >Gewusst!</flux:button
-            >
+                >Gewusst!</flux:button>
             <flux:button
                 wire:click="markAsWrong({{ $word->id }}); wrong.play()"
                 variant="danger"
-                >Wiederholen</flux:button
-            >
+                >Wiederholen</flux:button>
         </div>
     @else
         <p class="text-center text-2xl">Geschafft! 🥳</p>

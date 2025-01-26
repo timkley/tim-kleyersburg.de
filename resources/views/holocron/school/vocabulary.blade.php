@@ -1,130 +1,79 @@
-<x-slot:title>Vokabeln lernen</x-slot>
+<x-slot:title>Vokabeltest</x-slot>
 
-<div>
-    <x-heading tag="h2">Vokabeln</x-heading>
+@php
+    $lottery = match ($mode) {
+        'random' => rand(0, 1),
+        'german' => 0,
+        'english' => 1,
+    }
+@endphp
 
-    <div class="space-y-6">
-        <flux:radio.group
-            wire:model.live="filter"
-            variant="segmented"
-        >
-            <flux:radio
-                checked
-                label="Alle"
-                value="all"
-            />
-            <flux:radio
-                label="Score < 3"
-                value="low_score"
-            />
-            <flux:radio
-                label="Score < 5"
-                value="middle_score"
-            />
-            <flux:radio
-                label="Score > 3"
-                value="high_score"
-            />
+<div class="mx-auto max-w-3xl">
+    @unless ($finished || $word === null)
+        <flux:radio.group wire:model.live="mode" variant="segmented">
+            <flux:radio label="Zufällig" value="random" />
+            <flux:radio label="🇩🇪 Deutsch" value="german" />
+            <flux:radio label="🇬🇧 Englisch" value="english" />
         </flux:radio.group>
+        <div class="grid grid-cols-2 gap-4 mt-6">
+            <flux:card class="grid place-content-center">
+                <p class="break-words text-center text-xl sm:text-3xl">
+                    {{ $lottery ? $word->german : $word->english }}
+                </p>
+            </flux:card>
+            <flux:card
+                @click="$wire.blurred = false"
+                class="grid place-content-center overflow-hidden"
+            >
+                <p
+                    class="break-words text-center text-xl blur-lg sm:text-3xl"
+                    :class="{ 'blur-lg': $wire.blurred }"
+                >
+                    {{ $lottery ? $word->english : $word->german }}
+                </p>
+            </flux:card>
+        </div>
 
-        <flux:table>
-            <flux:columns>
-                <flux:column>Englisch</flux:column>
-                <flux:column>Deutsch</flux:column>
-                <flux:column>Score</flux:column>
-                <flux:column>Angelegt am</flux:column>
-            </flux:columns>
-            <flux:rows>
-                <flux:row>
-                    <flux:cell>
-                        <flux:input
-                            class="min-w-32"
-                            wire:model="english"
-                            wire:keydown.enter="addWord"
-                        />
-                    </flux:cell>
-                    <flux:cell>
-                        <flux:input
-                            class="min-w-32"
-                            wire:model="german"
-                            wire:keydown.enter="addWord"
-                        />
-                    </flux:cell>
-                    <flux:cell>
-                        <flux:button
-                            type="submit"
-                            wire:click="addWord"
-                            >Vokabel hinzufügen
-                        </flux:button>
-                    </flux:cell>
-                </flux:row>
-                @foreach ($words as $word)
-                    <livewire:holocron.school.components.vocabulary-word
-                        :$word
-                        :key="$word->id"
-                    />
-                @endforeach
-            </flux:rows>
-        </flux:table>
+        <div class="mt-6 text-center text-gray-500">noch {{ $test->leftWords()->count() }} Vokabeln übrig</div>
 
-        {{ $words->links() }}
-
-        <flux:button
-            variant="primary"
-            wire:click="startTest"
-            :disabled="$words->isEmpty()"
-            >Test mit {{ $words->total() }} Vokabeln starten
-        </flux:button>
-    </div>
+        <div class="mt-12 flex justify-center gap-4">
+            <flux:button
+                wire:click="markAsCorrect({{ $word->id }}); right.play()"
+                variant="primary"
+                >Gewusst!</flux:button>
+            <flux:button
+                wire:click="markAsWrong({{ $word->id }}); wrong.play()"
+                variant="danger"
+                >Wiederholen</flux:button>
+        </div>
+    @else
+        <p class="text-center text-2xl">Geschafft! 🥳</p>
+    @endif
 
     <flux:separator class="my-12" />
 
-    <x-heading tag="h2">Deine Tests</x-heading>
-
-    <div class="space-y-6">
-        <flux:table>
-            <flux:columns>
-                <flux:column>Datum</flux:column>
-                <flux:column>Vokabeln</flux:column>
-                <flux:column>Fehler</flux:column>
-                <flux:column></flux:column>
-            </flux:columns>
-            <flux:rows>
-                @foreach ($tests as $test)
-                    <flux:row>
-                        <flux:cell>
-                            <a
-                                href="{{ route('holocron.school.vocabulary.test', $test->id) }}"
-                                wire:navigate
-                            >
-                                {{ $test->updated_at->format('d.m.Y H:i') }}
-                            </a>
-                        </flux:cell>
-                        <flux:cell>{{ $test->leftWords()->count() }} von {{ $test->words()->count() }} Vokabeln übrig</flux:cell>
-                        <flux:cell
-                            >{{ $test->error_count }} Fehler ({{ $test->words()->count() ? round(100 / $test->words()->count() * $test->error_count) : 0 }}&nbsp;%)</flux:cell
-                        >
-                        <flux:cell>
-                            <div class="flex items-center gap-x-3">
-                                <flux:badge color="{{ $test->finished ? 'lime' : '' }}">
-                                    {{ $test->finished ? 'Fertig' : 'Im Gange' }}
-                                </flux:badge>
-
-                                @if (auth()->user()->isTim())
-                                    <flux:button
-                                        class="ml-auto"
-                                        wire:click="deleteTest({{ $test->id }})"
-                                        icon="trash"
-                                        variant="danger"
-                                        size="xs"
-                                        square
-                                    />
-                                @endif
-                            </div>
-                        </flux:cell>
-                    </flux:row>
-                @endforeach
-            </flux:rows>
-        </flux:table>
+    <div class="text-center">
+        <flux:button
+            href="{{ route('holocron.school.vocabulary.overview') }}"
+            variant="filled"
+            class="mx-auto"
+            wire:navigate
+            >Zurück</flux:button
+        >
     </div>
+
+    @persist('audio-files')
+        <div class="hidden">
+            <audio
+                id="right"
+                src="/sounds/right.mp3"
+                controls
+            ></audio>
+            <audio
+                id="wrong"
+                src="/sounds/wrong.mp3"
+                controls
+            ></audio>
+        </div>
+    @endpersist
 </div>
