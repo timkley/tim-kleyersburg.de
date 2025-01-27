@@ -7,10 +7,12 @@ namespace App\Jobs\Holocron\School;
 use App\Data\Untis\Exam;
 use App\Data\Untis\Homework;
 use App\Data\Untis\Lesson;
+use App\Data\Untis\News;
 use App\Notifications\DiscordSchoolChannel;
 use App\Notifications\Holocron\School\ClassCancelled;
 use App\Notifications\Holocron\School\NewExam;
 use App\Notifications\Holocron\School\NewHomework;
+use App\Notifications\Holocron\School\NewNews;
 use App\Services\Untis;
 use Illuminate\Contracts\Cache\Repository;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -32,11 +34,31 @@ class CheckForNewThings implements ShouldQueue
     {
         $this->untis = $untis;
 
+        $this->checkNews();
+        Sleep::for(300)->milliseconds();
         $this->checkHomeworks();
         Sleep::for(300)->milliseconds();
         $this->checkExams();
         Sleep::for(300)->milliseconds();
         $this->checkLessons();
+    }
+
+    private function checkNews(): void
+    {
+        $news = $this->untis->news();
+
+        $news->each(function (News $news) {
+            $key = 'holocron.school.news.'.$news->id;
+            $cached = $this->cache()->has($key);
+
+            if ($cached) {
+                return;
+            }
+
+            $this->cache()->put($key, true, now()->addYear());
+            Sleep::for(300)->milliseconds();
+            (new DiscordSchoolChannel)->notify(new NewNews($news));
+        });
     }
 
     private function checkHomeworks(): void

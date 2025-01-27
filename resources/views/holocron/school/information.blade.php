@@ -7,6 +7,15 @@
 
     <div class="space-y-12">
         <section>
+            <x-heading tag="h2">News</x-heading>
+            @foreach($news as $newsItem)
+                <div class="space-y-2">
+                    <h3 class="text-lg font-semibold">{{ $newsItem->subject }}</h3>
+                    <p>{!! str($newsItem->text)->markdown() !!}</p>
+                </div>
+            @endforeach
+        </section>
+        <section>
             <x-heading tag="h2">Hausaufgaben</x-heading>
 
             <flux:table>

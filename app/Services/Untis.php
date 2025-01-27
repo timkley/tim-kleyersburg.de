@@ -7,6 +7,7 @@ namespace App\Services;
 use App\Data\Untis\Exam;
 use App\Data\Untis\Homework;
 use App\Data\Untis\Lesson;
+use App\Data\Untis\News;
 use Carbon\CarbonImmutable;
 use Exception;
 use Illuminate\Http\Client\Request;
@@ -28,14 +29,17 @@ class Untis
         $this->login();
     }
 
-    public function news(): array
+    public function news(): Collection
     {
-        return $this->request(
+        $response = $this->request(
             url: 'api/public/news/newsWidgetData',
             parameters: [
                 'date' => today()->format('Ymd'),
             ]
         );
+
+        return collect(data_get($response, 'data.messagesOfDay'))
+            ->map(fn ($lesson) => News::createFromApi($lesson));
     }
 
     public function timetable(CarbonImmutable $startDate, CarbonImmutable $endDate): Collection

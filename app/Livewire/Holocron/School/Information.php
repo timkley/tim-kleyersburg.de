@@ -28,7 +28,7 @@ class Information extends HolocronComponent
         ]);
     }
 
-    private function news(): array
+    private function news(): Collection
     {
         return cache()->flexible('holocron.school.news', [now()->addMinutes(15), now()->addYear()], fn () => $this->untis->news());
     }
