@@ -28,7 +28,7 @@
                                         size="sm"
                                         class="ml-2"
                                         color="green"
-                                        >Erledigt
+                                    >Erledigt
                                     </flux:badge>
                                 @endif
                             </flux:cell>
@@ -70,16 +70,18 @@
     </div>
 </div>
 
-<x-slot:scripts>
-    <script
-        defer
-        src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"
-    ></script>
-    <script>
-        document.addEventListener('alpine:init', () => {
-            Alpine.data('calendar', () => ({
-                calendar: null,
-                events: {!!
+@assets
+<script
+    defer
+    src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"
+></script>
+@endassets
+
+@script
+<script>
+    Alpine.data('calendar', () => ({
+        calendar: null,
+        events: {!!
                     json_encode($timetable->map(fn ($lesson) => [
                         'id' => $lesson->id,
                         'title' => $lesson->subject,
@@ -89,24 +91,23 @@
                         'borderColor' => $lesson->cancelled ? '#f87171' : '#60a5fa',
                     ])->values())
                 !!},
-                init() {
-                    this.calendar = new FullCalendar.Calendar(this.$refs.calendar, {
-                        events: (info, success) => success(this.events),
-                        locale: 'de',
-                        firstDay: 1,
-                        hiddenDays: [0, 6],
-                        headerToolbar: {
-                            end: 'prev,next',
-                        },
-                        slotMinTime: '07:30',
-                        slotMaxTime: '16:30',
-                        initialDate: '{{ today()->isWeekday() ? today()->format('Y-m-d') : today()->nextWeekday()->format('Y-m-d') }}',
-                        initialView: 'timeGridWeek',
-                    })
-
-                    this.calendar.render()
+        init () {
+            this.calendar = new FullCalendar.Calendar(this.$refs.calendar, {
+                events: (info, success) => success(this.events),
+                locale: 'de',
+                firstDay: 1,
+                hiddenDays: [0, 6],
+                headerToolbar: {
+                    end: 'prev,next',
                 },
-            }))
-        })
-    </script>
-</x-slot>
+                slotMinTime: '07:30',
+                slotMaxTime: '16:30',
+                initialDate: '{{ today()->isWeekday() ? today()->format('Y-m-d') : today()->nextWeekday()->format('Y-m-d') }}',
+                initialView: 'timeGridWeek',
+            })
+
+            this.calendar.render()
+        },
+    }))
+</script>
+@endscript

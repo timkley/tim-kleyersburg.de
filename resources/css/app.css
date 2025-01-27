@@ -7,7 +7,7 @@
     --font-ibm: 'IBM Plex Sans', 'sans-serif';
 }
 
-@source "../views";
+@source '../views';
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../vendor/livewire/flux-pro/stubs/**/*.blade.php';
 @source '../../vendor/livewire/flux/stubs/**/*.blade.php';
