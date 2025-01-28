@@ -7,6 +7,7 @@ namespace App\Notifications\Holocron\School;
 use App\Data\Untis\News;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
+use Illuminate\Support\Stringable;
 use NotificationChannels\Discord\DiscordChannel;
 use NotificationChannels\Discord\DiscordMessage;
 
@@ -23,6 +24,10 @@ class NewNews extends Notification
 
     public function toDiscord($notifiable)
     {
-        return DiscordMessage::create("{$this->news->subject}: {$this->news->text}");
+        $text = str($this->news->text)
+            ->when($this->news->subject, fn (Stringable $string) => $string->prepend("**{$this->news->subject}:** "))
+            ->replace('<br>', "\n");
+
+        return DiscordMessage::create($text->toString());
     }
 }
