@@ -28,10 +28,10 @@
             <flux:icon.medal class="size-5" />
             <div>
                 <p>
-                    Streak {{ DailyGoal::currentStreakFor($goal->type) }}&nbsp;×
+                    Streak ×&nbsp;{{ DailyGoal::currentStreakFor($goal->type) }}
                 </p>
                 <p>
-                    Beste {{ DailyGoal::highestStreakFor($goal->type) }}&nbsp;×
+                    Beste ×&nbsp;{{ DailyGoal::highestStreakFor($goal->type) }}
                 </p>
             </div>
         </div>
