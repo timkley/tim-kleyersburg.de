@@ -6,6 +6,8 @@ namespace App\Notifications\Holocron;
 
 use App\Services\Weather;
 use Denk\Facades\Denk;
+use Denk\ValueObjects\DeveloperMessage;
+use Denk\ValueObjects\UserMessage;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use NotificationChannels\Discord\DiscordChannel;
@@ -31,8 +33,8 @@ class DailyDigest extends Notification
         $maxTemp = $forecast->maxTemp;
         $minTemp = $forecast->minTemp;
 
-        $text = Denk::text()
-            ->systemPrompt(
+        $messages = [
+            new DeveloperMessage(
                 <<<EOT
 Your job is to create a daily digest.
 Today is the $date, it is currently $time, adjust the message accordingly.
@@ -47,8 +49,12 @@ The weather condition is "$condition", with a max temperature of $maxTemp and a 
 
 User name: Tim
 EOT
-            )
-            ->prompt("Create a digest from these information: $this->digest")
+            ),
+            new UserMessage("Create a digest from these information: $this->digest"),
+        ];
+
+        $text = Denk::text()
+            ->messages($messages)
             ->generate();
 
         return DiscordMessage::create($text);

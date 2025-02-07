@@ -17,7 +17,7 @@
         "livewire/livewire": "^3.5.18",
         "openai-php/laravel": "^0.10.2",
         "spatie/laravel-feed": "^4.4",
-        "timkley/denk": "^0.0.4"
+        "timkley/denk": "^0.1.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.14.10",
