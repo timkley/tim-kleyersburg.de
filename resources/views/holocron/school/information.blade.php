@@ -107,12 +107,13 @@
                 firstDay: 1,
                 hiddenDays: [0, 6],
                 headerToolbar: {
+                    start: 'timeGridDay,timeGridWeek',
                     end: 'prev,next',
                 },
                 slotMinTime: '07:30',
                 slotMaxTime: '16:30',
                 initialDate: '{{ today()->isWeekday() ? today()->format('Y-m-d') : today()->nextWeekday()->format('Y-m-d') }}',
-                initialView: 'timeGridWeek',
+                initialView: window.innerWidth < 768 ? 'timeGridDay' : 'timeGridWeek',
             })
 
             this.calendar.render()
