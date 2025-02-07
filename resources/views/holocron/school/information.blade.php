@@ -110,10 +110,12 @@
                     start: 'timeGridDay,timeGridWeek',
                     end: 'prev,next',
                 },
-                slotMinTime: '07:30',
-                slotMaxTime: '16:30',
+                slotMinTime: '07:45',
+                slotMaxTime: '15:35',
                 initialDate: '{{ today()->isWeekday() ? today()->format('Y-m-d') : today()->nextWeekday()->format('Y-m-d') }}',
                 initialView: window.innerWidth < 768 ? 'timeGridDay' : 'timeGridWeek',
+                height: 555,
+                allDaySlot: false
             })
 
             this.calendar.render()
