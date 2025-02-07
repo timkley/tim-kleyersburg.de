@@ -7,6 +7,8 @@ namespace App\Notifications\Holocron\Health;
 use App\Models\Holocron\Health\DailyGoal;
 use App\Services\Weather;
 use Denk\Facades\Denk;
+use Denk\ValueObjects\AssistantMessage;
+use Denk\ValueObjects\UserMessage;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Collection;
@@ -39,6 +41,9 @@ class GoalsNotReached extends Notification
         $maxTemp = $forecast->maxTemp;
         $minTemp = $forecast->minTemp;
 
+        $messages = cache('goals-not-reached-messages', []);
+        $messages[] = new UserMessage("Create a notification for the not achieved goals: $missedGoals");
+
         $text = Denk::text()
             ->systemPrompt(
                 <<<EOT
@@ -51,12 +56,16 @@ The weather condition is "$condition", with a max temperature of $maxTemp and a 
 - be concise, keep it as short as possible try to keep it below 3 sentences
 - be motivational
 - you can be humorous
+- get more and more demanding with each message consecutively not reached goals
 
 User name: Tim
 EOT
             )
-            ->prompt("Create a notification for the not achieved goals: $missedGoals")
+            ->messages($messages)
             ->generate();
+
+        $messages[] = new AssistantMessage($text);
+        cache(['goals-not-reached-messages' => $messages], now()->endOfDay());
 
         return DiscordMessage::create($text);
     }
