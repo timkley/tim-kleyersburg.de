@@ -6,9 +6,9 @@
     @unless ($goal->reached)
         <flux:button
                 class="w-full"
-                @click="$wire.trackGoal('{{ GoalTypes::Creatine }}', 5); amount = null"
-        >Kreatin genommen
-        </flux:button
+                @click="$wire.trackGoal('{{ GoalTypes::Creatine }}', 5);"
         >
+            Kreatin genommen
+        </flux:button>
     @endunless
 </x-holocron.dashboard.goals.base>
