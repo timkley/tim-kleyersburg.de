@@ -8,6 +8,7 @@ use App\Models\Holocron\Health\DailyGoal;
 use App\Services\Weather;
 use Denk\Facades\Denk;
 use Denk\ValueObjects\AssistantMessage;
+use Denk\ValueObjects\SystemMessage;
 use Denk\ValueObjects\UserMessage;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
@@ -45,8 +46,9 @@ class GoalsNotReached extends Notification
         $messages[] = new UserMessage("Create a notification for the not achieved goals: $missedGoals");
 
         $text = Denk::text()
-            ->systemPrompt(
-                <<<EOT
+            ->messages([
+                new SystemMessage(
+                    <<<EOT
 Your job is to create notifications.
 Today is the $date, it is currently $time, adjust the message accordingly.
 The weather condition is "$condition", with a max temperature of $maxTemp and a min temperature of $minTemp.
@@ -60,8 +62,9 @@ The weather condition is "$condition", with a max temperature of $maxTemp and a 
 
 User name: Tim
 EOT
-            )
-            ->messages($messages)
+                ),
+                ...$messages
+            ])
             ->generate();
 
         $messages[] = new AssistantMessage($text);
