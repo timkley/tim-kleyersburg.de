@@ -6,7 +6,7 @@ namespace App\Enums\Holocron\Health;
 
 use App\Concerns\Holocron\Health\CalculatesGoals;
 
-enum IntakeTypes: string
+enum GoalTypes: string
 {
     use CalculatesGoals;
 
@@ -14,12 +14,12 @@ enum IntakeTypes: string
     case Creatine = 'creatine';
     case Planks = 'planks';
 
-    public function unit(): IntakeUnits
+    public function unit(): GoalUnits
     {
         return match ($this) {
-            self::Water => IntakeUnits::Milliliters,
-            self::Creatine => IntakeUnits::Grams,
-            self::Planks => IntakeUnits::Seconds,
+            self::Water => GoalUnits::Milliliters,
+            self::Creatine => GoalUnits::Grams,
+            self::Planks => GoalUnits::Seconds,
         };
     }
 }

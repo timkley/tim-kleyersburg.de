@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-use App\Enums\Holocron\Health\IntakeTypes;
-use App\Enums\Holocron\Health\IntakeUnits;
+use App\Enums\Holocron\Health\GoalTypes;
+use App\Enums\Holocron\Health\GoalUnits;
 use App\Models\Holocron\Health\Intake;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -30,9 +30,9 @@ return new class extends Migration
             ->cursor()
             ->each(function ($waterIntake) {
                 Intake::create([
-                    'type' => IntakeTypes::Water,
+                    'type' => GoalTypes::Water,
                     'amount' => $waterIntake->amount,
-                    'unit' => IntakeUnits::Milliliters,
+                    'unit' => GoalUnits::Milliliters,
                     'created_at' => $waterIntake->created_at,
                     'updated_at' => $waterIntake->updated_at,
                 ]);

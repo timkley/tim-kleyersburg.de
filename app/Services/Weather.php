@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Http;
 
 class Weather
 {
-    public static function today(string $query = 'Fellbach')
+    public static function today(string $query = 'Fellbach'): Forecast
     {
         $response = Cache::remember('weather', now()->addHours(2), function () use ($query) {
             return Http::get('https://api.weatherapi.com/v1/forecast.json', [

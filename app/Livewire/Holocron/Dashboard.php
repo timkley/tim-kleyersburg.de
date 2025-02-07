@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Livewire\Holocron;
 
-use App\Enums\Holocron\Health\IntakeTypes;
+use App\Enums\Holocron\Health\GoalTypes;
 use App\Models\Holocron\Health\DailyGoal;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\View\View;
@@ -24,6 +24,6 @@ class Dashboard extends HolocronComponent
             'amount' => ['required', 'numeric'],
         ])->validate();
 
-        DailyGoal::for(IntakeTypes::from($type))->increment('amount', $amount);
+        DailyGoal::for(GoalTypes::from($type))->increment('amount', $amount);
     }
 }

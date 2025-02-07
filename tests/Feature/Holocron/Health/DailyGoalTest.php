@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-use App\Enums\Holocron\Health\IntakeTypes;
+use App\Enums\Holocron\Health\GoalTypes;
 use App\Models\Holocron\Health\DailyGoal;
 use App\Models\User;
 
-it('gets the daily goal for each type', function (IntakeTypes $type, int $amount, ?int $weight = null, ?int $temperature = null) {
+it('gets the daily goal for each type', function (GoalTypes $type, int $amount, ?int $weight = null, ?int $temperature = null) {
     $user = User::factory()->create(['email' => 'timkley@gmail.com']);
     $user->settings()->create([
         'weight' => $weight,
@@ -40,42 +40,42 @@ it('gets the daily goal for each type', function (IntakeTypes $type, int $amount
     expect(DailyGoal::count())->toBe(1);
 })->with([
     [
-        IntakeTypes::Water,
+        GoalTypes::Water,
         2310,
         70,
         20,
     ],
     [
-        IntakeTypes::Water,
+        GoalTypes::Water,
         2975,
         75,
         25,
     ],
     [
-        IntakeTypes::Water,
+        GoalTypes::Water,
         3060,
         70,
         30,
     ],
     [
-        IntakeTypes::Creatine,
+        GoalTypes::Creatine,
         5,
     ],
     [
-        IntakeTypes::Planks,
+        GoalTypes::Planks,
         90,
     ],
 ]);
 
 it('gets a progressive goal for planks', function () {
-    expect(DailyGoal::for(IntakeTypes::Planks)->goal)->toBe(90);
+    expect(DailyGoal::for(GoalTypes::Planks)->goal)->toBe(90);
 
     \Pest\Laravel\travel(5)->days();
     DailyGoal::factory()->create([
-        'type' => IntakeTypes::Planks,
+        'type' => GoalTypes::Planks,
         'goal' => 90,
         'amount' => 90,
     ]);
 
-    expect(DailyGoal::for(IntakeTypes::Planks)->goal)->toBe(95);
+    expect(DailyGoal::for(GoalTypes::Planks)->goal)->toBe(95);
 });

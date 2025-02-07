@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Models\Holocron\Health;
 
-use App\Enums\Holocron\Health\IntakeTypes;
-use App\Enums\Holocron\Health\IntakeUnits;
+use App\Enums\Holocron\Health\GoalTypes;
+use App\Enums\Holocron\Health\GoalUnits;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -16,11 +16,11 @@ class DailyGoal extends Model
     use HasFactory;
 
     protected $casts = [
-        'type' => IntakeTypes::class,
-        'unit' => IntakeUnits::class,
+        'type' => GoalTypes::class,
+        'unit' => GoalUnits::class,
     ];
 
-    public static function for(IntakeTypes $type)
+    public static function for(GoalTypes $type)
     {
         return self::firstOrCreate(
             [
