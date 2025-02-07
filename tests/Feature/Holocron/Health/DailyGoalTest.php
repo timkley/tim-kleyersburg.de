@@ -86,6 +86,26 @@ it('gets a progressive goal for planks', function () {
 it('can track a goal', function () {
     $user = User::factory()->create(['email' => 'timkley@gmail.com']);
 
+    Http::fake([
+        'https://api.weatherapi.com/*' => Http::response([
+            'current' => [
+                'condition' => [
+                    'text' => 'Sunny',
+                ],
+            ],
+            'forecast' => [
+                'forecastday' => [
+                    [
+                        'day' => [
+                            'maxtemp_c' => $temperature ?? 20,
+                            'mintemp_c' => 10,
+                        ],
+                    ],
+                ],
+            ],
+        ]),
+    ]);
+
     actingAs($user);
     Livewire::test('holocron.dashboard')
         ->call('trackGoal', GoalTypes::Water->value, 1000)
