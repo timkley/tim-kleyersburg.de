@@ -20,9 +20,10 @@ class Dashboard extends HolocronComponent
 
     public function trackGoal(string $type, int $amount): void
     {
-        Validator::make(['amount' => $amount], [
-            'amount' => ['required', 'numeric'],
-        ])->validate();
+        Validator::make(
+            ['amount' => $amount],
+            ['amount' => ['required', 'numeric']]
+        )->validate();
 
         DailyGoal::for(GoalTypes::from($type))->increment('amount', $amount);
     }

@@ -4,7 +4,7 @@
     <x-slot:title>Wasser</x-slot>
 
     <form
-            @submit.prevent="$wire.trackGoal('{{ GoalTypes::Water }}', amount); amount = null"
+            @submit.prevent="$wire.trackGoal('{{ GoalTypes::Water }}', amount);"
             x-data="{ amount: null }"
     >
         <flux:input.group>

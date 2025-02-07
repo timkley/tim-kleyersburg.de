@@ -31,6 +31,7 @@ class DailyGoal extends Model
             [
                 'unit' => $type->unit(),
                 'goal' => $type->goal(),
+                'amount' => $type->defaultAmount(),
             ]
         );
     }

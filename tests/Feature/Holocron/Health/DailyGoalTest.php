@@ -6,6 +6,9 @@ use App\Enums\Holocron\Health\GoalTypes;
 use App\Models\Holocron\Health\DailyGoal;
 use App\Models\User;
 
+use function Pest\Laravel\actingAs;
+use function Pest\Laravel\travel;
+
 it('gets the daily goal for each type', function (GoalTypes $type, int $amount, ?int $weight = null, ?int $temperature = null) {
     $user = User::factory()->create(['email' => 'timkley@gmail.com']);
     $user->settings()->create([
@@ -70,7 +73,7 @@ it('gets the daily goal for each type', function (GoalTypes $type, int $amount, 
 it('gets a progressive goal for planks', function () {
     expect(DailyGoal::for(GoalTypes::Planks)->goal)->toBe(90);
 
-    \Pest\Laravel\travel(5)->days();
+    travel(5)->days();
     DailyGoal::factory()->create([
         'type' => GoalTypes::Planks,
         'goal' => 90,
@@ -78,4 +81,16 @@ it('gets a progressive goal for planks', function () {
     ]);
 
     expect(DailyGoal::for(GoalTypes::Planks)->goal)->toBe(95);
+});
+
+it('can track a goal', function () {
+    $user = User::factory()->create(['email' => 'timkley@gmail.com']);
+
+    actingAs($user);
+    Livewire::test('holocron.dashboard')
+        ->call('trackGoal', GoalTypes::Water->value, 1000)
+        ->call('trackGoal', GoalTypes::NoSmoking->value, -1);
+
+    expect(DailyGoal::for(GoalTypes::Water)->amount)->toBe(1000);
+    expect(DailyGoal::for(GoalTypes::NoSmoking)->amount)->toBe(0);
 });

@@ -10,4 +10,5 @@ enum GoalUnits: string
     case Grams = 'g';
     case Pieces = 'pcs';
     case Seconds = 's';
+    case Boolean = 'bool';
 }

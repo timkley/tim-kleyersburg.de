@@ -17,6 +17,17 @@ trait CalculatesGoals
             self::Water => $this->waterGoal(),
             self::Creatine => 5,
             self::Planks => $this->plankGoal(),
+            self::NoSmoking => 1,
+            self::NoAlcohol => 1,
+        };
+    }
+
+    public function defaultAmount(): int
+    {
+        return match ($this) {
+            self::NoSmoking => 1,
+            self::NoAlcohol => 1,
+            default => 0,
         };
     }
 

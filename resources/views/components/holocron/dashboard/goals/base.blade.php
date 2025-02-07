@@ -7,7 +7,11 @@
             {{ $title }}
         </span>
 
-        <span> {{ $goal->amount }} / {{ $goal->goal }} {{ $goal->type->unit() }} </span>
+        @isset($amounts)
+            {{ $amounts }}
+        @else
+            <span> {{ $goal->amount }} / {{ $goal->goal }} {{ $goal->type->unit() }} </span>
+        @endisset
 
         @if ($goal->reached)
             <flux:badge

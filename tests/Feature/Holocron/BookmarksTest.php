@@ -10,9 +10,9 @@ use OpenAI\Responses\Chat\CreateResponse;
 use function Pest\Laravel\get;
 
 it('is not reachable when unauthenticated', function () {
-get(route('holocron.bookmarks'))
-->assertRedirect(route('holocron.login'));
-    });
+    get(route('holocron.bookmarks'))
+        ->assertRedirect(route('holocron.login'));
+});
 
 it('can add a bookmark', function () {
     Queue::fake([CrawlBookmarkInformation::class]);
