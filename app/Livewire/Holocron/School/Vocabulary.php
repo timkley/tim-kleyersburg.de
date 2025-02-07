@@ -62,6 +62,17 @@ class Vocabulary extends HolocronComponent
         return $this->redirect(route('holocron.school.vocabulary.test', [$vocabularyTest->id]));
     }
 
+    public function startRandomTest()
+    {
+        $wordIds = VocabularyWord::inRandomOrder()->limit(50)->get()->pluck('id')->toArray();
+
+        $vocabularyTest = VocabularyTest::create([
+            'word_ids' => $wordIds,
+        ]);
+
+        return $this->redirect(route('holocron.school.vocabulary.test', [$vocabularyTest->id]));
+    }
+
     public function deleteTest(int $id): void
     {
         if (! Gate::allows('isTim')) {

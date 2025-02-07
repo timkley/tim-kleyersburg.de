@@ -75,6 +75,11 @@
             :disabled="$words->isEmpty()"
             >Test mit {{ $words->total() }} Vokabeln starten
         </flux:button>
+        <flux:button
+            variant="filled"
+            wire:click="startRandomTest"
+        >Test mit 50 zufälligen Vokabeln starten
+        </flux:button>
     </div>
 
     <flux:separator class="my-12" />
