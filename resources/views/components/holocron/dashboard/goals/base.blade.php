@@ -1,7 +1,8 @@
+@use(App\Models\Holocron\Health\DailyGoal)
 @props(['goal'])
 
 <div>
-    <flux:heading class="mb-3 flex items-center gap-x-3">
+    <flux:heading class="mb-3 flex items-center gap-x-2">
         <span>
             {{ $title }}
         </span>
@@ -18,5 +19,21 @@
         @endif
     </flux:heading>
 
-    {{ $slot }}
+    <flux:subheading>
+        <div class="flex items-center gap-x-3">
+            <flux:icon.medal class="size-5" />
+            <div>
+                <p>
+                    Streak {{ DailyGoal::currentStreakFor($goal->type) }}&nbsp;×
+                </p>
+                <p>
+                    Beste {{ DailyGoal::highestStreakFor($goal->type) }}&nbsp;×
+                </p>
+            </div>
+        </div>
+    </flux:subheading>
+
+    <div class="mt-2">
+        {{ $slot }}
+    </div>
 </div>
