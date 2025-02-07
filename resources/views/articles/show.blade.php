@@ -65,7 +65,7 @@
         <x-articles.list :articles="$related" />
     @endif
 
-    <p class="mt-16!">I hope this article helped you! 😊.</p>
+    <p class="mt-16!">I hope you found this article useful! 😊.</p>
 
     @env('local')
         <hr />
