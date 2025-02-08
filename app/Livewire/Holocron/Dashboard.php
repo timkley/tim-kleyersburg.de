@@ -15,6 +15,7 @@ class Dashboard extends HolocronComponent
     {
         return view('holocron.dashboard', [
             'dailyGoals' => DailyGoal::whereDate('created_at', now())->get(),
+            'goalsByDay' => DailyGoal::whereDate('date', '>', now()->subDays(20))->get()->groupBy('date'),
         ]);
     }
 
