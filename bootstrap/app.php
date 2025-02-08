@@ -6,7 +6,7 @@ use App\Http\Middleware\BearerToken;
 use App\Jobs\Holocron\Health\CheckGoals;
 use App\Jobs\Holocron\Health\CreateDailyGoals;
 use App\Jobs\Holocron\School\CheckForNewThings;
-use App\Jobs\Holocron\SendDailyDigest;
+use App\Jobs\Holocron\SendMorningDigest;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -33,7 +33,7 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withSchedule(function (Illuminate\Console\Scheduling\Schedule $schedule) {
         $schedule->job(CreateDailyGoals::class)->dailyAt('00:01');
         $schedule->job(CheckForNewThings::class)->hourly()->between('7:00', '18:00');
-        $schedule->job(SendDailyDigest::class)->dailyAt('8:00');
+        $schedule->job(SendMorningDigest::class)->dailyAt('8:00');
         $schedule->job(CheckGoals::class)->cron('30 9,12,16,19 * * *');
     })
     ->withExceptions(function (Exceptions $exceptions) {

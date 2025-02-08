@@ -9,7 +9,7 @@ use App\Notifications\Holocron\DailyDigest;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
 
-class SendDailyDigest implements ShouldQueue
+class SendMorningDigest implements ShouldQueue
 {
     use Queueable;
 
