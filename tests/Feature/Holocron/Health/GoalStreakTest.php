@@ -31,6 +31,32 @@ it('calculates the current streak for a goal type', function () {
     expect(DailyGoal::currentStreakFor($type))->toBe(5);
 });
 
+it('calculates the current streak if today is the goal not yet met', function () {
+    $type = GoalTypes::Water;
+
+    // Create valid records for yesterdays and the past 4 days (a 5-day streak).
+    for ($i = 1; $i < 6; $i++) {
+        DailyGoal::create([
+            'date' => now()->subDays($i)->toDateString(),
+            'type' => $type,
+            'amount' => 10,
+            'goal' => 10,
+            'unit' => 'ml',
+        ]);
+    }
+
+    // Create a failing record for the day before the streak to break it.
+    DailyGoal::create([
+        'date' => now()->subDays(6)->toDateString(),
+        'type' => $type,
+        'amount' => 5, // below goal
+        'goal' => 10,
+        'unit' => 'ml',
+    ]);
+
+    expect(DailyGoal::currentStreakFor($type))->toBe(5);
+});
+
 it('calculates the highest streak for a goal type', function () {
     $type = GoalTypes::Water;
 

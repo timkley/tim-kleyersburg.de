@@ -50,6 +50,10 @@ class DailyGoal extends Model
         $streak = 0;
         $currentDate = today();
 
+        if ($currentDate->isToday() && !isset($dateSet[$currentDate->toDateString()])) {
+            $currentDate = $currentDate->subDay();
+        }
+
         while (isset($dateSet[$currentDate->toDateString()])) {
             $streak++;
             $currentDate = $currentDate->subDay();
