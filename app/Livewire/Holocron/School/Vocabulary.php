@@ -64,7 +64,7 @@ class Vocabulary extends HolocronComponent
 
     public function startRandomTest()
     {
-        $wordIds = VocabularyWord::inRandomOrder()->limit(50)->get()->pluck('id')->toArray();
+        $wordIds = VocabularyWord::inRandomOrder()->limit(50)->pluck('id')->toArray();
 
         $vocabularyTest = VocabularyTest::create([
             'word_ids' => $wordIds,

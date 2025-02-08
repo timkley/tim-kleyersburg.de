@@ -5,11 +5,7 @@ declare(strict_types=1);
 namespace App\Notifications\Holocron\Health;
 
 use App\Models\Holocron\Health\DailyGoal;
-use App\Services\Weather;
-use Denk\Facades\Denk;
-use Denk\ValueObjects\AssistantMessage;
-use Denk\ValueObjects\DeveloperMessage;
-use Denk\ValueObjects\UserMessage;
+use App\Notifications\Chopper;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Collection;
@@ -35,41 +31,8 @@ class GoalsNotReached extends Notification
             return "- {$goal->type->value}: $remaining {$goal->type->unit()->value} remaining";
         })->implode(PHP_EOL);
 
-        $date = now()->toDateString();
-        $time = now()->toTimeString();
-        $forecast = Weather::today();
-        $condition = $forecast->condition;
-        $maxTemp = $forecast->maxTemp;
-        $minTemp = $forecast->minTemp;
+        $answer = Chopper::conversation("Create a notification for the not achieved goals: $missedGoals", 'missed-goals');
 
-        $messages = cache('goals-not-reached-messages', []);
-        $messages[] = new UserMessage("Create a notification for the not achieved goals: $missedGoals");
-
-        $text = Denk::text()
-            ->messages([
-                new DeveloperMessage(
-                    <<<EOT
-Your job is to create notifications.
-Today is the $date, it is currently $time, adjust the message accordingly.
-The weather condition is "$condition", with a max temperature of $maxTemp and a min temperature of $minTemp.
-
-- answer in german
-- make sure german grammar and dictation is correct, don't answer before you are sure it is correct
-- be concise, keep it as short as possible try to keep it below 3 sentences
-- be motivational
-- you can be humorous
-- get more and more demanding with each message consecutively not reached goals
-
-User name: Tim
-EOT
-                ),
-                ...$messages,
-            ])
-            ->generate();
-
-        $messages[] = new AssistantMessage($text);
-        cache(['goals-not-reached-messages' => $messages], now()->endOfDay());
-
-        return DiscordMessage::create($text);
+        return DiscordMessage::create($answer);
     }
 }
