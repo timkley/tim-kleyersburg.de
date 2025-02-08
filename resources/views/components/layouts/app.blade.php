@@ -1,8 +1,5 @@
 <!DOCTYPE html>
-<html
-    lang="de"
-    class="bg-linear-to-tr scroll-smooth from-blue-700 to-blue-300 dark:from-blue-700 dark:to-blue-900"
->
+<html lang="de" class="scroll-smooth">
 <head>
     <meta charset="utf-8" />
     <meta
@@ -62,7 +59,7 @@
         href="/site.webmanifest"
     />
 </head>
-<body class="flex flex-col p-2 sm:p-3 md:p-4 min-h-svh font-sans {{ $additionalBodyClasses ?? '' }}">
+<body class="bg-linear-to-tr bg-blue-700 from-blue-700 to-blue-300 dark:from-blue-700 dark:to-blue-900 flex flex-col p-2 sm:p-3 md:p-4 min-h-svh font-sans {{ $additionalBodyClasses ?? '' }}">
     <div class="h-lvh flex-1 rounded-sm bg-sky-50 px-6 py-4 text-slate-900 selection:bg-blue-200 sm:rounded-md md:rounded-lg dark:bg-slate-800 dark:text-slate-300">
         @isset($header)
             {{ $header }}
