@@ -28,7 +28,7 @@ class GoalsNotReached extends Notification
         $missedGoals = $this->missedGoals->map(function (DailyGoal $goal) {
             $remaining = $goal->goal - $goal->amount;
 
-            return "- {$goal->type->value}: $remaining {$goal->type->unit()->value} remaining";
+            return "- {$goal->type->value}: es fehlen $remaining {$goal->type->unit()->value}";
         })->implode(PHP_EOL);
 
         $answer = Chopper::conversation("Erstelle eine Benachrichtigung zu den noch nicht erreichten Zielen:\n\n $missedGoals", 'missed-goals');
