@@ -29,7 +29,7 @@ class DailyDigest extends Notification
 
         $information = implode(PHP_EOL, [$digest, $apod]);
 
-        $answer = Chopper::conversation("Erstelle eine Tagesübersicht aus den folgenden Informationen: $information", 'daily-digest', now());
+        $answer = Chopper::conversation("Erstelle eine Tagesübersicht aus den folgenden Informationen:\n\n $information", 'daily-digest', now());
 
         return DiscordMessage::create($answer);
     }

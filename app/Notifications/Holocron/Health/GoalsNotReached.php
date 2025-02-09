@@ -31,7 +31,7 @@ class GoalsNotReached extends Notification
             return "- {$goal->type->value}: $remaining {$goal->type->unit()->value} remaining";
         })->implode(PHP_EOL);
 
-        $answer = Chopper::conversation("Erstelle eine Benachrichtigung zu den noch nicht erreichten Zielen: $missedGoals", 'missed-goals');
+        $answer = Chopper::conversation("Erstelle eine Benachrichtigung zu den noch nicht erreichten Zielen:\n\n $missedGoals", 'missed-goals');
 
         return DiscordMessage::create($answer);
     }

@@ -16,15 +16,17 @@ class Chopper
     public static function conversation(string $message, string $topic, ?CarbonImmutable $ttl = null): string
     {
         $history = cache("chopper.$topic", [
-            new DeveloperMessage(self::personality()),
-            new UserMessage($message),
+            new DeveloperMessage(self::personality())
         ]);
+
+        $history[] = new UserMessage($message);
 
         $answer = Denk::text()
             ->messages($history)
             ->generate();
 
         $history[] = new AssistantMessage($answer);
+        
         cache(["chopper.$topic" => $history], $ttl ?? now()->endOfDay());
 
         return $answer;
