@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Jobs\Holocron;
 
 use App\Notifications\DiscordTimChannel;
-use App\Notifications\Holocron\DailyDigest;
+use App\Notifications\Holocron\MorningDigest;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
 
@@ -32,6 +32,6 @@ class SendMorningDigest implements ShouldQueue
             return;
         }
 
-        (new DiscordTimChannel)->notify(new DailyDigest($digest));
+        (new DiscordTimChannel)->notify(new MorningDigest($digest));
     }
 }

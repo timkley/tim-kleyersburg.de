@@ -11,7 +11,7 @@ use Illuminate\Notifications\Notification;
 use NotificationChannels\Discord\DiscordChannel;
 use NotificationChannels\Discord\DiscordMessage;
 
-class DailyDigest extends Notification
+class MorningDigest extends Notification
 {
     use Queueable;
 
