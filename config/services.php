@@ -29,4 +29,8 @@ return [
     'weatherapi' => [
         'api_key' => env('WEATHERAPI_API_KEY'),
     ],
+
+    'nasa' => [
+        'api_key' => env('NASA_API_KEY'),
+    ],
 ];

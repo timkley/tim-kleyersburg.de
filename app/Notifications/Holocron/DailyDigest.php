@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Notifications\Holocron;
 
 use App\Notifications\Chopper;
+use App\Services\Nasa;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use NotificationChannels\Discord\DiscordChannel;
@@ -23,7 +24,12 @@ class DailyDigest extends Notification
 
     public function toDiscord($notifiable)
     {
-        $answer = Chopper::conversation("Create a digest from these information: $this->digest", 'daily-digest', now());
+        $digest = $this->digest;
+        $apod = collect(Nasa::apod())->only(['title', 'url'])->values()->implode(PHP_EOL);
+
+        $information = implode(PHP_EOL, [$digest, $apod]);
+
+        $answer = Chopper::conversation("Erstelle eine Tagesübersicht aus den folgenden Informationen: $information", 'daily-digest', now());
 
         return DiscordMessage::create($answer);
     }
