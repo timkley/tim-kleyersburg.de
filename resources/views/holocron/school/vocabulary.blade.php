@@ -4,28 +4,11 @@
     <x-heading tag="h2">Vokabeln</x-heading>
 
     <div class="space-y-6">
-        <flux:radio.group
-            wire:model.live="filter"
-            variant="segmented"
-        >
-            <flux:radio
-                checked
-                label="Alle"
-                value="all"
-            />
-            <flux:radio
-                label="Score < 3"
-                value="low_score"
-            />
-            <flux:radio
-                label="Score < 5"
-                value="middle_score"
-            />
-            <flux:radio
-                label="Score > 3"
-                value="high_score"
-            />
-        </flux:radio.group>
+        <flux:button.group>
+            <flux:button wire:click="startTest(50)">Test mit 50 Vokabeln</flux:button>
+            <flux:button wire:click="startTest(75)">Test mit 75 Vokabeln</flux:button>
+            <flux:button wire:click="startTest(100)">Test mit 100 Vokabeln</flux:button>
+        </flux:button.group>
 
         <flux:table>
             <flux:columns>
@@ -68,18 +51,6 @@
         </flux:table>
 
         {{ $words->links() }}
-
-        <flux:button
-            variant="primary"
-            wire:click="startTest"
-            :disabled="$words->isEmpty()"
-            >Test mit {{ $words->total() }} Vokabeln starten
-        </flux:button>
-        <flux:button
-            variant="filled"
-            wire:click="startRandomTest"
-        >Test mit 50 zufälligen Vokabeln starten
-        </flux:button>
     </div>
 
     <flux:separator class="my-12" />

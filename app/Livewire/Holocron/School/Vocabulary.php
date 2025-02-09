@@ -22,11 +22,9 @@ class Vocabulary extends HolocronComponent
     #[Rule('required', 'string')]
     public string $english = '';
 
-    public string $filter = 'all';
-
     public function render(): View
     {
-        $words = $this->filteredWords()->paginate(10);
+        $words = VocabularyWord::latest()->paginate(10);
         $tests = VocabularyTest::limit(10)->latest()->get();
 
         return view('holocron.school.vocabulary', compact('words', 'tests'));
@@ -49,22 +47,9 @@ class Vocabulary extends HolocronComponent
         VocabularyWord::find($id)->delete();
     }
 
-    public function startTest()
+    public function startTest(int $count = 50)
     {
-        if ($this->filteredWords()->count() === 0) {
-            return;
-        }
-
-        $vocabularyTest = VocabularyTest::create([
-            'word_ids' => $this->filteredWords()->get()->pluck('id')->toArray(),
-        ]);
-
-        return $this->redirect(route('holocron.school.vocabulary.test', [$vocabularyTest->id]));
-    }
-
-    public function startRandomTest()
-    {
-        $wordIds = VocabularyWord::inRandomOrder()->limit(50)->pluck('id')->toArray();
+        $wordIds = VocabularyWord::orderByRaw('`right` - `wrong`')->limit($count)->pluck('id')->toArray();
 
         $vocabularyTest = VocabularyTest::create([
             'word_ids' => $wordIds,
@@ -80,13 +65,5 @@ class Vocabulary extends HolocronComponent
         }
 
         VocabularyTest::find($id)->delete();
-    }
-
-    private function filteredWords()
-    {
-        return VocabularyWord::when($this->filter === 'low_score', fn ($query) => $query->whereRaw('`right` - `wrong` < ?', [3]))
-            ->when($this->filter === 'middle_score', fn ($query) => $query->whereRaw('`right` - `wrong` < ?', [5]))
-            ->when($this->filter === 'high_score', fn ($query) => $query->whereRaw('`right` - `wrong` >= ?', [3]))
-            ->latest();
     }
 }
