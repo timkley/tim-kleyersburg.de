@@ -21,7 +21,7 @@ class Chopper
         $answer = Denk::text()
             ->messages([
                 new DeveloperMessage(self::personality()),
-                ...$history
+                ...$history,
             ])
             ->generate();
 
