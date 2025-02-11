@@ -18,7 +18,7 @@ class News
         return self::create(
             $item['id'] ?? hash('sha-256', $item['subject'].$item['text']),
             $item['subject'],
-            $item['text']
+            strip_tags($item['text'])
         );
     }
 }

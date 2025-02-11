@@ -39,7 +39,7 @@ class Untis
         );
 
         return collect(data_get($response, 'data.messagesOfDay'))
-            ->map(fn ($lesson) => News::createFromApi($lesson));
+            ->map(fn ($news) => News::createFromApi($news));
     }
 
     public function timetable(CarbonImmutable $startDate, CarbonImmutable $endDate): Collection
