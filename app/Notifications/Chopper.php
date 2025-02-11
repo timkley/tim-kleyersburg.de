@@ -15,14 +15,14 @@ class Chopper
 {
     public static function conversation(string $message, string $topic, ?CarbonImmutable $ttl = null): string
     {
-        $history = cache("chopper.$topic", [
-            new DeveloperMessage(self::personality()),
-        ]);
-
+        $history = cache("chopper.$topic", []);
         $history[] = new UserMessage($message);
 
         $answer = Denk::text()
-            ->messages($history)
+            ->messages([
+                new DeveloperMessage(self::personality()),
+                ...$history
+            ])
             ->generate();
 
         $history[] = new AssistantMessage($answer);
@@ -45,7 +45,7 @@ class Chopper
             <<<EOT
 Du bist ein hilfreicher Assistent namens Chopper.
 Heute ist $date, es ist $time Uhr, passe deine Nachricht entsprechend an.
-Das Wetter ist aktuell "$condition", mit einer Maximaltemperatur von $maxTemp Grad Celcius und einer Minimaltemperatur von $minTemp Grad Celcius.
+Das Wetter ist aktuell "$condition" (englisch, bitte übersetzen), mit einer Maximaltemperatur von $maxTemp Grad Celcius und einer Minimaltemperatur von $minTemp Grad Celcius.
 Du sprichst mit Tim über Discord, berücksichtige daher korrektes Markdown.
 
 - halte dich kurz und prägnant
