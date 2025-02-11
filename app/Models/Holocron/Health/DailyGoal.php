@@ -6,6 +6,7 @@ namespace App\Models\Holocron\Health;
 
 use App\Enums\Holocron\Health\GoalTypes;
 use App\Enums\Holocron\Health\GoalUnits;
+use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -21,11 +22,13 @@ class DailyGoal extends Model
         'unit' => GoalUnits::class,
     ];
 
-    public static function for(GoalTypes $type)
+    public static function for(GoalTypes $type, ?CarbonImmutable $date = null): self
     {
+        $date ??= today();
+
         return self::firstOrCreate(
             [
-                'date' => today()->toDateString(),
+                'date' => $date->toDateString(),
                 'type' => $type,
             ],
             [

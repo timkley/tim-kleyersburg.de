@@ -107,7 +107,7 @@ it('can track a goal', function () {
     ]);
 
     actingAs($user);
-    Livewire::test('holocron.dashboard')
+    Livewire::test('holocron.dashboard.goals')
         ->call('trackGoal', GoalTypes::Water->value, 1000)
         ->call('trackGoal', GoalTypes::NoSmoking->value, -1);
 
