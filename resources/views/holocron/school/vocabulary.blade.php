@@ -10,7 +10,7 @@
             <flux:button wire:click="startTest(100)">Test mit 100 Vokabeln</flux:button>
         </flux:button.group>
 
-        <flux:table>
+        <flux:table :paginate="$words">
             <flux:columns>
                 <flux:column>Englisch</flux:column>
                 <flux:column>Deutsch</flux:column>
@@ -49,8 +49,6 @@
                 @endforeach
             </flux:rows>
         </flux:table>
-
-        {{ $words->links() }}
     </div>
 
     <flux:separator class="my-12" />
