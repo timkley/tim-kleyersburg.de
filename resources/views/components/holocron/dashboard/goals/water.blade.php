@@ -9,7 +9,7 @@
     >
         <flux:input.group>
             <flux:input
-                    placeholder="Wasser in ml"
+                    placeholder="ml"
                     type="number"
                     inputmode="numeric"
                     x-model="amount"

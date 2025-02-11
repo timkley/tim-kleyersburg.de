@@ -15,6 +15,9 @@
                 :component="'holocron.dashboard.goals.'.$goal->type->value"
                 :goal="$goal"
             />
+            @if(!$loop->last)
+                <flux:separator />
+            @endif
         @endforeach
     </div>
 </flux:card>

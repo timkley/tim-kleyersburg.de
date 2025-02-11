@@ -10,7 +10,7 @@
         >
             <flux:input.group>
                 <flux:input
-                        placeholder="Planks in Sekunden"
+                        placeholder="Sekunden"
                         type="number"
                         inputmode="numeric"
                         x-model="amount"
