@@ -17,9 +17,7 @@ class GoalsNotReached extends Notification
 {
     use Queueable;
 
-    public function __construct(public Collection $missedGoals)
-    {
-    }
+    public function __construct(public Collection $missedGoals) {}
 
     public function via(object $notifiable): array
     {
