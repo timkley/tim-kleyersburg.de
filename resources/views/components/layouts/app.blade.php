@@ -13,8 +13,7 @@
     @endif
 
     @fluxStyles
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-    @livewireStyles
+    @vite('resources/css/app.css')
 
     <link rel="preconnect" href="https://fonts.bunny.net"/>
     <link href="https://fonts.bunny.net/css?family=ibm-plex-sans:600|inter:400,500,600" rel="stylesheet"/>
@@ -42,7 +41,7 @@
         {{ $footer }}
     @else
         <footer class="mx-auto mt-12 max-w-3xl">
-            <div class="flex flex-col items-start gap-3 text-sm sm:flex-row sm:space-y-0">
+            <div class="flex flex-col items-center justify-center gap-3 text-sm sm:flex-row sm:space-y-0">
                 <a
                     class="inline-flex gap-1 items-center text-slate-600 dark:text-slate-300"
                     href="https://github.com/timkley/tim-kleyersburg.de"
@@ -58,17 +57,14 @@
                     <flux:icon.rss class="size-4"/>
                     RSS Feed
                 </a>
-                <span class="hidden sm:block">•</span>
-                <div>Code highlighting provided by <a href="https://torchlight.dev">torchlight.dev</a></div>
+                <span class="hidden">•</span>
+                <div class="hidden">Code highlighting provided by <a href="https://torchlight.dev">torchlight.dev</a></div>
             </div>
         </footer>
     @endisset
 </div>
 
-@livewireScripts
 @fluxScripts
-
-{{ $scripts ?? '' }}
 
 @production
     @if (! str_contains(request()->route()->action['prefix'] ?? '', 'holocron'))

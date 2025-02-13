@@ -1,11 +1,11 @@
 <x-slot:title>Einmaleins</x-slot:title>
-<x-slot:metaDescription>Das Einmaleins ist die Grundlage für das Rechnen. Hier kannst du ganz easy das Einmaleins
-    lernen.
+<x-slot:metaDescription>
+    Das Einmaleins ist die Grundlage für das Rechnen. Hier kannst du ganz easy das Einmaleins lernen.
 </x-slot:metaDescription>
 
 <x-slot:header></x-slot:header>
 <x-slot:footer>
-    <hr class="mx-auto my-12 max-w-sm border-blue-100">
+    <flux:separator subtle class="max-w-sm mx-auto my-12"/>
     <div class="mx-auto flex w-fit items-center gap-1.5">
         <span class="text-sm">Made by</span>
         <x-logo/>
@@ -99,111 +99,109 @@
     </template>
 </div>
 
-<x-slot:scripts>
-    <script>
-        document.addEventListener('alpine:init', () => {
-            Alpine.data('multi', () => ({
-                guess: '',
-                status: 'playing',
-                yes: false,
-                no: false,
-                deck: 'initial',
-                decks: {
-                    initial: [],
-                    won: [],
-                    lost: [],
-                },
-                errors: 0,
-                gameStart: undefined,
-                gameEnd: undefined,
-                index: undefined,
-                init () {
-                    this.generateDataSet()
-                    this.randomDeckIndex()
+@script
+<script>
+    Alpine.data('multi', () => ({
+        guess: '',
+        status: 'playing',
+        yes: false,
+        no: false,
+        deck: 'initial',
+        decks: {
+            initial: [],
+            won: [],
+            lost: [],
+        },
+        errors: 0,
+        gameStart: undefined,
+        gameEnd: undefined,
+        index: undefined,
+        init () {
+            this.generateDataSet()
+            this.randomDeckIndex()
 
-                    this.gameStart = new Date()
-                },
-                solve () {
-                    if (parseInt(this.guess) === this.solution) {
-                        this.decks.won.push(this.currentDeck[this.index])
-                        this.yes = true
+            this.gameStart = new Date()
+        },
+        solve () {
+            if (parseInt(this.guess) === this.solution) {
+                this.decks.won.push(this.currentDeck[this.index])
+                this.yes = true
 
-                        setTimeout(() => {
-                            this.yes = false
-                        }, 1200)
-                    } else {
-                        this.errors++
-                        this.decks.lost.push(this.currentDeck[this.index])
-                        this.no = true
+                setTimeout(() => {
+                    this.yes = false
+                }, 1200)
+            } else {
+                this.errors++
+                this.decks.lost.push(this.currentDeck[this.index])
+                this.no = true
 
-                        setTimeout(() => {
-                            this.no = false
-                        }, 1200)
-                    }
+                setTimeout(() => {
+                    this.no = false
+                }, 1200)
+            }
 
-                    this.currentDeck.splice(this.index, 1)
-                    this.guess = ''
+            this.currentDeck.splice(this.index, 1)
+            this.guess = ''
 
-                    if (this.decks.initial.length === 0) {
-                        if (this.decks.lost.length === 0) {
-                            this.status = 'finished'
-                            this.gameEnd = new Date()
-                        } else {
-                            this.deck = 'lost'
-                        }
-                    }
-
-                    this.randomDeckIndex()
-                },
-                handleKey (key) {
-                    switch (key) {
-                        case 'backspace':
-                            this.guess = this.guess.slice(0, -1)
-                            break
-                        case 'enter':
-                            this.solve()
-                            break
-                        default:
-                            this.guess += key
-                    }
-                },
-                randomDeckIndex () {
-                    this.index = Math.floor(Math.random() * this.currentDeck.length)
-                },
-                generateDataSet () {
-                    let i = 2
-                    let j = 2
-                    while (i <= 9) {
-                        while (j <= 9) {
-                            this.decks.initial.push(`${i}x${j}`)
-                            j++
-                        }
-                        i++
-                        j = i
-                    }
-                },
-                get term () {
-                    return this.currentDeck[this.index]?.split('x') ?? [null, null]
-                },
-                get solution () {
-                    return this.term[0] * this.term[1]
-                },
-                get currentDeck () {
-                    return this.decks[this.deck]
-                },
-                get duration () {
-                    if (!this.gameStart || !this.gameEnd) {
-                        return
-                    }
-
-                    let time = (this.gameEnd - this.gameStart) / 1000
-
-                    let minutes = Math.floor(time / 60)
-                    let seconds = Math.floor(time % 60)
-
-                    return `${minutes} Minuten und ${seconds} Sekunden`
+            if (this.decks.initial.length === 0) {
+                if (this.decks.lost.length === 0) {
+                    this.status = 'finished'
+                    this.gameEnd = new Date()
+                } else {
+                    this.deck = 'lost'
                 }
-            }))
-        })
-    </script>
-</x-slot:scripts>
+            }
+
+            this.randomDeckIndex()
+        },
+        handleKey (key) {
+            switch (key) {
+                case 'backspace':
+                    this.guess = this.guess.slice(0, -1)
+                    break
+                case 'enter':
+                    this.solve()
+                    break
+                default:
+                    this.guess += key
+            }
+        },
+        randomDeckIndex () {
+            this.index = Math.floor(Math.random() * this.currentDeck.length)
+        },
+        generateDataSet () {
+            let i = 2
+            let j = 2
+            while (i <= 9) {
+                while (j <= 9) {
+                    this.decks.initial.push(`${i}x${j}`)
+                    j++
+                }
+                i++
+                j = i
+            }
+        },
+        get term () {
+            return this.currentDeck[this.index]?.split('x') ?? [null, null]
+        },
+        get solution () {
+            return this.term[0] * this.term[1]
+        },
+        get currentDeck () {
+            return this.decks[this.deck]
+        },
+        get duration () {
+            if (!this.gameStart || !this.gameEnd) {
+                return
+            }
+
+            let time = (this.gameEnd - this.gameStart) / 1000
+
+            let minutes = Math.floor(time / 60)
+            let seconds = Math.floor(time % 60)
+
+            return `${minutes} Minuten und ${seconds} Sekunden`
+        }
+    }))
+</script>
+@endscript

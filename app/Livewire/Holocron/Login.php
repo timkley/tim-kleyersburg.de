@@ -26,7 +26,7 @@ class Login extends Component
         return view('holocron.login');
     }
 
-    public function login()
+    public function login(): null
     {
         $credentials = $this->validate([
             'email' => ['required', 'email'],

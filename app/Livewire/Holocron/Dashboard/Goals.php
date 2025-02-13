@@ -8,6 +8,7 @@ use App\Enums\Holocron\Health\GoalTypes;
 use App\Models\Holocron\Health\DailyGoal;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\View\View;
 use Livewire\Component;
 
 class Goals extends Component
@@ -16,10 +17,10 @@ class Goals extends Component
 
     public function mount(): void
     {
-        $this->selectedDate = now();
+        $this->selectedDate = CarbonImmutable::now();
     }
 
-    public function render()
+    public function render(): View
     {
         return view('holocron.dashboard.goals', [
             'dailyGoals' => DailyGoal::whereDate('created_at', $this->selectedDate)->get(),

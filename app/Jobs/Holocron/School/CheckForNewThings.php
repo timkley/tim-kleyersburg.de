@@ -14,6 +14,7 @@ use App\Notifications\Holocron\School\NewExam;
 use App\Notifications\Holocron\School\NewHomework;
 use App\Notifications\Holocron\School\NewNews;
 use App\Services\Untis;
+use Carbon\CarbonImmutable;
 use Illuminate\Contracts\Cache\Repository;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
@@ -63,7 +64,7 @@ class CheckForNewThings implements ShouldQueue
 
     private function checkHomeworks(): void
     {
-        $homeworks = $this->untis->homeworks(today()->subDays(7), today()->addDays(14));
+        $homeworks = $this->untis->homeworks(CarbonImmutable::today()->subDays(7), CarbonImmutable::today()->addDays(14));
 
         $homeworks
             ->filter(fn (Homework $homework) => $homework->dueDate->isFuture())
@@ -90,7 +91,7 @@ class CheckForNewThings implements ShouldQueue
 
     private function checkExams(): void
     {
-        $exams = $this->untis->exams(today()->subDays(7), today()->addDays(14));
+        $exams = $this->untis->exams(CarbonImmutable::today()->subDays(7), CarbonImmutable::today()->addDays(14));
 
         $exams->each(function (Exam $exam) {
             $key = 'holocron.school.exams.'.$exam->id;
@@ -108,7 +109,7 @@ class CheckForNewThings implements ShouldQueue
 
     private function checkLessons(): void
     {
-        $lessons = $this->untis->timetable(today(), today()->addDays(14));
+        $lessons = $this->untis->timetable(CarbonImmutable::today(), CarbonImmutable::today()->addDays(14));
 
         $lessons
             ->filter(fn (Lesson $lesson) => $lesson->cancelled)
