@@ -5,7 +5,7 @@
         @php($day = Carbon::parse($day))
         <flux:card
             @class([
-                 'flex flex-col gap-3 items-center !p-3',
+                 'cursor-pointer flex flex-col gap-3 items-center !p-3',
                  '!bg-sky-100 dark:!bg-sky-900' => $selectedDate->isSameDay($day),
             ])
             wire:click="selectDate('{{ $day->format('Y-m-d') }}')"
