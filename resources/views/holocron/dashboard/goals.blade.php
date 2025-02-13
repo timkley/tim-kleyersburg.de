@@ -16,7 +16,7 @@
                 :goal="$goal"
             />
             @if(!$loop->last)
-                <flux:separator />
+                <flux:separator class="sm:hidden" />
             @endif
         @endforeach
     </div>
