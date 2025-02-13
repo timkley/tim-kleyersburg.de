@@ -7,7 +7,6 @@ namespace App\Jobs\Holocron;
 use App\Models\Holocron\Health\DailyGoal;
 use App\Notifications\DiscordTimChannel;
 use App\Notifications\Holocron\EveningDigest;
-use App\Notifications\Holocron\MorningDigest;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
 

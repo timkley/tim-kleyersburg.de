@@ -4,10 +4,7 @@ declare(strict_types=1);
 
 namespace App\Notifications\Holocron;
 
-use App\Enums\Holocron\Health\GoalUnits;
-use App\Models\Holocron\Health\DailyGoal;
 use App\Notifications\Chopper;
-use App\Services\Nasa;
 use Carbon\CarbonImmutable;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
