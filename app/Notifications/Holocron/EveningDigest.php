@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Notifications\Holocron;
 
+use App\Models\Holocron\Health\DailyGoal;
 use App\Notifications\Chopper;
 use Carbon\CarbonImmutable;
 use Illuminate\Bus\Queueable;
@@ -26,7 +27,9 @@ class EveningDigest extends Notification
     public function toDiscord($notifiable)
     {
         $reachedGoals = $this->reachedGoals
-            ->implode(PHP_EOL);
+            ->map(function (DailyGoal $goal) {
+                return "- {$goal->type->value}: du hast $goal->amount {$goal->type->unit()->value} erreicht";
+            })->implode(PHP_EOL);
 
         $answer = Chopper::conversation(
             "Erstelle eine Abschlussnachricht für das Ende des Tages aus den folgenden Informationen:\n\n $reachedGoals",
