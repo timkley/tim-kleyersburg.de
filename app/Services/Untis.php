@@ -128,7 +128,7 @@ class Untis
 
     public function request(string $method = 'get', string $url = 'jsonrpc.do', array $data = [], array $parameters = [])
     {
-        $response = Http::beforeSending(fn (Request $request) => logger('Request', [$request->url(), $request->data(), $request->method()]))
+        $response = Http::beforeSending(fn (Request $request) => logger()->channel('untis')->debug('Request', [$request->url(), $request->data(), $request->method()]))
             ->withoutRedirecting()
             ->asJson()
             ->baseUrl("https://$this->server.webuntis.com/WebUntis")
@@ -142,7 +142,7 @@ class Untis
                 array_merge($data, ['jsonrpc' => '2.0'])
             );
 
-        logger('Response', [$response, $response->json()]);
+        logger()->channel('untis')->debug('Response', [$response, $response->json()]);
 
         $unauthenticated = data_get($response, 'error.code') === -8520;
 
