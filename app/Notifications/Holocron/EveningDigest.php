@@ -32,7 +32,11 @@ class EveningDigest extends Notification
             })->implode(PHP_EOL);
 
         $answer = Chopper::conversation(
-            "Erstelle eine Abschlussnachricht für das Ende des Tages aus den folgenden Informationen:\n\n $reachedGoals",
+            <<<EOT
+Erstelle eine Abschlussnachricht für das Ende des Tages aus den folgenden Informationen:
+
+$reachedGoals
+EOT,
             'digest',
             CarbonImmutable::now()->endOfDay()
         );

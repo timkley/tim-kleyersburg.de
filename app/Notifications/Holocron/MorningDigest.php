@@ -26,12 +26,17 @@ class MorningDigest extends Notification
     public function toDiscord($notifiable)
     {
         $digest = $this->digest;
-        $apod = collect(Nasa::apod())->only(['title', 'url'])->values()->implode(PHP_EOL);
+        $apod = Nasa::apod()->only(['title', 'url'])->values()->implode(PHP_EOL);
 
         $information = implode(PHP_EOL, [$digest, 'Nasa Bild des Tages: '.$apod]);
 
         $answer = Chopper::conversation(
-            "Erstelle eine Tagesübersicht aus den folgenden Informationen:\n\n $information",
+            <<<EOT
+Erstelle eine Tagesübersicht aus den folgenden Informationen
+Achte darauf Kalendereinträge und Erinnerungen korrekt zu clustern:
+
+$information
+EOT,
             'digest',
             CarbonImmutable::now()->endOfDay()
         );

@@ -7,6 +7,7 @@ namespace App\Notifications\Holocron\Health;
 use App\Enums\Holocron\Health\GoalUnits;
 use App\Models\Holocron\Health\DailyGoal;
 use App\Notifications\Chopper;
+use Carbon\CarbonImmutable;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Collection;
@@ -34,7 +35,18 @@ class GoalsNotReached extends Notification
                 return "- {$goal->type->value}: es fehlen $remaining {$goal->type->unit()->value}";
             })->implode(PHP_EOL);
 
-        $answer = Chopper::conversation("Erstelle eine Benachrichtigung zu den noch nicht erreichten Zielen. Werde mit jeder Nachricht nachdrücklicher. Unerreichte Ziele:\n\n $missedGoals", 'missed-goals');
+        $answer = Chopper::conversation(
+            <<<EOT
+Erstelle eine Benachrichtigung zu den noch nicht erreichten Zielen.
+Werde mit jeder Nachricht nachdrücklicher.
+
+Unerreichte Ziele:
+
+$missedGoals
+EOT,
+            'missed-goals',
+            CarbonImmutable::now()->endOfDay()
+        );
 
         return DiscordMessage::create($answer);
     }
