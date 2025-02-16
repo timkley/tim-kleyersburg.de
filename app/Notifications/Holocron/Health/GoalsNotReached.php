@@ -37,10 +37,7 @@ class GoalsNotReached extends Notification
 
         $answer = Chopper::conversation(
             <<<EOT
-Erstelle eine Benachrichtigung zu den noch nicht erreichten Zielen.
-Werde mit jeder Nachricht nachdrücklicher.
-
-Unerreichte Ziele:
+Erstelle eine Benachrichtigung zu den unerreichten Zielen:
 
 $missedGoals
 EOT,
