@@ -27,6 +27,8 @@ class Chopper
 
         $history[] = new AssistantMessage($answer);
 
+        logger()->info('Chopper', ['topic' => $topic, 'history' => $history]);
+
         cache(["chopper.$topic" => $history], $ttl ?? now()->endOfDay());
 
         return $answer;
