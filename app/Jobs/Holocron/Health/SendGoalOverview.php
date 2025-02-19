@@ -20,11 +20,13 @@ class SendGoalOverview implements ShouldQueue
         $goals = DailyGoal::whereDate('date', today())
             ->get()
             ->map(function (DailyGoal $goal) {
+                $remaining = $goal->goal - $goal->amount;
+
                 return sprintf(
                     '- das Ziel %s wurde %s %s',
                     $goal->type->value,
                     $goal->reached ? 'erreicht' : 'nicht erreicht',
-                    ! $goal->reached ? ", es fehlen {$goal->remaining()} {$goal->type->unit()->value}" : ''
+                    ! $goal->reached ? ", es fehlen {$remaining} {$goal->type->unit()->value}" : ''
                 );
             })->implode(PHP_EOL);
 
