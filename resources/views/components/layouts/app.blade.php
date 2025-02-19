@@ -12,7 +12,7 @@
         <title>{{ $title ?? config('app.name') }}</title>
     @endif
 
-    @fluxStyles
+    @fluxAppearance
     @vite('resources/css/app.css')
 
     <link rel="preconnect" href="https://fonts.bunny.net"/>

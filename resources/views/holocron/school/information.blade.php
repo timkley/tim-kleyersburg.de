@@ -19,18 +19,18 @@
             <x-heading tag="h2">Hausaufgaben</x-heading>
 
             <flux:table>
-                <flux:columns>
-                    <flux:column>Fach</flux:column>
-                    <flux:column>Aufgegeben am</flux:column>
-                    <flux:column>Fälligkeitsdatum</flux:column>
-                    <flux:column>Text</flux:column>
-                </flux:columns>
-                <flux:rows>
+                <flux:table.columns>
+                    <flux:table.column>Fach</flux:table.column>
+                    <flux:table.column>Aufgegeben am</flux:table.column>
+                    <flux:table.column>Fälligkeitsdatum</flux:table.column>
+                    <flux:table.column>Text</flux:table.column>
+                </flux:table.columns>
+                <flux:table.rows>
                     @foreach ($homeworks as $homework)
-                        <flux:row>
-                            <flux:cell>{{ $homework->subject }}</flux:cell>
-                            <flux:cell>{{ $homework->date->format('d.m.Y') }}</flux:cell>
-                            <flux:cell>
+                        <flux:table.row>
+                            <flux:table.cell>{{ $homework->subject }}</flux:table.cell>
+                            <flux:table.cell>{{ $homework->date->format('d.m.Y') }}</flux:table.cell>
+                            <flux:table.cell>
                                 {{ $homework->dueDate->format('d.m.Y') }}
                                 @if ($homework->done)
                                     <flux:badge
@@ -40,11 +40,11 @@
                                     >Erledigt
                                     </flux:badge>
                                 @endif
-                            </flux:cell>
-                            <flux:cell class="md:whitespace-normal">{!! str($homework->text)->markdown() !!}</flux:cell>
-                        </flux:row>
+                            </flux:table.cell>
+                            <flux:table.cell class="md:whitespace-normal">{!! str($homework->text)->markdown() !!}</flux:table.cell>
+                        </flux:table.row>
                     @endforeach
-                </flux:rows>
+                </flux:table.rows>
             </flux:table>
         </section>
 
@@ -52,20 +52,20 @@
             <x-heading tag="h2">Anstehende KAs</x-heading>
 
             <flux:table>
-                <flux:columns>
-                    <flux:column>Fach</flux:column>
-                    <flux:column>Datum</flux:column>
-                    <flux:column>Text</flux:column>
-                </flux:columns>
-                <flux:rows>
+                <flux:table.columns>
+                    <flux:table.column>Fach</flux:table.column>
+                    <flux:table.column>Datum</flux:table.column>
+                    <flux:table.column>Text</flux:table.column>
+                </flux:table.columns>
+                <flux:table.rows>
                     @foreach ($exams as $exam)
-                        <flux:row>
-                            <flux:cell>{{ $exam->subject }}</flux:cell>
-                            <flux:cell>{{ $exam->date->format('d.m.Y') }}</flux:cell>
-                            <flux:cell class="whitespace-normal">{!! str($exam->text)->markdown() !!}</flux:cell>
-                        </flux:row>
+                        <flux:table.row>
+                            <flux:table.cell>{{ $exam->subject }}</flux:table.cell>
+                            <flux:table.cell>{{ $exam->date->format('d.m.Y') }}</flux:table.cell>
+                            <flux:table.cell class="whitespace-normal">{!! str($exam->text)->markdown() !!}</flux:table.cell>
+                        </flux:table.row>
                     @endforeach
-                </flux:rows>
+                </flux:table.rows>
             </flux:table>
         </section>
 
