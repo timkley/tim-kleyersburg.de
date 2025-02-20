@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace App\Jobs\Holocron;
 
-use App\Notifications\DiscordTimChannel;
-use App\Notifications\Holocron\MorningDigest;
+use App\Notifications\Chopper;
+use App\Services\Nasa;
+use Carbon\CarbonImmutable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
+use NotificationChannels\Discord\Discord;
 
 class SendMorningDigest implements ShouldQueue
 {
@@ -32,6 +34,25 @@ class SendMorningDigest implements ShouldQueue
             return;
         }
 
-        (new DiscordTimChannel)->notify(new MorningDigest($digest));
+        $apod = Nasa::apod()->only(['title', 'url'])->values()->implode(PHP_EOL);
+
+        $information = implode(PHP_EOL, [$digest, 'Nasa Bild des Tages: ' . $apod]);
+
+        $answer = Chopper::conversation(
+            <<<EOT
+Erstelle eine Tagesübersicht aus den folgenden Informationen
+Achte darauf Kalendereinträge und Erinnerungen korrekt zu clustern:
+
+$information
+EOT,
+            'digest',
+            CarbonImmutable::now()->endOfDay()
+        );
+
+        /** @var Discord $discord */
+        $discord = app(Discord::class);
+        $discord->send(config('services.discord.tim_channel'), [
+            'content' => $answer,
+        ]);
     }
 }
