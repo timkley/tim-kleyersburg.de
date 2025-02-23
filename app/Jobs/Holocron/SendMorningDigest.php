@@ -36,13 +36,15 @@ class SendMorningDigest implements ShouldQueue
 
         $apod = Nasa::apod()->only(['title', 'url'])->values()->implode(PHP_EOL);
 
-        $information = implode(PHP_EOL, [$digest, 'Nasa Bild des Tages: ' . $apod]);
+        $information = implode(PHP_EOL, [$digest, 'Nasa Bild des Tages: '.$apod]);
 
         $answer = Chopper::conversation(
             <<<EOT
-Erstelle eine Tagesübersicht aus den folgenden Informationen
-Achte darauf Kalendereinträge und Erinnerungen korrekt zu clustern:
+Erstelle eine Tagesübersicht aus den folgenden Informationen.
+Clustere Kalendereinträge und Erinnerungen.
+Antworte nur mit der Tagesübersicht, als ob du dich in einer Konversation befindest.
 
+Informationen:
 $information
 EOT,
             'digest',

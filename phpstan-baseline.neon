@@ -6,11 +6,6 @@ parameters:
 			path: app/Jobs/Holocron/Health/SendGoalOverview.php
 
 		-
-			message: "#^Call to an undefined method App\\\\Models\\\\Holocron\\\\Health\\\\DailyGoal\\:\\:remaining\\(\\)\\.$#"
-			count: 1
-			path: app/Jobs/Holocron/Health/SendGoalOverview.php
-
-		-
 			message: "#^Cannot access property \\$title on string\\.$#"
 			count: 1
 			path: app/Models/Article.php
