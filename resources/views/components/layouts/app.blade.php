@@ -73,6 +73,19 @@
                 data-website-id="428e7134-523b-4449-aa87-f45e94f5d525"
                 src="https://c3po.wacg.dev/protocol.js"/>
     @endif
+
+    <script>
+        document.addEventListener('livewire:init', () => {
+            Livewire.hook('request', ({ fail }) => {
+                fail(({ status, preventDefault }) => {
+                    if (status === 419) {
+                        window.location.reload()
+                        preventDefault()
+                    }
+                })
+            })
+        })
+    </script>
 @endproduction
 </body>
 </html>
