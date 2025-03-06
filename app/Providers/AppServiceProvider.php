@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
+use App\Data\Articles\CustomFrontmatterData;
 use App\Models\User;
 use App\Services\Untis;
+use BenBjurstrom\Prezet\Data\FrontmatterData;
 use Carbon\CarbonImmutable;
 use Illuminate\Auth\Access\Response;
 use Illuminate\Database\Eloquent\Model;
@@ -21,6 +23,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
+        $this->app->bind(FrontmatterData::class, CustomFrontmatterData::class);
+
         $this->app->bind(Untis::class, function () {
             return new Untis(
                 server: 'hektor',

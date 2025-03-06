@@ -19,19 +19,17 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Slug Configuration
+    | Data Classes
     |--------------------------------------------------------------------------
     |
-    | Configure how document slugs are generated. The source can be 'filepath'
-    | or 'title'. Note that a slug defined in front matter will take precedence
-    | over the generated slug. When 'keyed' is true, the key present in the
-    | front matter key will be appended to the slug (e.g., my-post-123).
+    | These classes are used to store markdown information in a Validated DTO.
+    | You can override the default classes with your own and configure Pezet to
+    | use them here.
     |
     */
 
-    'slug' => [
-        'source' => 'filepath', // 'filepath' or 'title'
-        'keyed' => false, // 'true' or 'false'
+    'data' => [
+        'frontmatter' => App\Data\Articles\CustomFrontmatterData::class,
     ],
 
     /*
@@ -89,9 +87,9 @@ return [
     |
     | Configure how image tags are handled when converting from markdown.
     |
+    | 'path' specifies the route for serving images.
     | 'widths' defines the various widths for responsive images.
     | 'sizes' indicates the sizes attribute for responsive images.
-    | 'zoomable' determines if images are zoomable.
     */
 
     'image' => [
@@ -103,48 +101,5 @@ return [
         'sizes' => '92vw, (max-width: 1024px) 92vw, 768px',
 
         'zoomable' => false,
-    ],
-
-    /*
-    |--------------------------------------------------------------------------
-    | Sitemap
-    |--------------------------------------------------------------------------
-    | The sitemap origin is used to generate absolute URLs for the sitemap.
-    | An origin consists of a scheme/host/port combination, but no path.
-    | (e.g., https://example.com:8000) https://www.rfc-editor.org/rfc/rfc6454
-    */
-
-    'sitemap' => [
-        'origin' => env('PREZET_SITEMAP_ORIGIN', env('APP_URL')),
-    ],
-
-    /*
-    |--------------------------------------------------------------------------
-    | Structured Data
-    |--------------------------------------------------------------------------
-    |
-    | Prezet uses these values for JSON-LD structured data. 'authors' defines
-    | named authors you can reference in front matter, and 'publisher' is used
-    | as the default publisher for all content.
-    |
-    */
-
-    // https://schema.org/author
-    'authors' => [
-        'prezet' => [
-            '@type' => 'Person',
-            'name' => 'Prezet Author',
-            'url' => 'https://prezet.com',
-            'image' => 'https://prezet.com/favicon.svg',
-        ],
-    ],
-
-    // https://schema.org/publisher
-    'publisher' => [
-        '@type' => 'Organization',
-        'name' => 'Prezet',
-        'url' => 'https://prezet.com',
-        'logo' => 'https://prezet.com/favicon.svg',
-        'image' => 'https://prezet.com/ogimage.png',
     ],
 ];

@@ -23,8 +23,7 @@ class Home extends Component
     {
         return Article::published()
             ->take(5)
-            ->get()
-            ->pluck('frontmatter');
+            ->get();
     }
 
     private function cvItems()

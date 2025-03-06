@@ -7,14 +7,14 @@
                 <a
                     href="{{ route('prezet.show', $article->slug) }}"
                     wire:navigate
-                    >{{ $article->title }}</a
+                    >{{ $article->frontmatter->title }}</a
                 >
             </div>
             <time
                 class="ml-2 whitespace-nowrap text-sm tracking-tight text-gray-600 dark:text-gray-400"
-                datetime="{{ $article->createdAt->toIso8601String() }}"
+                datetime="{{ $article->frontmatter->date->toIso8601String() }}"
             >
-                {{ $article->createdAt->format('F j, Y') }}
+                {{ $article->frontmatter->date->format('F j, Y') }}
             </time>
         </li>
     @endforeach

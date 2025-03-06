@@ -19,8 +19,8 @@ class VocabularyWordFactory extends Factory
     public function definition(): array
     {
         return [
-            'english' => $this->faker->word,
-            'german' => $this->faker->word,
+            'english' => $this->faker->word(),
+            'german' => $this->faker->word(),
             'right' => 0,
             'wrong' => 0,
         ];

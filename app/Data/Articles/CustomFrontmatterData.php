@@ -9,9 +9,6 @@ use WendellAdriel\ValidatedDTO\Attributes\Rules;
 
 class CustomFrontmatterData extends FrontmatterData
 {
-    #[Rules(['required', 'string'])]
-    public string $slug;
-
     #[Rules(['nullable', 'string'])]
     public string $excerpt;
 
