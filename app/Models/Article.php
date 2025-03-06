@@ -49,7 +49,7 @@ class Article
                 'id' => $document->slug,
                 'title' => $document->frontmatter->title,
                 'summary' => Prezet::parseMarkdown(Prezet::getMarkdown($document->filepath))->getContent(),
-                'updated' => $document->date,
+                'updated' => $document->frontmatter->date,
                 'link' => route('prezet.show', $document->slug),
                 'authorName' => 'Tim Kleyersburg',
             ]));

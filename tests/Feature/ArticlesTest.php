@@ -14,3 +14,8 @@ get('/articles/resize-images-with-mogrify')
 ->assertSuccessful()
 ->assertSee('Use ImageMagicks mogrify CLI to batch resize images');
     });
+
+it('makes sure the feed is working', function () {
+    get('/feed.xml')
+        ->assertSuccessful();
+});
