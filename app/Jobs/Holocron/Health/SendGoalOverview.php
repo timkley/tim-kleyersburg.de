@@ -33,10 +33,11 @@ class SendGoalOverview implements ShouldQueue
         $answer = Chopper::conversation(
             <<<EOT
 Erstelle eine Nachricht zu den täglichen Zielen.
+Übersetze die Ziele auf Deutsch.
 Fokussiere dich auf NICHT abgeschlossene Ziele.
-Nimm Bezug auf vorherige Benachrichtigungen indem du anerkennst wenn Ziele fortgeschritten sind, bereits erreicht wurden aber auch, wenn sich bei der Zielerreichung nichts getan hat.
+Nimm Bezug auf unsere Konversation, indem du anerkennst wenn Ziele fortgeschritten sind, bereits erreicht wurden aber auch, wenn sich bei der Zielerreichung nichts getan hat.
 Ein erreichtes Ziel darf nicht öfter als einmal erwähnt werden.
-Antworte nur mit der Nachricht, als ob du dich in einer Konversation befindest
+Antworte nur mit der Nachricht.
 
 Ziele:
 $goals
