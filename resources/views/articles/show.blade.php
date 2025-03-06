@@ -1,11 +1,11 @@
 @seo([
     'title' => $frontmatter->title,
     'description' => $frontmatter->excerpt,
-    'url' => route('prezet.show', ['slug' => $frontmatter->slug]),
+    'url' => route('prezet.show', ['slug' => $document->slug]),
     'image' => $frontmatter->image,
 ])
 <x-slot:seo>
-    <x-seo::meta />
+    <x-prezet::meta />
 </x-slot>
 
 <div class="prose lg:prose-lg dark:prose-invert prose-headings:font-ibm prose-headings:font-semibold mx-auto mb-24 md:mt-8 lg:mt-16">
@@ -22,8 +22,8 @@
             <div class="leading-snug">
                 Tim Kleyersburg
                 <span class="text-slate-500 dark:text-slate-400">
-                    on {{ $frontmatter->createdAt->format('F j, Y') }}
-                    @if ($frontmatter->updatedAt && ! $frontmatter->updatedAt->isSameDay($frontmatter->createdAt) && ! $frontmatter->updatedAt->lt($frontmatter->createdAt))
+                    on {{ $frontmatter->date->format('F j, Y') }}
+                    @if ($frontmatter->updatedAt && ! $frontmatter->updatedAt->isSameDay($frontmatter->date) && ! $frontmatter->updatedAt->lt($frontmatter->date))
                         <span class="mx-0.5">•</span> last updated on {{ $frontmatter->updatedAt->format('F j, Y') }}
                     @endif
 
@@ -70,6 +70,6 @@
     @env('local')
         <hr />
         <h3>Debugging</h3>
-        <a href="{{ route('prezet.ogimage', $frontmatter->slug) }}">OG Image</a>
+        <a href="{{ route('prezet.ogimage', $document->slug) }}">OG Image</a>
     @endenv
 </div>

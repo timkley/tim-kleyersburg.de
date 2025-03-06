@@ -9,9 +9,9 @@
     "license": "MIT",
     "require": {
         "php": "^8.3",
-        "benbjurstrom/prezet": "^0.20.1",
+        "benbjurstrom/prezet": "^v1.0.0-rc6",
         "bugsnag/bugsnag-laravel": "^2.29",
-        "laravel-notification-channels/discord": "^1.6",
+        "laravel-notification-channels/discord": "dev-l12-compatibility",
         "laravel/framework": "^12.0",
         "laravel/pulse": "^1.3.3",
         "laravel/tinker": "^2.10.1",
@@ -19,7 +19,7 @@
         "livewire/flux-pro": "^2.0",
         "livewire/livewire": "^3.5.18",
         "spatie/laravel-feed": "^4.4",
-        "timkley/denk": "^0.1.0"
+        "timkley/denk": "^0.2.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.15",
@@ -99,6 +99,10 @@
         "flux-pro": {
             "type": "composer",
             "url": "https://composer.fluxui.dev"
+        },
+        "discord": {
+            "type": "vcs",
+            "url": "https://github.com/laravel-shift/discord.git"
         }
     }
 }

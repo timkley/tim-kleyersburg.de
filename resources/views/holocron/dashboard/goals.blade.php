@@ -3,11 +3,11 @@
         class="flex items-center gap-2 font-semibold"
         size="lg"
     >
-        <flux:icon.trophy />
+        <flux:icon.trophy/>
         Deine Ziele
     </flux:heading>
 
-    <x-holocron.dashboard.goals.calendar :$goalsByDay :$selectedDate />
+    <x-holocron.dashboard.goals.calendar :$goalsByDay :$selectedDate/>
 
     <div class="mt-4 grid gap-x-16 gap-y-8 sm:grid-cols-2 md:gap-x-20 lg:grid-cols-3">
         @foreach ($dailyGoals as $goal)
@@ -16,7 +16,7 @@
                 :goal="$goal"
             />
             @if(!$loop->last)
-                <flux:separator class="sm:hidden" />
+                <flux:separator class="sm:hidden"/>
             @endif
         @endforeach
     </div>

@@ -2,7 +2,6 @@
 date: 2022-11-20
 title: Migrate an older Mattermost installation to a new one
 hero: hero-image.jpg
-slug: migrate-mattermost
 excerpt: Maybe you are still using the deprecated MySQL connection or just want to use the new install method.
 tags: [mattermost]
 image: /articles/img/ogimages/migrate-mattermost.webp

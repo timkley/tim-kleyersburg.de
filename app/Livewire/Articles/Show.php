@@ -26,23 +26,25 @@ class Show extends Component
 
     public function render(): View
     {
-        $frontmatter = Prezet::getFrontmatter($this->article->filepath);
+        $document = Prezet::getDocumentDataFromFile($this->article->filepath);
+        $frontmatter = $document->frontmatter;
         $markdown = Prezet::getMarkdown($this->article->filepath);
 
         if ($this->rambling) {
             $markdown = $this->rambleIt($markdown);
         }
 
-        $content = Prezet::getContent($markdown);
+        $content = Prezet::parseMarkdown($markdown);
 
         $related = Article::related($this->article);
 
         return view('articles.show', [
+            'document' => $document,
             'frontmatter' => $frontmatter,
             'content' => $content,
-            'headings' => Prezet::getHeadings($content),
-            'minutesToRead' => ceil(str($content)->stripTags()->wordCount() / 250).' minutes',
-            'related' => $related->pluck('frontmatter'),
+            'headings' => Prezet::getHeadings($content->getContent()),
+            'minutesToRead' => ceil(str($content->getContent())->stripTags()->wordCount() / 250).' minutes',
+            'related' => $related,
         ]);
     }
 
