@@ -17,15 +17,6 @@ class DailyGoal extends Model
     /** @use HasFactory<\Database\Factories\Holocron\Health\DailyGoalFactory> */
     use HasFactory;
 
-
-    protected function casts(): array
-    {
-        return [
-            'type' => GoalTypes::class,
-            'unit' => GoalUnits::class,
-        ];
-    }
-
     public static function for(GoalTypes $type, ?CarbonImmutable $date = null): self
     {
         $date ??= today();
@@ -102,6 +93,14 @@ class DailyGoal extends Model
         }
 
         return $highestStreak;
+    }
+
+    protected function casts(): array
+    {
+        return [
+            'type' => GoalTypes::class,
+            'unit' => GoalUnits::class,
+        ];
     }
 
     protected function reached(): Attribute
