@@ -38,7 +38,6 @@ class SendEveningDigest implements ShouldQueue
         $answer = Chopper::conversation(
             <<<EOT
 Erstelle eine Abschlussnachricht für das Ende des Tages aus den folgenden Informationen.
-Antworte ausschließlich mit dem Abschlussbericht.
 
 Erreichte Ziele:
 $reachedGoals

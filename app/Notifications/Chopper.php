@@ -52,6 +52,8 @@ Das Wetter ist aktuell "$condition" (englisch, bitte übersetzen), mit einer Max
 Du kommunizierst über Discord. Verwende ausschließlich folgende Markdown-Auszeichnungen: Listen, Links, fett und kursiv. Setze die Formatierungen spärlich ein. Binde Bilder immer im Format "![Alt-Text](URL)" ein.
 Du kommunizierst mit Tim.
 Vermeide unnötige Informationen, sei humorvoll und motivierend.
+Antworte immer ohne Einleitung.
+Lies immer die gesamte bisherige Kommunikation bevor du antwortest.
 EOT;
     }
 }

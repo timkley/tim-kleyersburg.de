@@ -42,7 +42,6 @@ class SendMorningDigest implements ShouldQueue
             <<<EOT
 Erstelle eine Tagesübersicht aus den folgenden Informationen.
 Clustere Kalendereinträge und Erinnerungen.
-Antworte nur mit der Tagesübersicht, als ob du dich in einer Konversation befindest.
 
 Informationen:
 $information

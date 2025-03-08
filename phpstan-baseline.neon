@@ -29,9 +29,3 @@ parameters:
 			identifier: method.nonObject
 			count: 1
 			path: app/Jobs/Holocron/SendEveningDigest.php
-
-		-
-			message: '#^Access to an undefined property BenBjurstrom\\Prezet\\Models\\Document\:\:\$date\.$#'
-			identifier: property.notFound
-			count: 1
-			path: app/Models/Article.php
