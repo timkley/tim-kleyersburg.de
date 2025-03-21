@@ -58,5 +58,28 @@
                 </flux:subheading>
             </div>
         </flux:card>
+
+        <flux:card class="h-full">
+            <flux:heading
+                class="flex items-center gap-2 font-semibold mb-4"
+                size="lg"
+            >
+                <flux:icon.academic-cap />
+                Astronomy Picture of the Day
+            </flux:heading>
+
+            @php($apod = \App\Services\Nasa::apod())
+
+            <img src="{{ $apod['url'] }}" alt="{{ $apod['title'] }}" class="rounded shadow-md mb-4" />
+
+            <flux:accordion>
+                <flux:accordion.item>
+                    <flux:accordion.heading>{{ $apod['title'] }}</flux:accordion.heading>
+                    <flux:accordion.content>
+                        <p>{{ $apod['explanation'] }}</p>
+                    </flux:accordion.content>
+                </flux:accordion.item>
+            </flux:accordion>
+        </flux:card>
     </div>
 </div>
