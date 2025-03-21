@@ -16,6 +16,6 @@ get('/articles/resize-images-with-mogrify')
     });
 
 it('makes sure the feed is working', function () {
-    get('/feed.xml')
-        ->assertSuccessful();
-});
+get('/feed.xml')
+->assertSuccessful();
+    });

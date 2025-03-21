@@ -60,6 +60,12 @@
             wire:navigate
             >Zurück</flux:button
         >
+        <flux:button
+            href="{{ route('holocron.school.vocabulary.print-test', $test->id) }}"
+            variant="filled"
+            class="mx-auto"
+            wire:navigate
+        >Ausdrucken</flux:button>
     </div>
 
     @persist('audio-files')

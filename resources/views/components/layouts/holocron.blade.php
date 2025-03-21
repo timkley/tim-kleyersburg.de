@@ -1,7 +1,7 @@
 <x-layouts.app>
     <x-slot:title>{{ $title ?? '' }}</x-slot>
     <x-slot:header>
-        <div class="mx-auto max-w-5xl">
+        <div class="mx-auto max-w-5xl print:hidden">
             <a
                 href="{{ route('holocron.dashboard') }}"
                 wire:navigate

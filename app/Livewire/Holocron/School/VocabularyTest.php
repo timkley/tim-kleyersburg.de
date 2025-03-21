@@ -10,11 +10,11 @@ use Illuminate\View\View;
 
 class VocabularyTest extends HolocronComponent
 {
+    public VocabularyTestModel $test;
+
     public $blurred = true;
 
     public string $mode = 'random';
-
-    public VocabularyTestModel $test;
 
     public function render(): View
     {
