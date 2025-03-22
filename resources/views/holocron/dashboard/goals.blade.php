@@ -5,10 +5,10 @@
     >
         <flux:icon.trophy/>
         Deine Ziele
-
-        <flux:subheading>{{ $goalsPast20DaysReachedCount }} / {{ $goalsPast20DaysCount }} erreichte Ziele</flux:subheading>
-        <flux:subheading>Letzte Periode: {{ $goalsPast40DaysReachedCount }} / {{ $goalsPast40DaysCount }} erreichte Ziele</flux:subheading>
     </flux:heading>
+    
+    <flux:subheading>{{ $goalsPast20DaysReachedCount }} / {{ $goalsPast20DaysCount }} erreichte Ziele</flux:subheading>
+    <flux:subheading>Letzte Periode: {{ $goalsPast40DaysReachedCount }} / {{ $goalsPast40DaysCount }} erreichte Ziele</flux:subheading>
 
     <x-holocron.dashboard.goals.calendar :$goalsPast20DaysByDay :$selectedDate/>
 
