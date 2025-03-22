@@ -7,6 +7,7 @@ namespace App\Livewire\Holocron\Dashboard;
 use App\Enums\Holocron\Health\GoalTypes;
 use App\Models\Holocron\Health\DailyGoal;
 use Carbon\CarbonImmutable;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\View\View;
 use Livewire\Component;
@@ -22,9 +23,16 @@ class Goals extends Component
 
     public function render(): View
     {
+        $goals = $this->getGoalsForPeriod(0);
+        $goalsPreviousPeriod = $this->getGoalsForPeriod(20);
+
         return view('holocron.dashboard.goals', [
-            'dailyGoals' => DailyGoal::whereDate('created_at', $this->selectedDate)->get(),
-            'goalsByDay' => DailyGoal::whereDate('date', '>', now()->subDays(20))->get()->groupBy('date'),
+            'todaysGoals' => DailyGoal::whereDate('created_at', $this->selectedDate)->get(),
+            'goalsPast20DaysByDay' => $goals->groupBy('date'),
+            'goalsPast20DaysCount' => $goals->count(),
+            'goalsPast20DaysReachedCount' => $goals->sum('reached'),
+            'goalsPast40DaysCount' => $goalsPreviousPeriod->count(),
+            'goalsPast40DaysReachedCount' => $goalsPreviousPeriod->sum('reached'),
         ]);
     }
 
@@ -41,5 +49,14 @@ class Goals extends Component
         )->validate();
 
         DailyGoal::for(GoalTypes::from($type), $this->selectedDate)->increment('amount', $amount);
+    }
+
+    private function getGoalsForPeriod(int $days): Collection
+    {
+        $startDate = now()->subDays($days);
+        $endDate = now()->subDays($days + 20); // Calculate the end date based on the number of days
+
+        return DailyGoal::whereBetween('date', [$endDate, $startDate])
+            ->get();
     }
 }

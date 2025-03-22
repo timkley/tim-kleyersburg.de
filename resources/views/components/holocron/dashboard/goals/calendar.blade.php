@@ -1,7 +1,7 @@
 @use(Illuminate\Support\Carbon)
 
 <div class="grid grid-cols-5 sm:grid-cols-10 gap-3 mt-6 mb-8">
-    @foreach($goalsByDay as $day => $goals)
+    @foreach($goalsPast20DaysByDay as $day => $goals)
         @php($day = Carbon::parse($day))
         <flux:card
             @class([
