@@ -6,7 +6,7 @@
         <flux:icon.trophy/>
         Deine Ziele
     </flux:heading>
-    
+
     <flux:subheading>{{ $goalsPast20DaysReachedCount }} / {{ $goalsPast20DaysCount }} erreichte Ziele</flux:subheading>
     <flux:subheading>Letzte Periode: {{ $goalsPast40DaysReachedCount }} / {{ $goalsPast40DaysCount }} erreichte Ziele</flux:subheading>
 

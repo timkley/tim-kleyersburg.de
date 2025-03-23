@@ -57,6 +57,7 @@ class Goals extends Component
         $endDate = now()->subDays($days + 20); // Calculate the end date based on the number of days
 
         return DailyGoal::whereBetween('date', [$endDate, $startDate])
+            ->orderBy('date')
             ->get();
     }
 }
