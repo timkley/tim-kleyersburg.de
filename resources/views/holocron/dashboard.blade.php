@@ -70,16 +70,20 @@
 
             @php($apod = \App\Services\Nasa::apod())
 
-            <img src="{{ $apod['url'] }}" alt="{{ $apod['title'] }}" class="rounded shadow-md mb-4" />
+            @if(!is_null($apod['url']))
+                <img src="{{ $apod['url'] }}" alt="{{ $apod['title'] }}" class="rounded shadow-md mb-4" />
 
-            <flux:accordion>
-                <flux:accordion.item>
-                    <flux:accordion.heading>{{ $apod['title'] }}</flux:accordion.heading>
-                    <flux:accordion.content>
-                        <p>{{ $apod['explanation'] }}</p>
-                    </flux:accordion.content>
-                </flux:accordion.item>
-            </flux:accordion>
+                <flux:accordion>
+                    <flux:accordion.item>
+                        <flux:accordion.heading>{{ $apod['title'] }}</flux:accordion.heading>
+                        <flux:accordion.content>
+                            <p>{{ $apod['explanation'] }}</p>
+                        </flux:accordion.content>
+                    </flux:accordion.item>
+                </flux:accordion>
+            @else
+                <flux:text>Bildabruf fehlgeschlagen.</flux:text>
+            @endif
         </flux:card>
     </div>
 </div>

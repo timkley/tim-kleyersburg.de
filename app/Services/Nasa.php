@@ -13,9 +13,17 @@ class Nasa
     public static function apod(): Collection
     {
         return Cache::remember('apod', now()->endOfDay(), function () {
-            return Http::get('https://api.nasa.gov/planetary/apod', [
+            $defaults = collect([
+                'url' => null,
+                'title' => null,
+                'explanation' => null,
+            ]);
+
+            $response = Http::get('https://api.nasa.gov/planetary/apod', [
                 'api_key' => config('services.nasa.api_key'),
             ])->collect();
+
+            return $defaults->merge($response);
         });
     }
 }
