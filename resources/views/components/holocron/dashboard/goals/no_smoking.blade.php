@@ -9,7 +9,7 @@
                 class="w-full"
                 @click="$wire.trackGoal('{{ GoalTypes::NoSmoking }}', -1);"
         >
-            Zigarette geraucht
+            Geraucht
         </flux:button>
     @endif
 </x-holocron.dashboard.goals.base>
