@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Models\Holocron;
 
 use App\Enums\Holocron\QuestStatus;
+use Illuminate\Database\Eloquent\Attributes\Scope;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -44,6 +46,22 @@ class Quest extends Model
         }
 
         return $breadcrumb->reverse();
+    }
+
+    protected static function booted(): void
+    {
+        static::addGlobalScope('notCompleted', function (Builder $builder) {
+            $builder->whereNot('status', QuestStatus::Complete);
+        });
+    }
+
+    #[Scope]
+    protected function leafNodes($query)
+    {
+        return $query->whereNotExists(function ($query) {
+            $query->from('quests as children')
+                ->whereColumn('children.quest_id', 'quests.id');
+        });
     }
 
     protected function casts(): array

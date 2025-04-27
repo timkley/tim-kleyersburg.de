@@ -12,6 +12,8 @@ class Item extends Component
 {
     public Quest $quest;
 
+    public bool $withBreadcrumb = false;
+
     public function setStatus(string $status): void
     {
         $this->quest->update([

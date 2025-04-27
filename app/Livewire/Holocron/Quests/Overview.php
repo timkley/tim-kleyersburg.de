@@ -87,9 +87,7 @@ class Overview extends HolocronComponent
 
     public function render(): View
     {
-        return view('holocron.quests.overview', [
-            'breadcrumb' => $this->quest->getBreadcrumb(),
-        ]);
+        return view('holocron.quests.overview');
     }
 
     public function rendering(View $view): void

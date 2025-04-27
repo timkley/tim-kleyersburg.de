@@ -1,32 +1,37 @@
+@use(App\Models\Holocron\Quest)
 @use(App\Enums\Holocron\QuestStatus)
 
 <div>
     <div class="space-y-4">
         <flux:breadcrumbs>
             <flux:breadcrumbs.item href="{{ route('holocron.quests') }}" wire:navigate icon="home"/>
-            @foreach($breadcrumb as $crumb)
+            @foreach($quest->getBreadcrumb() as $crumb)
                 <flux:breadcrumbs.item href="{{ route('holocron.quests', $crumb->id) }}" wire:navigate>
                     {{ $crumb->name }}
                 </flux:breadcrumbs.item>
             @endforeach
         </flux:breadcrumbs>
 
-        <flux:card class="space-y-4">
+        <flux:card>
             @if($quest->exists)
                 <div class="grid md:grid-cols-2 gap-8">
                     <div class="space-y-4">
                         <flux:input label="Name" wire:model.live="name"/>
-                        <flux:textarea label="Beschreibung"
-                                       wire:model.live="description"
-                                       placeholder="Beschreibung"></flux:textarea>
+                        <flux:textarea
+                            label="Beschreibung"
+                            wire:model.live="description"
+                            placeholder="Beschreibung"
+                        ></flux:textarea>
                     </div>
 
                     <div>
                         <flux:radio.group wire:model.live="status" label="Status" variant="segmented">
                             @foreach(QuestStatus::cases() as $status)
-                                <flux:radio label="{{ $status->label() }}"
-                                            value="{{ $status->value }}"
-                                            :icon="$status->icon()"/>
+                                <flux:radio
+                                    label="{{ $status->label() }}"
+                                    value="{{ $status->value }}"
+                                    :icon="$status->icon()"
+                                />
                             @endforeach
                         </flux:radio.group>
                     </div>
@@ -45,6 +50,18 @@
                 </form>
             </div>
         </flux:card>
+
+        @unless($quest->exists)
+            <flux:card>
+                <div class="mb-3">
+                    <flux:heading>Nächste Aufgaben</flux:heading>
+                    <flux:text class="mt-1">Aufgaben, an denen als nächstes gearbeitet werden sollte, da sie keine Unteraufgaben haben.</flux:text>
+                </div>
+                @foreach(Quest::leafNodes()->get() as $leafQuest)
+                    <livewire:holocron.quests.item :quest="$leafQuest" :key="'leaf-item.' . $leafQuest->id" :with-breadcrumb="true"/>
+                @endforeach
+            </flux:card>
+        @endunless
 
         @if($quest->exists)
             <flux:card>

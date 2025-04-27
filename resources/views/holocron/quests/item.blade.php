@@ -1,3 +1,4 @@
+@props(['withBreadcrumb' => false])
 @use(App\Enums\Holocron\QuestStatus)
 
 <div class="flex items-center">
@@ -17,16 +18,27 @@
         </flux:menu>
     </flux:dropdown>
 
-    <a
-        href="{{ route('holocron.quests', $quest->id) }}"
-        wire:navigate
-        class="flex items-center cursor-pointer"
-    >
-        <span>
-            {{ $quest->name }}
-        </span>
-        <flux:badge class="ml-3" size="sm">{{ $quest->children()->count() }} Unter-Quests</flux:badge>
-    </a>
+    <div class="flex items-center ml-1 space-x-3">
+        <a
+            href="{{ route('holocron.quests', $quest->id) }}"
+            wire:navigate
+        >
+            <span>
+                {{ $quest->name }}
+            </span>
+        </a>
+        @if($withBreadcrumb)
+            <flux:breadcrumbs>
+                @foreach($quest->getBreadcrumb()->reverse()->slice(1) as $crumb)
+                    <flux:breadcrumbs.item href="{{ route('holocron.quests', $crumb->id) }}" wire:navigate>
+                        {{ $crumb->name }}
+                    </flux:breadcrumbs.item>
+                @endforeach
+            </flux:breadcrumbs>
+        @else
+            <flux:badge size="sm">{{ $quest->children()->count() }} Unter-Quests</flux:badge>
+        @endif
+    </div>
 
-    <flux:button class="ml-auto" icon="trash" wire:click="$parent.deleteQuest({{ $quest->id }})" variant="subtle"></flux:button>
+    <flux:button class="ml-auto" icon="trash" wire:click="$parent.deleteQuest({{ $quest->id }})" wire:confirm="Wirklich löschen?" variant="subtle"></flux:button>
 </div>
