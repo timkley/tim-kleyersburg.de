@@ -19,8 +19,8 @@
         <x-articles.list :$articles />
 
         <a
-            class="mt-10 inline-block"
             href="{{ route('articles.index') }}"
+            class="mt-10 inline-block decorated"
             >all articles</a
         >
     </div>
@@ -36,6 +36,7 @@
                     <p class="mb-3 text-gray-600 dark:text-gray-400">
                         <a
                             href="{{ $item['link'] }}"
+                            class="decorated"
                             target="_blank"
                         >
                             {{ $item['employer'] }}
@@ -53,7 +54,10 @@
         <ul class="space-y-3">
             @foreach ($contactItems as $item)
                 <li>
-                    <a href="{{ $item['url'] }}">
+                    <a
+                        href="{{ $item['url'] }}"
+                        class="decorated"
+                    >
                         {{ $item['title'] }}
                     </a>
                 </li>

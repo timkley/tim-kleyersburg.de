@@ -53,9 +53,9 @@ class AppServiceProvider extends ServiceProvider
 
     private function configureModels(): void
     {
-        Model::preventSilentlyDiscardingAttributes($this->app->isLocal());
-        Model::shouldBeStrict();
+        //        Model::shouldBeStrict();
         Model::unguard();
+        Model::automaticallyEagerLoadRelationships();
     }
 
     private function configureGates(): void

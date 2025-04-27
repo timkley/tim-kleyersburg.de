@@ -30,6 +30,7 @@
 
             <a
                 href="{{ route('articles.index') }}"
+                class="decorated"
                 wire:navigate
             >Articles</a>
         </header>

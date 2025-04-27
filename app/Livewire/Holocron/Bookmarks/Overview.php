@@ -12,7 +12,7 @@ use Illuminate\View\View;
 use Livewire\Attributes\Validate;
 use Livewire\WithPagination;
 
-class Bookmarks extends HolocronComponent
+class Overview extends HolocronComponent
 {
     use WithPagination;
 

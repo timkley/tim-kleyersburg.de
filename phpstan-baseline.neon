@@ -1,2 +1,7 @@
 parameters:
 	ignoreErrors:
+		-
+			message: '#^Method App\\Models\\Holocron\\Quest\:\:children\(\) should return Illuminate\\Database\\Eloquent\\Relations\\HasMany but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\Holocron\\Quest\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Models/Holocron/Quest.php

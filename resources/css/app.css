@@ -38,7 +38,7 @@
         padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
     }
 
-    a:not([data-flux-button]) {
+    a.decorated {
         @apply transition dark:text-white hover:text-sky-700 dark:hover:text-sky-200 border-b border-sky-400 hover:border-sky-600;
     }
 

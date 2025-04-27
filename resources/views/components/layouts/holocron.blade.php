@@ -1,15 +1,21 @@
 <x-layouts.app>
     <x-slot:title>{{ $title ?? '' }}</x-slot>
     <x-slot:header>
-        <div class="mx-auto max-w-5xl print:hidden">
+        <div class="mx-auto max-w-5xl print:hidden text-sm flex items-center gap-x-6">
             <a
                 href="{{ route('holocron.dashboard') }}"
                 wire:navigate
-                class="inline-flex items-center gap-1.5 !border-0 font-mono text-sm font-semibold"
+                class="inline-flex items-center gap-1.5 !border-0 font-mono font-semibold"
             >
                 <flux:icon.cpu-chip />
                 <span> Holocron </span>
             </a>
+
+            <a
+                href="{{ route('holocron.quests') }}"
+                wire:navigate
+                wire:current="font-semibold"
+            >Quests</a>
         </div>
     </x-slot>
 

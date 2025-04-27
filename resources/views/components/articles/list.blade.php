@@ -6,6 +6,7 @@
             <div>
                 <a
                     href="{{ route('prezet.show', $article->slug) }}"
+                    class="decorated"
                     wire:navigate
                     >{{ $article->frontmatter->title }}</a
                 >

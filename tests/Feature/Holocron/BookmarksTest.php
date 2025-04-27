@@ -10,14 +10,13 @@ use OpenAI\Responses\Chat\CreateResponse;
 use function Pest\Laravel\get;
 
 it('is not reachable when unauthenticated', function () {
-get(route('holocron.bookmarks'))
-->assertRedirect(route('holocron.login'));
-    });
+    get(route('holocron.bookmarks'))->assertRedirect(route('holocron.login'));
+});
 
 it('can add a bookmark', function () {
     Queue::fake([CrawlBookmarkInformation::class]);
 
-    Livewire::test('holocron.bookmarks.bookmarks')
+    Livewire::test('holocron.bookmarks.overview')
         ->set('url', 'https://example.com')
         ->call('submit');
 
@@ -27,22 +26,22 @@ it('can add a bookmark', function () {
 it('validates', function () {
     Queue::fake([CrawlBookmarkInformation::class]);
 
-    Livewire::test('holocron.bookmarks.bookmarks')
+    Livewire::test('holocron.bookmarks.overview')
         ->set('url', 'asdf')
         ->call('submit')
         ->assertHasErrors();
 
-    Livewire::test('holocron.bookmarks.bookmarks')
+    Livewire::test('holocron.bookmarks.overview')
         ->set('url', '')
         ->call('submit')
         ->assertHasErrors();
 
-    Livewire::test('holocron.bookmarks.bookmarks')
+    Livewire::test('holocron.bookmarks.overview')
         ->set('url', 'https://example.com')
         ->call('submit')
         ->assertHasNoErrors();
 
-    Livewire::test('holocron.bookmarks.bookmarks')
+    Livewire::test('holocron.bookmarks.overview')
         ->set('url', 'https://example.com')
         ->call('submit')
         ->assertHasErrors();
@@ -51,7 +50,7 @@ it('validates', function () {
 it('can delete a bookmark', function () {
     $bookmark = Bookmark::factory()->create();
 
-    Livewire::test('holocron.bookmarks.bookmarks')
+    Livewire::test('holocron.bookmarks.overview')
         ->call('delete', $bookmark->id);
 
     expect(Bookmark::where('id', $bookmark->id)->exists())->toBeFalse();

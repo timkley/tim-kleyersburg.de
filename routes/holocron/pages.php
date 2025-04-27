@@ -2,12 +2,15 @@
 
 declare(strict_types=1);
 
-use App\Livewire\Holocron\Bookmarks\Bookmarks;
+use App\Livewire\Holocron\Bookmarks;
 use App\Livewire\Holocron\Dashboard;
+use App\Livewire\Holocron\Quests;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth')->name('holocron.')->prefix('holocron')->group(function () {
     Route::get('/', fn () => redirect()->route('holocron.dashboard'));
     Route::get('/dashboard', Dashboard::class)->name('dashboard');
-    Route::get('/bookmarks', Bookmarks::class)->name('bookmarks');
+    Route::get('/bookmarks', Bookmarks\Overview::class)->name('bookmarks');
+
+    Route::get('/quests/{quest?}', Quests\Overview::class)->name('quests');
 });

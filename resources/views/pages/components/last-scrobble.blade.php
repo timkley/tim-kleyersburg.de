@@ -1,7 +1,7 @@
 <div class="mx-auto h-auto w-64 rounded bg-sky-100 p-2 shadow-md transition hover:bg-sky-100/80 sm:w-60 dark:bg-slate-700 dark:hover:bg-slate-700/80">
     <div class="mb-5 text-center">
         <span class="text-sm text-gray-700 dark:text-gray-300"> Last Scrobble </span>
-        <a href="https://www.last.fm/user/Timmotheus">@timmotheus</a>
+        <a href="https://www.last.fm/user/Timmotheus" class="decorated">@timmotheus</a>
     </div>
     <div class="text-center">
         @if (isset($track))
