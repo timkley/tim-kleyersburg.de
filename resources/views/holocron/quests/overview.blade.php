@@ -12,7 +12,7 @@
             @endforeach
         </flux:breadcrumbs>
 
-        <flux:card>
+        <flux:card class="space-y-8">
             @if($quest->exists)
                 <div class="grid md:grid-cols-2 gap-8">
                     <div class="space-y-4">
