@@ -9,39 +9,63 @@ use App\Livewire\Holocron\HolocronComponent;
 use App\Models\Holocron\Quest;
 use App\Models\Holocron\QuestNote;
 use Illuminate\View\View;
-use Livewire\Attributes\Rule;
 use Livewire\Attributes\Title;
+use Livewire\Attributes\Validate;
+use Livewire\WithFileUploads;
 
 #[Title('Quests')]
 class Overview extends HolocronComponent
 {
+    use WithFileUploads;
+
     public ?Quest $quest = null;
 
-    #[Rule('required')]
-    #[Rule('min:3')]
-    #[Rule('max:255')]
+    #[Validate('required')]
+    #[Validate('min:3')]
+    #[Validate('max:255')]
     public ?string $name = '';
 
     public ?string $description = '';
 
     public QuestStatus $status;
 
-    #[Rule('required')]
-    #[Rule('min:3')]
-    #[Rule('max:255')]
+    #[Validate('image')]
+    public $image;
+
+    #[Validate('required')]
+    #[Validate('min:3')]
+    #[Validate('max:255')]
     public string $questDraft = '';
 
-    #[Rule('required')]
-    #[Rule('min:3')]
+    #[Validate('required')]
+    #[Validate('min:3')]
     public string $noteDraft = '';
 
     public function updating($property, $value): void
     {
+        if ($property === 'image') {
+            return;
+        }
+
         $this->validateOnly($property);
 
         $this->quest->update([
             $property => $value,
         ]);
+
+        $this->reset($property);
+    }
+
+    public function updatedImage()
+    {
+        $images = $this->quest->images ?? collect();
+        $images = $images->push($this->image->store('quests', 'public'));
+
+        $this->quest->update([
+            'images' => $images
+        ]);
+
+        $this->reset('image');
     }
 
     public function addQuest(): void
