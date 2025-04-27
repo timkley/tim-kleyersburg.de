@@ -17,6 +17,7 @@ trait CalculatesGoals
             self::Water => $this->waterGoal(),
             self::Creatine => 5,
             self::Planks => $this->plankGoal(),
+            self::Mobility => 1,
             self::NoSmoking => 1,
             self::NoAlcohol => 1,
         };

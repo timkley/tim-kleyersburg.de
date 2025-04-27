@@ -13,6 +13,7 @@ enum GoalTypes: string
     case Water = 'water';
     case Creatine = 'creatine';
     case Planks = 'planks';
+    case Mobility = 'mobility';
     case NoSmoking = 'no_smoking';
     case NoAlcohol = 'no_alcohol';
 
@@ -22,8 +23,17 @@ enum GoalTypes: string
             self::Water => GoalUnits::Milliliters,
             self::Creatine => GoalUnits::Grams,
             self::Planks => GoalUnits::Seconds,
+            self::Mobility => GoalUnits::Boolean,
             self::NoSmoking => GoalUnits::Boolean,
             self::NoAlcohol => GoalUnits::Boolean,
+        };
+    }
+
+    public function deactivated(): bool
+    {
+        return match ($this) {
+            self::Planks => true,
+            default => false,
         };
     }
 }

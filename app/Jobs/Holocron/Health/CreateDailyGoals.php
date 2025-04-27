@@ -21,6 +21,10 @@ class CreateDailyGoals implements ShouldQueue
     public function handle(): void
     {
         foreach (GoalTypes::cases() as $type) {
+            if ($type->deactivated()) {
+                continue;
+            }
+
             // asking for the daily goal will create it if it doesn't exist
             DailyGoal::for($type);
         }
