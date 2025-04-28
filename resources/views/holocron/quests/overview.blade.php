@@ -12,6 +12,18 @@
             @endforeach
         </flux:breadcrumbs>
 
+        @unless($quest->exists)
+            <flux:card>
+                <div class="mb-3">
+                    <flux:heading>Nächste Aufgaben</flux:heading>
+                    <flux:text class="mt-1">Aufgaben, an denen als nächstes gearbeitet werden sollte, da sie keine Unteraufgaben haben.</flux:text>
+                </div>
+                @foreach(Quest::leafNodes()->get() as $leafQuest)
+                    <livewire:holocron.quests.item :quest="$leafQuest" :key="'leaf-item.' . $leafQuest->id" :with-breadcrumb="true"/>
+                @endforeach
+            </flux:card>
+        @endunless
+
         <flux:card class="space-y-8">
             @if($quest->exists)
                 <div class="grid md:grid-cols-2 gap-8">
@@ -74,18 +86,6 @@
                 </form>
             </div>
         </flux:card>
-
-        @unless($quest->exists)
-            <flux:card>
-                <div class="mb-3">
-                    <flux:heading>Nächste Aufgaben</flux:heading>
-                    <flux:text class="mt-1">Aufgaben, an denen als nächstes gearbeitet werden sollte, da sie keine Unteraufgaben haben.</flux:text>
-                </div>
-                @foreach(Quest::leafNodes()->get() as $leafQuest)
-                    <livewire:holocron.quests.item :quest="$leafQuest" :key="'leaf-item.' . $leafQuest->id" :with-breadcrumb="true"/>
-                @endforeach
-            </flux:card>
-        @endunless
 
         @if($quest->exists)
             <flux:card>
