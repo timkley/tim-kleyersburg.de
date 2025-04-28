@@ -17,7 +17,7 @@ use Throwable;
 
 class Untis
 {
-    public string $sessionId;
+    public ?string $sessionId;
 
     public int $personType;
 

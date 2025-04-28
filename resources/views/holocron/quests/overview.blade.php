@@ -6,7 +6,7 @@
         <flux:breadcrumbs>
             <flux:breadcrumbs.item href="{{ route('holocron.quests') }}" wire:navigate icon="home"/>
             @foreach($quest->getBreadcrumb() as $crumb)
-                <flux:breadcrumbs.item href="{{ route('holocron.quests', $crumb->id) }}" wire:navigate>
+                <flux:breadcrumbs.item href="{{ route('holocron.quests', $crumb->id) }}" wire:navigate class="whitespace-nowrap">
                     {{ $crumb->name }}
                 </flux:breadcrumbs.item>
             @endforeach
@@ -28,7 +28,6 @@
                         <flux:radio.group wire:model.live="status" label="Status" variant="segmented">
                             @foreach(QuestStatus::cases() as $status)
                                 <flux:radio
-                                    label="{{ $status->label() }}"
                                     value="{{ $status->value }}"
                                     :icon="$status->icon()"
                                 />
@@ -36,7 +35,7 @@
                         </flux:radio.group>
 
                         <div
-                            class="aspect-video border-dashed rounded-lg border-2 border-gray-300 p-4 grid grid-cols-4 gap-4 grid-rows-2"
+                            class="aspect-video border-dashed rounded-lg border-2 border-gray-300 p-4 grid grid-cols-4 gap-4 grid-rows-2 hover:bg-black/5 dark:hover:bg-white/5"
                             x-bind:class="{ 'border-solid': dragged, 'border-dashed': !dragged }"
                             x-data="{ dragged: false }"
                             x-on:dragover.prevent="dragged = true"
@@ -70,7 +69,7 @@
                     @endforeach
                 </div>
 
-                <form wire:submit="addQuest" class="max-w-1/2">
+                <form wire:submit="addQuest" class="md:max-w-1/2">
                     <flux:input wire:model="questDraft" placeholder="Neue Quest"/>
                 </form>
             </div>

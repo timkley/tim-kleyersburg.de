@@ -18,14 +18,17 @@
         </flux:menu>
     </flux:dropdown>
 
-    <div class="flex items-center ml-1 space-x-3">
+    <div class="flex flex-col sm:flex-row sm:items-center ml-1 space-x-3">
         <a
             href="{{ route('holocron.quests', $quest->id) }}"
             wire:navigate
         >
-            <span>
+            <span class="truncate">
                 {{ $quest->name }}
             </span>
+            @if($quest->children()->count())
+                <flux:badge size="sm">{{ $quest->children()->count() }}<span class="hidden sm:inline">&nbsp;Unter-Quests</span></flux:badge>
+            @endif
         </a>
         @if($withBreadcrumb)
             <flux:breadcrumbs>
@@ -35,8 +38,6 @@
                     </flux:breadcrumbs.item>
                 @endforeach
             </flux:breadcrumbs>
-        @else
-            <flux:badge size="sm">{{ $quest->children()->count() }} Unter-Quests</flux:badge>
         @endif
     </div>
 

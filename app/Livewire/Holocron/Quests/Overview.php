@@ -62,7 +62,7 @@ class Overview extends HolocronComponent
         $images = $images->push($this->image->store('quests', 'public'));
 
         $this->quest->update([
-            'images' => $images
+            'images' => $images,
         ]);
 
         $this->reset('image');
