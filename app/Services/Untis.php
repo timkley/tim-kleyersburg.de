@@ -136,7 +136,7 @@ class Untis
             ->withQueryParameters(array_merge($parameters, ['school' => $this->school]))
             ->withCookies([
                 'schoolname' => $this->school,
-                'JSESSIONID' => $this->sessionId,
+                'JSESSIONID' => $this->sessionId ?? '',
             ], "$this->server.webuntis.com")
             ->{$method}(
                 $url,
