@@ -13,6 +13,7 @@ use Exception;
 use Illuminate\Http\Client\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Http;
+use Throwable;
 
 class Untis
 {
@@ -174,7 +175,7 @@ class Untis
                 }
 
                 return $response;
-            }, function (int $attempt, Exception $exception) {
+            }, function (int $attempt, Throwable $exception) {
                 return $attempt * 10000;
             });
 
