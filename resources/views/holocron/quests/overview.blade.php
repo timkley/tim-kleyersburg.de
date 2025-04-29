@@ -18,9 +18,12 @@
                     <flux:heading>Nächste Aufgaben</flux:heading>
                     <flux:text class="mt-1">Aufgaben, an denen als nächstes gearbeitet werden sollte, da sie keine Unteraufgaben haben.</flux:text>
                 </div>
-                @foreach(Quest::leafNodes()->get() as $leafQuest)
-                    <livewire:holocron.quests.item :quest="$leafQuest" :key="'leaf-item.' . $leafQuest->id" :with-breadcrumb="true"/>
-                @endforeach
+
+                <div class="space-y-2">
+                    @foreach(Quest::leafNodes()->get() as $leafQuest)
+                        <livewire:holocron.quests.item :quest="$leafQuest" :key="'leaf-item.' . $leafQuest->id" :with-breadcrumb="true"/>
+                    @endforeach
+                </div>
             </flux:card>
         @endunless
 
@@ -75,7 +78,7 @@
                 <flux:separator text="Unter-Quests"/>
             @endif
             <div class="space-y-4">
-                <div>
+                <div class="space-y-2">
                     @foreach($quest->children()->get() as $childQuest)
                         <livewire:holocron.quests.item :quest="$childQuest" :key="'item.' . $childQuest->id"/>
                     @endforeach
