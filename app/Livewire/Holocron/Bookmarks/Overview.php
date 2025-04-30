@@ -23,7 +23,7 @@ class Overview extends HolocronComponent
     public function render(): View
     {
         return view('holocron.bookmarks.bookmarks', [
-            'bookmarks' => Bookmark::latest()->simplePaginate(20),
+            'bookmarks' => Bookmark::with('webpage')->latest()->simplePaginate(20),
         ]);
     }
 
