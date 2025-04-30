@@ -20,7 +20,7 @@
                 </div>
 
                 <div class="space-y-2">
-                    @foreach(Quest::leafNodes()->get() as $leafQuest)
+                    @foreach(Quest::leafNodes()->notCompleted()->get() as $leafQuest)
                         <livewire:holocron.quests.item :quest="$leafQuest" :key="'leaf-item.' . $leafQuest->id" :with-breadcrumb="true"/>
                     @endforeach
                 </div>
@@ -79,7 +79,7 @@
             @endif
             <div class="space-y-4">
                 <div class="space-y-2">
-                    @foreach($quest->children()->get() as $childQuest)
+                    @foreach($quest->children()->notCompleted()->get() as $childQuest)
                         <livewire:holocron.quests.item :quest="$childQuest" :key="'item.' . $childQuest->id"/>
                     @endforeach
                 </div>

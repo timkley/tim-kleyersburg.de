@@ -3,7 +3,7 @@
 
 <div class="flex">
     <flux:dropdown class="h-[25px] flex items-center">
-        <flux:button :icon="$quest->status->icon()" variant="ghost"></flux:button>
+        <flux:button class="mr-0" inset :icon="$quest->status->icon()" variant="ghost"></flux:button>
 
         <flux:menu wire:replace>
             @foreach(QuestStatus::cases() as $status)

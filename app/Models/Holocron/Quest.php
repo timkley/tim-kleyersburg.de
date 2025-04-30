@@ -6,7 +6,6 @@ namespace App\Models\Holocron;
 
 use App\Enums\Holocron\QuestStatus;
 use Illuminate\Database\Eloquent\Attributes\Scope;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\AsCollection;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -49,11 +48,10 @@ class Quest extends Model
         return $breadcrumb->reverse();
     }
 
-    protected static function booted(): void
+    #[Scope]
+    protected function notCompleted($query)
     {
-        static::addGlobalScope('notCompleted', function (Builder $builder) {
-            $builder->whereNot('status', QuestStatus::Complete);
-        });
+        return $query->whereNot('status', QuestStatus::Complete);
     }
 
     #[Scope]

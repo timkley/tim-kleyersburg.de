@@ -9,7 +9,7 @@
                 class="w-full"
                 @click="$wire.trackGoal('{{ GoalTypes::Mobility }}', 1);"
         >
-            Geübt
+            Gedehnt
         </flux:button>
     @endif
 </x-holocron.dashboard.goals.base>
