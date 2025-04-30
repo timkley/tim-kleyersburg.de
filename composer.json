@@ -8,7 +8,7 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^8.3",
+        "php": "^8.4",
         "benbjurstrom/prezet": "v1.0.0-rc6",
         "bugsnag/bugsnag-laravel": "^2.29",
         "laravel-notification-channels/discord": "dev-l12-compatibility",
@@ -19,7 +19,8 @@
         "livewire/flux-pro": "^2.0",
         "livewire/livewire": "^3.5.18",
         "spatie/laravel-feed": "^4.4",
-        "timkley/denk": "^0.2.0"
+        "timkley/denk": "^0.2.0",
+        "ext-dom": "*"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.15",

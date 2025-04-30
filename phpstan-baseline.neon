@@ -1,6 +1,36 @@
 parameters:
 	ignoreErrors:
 		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$description\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Livewire/Holocron/Bookmarks/Components/Bookmark.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$favicon\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Livewire/Holocron/Bookmarks/Components/Bookmark.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$summary\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Livewire/Holocron/Bookmarks/Components/Bookmark.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$url\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/Livewire/Holocron/Bookmarks/Components/Bookmark.php
+
+		-
+			message: '#^Parameter \#1 \$webpage of job class App\\Jobs\\CrawlWebpageInformation constructor expects App\\Models\\Webpage in App\\Jobs\\CrawlWebpageInformation\:\:dispatch\(\), Illuminate\\Database\\Eloquent\\Model\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Livewire/Holocron/Bookmarks/Components/Bookmark.php
+
+		-
 			message: '#^Method App\\Models\\Holocron\\Quest\:\:children\(\) should return Illuminate\\Database\\Eloquent\\Relations\\HasMany but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\Holocron\\Quest\>\.$#'
 			identifier: return.type
 			count: 1

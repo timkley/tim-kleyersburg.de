@@ -20,7 +20,7 @@ class BookmarkFactory extends Factory
     public function definition(): array
     {
         return [
-            'webpage_id' => Webpage::factory()
+            'webpage_id' => Webpage::factory(),
         ];
     }
 }

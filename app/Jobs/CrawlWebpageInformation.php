@@ -6,6 +6,7 @@ namespace App\Jobs;
 
 use App\Models\Webpage;
 use Denk\Facades\Denk;
+use Dom\HTMLDocument;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Support\Facades\Http;
@@ -14,25 +15,25 @@ class CrawlWebpageInformation implements ShouldQueue
 {
     use Queueable;
 
-    public function __construct(public Webpage $url) {}
+    public function __construct(public Webpage $webpage) {}
 
     public function handle(): void
     {
-        $url = $this->url->url;
+        $url = $this->webpage->url;
         $parsedUrl = parse_url($url);
 
         $faviconResponse = Http::get($parsedUrl['scheme'].'://'.$parsedUrl['host'].'/favicon.ico');
         $favicon = $faviconResponse->ok() ? $faviconResponse->body() : null;
-        $crawl = Http::withToken(config('services.firecrawl.api_key'))->post('https://firecrawl.wacg.dev/v1/scrape', [
-            'url' => $url,
-        ])->json();
 
-        $title = data_get($crawl, 'data.metadata.title');
-        $description = data_get($crawl, 'data.metadata.description');
-        /** @phpstan-ignore-next-line  */
-        $summary = $this->createSummary($description.' '.data_get($crawl, 'data.markdown') ?? data_get($crawl, 'data.rawHtml'));
+        $body = Http::get($url)->body();
+        $document = HTMLDocument::createFromString($body);
+        $title = $document->title;
+        $description = $document->querySelector('meta[name="description"]')?->getAttribute('content');
+        $content = $document->body->textContent;
 
-        $this->url->update([
+        $summary = $this->createSummary($description.' '.$content);
+
+        $this->webpage->update([
             'favicon' => $favicon,
             'title' => $title,
             'description' => $description,
