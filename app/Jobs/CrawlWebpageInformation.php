@@ -2,23 +2,23 @@
 
 declare(strict_types=1);
 
-namespace App\Jobs\Holocron;
+namespace App\Jobs;
 
-use App\Models\Holocron\Bookmark;
+use App\Models\Webpage;
 use Denk\Facades\Denk;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Support\Facades\Http;
 
-class CrawlBookmarkInformation implements ShouldQueue
+class CrawlWebpageInformation implements ShouldQueue
 {
     use Queueable;
 
-    public function __construct(public Bookmark $bookmark) {}
+    public function __construct(public Webpage $url) {}
 
     public function handle(): void
     {
-        $url = $this->bookmark->url;
+        $url = $this->url->url;
         $parsedUrl = parse_url($url);
 
         $faviconResponse = Http::get($parsedUrl['scheme'].'://'.$parsedUrl['host'].'/favicon.ico');
@@ -32,7 +32,7 @@ class CrawlBookmarkInformation implements ShouldQueue
         /** @phpstan-ignore-next-line  */
         $summary = $this->createSummary($description.' '.data_get($crawl, 'data.markdown') ?? data_get($crawl, 'data.rawHtml'));
 
-        $this->bookmark->update([
+        $this->url->update([
             'favicon' => $favicon,
             'title' => $title,
             'description' => $description,

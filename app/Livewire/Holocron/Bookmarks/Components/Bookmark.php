@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Livewire\Holocron\Bookmarks\Components;
 
-use App\Jobs\Holocron\CrawlBookmarkInformation;
+use App\Jobs\CrawlWebpageInformation;
 use App\Livewire\Holocron\HolocronComponent;
 use App\Models\Holocron\Bookmark as BookmarkModel;
 use Flux;
@@ -15,9 +15,13 @@ class Bookmark extends HolocronComponent
 {
     public BookmarkModel $bookmark;
 
+    public string $url;
+
     public ?string $title;
 
     public ?string $description;
+
+    public ?string $summary;
 
     public string $cleanUrl;
 
@@ -26,13 +30,15 @@ class Bookmark extends HolocronComponent
     public function mount(BookmarkModel $bookmark): void
     {
         $this->bookmark = $bookmark;
-        $parsedUrl = parse_url($this->bookmark->url);
+        $parsedUrl = parse_url($this->bookmark->webpage->url);
         $cleanUrl = mb_rtrim($parsedUrl['host'].($parsedUrl['path'] ?? ''), '/');
 
-        $this->title = $bookmark->title ?? $cleanUrl;
-        $this->description = $bookmark->description;
+        $this->url = $bookmark->webpage->url;
+        $this->title = $bookmark->webpage->title ?? $cleanUrl;
+        $this->description = $bookmark->webpage->description;
+        $this->summary = $bookmark->webpage->summary;
         $this->cleanUrl = $cleanUrl;
-        $this->base64Favicon = $bookmark->favicon ? 'data:image/x-icon;base64,'.base64_encode($bookmark->favicon) : null;
+        $this->base64Favicon = $bookmark->webpage->favicon ? 'data:image/x-icon;base64,'.base64_encode($bookmark->webpage->favicon) : null;
     }
 
     public function render(): View
@@ -43,7 +49,7 @@ class Bookmark extends HolocronComponent
     #[Renderless]
     public function recrawl(): void
     {
-        CrawlBookmarkInformation::dispatch($this->bookmark);
+        CrawlWebpageInformation::dispatch($this->bookmark->webpage);
 
         Flux::toast('Lesezeichen wird neu gecrawlt.');
     }

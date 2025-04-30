@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Database\Factories\Holocron;
 
+use App\Models\Webpage;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -19,11 +20,7 @@ class BookmarkFactory extends Factory
     public function definition(): array
     {
         return [
-            'url' => fake()->url(),
-            'favicon' => 'asdf',
-            'title' => fake()->sentence,
-            'description' => fake()->sentence,
-            'summary' => fake()->paragraph,
+            'webpage_id' => Webpage::factory()
         ];
     }
 }

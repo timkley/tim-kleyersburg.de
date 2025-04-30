@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace App\Livewire\Holocron\Bookmarks;
 
-use App\Jobs\Holocron\CrawlBookmarkInformation;
+use App\Jobs\CrawlWebpageInformation;
 use App\Livewire\Holocron\HolocronComponent;
 use App\Models\Holocron\Bookmark;
+use App\Models\Webpage;
 use Flux;
 use Illuminate\View\View;
 use Livewire\Attributes\Validate;
@@ -30,11 +31,14 @@ class Overview extends HolocronComponent
     {
         $this->validate();
 
-        $bookmark = Bookmark::create([
+        $webpage = Webpage::create([
             'url' => $this->url,
         ]);
+        CrawlWebpageInformation::dispatch($webpage);
 
-        CrawlBookmarkInformation::dispatch($bookmark);
+        Bookmark::create([
+            'webpage_id' => $webpage->id,
+        ]);
 
         $this->reset('url');
 

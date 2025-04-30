@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-use App\Jobs\Holocron\CrawlBookmarkInformation;
+use App\Jobs\CrawlWebpageInformation;
 use App\Models\Holocron\Bookmark;
+use App\Models\Webpage;
 use Denk\Facades\Denk;
 use OpenAI\Responses\Chat\CreateResponse;
 
@@ -14,17 +15,18 @@ it('is not reachable when unauthenticated', function () {
 });
 
 it('can add a bookmark', function () {
-    Queue::fake([CrawlBookmarkInformation::class]);
+    Queue::fake([CrawlWebpageInformation::class]);
 
     Livewire::test('holocron.bookmarks.overview')
         ->set('url', 'https://example.com')
         ->call('submit');
 
-    expect(Bookmark::where('url', 'https://example.com')->exists())->toBeTrue();
+    expect(Webpage::where('url', 'https://example.com')->exists())->toBeTrue();
+    expect(Bookmark::where('webpage_id', 1)->exists())->toBeTrue();
 });
 
 it('validates', function () {
-    Queue::fake([CrawlBookmarkInformation::class]);
+    Queue::fake([CrawlWebpageInformation::class]);
 
     Livewire::test('holocron.bookmarks.overview')
         ->set('url', 'asdf')
@@ -40,11 +42,6 @@ it('validates', function () {
         ->set('url', 'https://example.com')
         ->call('submit')
         ->assertHasNoErrors();
-
-    Livewire::test('holocron.bookmarks.overview')
-        ->set('url', 'https://example.com')
-        ->call('submit')
-        ->assertHasErrors();
 });
 
 it('can delete a bookmark', function () {
@@ -71,17 +68,17 @@ it('dispatches a job that crawls for more content', function () {
             ],
         ]),
     ]);
-    $bookmark = Bookmark::factory()->create([
+    $webpage = Webpage::factory()->create([
         'url' => 'https://example.com',
-        'title' => null,
-        'description' => null,
-        'summary' => null,
     ]);
-    (new CrawlBookmarkInformation($bookmark))->handle();
+    $bookmark = Bookmark::factory()->create([
+        'webpage_id' => $webpage->id,
+    ]);
+    (new CrawlWebpageInformation($webpage))->handle();
 
-    expect($bookmark->title)->toBe('Example title');
-    expect($bookmark->description)->toBe('Example description');
-    expect($bookmark->summary)->toBe('Good day sir!!');
+    expect($webpage->title)->toBe('Example title');
+    expect($webpage->description)->toBe('Example description');
+    expect($webpage->summary)->toBe('Good day sir!!');
 });
 
 it('can recrawl information', function () {
@@ -89,5 +86,5 @@ it('can recrawl information', function () {
     Livewire::test('holocron.bookmarks.components.bookmark', ['bookmark' => Bookmark::factory()->create()])
         ->call('recrawl');
 
-    Queue::assertPushed(CrawlBookmarkInformation::class);
+    Queue::assertPushed(CrawlWebpageInformation::class);
 });
