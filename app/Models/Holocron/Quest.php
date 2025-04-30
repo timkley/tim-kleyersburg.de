@@ -20,7 +20,8 @@ class Quest extends Model
     public function children(): HasMany
     {
         return $this->hasMany(self::class, 'quest_id')
-            ->when(! $this->exists, fn ($query) => $query->orWhereNull('quest_id'));
+            ->when(! $this->exists, fn ($query) => $query->orWhereNull('quest_id'))
+            ->notCompleted();
     }
 
     public function notes(): HasMany
