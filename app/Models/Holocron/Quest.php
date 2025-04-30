@@ -49,18 +49,20 @@ class Quest extends Model
     }
 
     #[Scope]
-    protected function notCompleted($query)
+    protected function notCompleted(EloquentBuilder $query)
     {
         return $query->whereNot('status', QuestStatus::Complete);
     }
 
     #[Scope]
-    protected function leafNodes($query)
+    protected function leafNodes(EloquentBuilder $query): EloquentBuilder
     {
-        return $query->whereNotExists(function ($query) {
-            $query->from('quests as children')
-                ->whereColumn('children.quest_id', 'quests.id');
-        });
+        return $query->whereNot('status', QuestStatus::Complete)
+            ->whereNotExists(function (Builder $query) {
+                $query->from('quests as children')
+                    ->whereColumn('children.quest_id', 'quests.id')
+                    ->whereNot('children.status', QuestStatus::Complete);
+            });
     }
 
     protected function casts(): array

@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Enums\Holocron\QuestStatus;
 use App\Models\Holocron\Quest;
 use App\Models\Holocron\QuestNote;
 
@@ -75,6 +76,7 @@ it('can find quests without children', function () {
     $rootQuest = Quest::factory()->create();
     $childQuest1 = Quest::factory()->create(['quest_id' => $rootQuest->id]);
     $childQuest2 = Quest::factory()->create(['quest_id' => $rootQuest->id]);
+    $childQuest3 = Quest::factory()->create(['quest_id' => $rootQuest->id]);
 
     // Create a leaf quest (child without children)
     $leafQuest1 = Quest::factory()->create(['quest_id' => $childQuest1->id]);
@@ -82,17 +84,19 @@ it('can find quests without children', function () {
     // Create another leaf quest without children under childQuest2
     $leafQuest3 = Quest::factory()->create(['quest_id' => $childQuest2->id]);
 
+    $leafQuest4 = Quest::factory()->create(['quest_id' => $childQuest3->id, 'status' => QuestStatus::Complete]);
+
     // Create an independent quest without children
     $leafQuest2 = Quest::factory()->create();
 
     $leafQuests = Quest::leafNodes()->get();
 
-    // Should find exactly 3 leaf quests now
-    expect($leafQuests)->toHaveCount(3);
+    // Should find exactly 4 leaf quests now
+    expect($leafQuests)->toHaveCount(4);
 
     // Verify the correct quests are identified as leaves
     expect($leafQuests->pluck('id')->all())
-        ->toEqualCanonicalizing([$leafQuest1->id, $leafQuest2->id, $leafQuest3->id]);
+        ->toEqualCanonicalizing([$childQuest3->id, $leafQuest1->id, $leafQuest2->id, $leafQuest3->id]);
 
     // Verify that non-leaf quests are not included
     expect($leafQuests->pluck('id')->all())
