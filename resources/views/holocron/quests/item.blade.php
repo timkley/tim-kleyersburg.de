@@ -23,7 +23,7 @@
             href="{{ route('holocron.quests', $quest->id) }}"
             wire:navigate
         >
-            <span class="truncate">
+            <span>
                 {{ $quest->name }}
             </span>
             @if($quest->children()->count())
