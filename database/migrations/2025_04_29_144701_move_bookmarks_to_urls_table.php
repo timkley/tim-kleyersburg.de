@@ -25,7 +25,7 @@ return new class extends Migration
                 'updated_at' => $bookmark->updated_at,
             ]);
 
-            Illuminate\Support\Facades\DB::table('bookmarks')->where('id', $bookmark->id)->update(['url_id' => $id]);
+            Illuminate\Support\Facades\DB::table('bookmarks')->where('id', $bookmark->id)->update(['webpage_id' => $id]);
         });
 
         // update schema, remove unnecessary columns
