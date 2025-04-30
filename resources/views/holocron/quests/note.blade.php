@@ -1,4 +1,4 @@
-<div class="bg-gray-100 dark:bg-gray-800 rounded-md p-4 space-y-2 relative">
+<div class="bg-gray-100 dark:bg-gray-800 rounded-md p-4 pr-16 space-y-2 relative">
     <p>
         {{ $note->content }}
     </p>
