@@ -46,6 +46,7 @@ class CrawlWebpageInformation implements ShouldQueue
     protected function createSummary(string $content): string
     {
         return Denk::text()
+            ->model('openai/gpt-4o-mini')
             ->prompt(<<<EOT
 Summarize the the given webpage content in triple quotes in 1-2 sentences, focus on the purpose only. Exclude information like:
 - login elements
