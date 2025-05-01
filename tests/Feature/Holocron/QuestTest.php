@@ -104,3 +104,16 @@ it('can find quests without children', function () {
         ->not->toContain($childQuest1->id)
         ->not->toContain($childQuest2->id);
 });
+
+it('can add links', function () {
+    Denk\Facades\Denk::fake();
+    Illuminate\Support\Facades\Bus::fake();
+    $quest = Quest::factory()->create();
+    QuestNote::factory()->for($quest)->create();
+
+    Livewire::test('holocron.quests.overview', [$quest->id])
+        ->set('linkDraft', 'https://example.com')
+        ->call('addLink');
+
+    Illuminate\Support\Facades\Bus::assertDispatched(App\Jobs\CrawlWebpageInformation::class);
+});

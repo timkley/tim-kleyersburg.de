@@ -26,7 +26,9 @@ class CrawlWebpageInformation implements ShouldQueue
         $favicon = $faviconResponse->ok() ? $faviconResponse->body() : null;
 
         $body = Http::get($url)->body();
+        libxml_use_internal_errors(true);
         $document = HTMLDocument::createFromString($body);
+        libxml_clear_errors();
         $title = $document->title;
         $description = $document->querySelector('meta[name="description"]')?->getAttribute('content');
         $content = $document->body->textContent;

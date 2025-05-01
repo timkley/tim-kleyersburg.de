@@ -20,7 +20,8 @@
         "livewire/livewire": "^3.5.18",
         "spatie/laravel-feed": "^4.4",
         "timkley/denk": "^0.3.0",
-        "ext-dom": "*"
+        "ext-dom": "*",
+        "ext-libxml": "*"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.15",
