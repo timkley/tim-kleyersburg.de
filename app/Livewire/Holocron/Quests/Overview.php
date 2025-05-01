@@ -10,6 +10,8 @@ use App\Livewire\Holocron\HolocronComponent;
 use App\Models\Holocron\Quest;
 use App\Models\Holocron\QuestNote;
 use App\Models\Webpage;
+use Denk\Facades\Denk;
+use Denk\ValueObjects\UserMessage;
 use Illuminate\View\View;
 use Livewire\Attributes\Title;
 use Livewire\Attributes\Validate;
@@ -43,6 +45,8 @@ class Overview extends HolocronComponent
     #[Validate('max:255')]
     public string $questDraft = '';
 
+    public array $subquestSuggestions = [];
+
     #[Validate('required')]
     #[Validate('min:3')]
     public string $noteDraft = '';
@@ -74,13 +78,15 @@ class Overview extends HolocronComponent
         $this->reset('image');
     }
 
-    public function addQuest(): void
+    public function addQuest(?string $name = null): void
     {
-        $this->validateOnly('questDraft');
+        if (is_null($name)) {
+            $this->validateOnly('questDraft');
+        }
 
         Quest::create([
             'quest_id' => $this->quest?->id,
-            'name' => $this->questDraft,
+            'name' => $name ?? $this->questDraft,
         ]);
 
         $this->reset(['questDraft']);
@@ -89,6 +95,48 @@ class Overview extends HolocronComponent
     public function deleteQuest(int $id): void
     {
         Quest::destroy($id);
+    }
+
+    public function generateSubquests(): void
+    {
+        $this->subquestSuggestions = Denk::json()
+            ->model('google/gemini-flash-1.5-8b')
+            ->properties([
+                'subtasks' => [
+                    'type' => 'array',
+                    'items' => [
+                        'type' => 'object',
+                        'properties' => [
+                            'name' => [
+                                'type' => 'string',
+                                'description' => 'The name of the subtask',
+                            ],
+                        ],
+                    ],
+                ],
+            ])
+            ->messages([
+                new UserMessage(
+                    <<<EOT
+Du bist ein Assistent zur Aufgabenzerlegung. Deine Aufgabe ist es, eine Hauptaufgabe in die nächsten logischen und umsetzbaren Unteraufgaben zu zerlegen.
+
+**Hauptaufgabe:**
+$this->name
+$this->description
+
+**Anweisungen:**
+
+1.  **Analysiere die Hauptaufgabe:** Identifiziere die *ersten* Schritte, die zur Bearbeitung notwendig sind.
+2.  **Generiere Unteraufgaben:** Erstelle eine Liste von maximal 3-5 Unteraufgaben.
+3.  **Reduziere Komplexität:** Jede Unteraufgabe muss *signifikant* einfacher sein als die Hauptaufgabe.
+4.  **Formulierung:** Schreibe klare, prägnante und handlungsorientierte Unteraufgaben (z.B. "Konzept erstellen", "Daten sammeln", "Kunden kontaktieren").
+5.  **Kontexthandhabung:** Wenn der Kontext der Hauptaufgabe unklar ist, schlage allgemeine erste Schritte vor, die typischerweise für eine solche Aufgabe anfallen, oder formuliere eine Unteraufgabe zur Klärung (z.B. "Anforderungen für [Thema] definieren").
+
+**Output:**
+Gib *nur* die Liste der generierten Unteraufgaben als JSON-Array zurück, eine pro Zeile, ohne zusätzliche Erklärungen oder Nummerierungen.
+EOT
+                ),
+            ])->generate()['subtasks'];
     }
 
     public function addLink(): void

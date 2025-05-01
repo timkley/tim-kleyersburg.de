@@ -90,9 +90,20 @@
                     @endforeach
                 </div>
 
-                <form wire:submit="addQuest" class="md:max-w-1/2">
-                    <flux:input wire:model="questDraft" placeholder="Neue Quest"/>
-                </form>
+                <div class="flex gap-x-3">
+                    <form wire:submit="addQuest" class="max-w-lg flex-1">
+                        <flux:input wire:model="questDraft" placeholder="Neue Quest"/>
+                    </form>
+                    <flux:button icon="sparkles" wire:click="generateSubquests">Unter-Quests vorschlagen</flux:button>
+                </div>
+
+                @foreach($subquestSuggestions as $suggestion)
+                    <flux:text class="max-w-lg flex justify-between items-center">
+                        {{ $suggestion['name'] }}
+
+                        <flux:button wire:click="addQuest('{{ $suggestion['name'] }}')" variant="filled" size="sm">Hinzufügen</flux:button>
+                    </flux:text>
+                @endforeach
             </div>
         </flux:card>
 

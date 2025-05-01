@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9a38013981759f81bad3467418007b2f",
+    "content-hash": "f693f3e0cdce2e19feaf56a919dbbac8",
     "packages": [
         {
             "name": "benbjurstrom/laravel-sitemap-lite",
@@ -7075,16 +7075,16 @@
         },
         {
             "name": "timkley/denk",
-            "version": "0.2.0",
+            "version": "0.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/timkley/denk.git",
-                "reference": "44304e69c6a18ffccbc461b8748be5fc503ddcbc"
+                "reference": "a57ba02ec8f936db6dd5a1c8b0a1d27706398ab5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/timkley/denk/zipball/44304e69c6a18ffccbc461b8748be5fc503ddcbc",
-                "reference": "44304e69c6a18ffccbc461b8748be5fc503ddcbc",
+                "url": "https://api.github.com/repos/timkley/denk/zipball/a57ba02ec8f936db6dd5a1c8b0a1d27706398ab5",
+                "reference": "a57ba02ec8f936db6dd5a1c8b0a1d27706398ab5",
                 "shasum": ""
             },
             "require": {
@@ -7093,14 +7093,14 @@
                 "illuminate/support": "^11.34|^12.0",
                 "openai-php/client": "^0.10.3",
                 "php": "^8.3|^8.4",
-                "symfony/http-client": "^7.1",
-                "vlucas/phpdotenv": "^5.6"
+                "symfony/http-client": "^7.2.4",
+                "vlucas/phpdotenv": "^5.6.2"
             },
             "require-dev": {
-                "laravel/pint": "^1.18",
-                "orchestra/testbench": "^9.6",
-                "pestphp/pest": "^3.5",
-                "phpstan/phpstan": "^2.0",
+                "laravel/pint": "^1.22",
+                "orchestra/testbench": "^9.6|^10.2.2",
+                "pestphp/pest": "^3.8.2",
+                "phpstan/phpstan": "^2.1.13",
                 "spatie/invade": "^2.1"
             },
             "type": "project",
@@ -7132,22 +7132,22 @@
             "description": "OpenAI helpers",
             "support": {
                 "issues": "https://github.com/timkley/denk/issues",
-                "source": "https://github.com/timkley/denk/tree/v0.2.0"
+                "source": "https://github.com/timkley/denk/tree/v0.3.1"
             },
-            "time": "2025-03-06T07:50:37+00:00"
+            "time": "2025-05-01T05:55:21+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
-            "version": "v5.6.1",
+            "version": "v5.6.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vlucas/phpdotenv.git",
-                "reference": "a59a13791077fe3d44f90e7133eb68e7d22eaff2"
+                "reference": "24ac4c74f91ee2c193fa1aaa5c249cb0822809af"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vlucas/phpdotenv/zipball/a59a13791077fe3d44f90e7133eb68e7d22eaff2",
-                "reference": "a59a13791077fe3d44f90e7133eb68e7d22eaff2",
+                "url": "https://api.github.com/repos/vlucas/phpdotenv/zipball/24ac4c74f91ee2c193fa1aaa5c249cb0822809af",
+                "reference": "24ac4c74f91ee2c193fa1aaa5c249cb0822809af",
                 "shasum": ""
             },
             "require": {
@@ -7206,7 +7206,7 @@
             ],
             "support": {
                 "issues": "https://github.com/vlucas/phpdotenv/issues",
-                "source": "https://github.com/vlucas/phpdotenv/tree/v5.6.1"
+                "source": "https://github.com/vlucas/phpdotenv/tree/v5.6.2"
             },
             "funding": [
                 {
@@ -7218,7 +7218,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-07-20T21:52:34+00:00"
+            "time": "2025-04-30T23:37:27+00:00"
         },
         {
             "name": "voku/portable-ascii",
