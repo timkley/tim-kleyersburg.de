@@ -100,7 +100,7 @@ class Overview extends HolocronComponent
         ]);
 
         if ($webpage->wasRecentlyCreated) {
-            new CrawlWebpageInformation($webpage)->handle();
+            CrawlWebpageInformation::dispatch($webpage);
         }
 
         $this->quest->webpages()->attach($webpage);
