@@ -37,6 +37,12 @@
                             wire:model.live="description"
                             placeholder="Beschreibung"
                         ></flux:textarea>
+                        <flux:input label="Neuer Link" wire:model="linkDraft" wire:keydown.enter="addLink" />
+                        @foreach($quest->webpages as $webpage)
+                            <flux:text>
+                                <flux:link href="{{ $webpage->url }}" target="_blank">{{ $webpage->title ?? $webpage->url }}</flux:link>
+                            </flux:text>
+                        @endforeach
                     </div>
 
                     <div class="space-y-4">

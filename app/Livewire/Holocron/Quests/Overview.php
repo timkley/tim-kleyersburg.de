@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace App\Livewire\Holocron\Quests;
 
 use App\Enums\Holocron\QuestStatus;
+use App\Jobs\CrawlWebpageInformation;
 use App\Livewire\Holocron\HolocronComponent;
 use App\Models\Holocron\Quest;
 use App\Models\Holocron\QuestNote;
+use App\Models\Webpage;
 use Illuminate\View\View;
 use Livewire\Attributes\Title;
 use Livewire\Attributes\Validate;
@@ -33,6 +35,10 @@ class Overview extends HolocronComponent
     public $image;
 
     #[Validate('required')]
+    #[Validate('url')]
+    public string $linkDraft = '';
+
+    #[Validate('required')]
     #[Validate('min:3')]
     #[Validate('max:255')]
     public string $questDraft = '';
@@ -43,7 +49,7 @@ class Overview extends HolocronComponent
 
     public function updating($property, $value): void
     {
-        if ($property === 'image') {
+        if (! in_array($property, ['name', 'description', 'status'])) {
             return;
         }
 
@@ -56,7 +62,7 @@ class Overview extends HolocronComponent
         $this->reset($property);
     }
 
-    public function updatedImage()
+    public function updatedImage(): void
     {
         $images = $this->quest->images ?? collect();
         $images = $images->push($this->image->store('quests', 'public'));
@@ -83,6 +89,21 @@ class Overview extends HolocronComponent
     public function deleteQuest(int $id): void
     {
         Quest::destroy($id);
+    }
+
+    public function addLink(): void
+    {
+        $this->validateOnly('linkDraft');
+
+        $webpage = Webpage::createOrFirst([
+            'url' => $this->linkDraft,
+        ]);
+
+        if ($webpage->wasRecentlyCreated) {
+            new CrawlWebpageInformation($webpage)->handle();
+        }
+
+        $this->quest->webpages()->attach($webpage);
     }
 
     public function addNote(): void

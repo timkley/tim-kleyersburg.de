@@ -14,4 +14,5 @@ class Webpage extends Model
 {
     /** @use HasFactory<\Database\Factories\WebpageFactory> */
     use HasFactory;
+
 }

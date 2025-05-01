@@ -27,7 +27,7 @@ it('dispatches a job that crawls for more content', function () {
         'description' => null,
         'summary' => null,
     ]);
-    (new CrawlWebpageInformation($webpage))->handle();
+    new CrawlWebpageInformation($webpage)->handle();
 
     expect($webpage->title)->toBe('Example title');
     expect($webpage->description)->toBe('Example description');
