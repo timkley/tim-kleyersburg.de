@@ -2,8 +2,8 @@
 date: 2024-11-25
 title: "Keys to Efficiency Part 3: Documenting for the Future"
 excerpt: Don't let your knowledge and experience go to waste and lose precious time.
-tags: [efficiency]
 rambling: true
+tags: [efficiency]
 image: /articles/img/ogimages/keys-to-effiency-part-3-documenting-the-future.webp
 ---
 

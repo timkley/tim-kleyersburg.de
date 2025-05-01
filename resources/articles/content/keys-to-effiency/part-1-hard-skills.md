@@ -2,8 +2,8 @@
 date: 2024-11-11
 title: "Keys to Efficiency Part 1: Hard Skills"
 excerpt: Imagine a carpenter who needs 10 minutes just to hold his hammer correctly – unimaginable, right?
-tags: [efficiency]
 rambling: true
+tags: [efficiency]
 image: /articles/img/ogimages/keys-to-effiency-part-1-hard-skills.webp
 ---
 

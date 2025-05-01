@@ -2,8 +2,8 @@
 date: 2024-11-18
 title: "Keys to Efficiency Part 2: Expanding the Toolbelt"
 excerpt: How to expand your digital toolbelt to work more efficiently.
-tags: [efficiency]
 rambling: true
+tags: [efficiency]
 image: /articles/img/ogimages/keys-to-effiency-part-2-expanding-the-toolbelt.webp
 ---
 
