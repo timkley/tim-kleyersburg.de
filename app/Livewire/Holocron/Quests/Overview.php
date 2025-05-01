@@ -152,6 +152,8 @@ EOT
         }
 
         $this->quest->webpages()->attach($webpage);
+
+        $this->reset(['linkDraft']);
     }
 
     public function addNote(): void
