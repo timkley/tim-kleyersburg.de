@@ -90,11 +90,13 @@
                     @endforeach
                 </div>
 
-                <div class="flex gap-x-3">
+                <div class="flex flex-col sm:flex-row gap-3">
                     <form wire:submit="addQuest" class="max-w-lg flex-1">
                         <flux:input wire:model="questDraft" placeholder="Neue Quest"/>
                     </form>
-                    <flux:button icon="sparkles" wire:click="generateSubquests">Unter-Quests vorschlagen</flux:button>
+                    <flux:button icon="sparkles" wire:click="generateSubquests">
+                        Quests vorschlagen
+                    </flux:button>
                 </div>
 
                 @foreach($subquestSuggestions as $suggestion)
