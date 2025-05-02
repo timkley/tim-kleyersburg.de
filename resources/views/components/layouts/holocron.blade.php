@@ -19,7 +19,7 @@
         </div>
     </x-slot>
 
-    <div class="mx-auto mt-12 max-w-5xl">
+    <div class="mx-auto mt-6 sm:mt-12 max-w-5xl">
         {{ $slot }}
     </div>
 
