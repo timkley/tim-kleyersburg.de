@@ -182,11 +182,7 @@ EOT
 
     public function render(): View
     {
-        return view('holocron.quests.overview');
-    }
-
-    public function rendering(View $view): void
-    {
-        $view->title($this->quest->name ?? 'Quests');
+        return view('holocron.quests.overview')
+            ->title($this->quest->name ?? 'Quests');
     }
 }
