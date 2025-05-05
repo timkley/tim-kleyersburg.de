@@ -10,7 +10,7 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('webpages', function (Blueprint $table) {
+        Schema::create('webpages', function (Blueprint $table): void {
             $table->id();
             $table->string('url');
             $table->binary('favicon')->nullable();

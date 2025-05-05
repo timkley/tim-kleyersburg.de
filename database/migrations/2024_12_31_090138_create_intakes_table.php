@@ -16,7 +16,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('intakes', function (Blueprint $table) {
+        Schema::create('intakes', function (Blueprint $table): void {
             $table->id();
             $table->string('type');
             $table->unsignedInteger('amount');
@@ -28,7 +28,7 @@ return new class extends Migration
             ->from('water_intakes')
             ->selectRaw('amount, created_at, updated_at')
             ->cursor()
-            ->each(function ($waterIntake) {
+            ->each(function ($waterIntake): void {
                 Intake::create([
                     'type' => GoalTypes::Water,
                     'amount' => $waterIntake->amount,

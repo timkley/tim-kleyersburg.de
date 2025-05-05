@@ -68,7 +68,7 @@ class DailyGoal extends Model
             ->whereColumn('amount', '>=', 'goal')
             ->orderBy('date')
             ->pluck('date')
-            ->map(fn ($d) => Carbon::parse($d))
+            ->map(fn ($d): Carbon => Carbon::parse($d))
             ->all();
 
         if (empty($dates)) {
@@ -106,7 +106,7 @@ class DailyGoal extends Model
     protected function reached(): Attribute
     {
         return Attribute::make(
-            get: fn () => $this->amount >= $this->goal,
+            get: fn (): bool => $this->amount >= $this->goal,
         );
     }
 }

@@ -10,7 +10,7 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('grind_sets', function (Blueprint $table) {
+        Schema::create('grind_sets', function (Blueprint $table): void {
             $table->id();
             $table->unsignedInteger('workout_id');
             $table->unsignedInteger('exercise_id');

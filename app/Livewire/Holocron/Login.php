@@ -19,6 +19,8 @@ class Login extends Component
         if (auth()->check()) {
             return $this->redirect(route('holocron.dashboard'));
         }
+
+        return null;
     }
 
     public function render(): View

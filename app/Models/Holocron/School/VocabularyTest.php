@@ -22,9 +22,9 @@ class VocabularyTest extends Model
 
     private ?Collection $cachedWords = null;
 
-    public function words()
+    public function words(): ?Collection
     {
-        if ($this->cachedWords === null) {
+        if (! $this->cachedWords instanceof Collection) {
             $this->cachedWords = VocabularyWord::whereIn('id', $this->word_ids ?? [])->get();
         }
 

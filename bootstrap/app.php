@@ -24,14 +24,14 @@ return Application::configure(basePath: dirname(__DIR__))
         commands: __DIR__.'/../routes/console.php',
         health: '/up',
     )
-    ->withMiddleware(function (Middleware $middleware) {
+    ->withMiddleware(function (Middleware $middleware): void {
         $middleware->redirectGuestsTo(fn (Request $request) => route('holocron.login'));
         $middleware->api([BearerToken::class]);
     })
-    ->withSchedule(function (Illuminate\Console\Scheduling\Schedule $schedule) {
+    ->withSchedule(function (Illuminate\Console\Scheduling\Schedule $schedule): void {
         $schedule->job(CreateDailyGoals::class)->dailyAt('00:01');
         $schedule->job(CheckForNewThings::class)->hourly()->between('7:00', '18:00');
     })
-    ->withExceptions(function (Exceptions $exceptions) {
+    ->withExceptions(function (Exceptions $exceptions): void {
         //
     })->create();

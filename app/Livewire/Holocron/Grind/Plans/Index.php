@@ -26,7 +26,7 @@ class Index extends HolocronComponent
         $this->reset('name');
     }
 
-    public function delete(int $id)
+    public function delete(int $id): void
     {
         Plan::destroy($id);
 

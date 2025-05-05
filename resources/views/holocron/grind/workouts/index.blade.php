@@ -36,7 +36,6 @@
                         <flux:card
                             size="sm"
                             class="hover:bg-zinc-50 dark:hover:bg-zinc-700 space-y-2"
-                            wire:click="start({{ $plan->id }})"
                         >
                             <flux:text>
                                 {{ $unfinishedWorkout->plan->name }}
@@ -54,7 +53,7 @@
     <div class="space-y-4">
         <flux:heading size="lg">
             Vergangene Workouts
-            <flux:badge size="sm" class="ml-2">{{ $allWorkoutsCount }}</flux:badge>
+            <flux:badge size="sm" class="ml-2">{{ $pastWorkouts->total() }}</flux:badge>
         </flux:heading>
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
             @foreach($pastWorkouts as $pastWorkout)
@@ -62,15 +61,14 @@
                     <flux:card
                         size="sm"
                         class="hover:bg-zinc-50 dark:hover:bg-zinc-700 space-y-2"
-                        wire:click="start({{ $plan->id }})"
                     >
                         <flux:text>
                             {{ $pastWorkout->plan->name }}
                         </flux:text>
                         <flux:heading class="flex items-center gap-x-1">
                             @php
-                                echo implode(', ', [
-                                    $pastWorkout->started_at->format('d.m., H:i'),
+                                echo implode(' ・ ', [
+                                    $pastWorkout->started_at->translatedFormat('j. M., H:i'),
                                     $pastWorkout->finished_at ? $pastWorkout->started_at->diffInMinutes($pastWorkout->finished_at) . ' Min' : null])
                             @endphp
                         </flux:heading>

@@ -39,7 +39,7 @@ class LastScrobble extends Component
             return data_get($response->json(), 'topartists.artist.0');
         });
 
-        return view('pages.components.last-scrobble', compact('track', 'topArtist'));
+        return view('pages.components.last-scrobble', ['track' => $track, 'topArtist' => $topArtist]);
     }
 
     public function placeholder()

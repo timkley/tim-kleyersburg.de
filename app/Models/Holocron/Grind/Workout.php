@@ -24,7 +24,7 @@ class Workout extends Model
     protected $table = 'grind_workouts';
 
     /**
-     * @return BelongsTo<Plan $this>
+     * @return BelongsTo<Plan, $this>
      */
     public function plan(): BelongsTo
     {

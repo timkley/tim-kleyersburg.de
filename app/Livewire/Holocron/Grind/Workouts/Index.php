@@ -35,9 +35,8 @@ class Index extends HolocronComponent
     {
         return view('holocron.grind.workouts.index', [
             'plans' => Plan::all(),
-            'unfinishedWorkouts' => Workout::query()->whereNull('finished_at')->get(),
+            'unfinishedWorkouts' => Workout::query()->whereNull('finished_at')->latest()->get(),
             'pastWorkouts' => Workout::query()->limit(10)->latest('finished_at')->paginate(10),
-            'allWorkoutsCount' => Workout::query()->count(),
         ]);
     }
 }

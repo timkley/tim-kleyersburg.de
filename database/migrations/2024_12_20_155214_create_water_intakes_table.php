@@ -10,7 +10,7 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('water_intakes', function (Blueprint $table) {
+        Schema::create('water_intakes', function (Blueprint $table): void {
             $table->id();
             $table->integer('amount');
             $table->timestamps();

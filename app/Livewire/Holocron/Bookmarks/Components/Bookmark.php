@@ -17,20 +17,20 @@ class Bookmark extends HolocronComponent
 
     public string $url;
 
-    public ?string $title;
+    public ?string $title = null;
 
-    public ?string $description;
+    public ?string $description = null;
 
-    public ?string $summary;
+    public ?string $summary = null;
 
     public string $cleanUrl;
 
-    public ?string $base64Favicon;
+    public ?string $base64Favicon = null;
 
     public function mount(BookmarkModel $bookmark): void
     {
         $this->bookmark = $bookmark;
-        $parsedUrl = parse_url($this->bookmark->webpage->url);
+        $parsedUrl = parse_url((string) $this->bookmark->webpage->url);
         $cleanUrl = mb_rtrim($parsedUrl['host'].($parsedUrl['path'] ?? ''), '/');
 
         $this->url = $bookmark->webpage->url;
@@ -38,7 +38,7 @@ class Bookmark extends HolocronComponent
         $this->description = $bookmark->webpage->description;
         $this->summary = $bookmark->webpage->summary;
         $this->cleanUrl = $cleanUrl;
-        $this->base64Favicon = $bookmark->webpage->favicon ? 'data:image/x-icon;base64,'.base64_encode($bookmark->webpage->favicon) : null;
+        $this->base64Favicon = $bookmark->webpage->favicon ? 'data:image/x-icon;base64,'.base64_encode((string) $bookmark->webpage->favicon) : null;
     }
 
     public function render(): View

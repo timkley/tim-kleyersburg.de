@@ -15,17 +15,13 @@ class Article
     {
         return Document::query()
             ->where('slug', $slug)
-            ->when(config('app.env') !== 'local', function ($query) {
-                return $query->where('draft', false);
-            })
+            ->when(config('app.env') !== 'local', fn ($query) => $query->where('draft', false))
             ->firstOrFail();
     }
 
     public static function published()
     {
-        return Document::when(fn ($query) => config('app.env') !== 'local', function ($query) {
-            return $query->where('draft', false);
-        })
+        return Document::when(fn ($query): bool => config('app.env') !== 'local', fn ($query) => $query->where('draft', false))
             ->orderBy('date', 'desc');
     }
 
@@ -33,7 +29,7 @@ class Article
     {
         return self::published()
             ->where('slug', '!=', $document->slug)
-            ->whereHas('tags', function ($query) use ($document) {
+            ->whereHas('tags', function ($query) use ($document): void {
                 $query->whereIn('tag_id', $document->tags->pluck('id'));
             })
             ->inRandomOrder()
@@ -45,7 +41,7 @@ class Article
     {
         return self::published()
             ->get()
-            ->map(fn (Document $document) => FeedItem::create([
+            ->map(fn (Document $document): FeedItem => FeedItem::create([
                 'id' => $document->slug,
                 'title' => $document->frontmatter->title,
                 'summary' => Prezet::parseMarkdown(Prezet::getMarkdown($document->filepath))->getContent(),

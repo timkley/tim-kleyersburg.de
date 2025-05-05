@@ -15,9 +15,11 @@ use Illuminate\Support\Facades\DB;
 
 class ImportWorkouts extends Command
 {
-    protected $signature = 'import:workouts {file}';
+    /** @var string */
+    protected $signature = 'import:ap-workouts {file}';
 
-    protected $description = 'Import workout data from a file';
+    /** @var string */
+    protected $description = 'Import workout data from a file into Grind module';
 
     // Mapping for plan names
     protected array $planMapping = [
@@ -81,7 +83,7 @@ class ImportWorkouts extends Command
     protected function processWorkout($workoutData): void
     {
         $this->info('Processing workout data');
-        $lines = explode("\n", $workoutData);
+        $lines = explode("\n", (string) $workoutData);
 
         // Process header information
         $headerLine = mb_trim($lines[0], "\"\r");
@@ -136,12 +138,15 @@ class ImportWorkouts extends Command
         // Process exercises and sets
         $currentExercise = null;
         $inSetsSection = false;
+        $counter = count($lines);
 
-        for ($i = 1; $i < count($lines); $i++) {
+        for ($i = 1; $i < $counter; $i++) {
             $line = mb_trim($lines[$i], "\"\r");
-
             // Skip empty lines
-            if (empty($line)) {
+            if ($line === '') {
+                continue;
+            }
+            if ($line === '0') {
                 continue;
             }
 
@@ -201,18 +206,18 @@ class ImportWorkouts extends Command
     protected function parseDuration($durationLine): array
     {
         // Matches e.g. "1:20 Std" or "1:20"
-        if (preg_match('/(\d+):(\d+)\s*Std/', $durationLine, $matches)) {
+        if (preg_match('/(\d+):(\d+)\s*Std/', (string) $durationLine, $matches)) {
             $hours = (int) $matches[1];
             $minutes = (int) $matches[2];
 
             return [$hours, $minutes];
         }
         // Matches e.g. "57 Min"
-        if (preg_match('/(\d+)\s*Min/i', $durationLine, $matches)) {
+        if (preg_match('/(\d+)\s*Min/i', (string) $durationLine, $matches)) {
             return [0, (int) $matches[1]];
         }
         // Matches e.g. "1 Std"
-        if (preg_match('/(\d+)\s*Std/i', $durationLine, $matches)) {
+        if (preg_match('/(\d+)\s*Std/i', (string) $durationLine, $matches)) {
             return [(int) $matches[1], 0];
         }
 

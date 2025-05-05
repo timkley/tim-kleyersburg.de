@@ -28,7 +28,7 @@ class Set extends Model
     protected $table = 'grind_sets';
 
     /**
-     * @return BelongsTo<Exercise $this>
+     * @return BelongsTo<Exercise, $this>
      */
     public function exercise(): BelongsTo
     {
@@ -36,7 +36,7 @@ class Set extends Model
     }
 
     /**
-     * @return BelongsTo<Workout $this>
+     * @return BelongsTo<Workout, $this>
      */
     public function workout(): BelongsTo
     {

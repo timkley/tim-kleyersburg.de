@@ -10,7 +10,7 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('quests', function (Blueprint $table) {
+        Schema::create('quests', function (Blueprint $table): void {
             $table->id();
             $table->foreignIdFor(App\Models\Holocron\Quest::class)->nullable();
             $table->string('name');

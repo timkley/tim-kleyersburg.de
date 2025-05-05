@@ -18,7 +18,7 @@ return new class extends Migration
             ->selectRaw('type, SUM(amount) as total, DATE(created_at) as date, unit, created_at, updated_at')
             ->groupBy('type', 'date')
             ->cursor()
-            ->each(function ($intake) {
+            ->each(function ($intake): void {
                 $goal = $intake->type === 'water' ? 2350 : $intake->total;
 
                 DB::table('daily_goals')->updateOrInsert(
