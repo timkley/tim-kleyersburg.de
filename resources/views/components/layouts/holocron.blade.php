@@ -16,10 +16,15 @@
                 wire:navigate
                 wire:current="font-semibold"
             >Quests</a>
+            <a
+                href="{{ route('holocron.grind.workouts.index') }}"
+                wire:navigate
+                wire:current="font-semibold"
+            >Grind</a>
         </div>
     </x-slot>
 
-    <div class="mx-auto mt-6 sm:mt-12 max-w-5xl">
+    <div class="mx-auto mt-6 max-w-5xl">
         {{ $slot }}
     </div>
 

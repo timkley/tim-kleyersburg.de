@@ -10,7 +10,7 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('vocabulary_words', function (Blueprint $table) {
+        Schema::create('vocabulary_words', function (Blueprint $table): void {
             $table->id();
             $table->string('english');
             $table->string('german');

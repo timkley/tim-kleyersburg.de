@@ -12,13 +12,11 @@ class Weather
 {
     public static function today(string $query = 'Fellbach'): Forecast
     {
-        $response = Cache::remember('weather', now()->addHours(2), function () use ($query) {
-            return Http::get('https://api.weatherapi.com/v1/forecast.json', [
-                'key' => config('services.weatherapi.api_key'),
-                'q' => $query,
-                'days' => 1,
-            ])->json();
-        });
+        $response = Cache::remember('weather', now()->addHours(2), fn () => Http::get('https://api.weatherapi.com/v1/forecast.json', [
+            'key' => config('services.weatherapi.api_key'),
+            'q' => $query,
+            'days' => 1,
+        ])->json());
 
         return new Forecast(
             minTemp: data_get($response, 'forecast.forecastday.0.day.mintemp_c'),

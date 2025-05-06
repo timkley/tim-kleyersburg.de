@@ -25,14 +25,12 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->bind(FrontmatterData::class, CustomFrontmatterData::class);
 
-        $this->app->bind(Untis::class, function () {
-            return new Untis(
-                server: 'hektor',
-                school: 'JoergR',
-                username: config('services.untis.user'),
-                password: config('services.untis.password')
-            );
-        });
+        $this->app->bind(Untis::class, fn (): Untis => new Untis(
+            server: 'hektor',
+            school: 'JoergR',
+            username: config('services.untis.user'),
+            password: config('services.untis.password')
+        ));
     }
 
     /**
@@ -60,13 +58,9 @@ class AppServiceProvider extends ServiceProvider
 
     private function configureGates(): void
     {
-        Gate::define('viewPulse', function (?User $user) {
-            return auth()->user()?->isTim() ? Response::allow() : redirect()->route('holocron.login');
-        });
+        Gate::define('viewPulse', fn (?User $user) => auth()->user()?->isTim() ? Response::allow() : redirect()->route('holocron.login'));
 
-        Gate::define('isTim', function (?User $user) {
-            return auth()->user()?->isTim() ? Response::allow() : redirect()->route('holocron.login');
-        });
+        Gate::define('isTim', fn (?User $user) => auth()->user()?->isTim() ? Response::allow() : redirect()->route('holocron.login'));
     }
 
     private function configureLivewire(): void

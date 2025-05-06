@@ -48,7 +48,7 @@ class CheckForNewThings implements ShouldQueue
     {
         $news = $this->untis->news();
 
-        $news->each(function (News $news) {
+        $news->each(function (News $news): void {
             $key = 'holocron.school.news.'.$news->id;
             $cached = $this->cache()->has($key);
 
@@ -67,8 +67,8 @@ class CheckForNewThings implements ShouldQueue
         $homeworks = $this->untis->homeworks(CarbonImmutable::today()->subDays(7), CarbonImmutable::today()->addDays(14));
 
         $homeworks
-            ->filter(fn (Homework $homework) => $homework->dueDate->isFuture())
-            ->each(function (Homework $homework) {
+            ->filter(fn (Homework $homework): bool => $homework->dueDate->isFuture())
+            ->each(function (Homework $homework): void {
                 $key = 'holocron.school.homeworks.'.$homework->id;
 
                 // don't notify for done homework
@@ -93,7 +93,7 @@ class CheckForNewThings implements ShouldQueue
     {
         $exams = $this->untis->exams(CarbonImmutable::today()->subDays(7), CarbonImmutable::today()->addDays(14));
 
-        $exams->each(function (Exam $exam) {
+        $exams->each(function (Exam $exam): void {
             $key = 'holocron.school.exams.'.$exam->id;
             $cached = $this->cache()->has($key);
 
@@ -112,9 +112,9 @@ class CheckForNewThings implements ShouldQueue
         $lessons = $this->untis->timetable(CarbonImmutable::today(), CarbonImmutable::today()->addDays(14));
 
         $lessons
-            ->filter(fn (Lesson $lesson) => $lesson->cancelled)
-            ->filter(fn (Lesson $lesson) => $lesson->end->isFuture())
-            ->each(function (Lesson $lesson) {
+            ->filter(fn (Lesson $lesson): bool => $lesson->cancelled)
+            ->filter(fn (Lesson $lesson): bool => $lesson->end->isFuture())
+            ->each(function (Lesson $lesson): void {
                 $key = 'holocron.school.lessons.'.$lesson->id;
                 $cached = $this->cache()->has($key);
 

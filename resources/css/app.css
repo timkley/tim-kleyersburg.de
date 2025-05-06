@@ -51,6 +51,15 @@
         margin-right: 8px;
         scroll-margin-top: 112px;
     }
+
+    .scrollbar {
+        @apply
+        [&::-webkit-scrollbar]:size-1.5
+        [&::-webkit-scrollbar-track]:bg-black/5
+        [&::-webkit-scrollbar-thumb]:bg-black/10
+        dark:[&::-webkit-scrollbar-track]:bg-white/5
+        dark:[&::-webkit-scrollbar-thumb]:bg-white/10;
+    }
 }
 
 @plugin "@tailwindcss/typography";

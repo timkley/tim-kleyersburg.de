@@ -17,7 +17,7 @@ use Throwable;
 
 class Untis
 {
-    public ?string $sessionId;
+    public ?string $sessionId = null;
 
     public int $personType;
 
@@ -40,7 +40,7 @@ class Untis
         );
 
         return collect(data_get($response, 'data.messagesOfDay'))
-            ->map(fn ($news) => News::createFromApi($news));
+            ->map(fn ($news): News => News::createFromApi($news));
     }
 
     public function timetable(CarbonImmutable $startDate, CarbonImmutable $endDate): Collection
@@ -75,7 +75,7 @@ class Untis
         );
 
         return collect(data_get($response, 'result'))
-            ->map(fn ($lesson) => Lesson::createFromApi($lesson));
+            ->map(fn ($lesson): Lesson => Lesson::createFromApi($lesson));
     }
 
     public function homeworks(CarbonImmutable $startDate, CarbonImmutable $endDate): Collection
@@ -91,13 +91,13 @@ class Untis
         try {
             $homeworks = collect($response['data']['homeworks'])->sortBy('dueDate');
             $lessons = collect($response['data']['lessons']);
-        } catch (Exception $e) {
+        } catch (Exception) {
             return collect();
         }
 
         $lessonsLookup = $lessons->keyBy('id');
 
-        $mergedHomeworks = $homeworks->map(function ($homework) use ($lessonsLookup) {
+        $mergedHomeworks = $homeworks->map(function (array $homework) use ($lessonsLookup): array {
             $lesson = $lessonsLookup->get($homework['lessonId']);
 
             if ($lesson) {
@@ -109,7 +109,7 @@ class Untis
         $response['data']['homeworks'] = $mergedHomeworks->toArray();
 
         return collect(data_get($response, 'data.homeworks'))
-            ->map(fn ($homework) => Homework::createFromApi($homework));
+            ->map(fn ($homework): Homework => Homework::createFromApi($homework));
     }
 
     public function exams(CarbonImmutable $startDate, CarbonImmutable $endDate): Collection
@@ -124,7 +124,7 @@ class Untis
         );
 
         return collect(data_get($response, 'data.exams'))
-            ->map(fn ($exam) => Exam::createFromApi($exam));
+            ->map(fn ($exam): Exam => Exam::createFromApi($exam));
     }
 
     public function request(string $method = 'get', string $url = 'jsonrpc.do', array $data = [], array $parameters = [])
@@ -158,7 +158,7 @@ class Untis
 
     private function login(): void
     {
-        $loginData = cache()->remember('untis.sessionid', now()->addMinutes(10), function () {
+        $loginData = cache()->remember('untis.sessionid', now()->addMinutes(10), function (): array {
             $response = retry(3, function () {
                 $response = $this->request(method: 'post', data: [
                     'id' => '1',
@@ -175,9 +175,7 @@ class Untis
                 }
 
                 return $response;
-            }, function (int $attempt, Throwable $exception) {
-                return $attempt * 10000;
-            });
+            }, fn (int $attempt, Throwable $exception): int => $attempt * 10000);
 
             return [
                 data_get($response, 'result.sessionId'),

@@ -68,7 +68,7 @@ class Quest extends Model
     protected function leafNodes(EloquentBuilder $query): EloquentBuilder
     {
         return $query->whereNot('status', QuestStatus::Complete)
-            ->whereNotExists(function (Builder $query) {
+            ->whereNotExists(function (Builder $query): void {
                 $query->from('quests as children')
                     ->whereColumn('children.quest_id', 'quests.id')
                     ->whereNot('children.status', QuestStatus::Complete);

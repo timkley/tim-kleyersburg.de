@@ -12,7 +12,7 @@ use Illuminate\View\View;
 
 class Information extends HolocronComponent
 {
-    private Untis $untis;
+    private readonly Untis $untis;
 
     public function __construct()
     {
@@ -31,21 +31,21 @@ class Information extends HolocronComponent
 
     private function news(): Collection
     {
-        return cache()->flexible('holocron.school.news', [now()->addMinutes(15), now()->addYear()], fn () => $this->untis->news());
+        return cache()->flexible('holocron.school.news', [now()->addMinutes(15), now()->addYear()], fn (): Collection => $this->untis->news());
     }
 
     private function timetable(): Collection
     {
-        return cache()->flexible('holocron.school.timetable', [now()->addMinutes(15), now()->addYear()], fn () => $this->untis->timetable(CarbonImmutable::today(), CarbonImmutable::today()->addDays(14)));
+        return cache()->flexible('holocron.school.timetable', [now()->addMinutes(15), now()->addYear()], fn (): Collection => $this->untis->timetable(CarbonImmutable::today(), CarbonImmutable::today()->addDays(14)));
     }
 
     private function homeworks(): Collection
     {
-        return cache()->flexible('holocron.school.homeworks', [now()->addMinutes(15), now()->addYear()], fn () => $this->untis->homeworks(CarbonImmutable::today()->subDays(10), CarbonImmutable::today()->addDays(21)));
+        return cache()->flexible('holocron.school.homeworks', [now()->addMinutes(15), now()->addYear()], fn (): Collection => $this->untis->homeworks(CarbonImmutable::today()->subDays(10), CarbonImmutable::today()->addDays(21)));
     }
 
     private function exams(): Collection
     {
-        return cache()->flexible('holocron.school.exams', [now()->addMinutes(15), now()->addYear()], fn () => $this->untis->exams(CarbonImmutable::today(), CarbonImmutable::today()->addDays(21)));
+        return cache()->flexible('holocron.school.exams', [now()->addMinutes(15), now()->addYear()], fn (): Collection => $this->untis->exams(CarbonImmutable::today(), CarbonImmutable::today()->addDays(21)));
     }
 }

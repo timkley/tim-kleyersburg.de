@@ -10,7 +10,7 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::table('quests', function (Blueprint $table) {
+        Schema::table('quests', function (Blueprint $table): void {
             $table->json('images')->after('description')->default('[]')->nullable();
         });
     }

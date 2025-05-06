@@ -18,4 +18,4 @@ arch()
     ->ignoring(App\Models\Article::class);
 
 arch()->preset()->php();
-arch()->preset()->security();
+arch()->preset()->security()->ignoring('Database\Factories');

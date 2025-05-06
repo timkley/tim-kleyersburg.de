@@ -26,7 +26,7 @@ class Home extends Component
             ->get();
     }
 
-    private function cvItems()
+    private function cvItems(): array
     {
         return [
             [

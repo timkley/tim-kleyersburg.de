@@ -27,7 +27,7 @@ class Vocabulary extends HolocronComponent
         $words = VocabularyWord::latest()->paginate(10);
         $tests = VocabularyTest::limit(10)->latest()->get();
 
-        return view('holocron.school.vocabulary', compact('words', 'tests'));
+        return view('holocron.school.vocabulary', ['words' => $words, 'tests' => $tests]);
     }
 
     public function addWord(): void
