@@ -6,8 +6,9 @@
                 @foreach($workout->plan->exercises as $index => $exercise)
                     <div
                         @class([
-                            'w-32 bg-black/5 dark:bg-white/10 rounded-lg flex-shrink-0 p-3 hyphens-auto flex flex-col justify-between gap-y-2',
-                            '!bg-sky-200 dark:!bg-sky-900' => $exercise->id === $currentExercise->id
+                            'w-32 bg-black/5 dark:bg-white/10 rounded-lg flex-shrink-0 p-3 hyphens-auto flex flex-col justify-between gap-y-2 scroll-mr-4',
+                            '!bg-sky-200 dark:!bg-sky-900' => $exercise->id === $currentExercise->id,
+                            'opacity-50' => $workout->sets->where('exercise_id', $exercise->id)->whereNotNull('finished_at')->count() === $exercise->pivot->sets
                         ])
                         wire:click="setExercise({{ $index }})"
                     >
@@ -30,18 +31,19 @@
             </div>
         </div>
 
-        <div class="grid grid-cols-[calc(var(--spacing)*6)_110px_125px_1fr] gap-4 gap-y-3">
+        <div class="grid grid-cols-[calc(var(--spacing)*5)_100px_125px_1fr] gap-x-3 gap-y-3">
             <div class="grid grid-cols-subgrid col-span-4 text-sm text-center">
-                <div class="font-mono">#</div>
+                <div></div>
                 <div>kg</div>
                 <div>Wdh.</div>
             </div>
             @foreach($workout->sets()->where('exercise_id', $currentExercise->id)->get() as $set)
-                <livewire:holocron.grind.workouts.set :$set
-                                                      :min-reps="$currentExercise->pivot->min_reps"
-                                                      :max-reps="$currentExercise->pivot->max_reps"
-                                                      :key="$set->id"
-                                                      :iteration="$loop->iteration"/>
+                <livewire:holocron.grind.workouts.set
+                    :$set
+                    :min-reps="$currentExercise->pivot->min_reps"
+                    :max-reps="$currentExercise->pivot->max_reps"
+                    :key="$set->id"
+                    :iteration="$loop->iteration"/>
             @endforeach
 
             <form wire:submit="recordSet" class="grid grid-cols-subgrid col-span-4">
@@ -56,10 +58,12 @@
 
         @if(!$workout->finished_at)
             <flux:button icon="check-badge" variant="primary" wire:click="finish">Workout abschließen</flux:button>
-        @else
-            Workout abgeschlossen
-        @endif
 
-        <livewire:holocron.grind.workouts.timer :$workout/>
+            <livewire:holocron.grind.workouts.timer :$workout/>
+        @else
+            <flux:text class="text-base">
+                Workout abgeschlossen 🚀
+            </flux:text>
+        @endif
     </div>
 </div>

@@ -1,6 +1,33 @@
 <div class="space-y-8">
     @include('holocron.grind.navigation')
 
+    @if($unfinishedWorkouts->count())
+        <div class="space-y-4">
+            <flux:heading size="lg">
+                Laufende Workouts
+            </flux:heading>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
+                @foreach($unfinishedWorkouts as $unfinishedWorkout)
+                    <a href="{{ route('holocron.grind.workouts.show', $unfinishedWorkout->id) }}" wire:navigate>
+                        <flux:card
+                            size="sm"
+                            class="hover:bg-zinc-50 dark:hover:bg-zinc-700 space-y-2"
+                        >
+                            <flux:text>
+                                {{ $unfinishedWorkout->plan->name }}
+                            </flux:text>
+                            <flux:heading class="flex items-center gap-x-1">
+                                {{ $unfinishedWorkout->started_at->format('d.m., H:i') }} Uhr
+                            </flux:heading>
+                        </flux:card>
+                    </a>
+                @endforeach
+            </div>
+        </div>
+
+        <flux:separator />
+    @endif
+
     <div class="space-y-1">
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
             @foreach($plans as $plan)
@@ -25,31 +52,6 @@
         </div>
     </div>
 
-    @if($unfinishedWorkouts->count())
-        <div class="space-y-4">
-            <flux:heading size="lg">
-                Angefangene Workouts
-            </flux:heading>
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
-                @foreach($unfinishedWorkouts as $unfinishedWorkout)
-                    <a href="{{ route('holocron.grind.workouts.show', $unfinishedWorkout->id) }}" wire:navigate>
-                        <flux:card
-                            size="sm"
-                            class="hover:bg-zinc-50 dark:hover:bg-zinc-700 space-y-2"
-                        >
-                            <flux:text>
-                                {{ $unfinishedWorkout->plan->name }}
-                            </flux:text>
-                            <flux:heading class="flex items-center gap-x-1">
-                                {{ $unfinishedWorkout->started_at->format('d.m., H:i') }} Uhr
-                            </flux:heading>
-                        </flux:card>
-                    </a>
-                @endforeach
-            </div>
-        </div>
-    @endif
-
     <div class="space-y-4">
         <flux:heading size="lg">
             Vergangene Workouts
@@ -65,7 +67,7 @@
                         <flux:text class="flex items-center gap-x-4">
                             {{ $pastWorkout->plan->name }}
                             <flux:badge size="sm" inset>
-                                {{ $pastWorkout->started_at->diffInMinutes($pastWorkout->finished_at) . ' Min' }}
+                                {{ round($pastWorkout->started_at->diffInMinutes($pastWorkout->finished_at)) . ' Min' }}
                             </flux:badge>
                         </flux:text>
                         <flux:heading class="flex items-center gap-x-1">
