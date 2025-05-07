@@ -30,16 +30,8 @@
                 <flux:badge size="sm">{{ $quest->children->count() }}<span class="hidden sm:inline">&nbsp;Unter-Quests</span></flux:badge>
             @endif
         </a>
-        @php($crumbs = $quest->getBreadcrumb()->reverse()->slice(1))
-
-        @if($withBreadcrumb && $crumbs->count())
-            <flux:breadcrumbs class="mt-1">
-                @foreach($crumbs as $crumb)
-                    <flux:breadcrumbs.item class="!font-light" href="{{ route('holocron.quests', $crumb->id) }}" wire:navigate>
-                        {{ $crumb->name }}
-                    </flux:breadcrumbs.item>
-                @endforeach
-            </flux:breadcrumbs>
+        @if($quest->parent)
+            <flux:link class="text-sm" href="{{ route('holocron.quests', $quest->parent->id) }}">{{ $quest->parent->name }}</flux:link>
         @endif
     </div>
 

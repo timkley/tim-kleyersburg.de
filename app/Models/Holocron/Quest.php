@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Casts\AsCollection;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Query\Builder;
@@ -22,11 +23,18 @@ class Quest extends Model
     /** @use HasFactory<QuestFactory> */
     use HasFactory;
 
+    protected $with = ['parent'];
+
     public function children(): HasMany
     {
         return $this->hasMany(self::class, 'quest_id')
             ->when(! $this->exists, fn ($query) => $query->orWhereNull('quest_id'))
             ->notCompleted();
+    }
+
+    public function parent(): BelongsTo
+    {
+        return $this->belongsTo(self::class, 'quest_id');
     }
 
     public function webpages(): BelongsToMany

@@ -3,14 +3,18 @@
 
 <div>
     <div class="space-y-4">
-        <flux:breadcrumbs>
-            <flux:breadcrumbs.item href="{{ route('holocron.quests') }}" wire:navigate icon="home"/>
-            @foreach($quest->getBreadcrumb() as $crumb)
-                <flux:breadcrumbs.item href="{{ route('holocron.quests', $crumb->id) }}" wire:navigate class="whitespace-nowrap">
-                    {{ $crumb->name }}
-                </flux:breadcrumbs.item>
-            @endforeach
-        </flux:breadcrumbs>
+        @php($breadcrumb = $quest->getBreadcrumb())
+
+        @if($breadcrumb->count())
+            <flux:breadcrumbs>
+                <flux:breadcrumbs.item href="{{ route('holocron.quests') }}" wire:navigate icon="home"/>
+                @foreach($breadcrumb as $crumb)
+                    <flux:breadcrumbs.item href="{{ route('holocron.quests', $crumb->id) }}" wire:navigate class="whitespace-nowrap">
+                        {{ $crumb->name }}
+                    </flux:breadcrumbs.item>
+                @endforeach
+            </flux:breadcrumbs>
+        @endif
 
         @unless($quest->exists)
             <flux:card>
