@@ -33,6 +33,7 @@ enum GoalTypes: string
     {
         return match ($this) {
             self::Planks => true,
+            self::Creatine => true,
             default => false,
         };
     }
