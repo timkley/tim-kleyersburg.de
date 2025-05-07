@@ -26,8 +26,8 @@
             <span>
                 {{ $quest->name }}
             </span>
-            @if($quest->children()->count())
-                <flux:badge size="sm">{{ $quest->children()->count() }}<span class="hidden sm:inline">&nbsp;Unter-Quests</span></flux:badge>
+            @if($quest->children->count())
+                <flux:badge size="sm">{{ $quest->children->count() }}<span class="hidden sm:inline">&nbsp;Unter-Quests</span></flux:badge>
             @endif
         </a>
         @php($crumbs = $quest->getBreadcrumb()->reverse()->slice(1))

@@ -6,6 +6,7 @@ namespace App\Models\Holocron;
 
 use App\Enums\Holocron\QuestStatus;
 use App\Models\Webpage;
+use Database\Factories\Holocron\QuestFactory;
 use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Casts\AsCollection;
@@ -18,7 +19,7 @@ use Illuminate\Database\Query\Builder;
 
 class Quest extends Model
 {
-    /** @use HasFactory<\Database\Factories\Holocron\QuestFactory> */
+    /** @use HasFactory<QuestFactory> */
     use HasFactory;
 
     public function children(): HasMany
