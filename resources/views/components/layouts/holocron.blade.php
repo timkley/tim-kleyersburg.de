@@ -14,10 +14,10 @@
         </div>
     </x-slot>
 
-    <div class="mx-auto mt-6 max-w-5xl">
+    <div class="mx-auto mt-6 max-w-5xl mb-24">
         {{ $slot }}
 
-        <div class="fixed px-4 py-3 bg-white shadow-md border border-black/10 w-fit bottom-10 inset-x-0 mx-auto rounded-full">
+        <div class="fixed px-4 py-3 bg-white/90 dark:bg-slate-700/80 backdrop-blur-lg shadow shadow-blue-400/30 border border-black/10 w-fit bottom-10 inset-x-0 mx-auto rounded-full">
             <div class="flex gap-x-3">
                 <a
                     href="{{ route('holocron.dashboard') }}"
