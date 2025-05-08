@@ -1,27 +1,28 @@
-<div>
+<div class="space-y-8">
     @include('holocron.grind.navigation')
 
-    <div class="space-y-4 mt-3">
-        <div class="space-y-1">
+    <div class="space-y-4">
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
             @foreach($exercises as $exercise)
-                <flux:text class="flex items-center justify-between">
-                    {{ $exercise->name }}
-
-                    <flux:button wire:click="delete({{ $exercise->id }})" size="sm" icon="trash" variant="subtle" />
-                </flux:text>
+                <a href="{{ route('holocron.grind.exercises.show', $exercise->id) }}" wire:navigate>
+                    <flux:card size="sm">
+                        {{ $exercise->name }}
+                    </flux:card>
+                </a>
             @endforeach
+            <flux:modal.trigger name="new">
+                <flux:button class="h-full min-h-10" variant="primary">Neue Übung</flux:button>
+            </flux:modal.trigger>
         </div>
 
-        <flux:separator />
+        <flux:modal name="new" variant="flyout">
+            <form wire:submit="submit" class="space-y-2">
+                <flux:input label="Name" wire:model="name" />
+                <flux:input label="Beschreibung" wire:model="description" />
+                <flux:input label="Instruktionen" wire:model="instructions" />
 
-        <flux:heading size="lg">Neue Übung</flux:heading>
-
-        <form wire:submit="submit" class="space-y-2">
-            <flux:input label="Name" wire:model="name" />
-            <flux:input label="Beschreibung" wire:model="description" />
-            <flux:input label="Instruktionen" wire:model="instructions" />
-
-            <flux:button type="submit">Submit</flux:button>
-        </form>
+                <flux:button variant="primary" type="submit">Speichern</flux:button>
+            </form>
+        </flux:modal>
     </div>
 </div>

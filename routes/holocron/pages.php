@@ -15,7 +15,9 @@ Route::middleware('auth')->name('holocron.')->prefix('holocron')->group(function
 
     Route::get('/quests/{quest?}', Quests\Overview::class)->name('quests');
 
+    Route::get('/grind', fn () => to_route('holocron.grind.workouts.index'))->name('grind');
     Route::get('/grind/exercises', Grind\Exercises\Index::class)->name('grind.exercises.index');
+    Route::get('/grind/exercises/{exercise}', Grind\Exercises\Show::class)->name('grind.exercises.show');
     Route::get('/grind/plans', Grind\Plans\Index::class)->name('grind.plans.index');
     Route::get('/grind/plans/{plan}', Grind\Plans\Show::class)->name('grind.plans.show');
     Route::get('/grind/workouts', Grind\Workouts\Index::class)->name('grind.workouts.index');

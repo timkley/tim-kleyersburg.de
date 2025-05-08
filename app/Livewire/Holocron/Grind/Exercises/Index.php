@@ -28,6 +28,7 @@ class Index extends HolocronComponent
         Exercise::create($validated);
 
         $this->reset('name');
+        Flux::modal('new')->close();
     }
 
     public function delete(int $id): void

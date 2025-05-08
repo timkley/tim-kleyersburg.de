@@ -32,7 +32,7 @@
                 >Quests</a>
 
                 <a
-                    href="{{ route('holocron.grind.workouts.index') }}"
+                    href="{{ route('holocron.grind') }}"
                     wire:navigate
                     wire:current="font-semibold"
                 >Grind</a>

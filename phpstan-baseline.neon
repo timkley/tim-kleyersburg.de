@@ -31,6 +31,12 @@ parameters:
 			path: app/Livewire/Holocron/Bookmarks/Components/Bookmark.php
 
 		-
+			message: '#^Parameter \#1 \$callback of method Illuminate\\Database\\Eloquent\\Collection\<int,App\\Models\\Holocron\\Grind\\Set\>\:\:map\(\) contains unresolvable type\.$#'
+			identifier: argument.unresolvableType
+			count: 1
+			path: app/Livewire/Holocron/Grind/Exercises/Show.php
+
+		-
 			message: '#^Method App\\Models\\Holocron\\Quest\:\:children\(\) should return Illuminate\\Database\\Eloquent\\Relations\\HasMany but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\Holocron\\Quest\>\.$#'
 			identifier: return.type
 			count: 1
