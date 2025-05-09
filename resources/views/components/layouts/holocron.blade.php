@@ -40,7 +40,7 @@
                 @if($workout = Workout::query()->whereNotNull('started_at')->whereNull('finished_at')->limit(1)->first())
                     <flux:separator vertical />
 
-                    <a href="{{ route('holocron.grind.workouts.show', $workout->id) }}">
+                    <a href="{{ route('holocron.grind.workouts.show', $workout->id) }}" class="animate-rotate-wiggle">
                         <flux:icon icon="biceps-flexed" />
                     </a>
                 @endif

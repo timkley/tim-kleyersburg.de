@@ -24,6 +24,16 @@
     --color-zinc-800: var(--color-gray-800);
     --color-zinc-900: var(--color-gray-900);
     --color-zinc-950: var(--color-gray-950);
+
+    --animate-rotate-wiggle: rotate-wiggle 3s ease-out infinite;
+    @keyframes rotate-wiggle {
+        4%, 12% {
+            transform: rotate(10deg);
+        }
+        8%, 16% {
+            transform: rotate(0deg);
+        }
+    }
 }
 
 @source '../views';
