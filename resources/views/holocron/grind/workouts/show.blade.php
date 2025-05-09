@@ -53,7 +53,9 @@
                 <flux:button type="submit" icon="arrow-right"/>
             </form>
         </div>
-        <livewire:holocron.grind.workouts.timer :$workout/>
+        @if(!$workout->finished_at)
+            <livewire:holocron.grind.workouts.timer :$workout/>
+        @endif
 
         <flux:separator class="mt-4"/>
 

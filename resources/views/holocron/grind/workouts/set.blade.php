@@ -22,13 +22,13 @@
         <span class="text-sm">#</span>{{ $iteration }}
     </div>
     <flux:input.group>
-        @if($set->finished_at && $set->reps < $minReps)
+        @if($set->reps < $minReps)
             <flux:input.group.prefix class="!px-2">
                 <flux:icon class="text-red-500" variant="micro" icon="arrow-down" />
             </flux:input.group.prefix>
         @endif
         <flux:input class:input="text-center font-bold" wire:model.lazy="weight" :loading="false" wire:dirty.class="bg-yellow-50 dark:bg-yellow-900" />
-            @if($set->finished_at && $set->reps >= $maxReps)
+            @if($set->reps >= $maxReps)
                 <flux:input.group.suffix class="!px-2">
                     <flux:icon class="text-green-700 dark:text-green-600" variant="micro" icon="arrow-up" />
                 </flux:input.group.suffix>
