@@ -2,26 +2,28 @@
     @include('holocron.grind.navigation')
 
     <div class="space-y-4 mt-3">
-        <div class="space-y-1">
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
             @foreach($plans as $plan)
-                <flux:text class="flex items-center justify-between">
-                    <flux:link href="{{ route('holocron.grind.plans.show', [$plan->id]) }}" wire:navigate>
-                        {{ $plan->name }}
-                    </flux:link>
-
-                    <flux:button wire:click="delete({{ $plan->id }})" size="sm" icon="trash" variant="subtle"/>
-                </flux:text>
+                <a href="{{ route('holocron.grind.plans.show', $plan->id) }}" wire:navigate>
+                    <flux:card size="sm">
+                        <flux:text class="flex items-center justify-between">
+                            {{ $plan->name }}
+                        </flux:text>
+                    </flux:card>
+                </a>
             @endforeach
+
+            <flux:modal.trigger name="new">
+                <flux:button class="h-full min-h-10" variant="primary">Neuer Plan</flux:button>
+            </flux:modal.trigger>
         </div>
 
-        <flux:separator/>
+        <flux:modal name="new" variant="flyout">
+            <form wire:submit="submit" class="space-y-2">
+                <flux:input label="Name" wire:model="name"/>
 
-        <flux:heading size="lg">Neuer Plan</flux:heading>
-
-        <form wire:submit="submit" class="space-y-2">
-            <flux:input label="Name" wire:model="name"/>
-
-            <flux:button type="submit">Submit</flux:button>
-        </form>
+                <flux:button type="submit" variant="primary">Speichern</flux:button>
+            </form>
+        </flux:modal>
     </div>
 </div>
