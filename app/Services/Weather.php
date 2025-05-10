@@ -19,9 +19,9 @@ class Weather
         ])->json());
 
         return new Forecast(
-            minTemp: data_get($response, 'forecast.forecastday.0.day.mintemp_c'),
-            maxTemp: data_get($response, 'forecast.forecastday.0.day.maxtemp_c'),
-            condition: data_get($response, 'current.condition.text'),
+            minTemp: data_get($response, 'forecast.forecastday.0.day.mintemp_c', 0),
+            maxTemp: data_get($response, 'forecast.forecastday.0.day.maxtemp_c', 0),
+            condition: data_get($response, 'current.condition.text', 'unknown'),
         );
     }
 }
