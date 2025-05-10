@@ -1,15 +1,17 @@
 <div>
     <div class="space-y-6">
-        <div class="flex overflow-x-auto pb-2 scrollbar -mx-6"
-             x-init="$el.querySelector('.\\!bg-sky-200').scrollIntoView({ block: 'nearest' })">
+        <div class="flex overflow-x-auto pb-2 scrollbar -mx-6">
             <div class="flex grow px-6 gap-x-4">
                 @foreach($workout->plan->exercises as $index => $exercise)
                     <div
                         @class([
-                            'w-32 bg-black/5 dark:bg-white/10 rounded-lg flex-shrink-0 p-3 hyphens-auto flex flex-col justify-between gap-y-2 scroll-mr-4',
+                            'w-32 bg-black/5 dark:bg-white/10 rounded-lg flex-shrink-0 p-3 hyphens-auto flex flex-col justify-between gap-y-2 scroll-mx-4',
                             '!bg-sky-200 dark:!bg-sky-900' => $exercise->id === $currentExercise->id,
                             'opacity-50' => $workout->sets->where('exercise_id', $exercise->id)->whereNotNull('finished_at')->count() === $exercise->pivot->sets
                         ])
+                        @if($exercise->id === $currentExercise->id)
+                            data-current
+                        @endif
                         wire:click="setExercise({{ $index }})"
                     >
                         <div class="font-semibold">
@@ -68,3 +70,20 @@
         @endif
     </div>
 </div>
+
+@script
+<script>
+    const scrollIntoView = (el) => {
+        el.scrollIntoView({
+            behavior: 'smooth',
+            block: 'center',
+        })
+    }
+
+    scrollIntoView(document.querySelector('[data-current]'))
+
+    Livewire.hook('morphed', () => {
+        scrollIntoView(document.querySelector('[data-current]'))
+    })
+</script>
+@endscript
