@@ -6,7 +6,6 @@ namespace App\Livewire\Holocron\Grind\Exercises;
 
 use App\Livewire\Holocron\HolocronComponent;
 use App\Models\Holocron\Grind\Exercise;
-use App\Models\Holocron\Grind\Set;
 use Illuminate\View\View;
 
 class Show extends HolocronComponent
@@ -16,7 +15,7 @@ class Show extends HolocronComponent
     public function render(): View
     {
         $data = $this->exercise->volumePerWorkout()
-            ->map(fn (Set $set) => [
+            ->map(fn ($set): array => [
                 'date' => $set->workout->finished_at,
                 /** @phpstan-ignore-next-line */
                 'total_volume' => $set->total_volume,
