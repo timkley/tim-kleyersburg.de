@@ -27,7 +27,13 @@
                 <flux:icon class="text-red-500" variant="micro" icon="arrow-down" />
             </flux:input.group.prefix>
         @endif
-        <flux:input class:input="text-center font-bold" wire:model.lazy="weight" :loading="false" wire:dirty.class="bg-yellow-50 dark:bg-yellow-900" />
+        <flux:input
+            class:input="text-center font-bold"
+            wire:model.lazy="weight"
+            wire:dirty.class="bg-yellow-50 dark:bg-yellow-900"
+            inputmode="decimal"
+            :loading="false"
+        />
             @if($set->reps >= $maxReps)
                 <flux:input.group.suffix class="!px-2">
                     <flux:icon class="text-green-700 dark:text-green-600" variant="micro" icon="arrow-up" />
@@ -36,7 +42,13 @@
     </flux:input.group>
     <flux:input.group>
         <flux:input.group.prefix x-on:click="$wire.reps--; $wire.commit()">-</flux:input.group.prefix>
-        <flux:input class:input="text-center font-bold" wire:model.lazy="reps" :loading="false"  wire:dirty.class="bg-yellow-50 dark:bg-yellow-900"/>
+        <flux:input
+            class:input="text-center font-bold"
+            wire:model.lazy="reps"
+            wire:dirty.class="bg-yellow-50 dark:bg-yellow-900"
+            :loading="false"
+            inputmode="numeric"
+        />
         <flux:input.group.suffix x-on:click="$wire.reps++; $wire.commit()">+</flux:input.group.suffix>
     </flux:input.group>
     @if(!$set->started_at && !$set->finished_at)
