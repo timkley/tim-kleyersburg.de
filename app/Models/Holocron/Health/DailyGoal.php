@@ -7,6 +7,7 @@ namespace App\Models\Holocron\Health;
 use App\Enums\Holocron\Health\GoalTypes;
 use App\Enums\Holocron\Health\GoalUnits;
 use Carbon\CarbonImmutable;
+use Database\Factories\Holocron\Health\DailyGoalFactory;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -14,24 +15,29 @@ use Illuminate\Support\Carbon;
 
 class DailyGoal extends Model
 {
-    /** @use HasFactory<\Database\Factories\Holocron\Health\DailyGoalFactory> */
+    /** @use HasFactory<DailyGoalFactory> */
     use HasFactory;
 
     public static function for(GoalTypes $type, ?CarbonImmutable $date = null): self
     {
         $date ??= today();
 
-        return self::firstOrCreate(
-            [
-                'date' => $date->toDateString(),
-                'type' => $type,
-            ],
-            [
-                'unit' => $type->unit(),
-                'goal' => $type->goal(),
-                'amount' => $type->defaultAmount(),
-            ]
-        );
+        $goal = self::query()
+            ->where('date', $date->toDateString())
+            ->where('type', $type)
+            ->get();
+
+        if ($goal->isNotEmpty()) {
+            return $goal->first();
+        }
+
+        return self::create([
+            'date' => $date->toDateString(),
+            'type' => $type,
+            'unit' => $type->unit(),
+            'goal' => $type->goal(),
+            'amount' => $type->defaultAmount(),
+        ]);
     }
 
     public static function currentStreakFor(GoalTypes $type): int
