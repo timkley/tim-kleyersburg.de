@@ -13,6 +13,9 @@ class News
         return new self($id, $subject, $text);
     }
 
+    /**
+     * @param  array<string, mixed>  $item
+     */
     public static function createFromApi(array $item): self
     {
         return self::create(

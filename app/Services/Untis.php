@@ -30,6 +30,9 @@ class Untis
         $this->login();
     }
 
+    /**
+     * @return Collection<int, News>
+     */
     public function news(): Collection
     {
         $response = $this->request(
@@ -39,10 +42,13 @@ class Untis
             ]
         );
 
-        return collect(data_get($response, 'data.messagesOfDay'))
+        return new Collection(data_get($response, 'data.messagesOfDay'))
             ->map(fn ($news): News => News::createFromApi($news));
     }
 
+    /**
+     * @return Collection<int, Lesson>
+     */
     public function timetable(CarbonImmutable $startDate, CarbonImmutable $endDate): Collection
     {
         $response = $this->request(
@@ -74,10 +80,13 @@ class Untis
             ]
         );
 
-        return collect(data_get($response, 'result'))
+        return new Collection(data_get($response, 'result'))
             ->map(fn ($lesson): Lesson => Lesson::createFromApi($lesson));
     }
 
+    /**
+     * @return Collection<int, Homework>
+     */
     public function homeworks(CarbonImmutable $startDate, CarbonImmutable $endDate): Collection
     {
         $response = $this->request(
@@ -89,10 +98,10 @@ class Untis
         );
 
         try {
-            $homeworks = collect($response['data']['homeworks'])->sortBy('dueDate');
-            $lessons = collect($response['data']['lessons']);
+            $homeworks = new Collection($response['data']['homeworks'])->sortBy('dueDate');
+            $lessons = new Collection($response['data']['lessons']);
         } catch (Exception) {
-            return collect();
+            return new Collection;
         }
 
         $lessonsLookup = $lessons->keyBy('id');
@@ -108,10 +117,13 @@ class Untis
         });
         $response['data']['homeworks'] = $mergedHomeworks->toArray();
 
-        return collect(data_get($response, 'data.homeworks'))
+        return new Collection(data_get($response, 'data.homeworks'))
             ->map(fn ($homework): Homework => Homework::createFromApi($homework));
     }
 
+    /**
+     * @return Collection<int, Exam>
+     */
     public function exams(CarbonImmutable $startDate, CarbonImmutable $endDate): Collection
     {
         $response = $this->request(
@@ -123,10 +135,15 @@ class Untis
             ]
         );
 
-        return collect(data_get($response, 'data.exams'))
+        return new Collection(data_get($response, 'data.exams'))
             ->map(fn ($exam): Exam => Exam::createFromApi($exam));
     }
 
+    /**
+     * @param  array<string, mixed>  $data
+     * @param  array<string, mixed>  $parameters
+     * @return array<string, mixed>
+     */
     public function request(string $method = 'get', string $url = 'jsonrpc.do', array $data = [], array $parameters = [])
     {
         $response = Http::beforeSending(fn (Request $request) => logger()->channel('untis')->debug('Request', ['url' => $request->url(), 'data' => $request->data(), 'method' => $request->method()]))
@@ -150,7 +167,7 @@ class Untis
         if ($unauthenticated) {
             $this->login();
 
-            return $this->request(...);
+            return $this->request($method, $url, $data, $parameters);
         }
 
         return $response->json();

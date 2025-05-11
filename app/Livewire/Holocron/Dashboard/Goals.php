@@ -51,6 +51,9 @@ class Goals extends Component
         DailyGoal::for(GoalTypes::from($type), $this->selectedDate)->increment('amount', $amount);
     }
 
+    /**
+     * @return Collection <int, DailyGoal>
+     */
     private function getGoalsForPeriod(int $days): Collection
     {
         $startDate = now()->subDays($days);

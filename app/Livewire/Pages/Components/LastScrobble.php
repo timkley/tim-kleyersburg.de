@@ -42,7 +42,7 @@ class LastScrobble extends Component
         return view('pages.components.last-scrobble', ['track' => $track, 'topArtist' => $topArtist]);
     }
 
-    public function placeholder()
+    public function placeholder(): View
     {
         return view('pages.components.last-scrobble');
     }

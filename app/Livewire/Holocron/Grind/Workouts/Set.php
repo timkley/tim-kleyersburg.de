@@ -34,7 +34,7 @@ class Set extends HolocronComponent
         'set:started' => '$refresh',
     ];
 
-    public function updated($property, $value): void
+    public function updated(string $property, mixed $value): void
     {
         $this->validateOnly($property);
 

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models\Holocron\Grind;
 
+use App\Models\Holocron\Quest;
 use Database\Factories\Holocron\Grind\SetFactory;
 use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
@@ -19,6 +20,7 @@ use Illuminate\Support\Carbon;
  * @property-read int $weight
  * @property-read ?Carbon $started_at
  * @property-read ?Carbon $finished_at
+ * @property-read ?float $total_volume
  */
 class Set extends Model
 {
@@ -43,6 +45,10 @@ class Set extends Model
         return $this->belongsTo(Workout::class);
     }
 
+    /**
+     * @param  EloquentBuilder<Quest>  $query
+     * @return EloquentBuilder<Quest>
+     */
     #[Scope]
     protected function siblings(EloquentBuilder $query): EloquentBuilder
     {

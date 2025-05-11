@@ -109,6 +109,9 @@ class DailyGoal extends Model
         ];
     }
 
+    /**
+     * @return Attribute<bool, never>
+     */
     protected function reached(): Attribute
     {
         return Attribute::make(

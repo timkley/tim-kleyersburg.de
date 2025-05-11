@@ -12,6 +12,7 @@ class Timer extends HolocronComponent
 {
     public Workout $workout;
 
+    /** @var string[] */
     protected $listeners = [
         'set:started' => '$refresh',
         'set:stopped' => '$refresh',

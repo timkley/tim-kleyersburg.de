@@ -12,6 +12,8 @@ use App\Models\Holocron\QuestNote;
 use App\Models\Webpage;
 use Denk\Facades\Denk;
 use Denk\ValueObjects\UserMessage;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Collection;
 use Illuminate\View\View;
 use Livewire\Attributes\Title;
 use Livewire\Attributes\Validate;
@@ -33,6 +35,7 @@ class Overview extends HolocronComponent
 
     public QuestStatus $status;
 
+    /** @var ?UploadedFile */
     #[Validate('image')]
     public $image;
 
@@ -45,13 +48,14 @@ class Overview extends HolocronComponent
     #[Validate('max:255')]
     public string $questDraft = '';
 
+    /** @var string[] */
     public array $subquestSuggestions = [];
 
     #[Validate('required')]
     #[Validate('min:3')]
     public string $noteDraft = '';
 
-    public function updating($property, $value): void
+    public function updating(string $property, mixed $value): void
     {
         if (! in_array($property, ['name', 'description', 'status'])) {
             return;
@@ -68,8 +72,15 @@ class Overview extends HolocronComponent
 
     public function updatedImage(): void
     {
-        $images = $this->quest->images ?? collect();
-        $images = $images->push($this->image->store('quests', 'public'));
+        /** @var Collection<int, string> $images */
+        $images = $this->quest->images;
+
+        $storedPath = $this->image->store('quests', 'public');
+        if (! $storedPath) {
+            return;
+        }
+
+        $images = $images->push($storedPath);
 
         $this->quest->update([
             'images' => $images,

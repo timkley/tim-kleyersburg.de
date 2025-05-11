@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Livewire\Pages;
 
 use App\Models\Article;
+use BenBjurstrom\Prezet\Models\Document;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\View\View;
 use Livewire\Component;
 
@@ -19,13 +21,19 @@ class Home extends Component
         ]);
     }
 
-    private function articles()
+    /**
+     * @return Collection<int, Document>
+     */
+    private function articles(): Collection
     {
         return Article::published()
             ->take(5)
             ->get();
     }
 
+    /**
+     * @return array<int, array<string, string>>
+     */
     private function cvItems(): array
     {
         return [
@@ -60,6 +68,9 @@ class Home extends Component
         ];
     }
 
+    /**
+     * @return array<int, array<string, string>>
+     */
     private function contactItems(): array
     {
         return [

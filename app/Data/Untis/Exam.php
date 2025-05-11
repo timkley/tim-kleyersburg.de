@@ -15,6 +15,9 @@ class Exam
         return new self($id, $subject, $date, $text);
     }
 
+    /**
+     * @param  array<string, mixed>  $item
+     */
     public static function createFromApi(array $item): self
     {
         return self::create(

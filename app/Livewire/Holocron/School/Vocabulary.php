@@ -47,7 +47,7 @@ class Vocabulary extends HolocronComponent
         VocabularyWord::find($id)->delete();
     }
 
-    public function startTest(int $count = 50)
+    public function startTest(int $count = 50): null
     {
         $wordIds = VocabularyWord::orderByRaw('`right` - `wrong`')->limit($count)->pluck('id')->toArray();
 

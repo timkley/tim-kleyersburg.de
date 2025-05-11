@@ -6,11 +6,16 @@ namespace App\Models;
 
 use BenBjurstrom\Prezet\Models\Document;
 use BenBjurstrom\Prezet\Prezet;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection as EloquentCollection;
+use Illuminate\Support\Collection;
 use Spatie\Feed\FeedItem;
 
 class Article
 {
+    /**
+     * @return Document
+     */
     public static function find(string $slug)
     {
         return Document::query()
@@ -19,13 +24,19 @@ class Article
             ->firstOrFail();
     }
 
+    /**
+     * @return Builder<Document>
+     */
     public static function published()
     {
         return Document::when(fn ($query): bool => config('app.env') !== 'local', fn ($query) => $query->where('draft', false))
             ->orderBy('date', 'desc');
     }
 
-    public static function related(Document $document): Collection
+    /**
+     * @return EloquentCollection<int, Document>
+     */
+    public static function related(Document $document): EloquentCollection
     {
         return self::published()
             ->where('slug', '!=', $document->slug)
@@ -37,7 +48,10 @@ class Article
             ->get();
     }
 
-    public static function getAllFeedItems()
+    /**
+     * @return Collection<int, FeedItem>
+     */
+    public static function getAllFeedItems(): Collection
     {
         return self::published()
             ->get()

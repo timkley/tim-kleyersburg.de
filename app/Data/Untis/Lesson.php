@@ -15,6 +15,9 @@ class Lesson
         return new self($id, $subject, $start, $end, $cancelled);
     }
 
+    /**
+     * @param  array<string, mixed>  $item
+     */
     public static function createFromApi(array $item): self
     {
         $subject = data_get($item, 'su.0.longname') ?? data_get($item, 'lstext');

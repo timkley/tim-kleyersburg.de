@@ -18,6 +18,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Query\Builder;
 
+/** @property-read \Illuminate\Support\Collection $images */
+/** @property-read QuestStatus $status */
 class Quest extends Model
 {
     /** @use HasFactory<QuestFactory> */
@@ -25,28 +27,44 @@ class Quest extends Model
 
     protected $with = ['parent'];
 
+    /**
+     * @return HasMany<Quest, $this>
+     */
     public function children(): HasMany
     {
+        /** @var HasMany<Quest, $this> */
         return $this->hasMany(self::class, 'quest_id')
             ->when(! $this->exists, fn ($query) => $query->orWhereNull('quest_id'))
             ->notCompleted();
     }
 
+    /**
+     * @return BelongsTo<Quest, $this>
+     */
     public function parent(): BelongsTo
     {
         return $this->belongsTo(self::class, 'quest_id');
     }
 
+    /**
+     * @return BelongsToMany<Webpage, $this>
+     */
     public function webpages(): BelongsToMany
     {
         return $this->belongsToMany(Webpage::class);
     }
 
+    /**
+     * @return HasMany<QuestNote, $this>
+     */
     public function notes(): HasMany
     {
         return $this->hasMany(QuestNote::class);
     }
 
+    /**
+     * @return Collection<int, Quest>
+     */
     public function getBreadcrumb(): Collection
     {
         $breadcrumb = new Collection;
@@ -67,12 +85,20 @@ class Quest extends Model
         return $breadcrumb->reverse();
     }
 
+    /**
+     * @param  EloquentBuilder<Quest>  $query
+     * @return EloquentBuilder<Quest>
+     */
     #[Scope]
-    protected function notCompleted(EloquentBuilder $query)
+    protected function notCompleted(EloquentBuilder $query): EloquentBuilder
     {
         return $query->whereNot('status', QuestStatus::Complete);
     }
 
+    /**
+     * @param  EloquentBuilder<Quest>  $query
+     * @return EloquentBuilder<Quest>
+     */
     #[Scope]
     protected function leafNodes(EloquentBuilder $query): EloquentBuilder
     {

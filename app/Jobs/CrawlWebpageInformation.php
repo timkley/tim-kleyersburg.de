@@ -22,6 +22,10 @@ class CrawlWebpageInformation implements ShouldQueue
         $url = $this->webpage->url;
         $parsedUrl = parse_url($url);
 
+        if (! $parsedUrl) {
+            return;
+        }
+
         $faviconResponse = Http::get($parsedUrl['scheme'].'://'.$parsedUrl['host'].'/favicon.ico');
         $favicon = $faviconResponse->ok() ? $faviconResponse->body() : null;
 

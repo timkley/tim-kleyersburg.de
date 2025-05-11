@@ -20,8 +20,12 @@ class VocabularyTest extends Model
         'wrong_ids' => '[]',
     ];
 
+    /** @var ?Collection<int, VocabularyWord> */
     private ?Collection $cachedWords = null;
 
+    /**
+     * @return ?Collection<int,VocabularyWord>
+     */
     public function words(): ?Collection
     {
         if (! $this->cachedWords instanceof Collection) {
@@ -31,17 +35,26 @@ class VocabularyTest extends Model
         return $this->cachedWords;
     }
 
-    public function correct()
+    /**
+     * @return ?Collection<int,VocabularyWord>
+     */
+    public function correct(): ?Collection
     {
         return VocabularyWord::whereIn('id', $this->correct_ids ?? [])->get();
     }
 
-    public function wrong()
+    /**
+     * @return ?Collection<int,VocabularyWord>
+     */
+    public function wrong(): ?Collection
     {
         return VocabularyWord::whereIn('id', $this->wrong_ids ?? [])->get();
     }
 
-    public function leftWords()
+    /**
+     * @return ?Collection<int,VocabularyWord>
+     */
+    public function leftWords(): ?Collection
     {
         $allWords = $this->words();
         $correctWords = $this->correct();

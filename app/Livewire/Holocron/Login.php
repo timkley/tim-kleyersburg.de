@@ -14,7 +14,7 @@ class Login extends Component
 
     public string $password = '';
 
-    public function mount()
+    public function mount(): null
     {
         if (auth()->check()) {
             return $this->redirect(route('holocron.dashboard'));

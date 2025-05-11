@@ -50,6 +50,6 @@ trait CalculatesGoals
 
     protected function plankGoal(): int
     {
-        return max(90, DailyGoal::where('type', GoalTypes::Planks)->max('amount') + 5);
+        return max(90, (int) DailyGoal::where('type', GoalTypes::Planks)->max('amount') + 5);
     }
 }

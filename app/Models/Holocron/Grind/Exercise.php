@@ -41,7 +41,7 @@ class Exercise extends Model
         return $this->hasMany(Set::class);
     }
 
-    public function personalRecord()
+    public function personalRecord(): ?Set
     {
         return $this->sets()
             ->select('*', DB::raw('reps * weight as product'))

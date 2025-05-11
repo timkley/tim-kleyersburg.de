@@ -29,7 +29,7 @@ class VocabularyWord extends Component
         return view('holocron.school.components.vocabulary-word');
     }
 
-    public function updated($property, $value): void
+    public function updated(string $property, mixed $value): void
     {
         $this->word->update([
             $property => $value,

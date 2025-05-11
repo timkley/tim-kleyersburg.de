@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\Http;
 
 class Nasa
 {
+    /**
+     * @return Collection<int, array<string, mixed>>
+     */
     public static function apod(): Collection
     {
         return Cache::remember('apod', now()->endOfDay(), function () {

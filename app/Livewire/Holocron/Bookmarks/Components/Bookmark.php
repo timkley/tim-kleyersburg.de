@@ -31,7 +31,7 @@ class Bookmark extends HolocronComponent
     {
         $this->bookmark = $bookmark;
         $parsedUrl = parse_url((string) $this->bookmark->webpage->url);
-        $cleanUrl = mb_rtrim($parsedUrl['host'].($parsedUrl['path'] ?? ''), '/');
+        $cleanUrl = mb_rtrim(($parsedUrl['host'] ?? '').($parsedUrl['path'] ?? ''), '/');
 
         $this->url = $bookmark->webpage->url;
         $this->title = $bookmark->webpage->title ?? $cleanUrl;
@@ -54,7 +54,7 @@ class Bookmark extends HolocronComponent
         Flux::toast('Lesezeichen wird neu gecrawlt.');
     }
 
-    public function updated($property, $value): void
+    public function updated(string $property, mixed $value): void
     {
         $this->bookmark->update([
             $property => $value,

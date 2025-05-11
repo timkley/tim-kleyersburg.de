@@ -12,13 +12,13 @@ class VocabularyTest extends HolocronComponent
 {
     public VocabularyTestModel $test;
 
-    public $blurred = true;
+    public bool $blurred = true;
 
     public string $mode = 'random';
 
     public function render(): View
     {
-        $word = $this->test->leftWords()->count() ? $this->test->leftWords()->random() : null;
+        $word = $this->test->leftWords()->count() !== 0 ? $this->test->leftWords()->random() : null;
 
         return view('holocron.school.vocabulary-test', [
             'word' => $word,

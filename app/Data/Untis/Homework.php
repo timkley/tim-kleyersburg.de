@@ -15,6 +15,9 @@ class Homework
         return new self($id, $subject, $date, $dueDate, $text, $done);
     }
 
+    /**
+     * @param  array<string, mixed>  $item
+     */
     public static function createFromApi(array $item): self
     {
         return self::create(
