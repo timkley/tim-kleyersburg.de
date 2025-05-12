@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Notifications\Holocron\School;
 
 use App\Data\Untis\Exam;
-use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use NotificationChannels\Discord\DiscordChannel;
@@ -25,7 +24,7 @@ class NewExam extends Notification
         return [DiscordChannel::class];
     }
 
-    public function toDiscord(User $notifiable): DiscordMessage
+    public function toDiscord(DiscordChannel $notifiable): DiscordMessage
     {
         return DiscordMessage::create("Eine neue Klassenarbeit wurde angekündigt: **{$this->exam->subject}** am {$this->exam->date->format('d.m.Y')}.");
     }
