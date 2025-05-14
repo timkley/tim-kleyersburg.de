@@ -24,7 +24,7 @@ class NewExam extends Notification
         return [DiscordChannel::class];
     }
 
-    public function toDiscord(DiscordChannel $notifiable): DiscordMessage
+    public function toDiscord(Notification $notifiable): DiscordMessage
     {
         return DiscordMessage::create("Eine neue Klassenarbeit wurde angekündigt: **{$this->exam->subject}** am {$this->exam->date->format('d.m.Y')}.");
     }

@@ -25,7 +25,7 @@ class NewNews extends Notification
         return [DiscordChannel::class];
     }
 
-    public function toDiscord(DiscordChannel $notifiable): DiscordMessage
+    public function toDiscord(Notification $notifiable): DiscordMessage
     {
         $text = str($this->news->text)
             ->when($this->news->subject, fn (Stringable $string) => $string->prepend("**{$this->news->subject}:** "))

@@ -24,7 +24,7 @@ class ClassCancelled extends Notification
         return [DiscordChannel::class];
     }
 
-    public function toDiscord(DiscordChannel $notifiable): DiscordMessage
+    public function toDiscord(Notification $notifiable): DiscordMessage
     {
         return DiscordMessage::create("Am **{$this->lesson->start->format('d.m.Y')}** um {$this->lesson->start->format('H:i')} fällt {$this->lesson->subject} aus.");
     }
