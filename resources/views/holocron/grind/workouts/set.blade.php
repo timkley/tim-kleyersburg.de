@@ -33,6 +33,7 @@
             wire:dirty.class="bg-yellow-50 dark:bg-yellow-900"
             inputmode="decimal"
             :loading="false"
+            x-on:input="$event.target.value = $event.target.value.replace(',', '.')"
         />
             @if($set->reps >= $maxReps)
                 <flux:input.group.suffix class="!px-2">
