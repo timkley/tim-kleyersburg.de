@@ -61,13 +61,15 @@
 
         <flux:separator class="mt-4"/>
 
-        @if(!$workout->finished_at)
-            <flux:button icon="check-badge" variant="primary" wire:click="finish">Workout abschließen</flux:button>
-        @else
-            <flux:text class="text-base">
-                Workout abgeschlossen 🚀
-            </flux:text>
-        @endif
+        <div class="flex justify-center">
+            @if(!$workout->finished_at)
+                <flux:button class="mx-auto" icon="check-badge" variant="primary" wire:click="finish">Workout abschließen</flux:button>
+            @else
+                <flux:text class="text-base">
+                    Workout abgeschlossen 🚀
+                </flux:text>
+            @endif
+        </div>
     </div>
 </div>
 
