@@ -4,7 +4,7 @@
     <flux:heading size="xl">{{ $exercise->name }}</flux:heading>
 
     <flux:text class="text-base">
-        PR: <span class="font-semibold">{{ $exercise->personalRecord()->product }}&nbsp;kg</span> Volumen / Set
+        PR: <span class="font-semibold">{{ $exercise->personalRecord()->volume }}&nbsp;kg</span> Volumen / Set
     </flux:text>
 
     <flux:chart :value="$data" class="aspect-[3/1]">

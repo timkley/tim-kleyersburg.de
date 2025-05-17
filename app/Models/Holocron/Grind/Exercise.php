@@ -44,8 +44,8 @@ class Exercise extends Model
     public function personalRecord(): ?Set
     {
         return $this->sets()
-            ->select('*', DB::raw('reps * weight as product'))
-            ->orderBy('product', 'desc')
+            ->limit(1)
+            ->orderBy('volume', 'desc')
             ->first();
     }
 
@@ -58,12 +58,12 @@ class Exercise extends Model
             ->select(
                 'workout_id',
                 DB::raw('MAX(finished_at) as workout_completed_at'), // Be explicit: e.g., last set's finish time for the workout
-                DB::raw('SUM(reps * weight) as total_volume') // Calculate sum of product
+                DB::raw('SUM(volume) as total_volume') // Calculate sum of product
             )
             ->whereNotNull('finished_at')
             ->orderBy('workout_completed_at', 'desc') // Order by the aggregated time
             ->groupBy('workout_id', 'finished_at')
-            ->limit(20)
+            ->limit(30)
             ->get()
             ->reverse();
     }
