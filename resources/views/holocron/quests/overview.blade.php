@@ -122,7 +122,12 @@
         </flux:card>
 
         @if($quest->exists)
-            <flux:card>
+            <flux:card class="space-y-3">
+                <form wire:submit="addNote" class="space-y-4">
+                    <flux:textarea wire:model="noteDraft" placeholder="Neue Notiz"/>
+                    <flux:button type="submit" variant="primary">Kommentar speichern</flux:button>
+                </form>
+
                 @if($quest->has('notes'))
                     <div class="space-y-2">
                         @foreach($quest->notes()->latest()->get() as $note)
@@ -130,11 +135,6 @@
                         @endforeach
                     </div>
                 @endif
-
-                <form wire:submit="addNote" class="space-y-4 mt-3">
-                    <flux:textarea wire:model="noteDraft" placeholder="Neue Notiz"/>
-                    <flux:button type="submit" variant="primary">Kommentar speichern</flux:button>
-                </form>
             </flux:card>
         @endif
     </div>
