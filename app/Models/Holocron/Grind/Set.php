@@ -18,6 +18,7 @@ use Illuminate\Support\Carbon;
  * @property-read int $workout_id
  * @property-read int $reps
  * @property-read int $weight
+ * @property-read float $volume
  * @property-read ?Carbon $started_at
  * @property-read ?Carbon $finished_at
  * @property-read ?float $total_volume
