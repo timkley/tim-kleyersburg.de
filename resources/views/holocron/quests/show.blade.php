@@ -119,13 +119,11 @@
                     x-on:change="$wire.upload('image', $event.target.files[0])"
                 >
             </div>
-            @teleport('body')
             @foreach($quest->images as $image)
                 <flux:modal :name="'image.' . $image" :key="'image.' . $image">
                     <img src="{{ asset($image) }}" alt="">
                 </flux:modal>
             @endforeach
-            @endteleport
         </div>
 
         <flux:separator class="mt-12 mb-8" text="Unter-Quests"/>
