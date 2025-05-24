@@ -28,22 +28,20 @@ class Quest extends Model
     protected $with = ['parent'];
 
     /**
-     * @return HasMany<Quest, $this>
-     */
-    public function children(): HasMany
-    {
-        /** @var HasMany<Quest, $this> */
-        return $this->hasMany(self::class, 'quest_id')
-            ->when(! $this->exists, fn ($query) => $query->orWhereNull('quest_id'))
-            ->notCompleted();
-    }
-
-    /**
      * @return BelongsTo<Quest, $this>
      */
     public function parent(): BelongsTo
     {
         return $this->belongsTo(self::class, 'quest_id');
+    }
+
+    /**
+     * @return HasMany<Quest, $this>
+     */
+    public function children(): HasMany
+    {
+        /** @var HasMany<Quest, $this> */
+        return $this->hasMany(self::class, 'quest_id');
     }
 
     /**
@@ -65,7 +63,7 @@ class Quest extends Model
     /**
      * @return Collection<int, Quest>
      */
-    public function getBreadcrumb(): Collection
+    public function breadcrumb(): Collection
     {
         $breadcrumb = new Collection;
         $current = $this;
@@ -100,16 +98,17 @@ class Quest extends Model
      * @return EloquentBuilder<Quest>
      */
     #[Scope]
-    protected function leafNodes(EloquentBuilder $query): EloquentBuilder
+    protected function noChildren(EloquentBuilder $query): EloquentBuilder
     {
-        return $query->whereNot('status', QuestStatus::Complete)
-            ->whereNotExists(function (Builder $query): void {
-                $query->from('quests as children')
-                    ->whereColumn('children.quest_id', 'quests.id')
-                    ->whereNot('children.status', QuestStatus::Complete);
-            });
+        return $query->whereNotExists(function (Builder $query): void {
+            $query->from('quests as children')
+                ->whereColumn('children.quest_id', 'quests.id');
+        });
     }
 
+    /**
+     * @return string[]
+     */
     protected function casts(): array
     {
         return [

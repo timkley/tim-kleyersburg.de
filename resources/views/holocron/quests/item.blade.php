@@ -1,4 +1,3 @@
-@props(['withBreadcrumb' => false])
 @use(App\Enums\Holocron\QuestStatus)
 
 <div class="flex">
@@ -20,7 +19,7 @@
 
     <div class="flex flex-col sm:flex-row sm:items-center ml-1 space-x-3">
         <a
-            href="{{ route('holocron.quests', $quest->id) }}"
+            href="{{ route('holocron.quests.show', $quest->id) }}"
             wire:navigate
         >
             <span>
@@ -31,11 +30,11 @@
             @endif
         </a>
         @if($quest->parent)
-            <flux:link class="text-sm" href="{{ route('holocron.quests', $quest->parent->id) }}">{{ $quest->parent->name }}</flux:link>
+            <flux:link class="text-sm" href="{{ route('holocron.quests.show', $quest->parent->id) }}">{{ $quest->parent->name }}</flux:link>
         @endif
     </div>
 
     <div class="flex items-center h-[25px] ml-auto">
-        <flux:button icon="trash" wire:click="$parent.deleteQuest({{ $quest->id }})" wire:confirm="Wirklich löschen?" variant="subtle"></flux:button>
+        <flux:button icon="trash" wire:click="$parent.deleteQuest({{ $quest->id }})" wire:confirm="Willst du {{ $quest->name }} wirklich löschen?" variant="subtle"></flux:button>
     </div>
 </div>

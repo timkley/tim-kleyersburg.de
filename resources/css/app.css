@@ -62,6 +62,15 @@
         scroll-margin-top: 112px;
     }
 
+    .no-scrollbar {
+        @apply
+        [&::-webkit-scrollbar]:size-0
+        [&::-webkit-scrollbar-track]:bg-transparent
+        [&::-webkit-scrollbar-thumb]:bg-transparent
+        dark:[&::-webkit-scrollbar-track]:bg-transparent
+        dark:[&::-webkit-scrollbar-thumb]:bg-transparent;
+    }
+
     .scrollbar {
         @apply
         [&::-webkit-scrollbar]:size-1.5

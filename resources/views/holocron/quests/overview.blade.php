@@ -3,102 +3,35 @@
 
 <div>
     <div class="space-y-4">
-        @php($breadcrumb = $quest->getBreadcrumb())
+        <flux:card class="space-y-4">
+            <div>
+                <flux:heading>Nächste Quests</flux:heading>
+                <flux:text class="mt-1">Quests, an denen als nächstes gearbeitet werden sollte, da sie keine
+                    Sidequests haben.
+                </flux:text>
+            </div>
 
-        @if($breadcrumb->count())
-            <flux:breadcrumbs>
-                <flux:breadcrumbs.item href="{{ route('holocron.quests') }}" wire:navigate icon="home"/>
-                @foreach($breadcrumb as $crumb)
-                    <flux:breadcrumbs.item href="{{ route('holocron.quests', $crumb->id) }}" wire:navigate class="whitespace-nowrap">
-                        {{ $crumb->name }}
-                    </flux:breadcrumbs.item>
+            <div class="space-y-2">
+                @foreach($questsWithoutChildren as $leafQuest)
+                    <livewire:holocron.quests.item
+                        :quest="$leafQuest"
+                        :key="'leaf-item.' . $leafQuest->id"
+                    />
                 @endforeach
-            </flux:breadcrumbs>
-        @endif
+            </div>
+        </flux:card>
 
-        @unless($quest->exists)
-            <flux:card>
-                <div class="mb-3">
-                    <flux:heading>Nächste Aufgaben</flux:heading>
-                    <flux:text class="mt-1">Aufgaben, an denen als nächstes gearbeitet werden sollte, da sie keine Unteraufgaben haben.</flux:text>
-                </div>
-
-                <div class="space-y-2">
-                    @foreach(Quest::leafNodes()->notCompleted()->get() as $leafQuest)
-                        <livewire:holocron.quests.item :quest="$leafQuest" :key="'leaf-item.' . $leafQuest->id" :with-breadcrumb="true"/>
-                    @endforeach
-                </div>
-            </flux:card>
-        @endunless
-
-        <flux:card class="space-y-8">
-            @if($quest->exists)
-                <div class="grid md:grid-cols-2 gap-8">
-                    <div class="space-y-4">
-                        <flux:input label="Name" wire:model.live="name"/>
-                        <flux:textarea
-                            label="Beschreibung"
-                            wire:model.live="description"
-                            placeholder="Beschreibung"
-                        ></flux:textarea>
-                        <flux:input label="Neuer Link" wire:model="linkDraft" wire:keydown.enter="addLink" />
-                        @foreach($quest->webpages as $webpage)
-                            <flux:text>
-                                <flux:link href="{{ $webpage->url }}" target="_blank">{{ $webpage->title ?? $webpage->url }}</flux:link>
-                            </flux:text>
-                        @endforeach
-                    </div>
-
-                    <div class="space-y-4">
-                        <flux:radio.group wire:model.live="status" label="Status" variant="segmented">
-                            @foreach(QuestStatus::cases() as $status)
-                                <flux:radio
-                                    value="{{ $status->value }}"
-                                    :icon="$status->icon()"
-                                />
-                            @endforeach
-                        </flux:radio.group>
-
-                        <div
-                            class="aspect-video border-dashed rounded-lg border-2 border-gray-300 p-4 grid grid-cols-4 gap-4 grid-rows-2 hover:bg-black/5 dark:hover:bg-white/5"
-                            x-bind:class="{ 'border-solid': dragged, 'border-dashed': !dragged }"
-                            x-data="{ dragged: false }"
-                            x-on:click="$refs.fileInput.click()"
-                            x-on:dragover.prevent="dragged = true"
-                            x-on:dragleave.prevent="dragged = false"
-                            x-on:drop.prevent="$wire.upload('image', $event.dataTransfer.files[0]); dragged = false"
-                        >
-                            @forelse($quest->images as $image)
-                                <flux:modal.trigger :name="'image.' . $image" :key="'image.' . $image" x-on:click.stop>
-                                    <img class="object-cover size-full rounded-md" src="{{ asset($image) }}" alt="">
-                                </flux:modal.trigger>
-                            @empty
-                                <flux:text class="col-span-4 row-span-2 flex items-center justify-center gap-x-2">
-                                    <flux:icon icon="photo" class="text-gray-400"/>
-                                    Keine Bilder
-                                </flux:text>
-                            @endforelse
-                            <input
-                                type="file"
-                                accept="image/*"
-                                class="hidden"
-                                x-ref="fileInput"
-                                x-on:change="$wire.upload('image', $event.target.files[0])"
-                            >
-                        </div>
-                        @foreach($quest->images as $image)
-                            <flux:modal :name="'image.' . $image" :key="'image.' . $image">
-                                <img src="{{ asset($image) }}" alt="">
-                            </flux:modal>
-                        @endforeach
-                    </div>
-                </div>
-                <flux:separator text="Unter-Quests"/>
-            @endif
+        <flux:card class="space-y-4">
+            <div>
+                <flux:heading>Main-Quests</flux:heading>
+            </div>
             <div class="space-y-4">
                 <div class="space-y-2">
-                    @foreach($quest->children()->notCompleted()->get() as $childQuest)
-                        <livewire:holocron.quests.item :quest="$childQuest" :key="'item.' . $childQuest->id"/>
+                    @foreach($quests as $childQuest)
+                        <livewire:holocron.quests.item
+                            :quest="$childQuest"
+                            :key="'item.' . $childQuest->id"
+                        />
                     @endforeach
                 </div>
 
@@ -106,36 +39,8 @@
                     <form wire:submit="addQuest" class="max-w-lg flex-1">
                         <flux:input wire:model="questDraft" placeholder="Neue Quest"/>
                     </form>
-                    <flux:button icon="sparkles" wire:click="generateSubquests">
-                        Quests vorschlagen
-                    </flux:button>
                 </div>
-
-                @foreach($subquestSuggestions as $suggestion)
-                    <flux:text class="max-w-lg flex justify-between items-center">
-                        {{ $suggestion['name'] }}
-
-                        <flux:button wire:click="addQuest('{{ $suggestion['name'] }}')" variant="filled" size="sm">Hinzufügen</flux:button>
-                    </flux:text>
-                @endforeach
             </div>
         </flux:card>
-
-        @if($quest->exists)
-            <flux:card class="space-y-3">
-                <form wire:submit="addNote" class="space-y-4">
-                    <flux:textarea wire:model="noteDraft" placeholder="Neue Notiz"/>
-                    <flux:button type="submit" variant="primary">Kommentar speichern</flux:button>
-                </form>
-
-                @if($quest->has('notes'))
-                    <div class="space-y-2">
-                        @foreach($quest->notes()->latest()->get() as $note)
-                            <livewire:holocron.quests.note :note="$note" :key="'note.' . $note->id" />
-                        @endforeach
-                    </div>
-                @endif
-            </flux:card>
-        @endif
     </div>
 </div>

@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use App\Enums\Holocron\QuestStatus;
 use App\Models\Holocron\Quest;
 use App\Models\Holocron\QuestNote;
 
@@ -28,7 +27,7 @@ it('can construct a breadcrumb', function () {
     $quest2 = Quest::factory()->create(['quest_id' => $quest->id]);
     $quest3 = Quest::factory()->create(['quest_id' => $quest2->id]);
 
-    $breadcrumb = $quest3->getBreadcrumb();
+    $breadcrumb = $quest3->breadcrumb();
     expect($breadcrumb)->toHaveCount(3);
     expect($breadcrumb[0]['name'])->toBe($quest3->name);
     expect($breadcrumb[1]['name'])->toBe($quest2->name);
@@ -54,7 +53,7 @@ it('has notes', function () {
 it('can add notes', function () {
     $quest = Quest::factory()->create();
 
-    Livewire::test('holocron.quests.overview', [$quest->id])
+    Livewire::test('holocron.quests.show', [$quest->id])
         ->set('noteDraft', 'test')
         ->call('addNote', $quest->id);
 
@@ -65,7 +64,7 @@ it('can delete a note', function () {
     $quest = Quest::factory()->create();
     QuestNote::factory()->for($quest)->create();
 
-    Livewire::test('holocron.quests.overview')
+    Livewire::test('holocron.quests.show', [$quest->id])
         ->call('deleteNote', $quest->notes->first()->id);
 
     expect($quest->fresh()->notes->count())->toBe(0);
@@ -84,12 +83,10 @@ it('can find quests without children', function () {
     // Create another leaf quest without children under childQuest2
     $leafQuest3 = Quest::factory()->create(['quest_id' => $childQuest2->id]);
 
-    $leafQuest4 = Quest::factory()->create(['quest_id' => $childQuest3->id, 'status' => QuestStatus::Complete]);
-
     // Create an independent quest without children
     $leafQuest2 = Quest::factory()->create();
 
-    $leafQuests = Quest::leafNodes()->get();
+    $leafQuests = Quest::noChildren()->get();
 
     // Should find exactly 4 leaf quests now
     expect($leafQuests)->toHaveCount(4);
@@ -111,7 +108,7 @@ it('can add links', function () {
     $quest = Quest::factory()->create();
     QuestNote::factory()->for($quest)->create();
 
-    Livewire::test('holocron.quests.overview', [$quest->id])
+    Livewire::test('holocron.quests.show', [$quest->id])
         ->set('linkDraft', 'https://example.com')
         ->call('addLink');
 

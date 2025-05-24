@@ -1,7 +1,7 @@
 <div class="bg-gray-100 dark:bg-gray-800 rounded-md p-4 pr-16 space-y-2 relative">
-    <p>
-        {{ $note->content }}
-    </p>
+    <div class="prose">
+        {!! $note->content !!}
+    </div>
     <p class="text-sm">
         {{ $note->created_at->format('d.m.Y H:i') }}
     </p>

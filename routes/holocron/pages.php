@@ -13,7 +13,8 @@ Route::middleware('auth')->name('holocron.')->prefix('holocron')->group(function
     Route::get('/dashboard', Dashboard::class)->name('dashboard');
     Route::get('/bookmarks', Bookmarks\Overview::class)->name('bookmarks');
 
-    Route::get('/quests/{quest?}', Quests\Overview::class)->name('quests');
+    Route::get('/quests', Quests\Overview::class)->name('quests');
+    Route::get('/quests/{quest}', Quests\Show::class)->name('quests.show');
 
     Route::get('/grind', fn () => to_route('holocron.grind.workouts.index'))->name('grind');
     Route::get('/grind/exercises', Grind\Exercises\Index::class)->name('grind.exercises.index');
