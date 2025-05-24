@@ -38,29 +38,27 @@
             <flux:input class:input="md:!text-lg !h-(--height)" wire:model.live="name"/>
 
             <flux:modal.trigger name="move">
-                <flux:button class="!h-(--height)">Move</flux:button>
+                <flux:button class="!h-(--height) px-4" icon="folder-arrow-down"></flux:button>
             </flux:modal.trigger>
-            @teleport('body')
-                <flux:modal name="move" class="space-y-4">
-                    <flux:heading size="lg">Quest verschieben</flux:heading>
+            <flux:modal name="move" class="space-y-4 w-[calc(100vw-var(--spacing)*10)]">
+                <flux:heading size="lg">Quest verschieben</flux:heading>
 
-                    <flux:input wire:model.live="parentSearchTerm"></flux:input>
+                <flux:input wire:model.live="parentSearchTerm"></flux:input>
 
-                    <div class="space-y-2">
-                        @forelse($possibleParents as $possibleParent)
-                            <flux:button
-                                class="w-full"
-                                         wire:key="{{ $possibleParent->id }}"
-                                wire:click="move({{ $possibleParent->id }})"
-                            >
-                                Nach "{{ $possibleParent->name }}" verschieben
-                            </flux:button>
-                        @empty
-                            <flux:text>Keine Ergebnisse</flux:text>
-                        @endforelse
-                    </div>
-                </flux:modal>
-            @endteleport
+                <div class="space-y-2">
+                    @forelse($possibleParents as $possibleParent)
+                        <flux:button
+                            class="w-full [&>span]:truncate"
+                            wire:key="{{ $possibleParent->id }}"
+                            wire:click="move({{ $possibleParent->id }})"
+                        >
+                            Nach "{{ $possibleParent->name }}" verschieben
+                        </flux:button>
+                    @empty
+                        <flux:text>Keine Ergebnisse</flux:text>
+                    @endforelse
+                </div>
+            </flux:modal>
         </div>
 
         <flux:editor
@@ -122,11 +120,11 @@
                 >
             </div>
             @teleport('body')
-                @foreach($quest->images as $image)
-                    <flux:modal :name="'image.' . $image" :key="'image.' . $image">
-                        <img src="{{ asset($image) }}" alt="">
-                    </flux:modal>
-                @endforeach
+            @foreach($quest->images as $image)
+                <flux:modal :name="'image.' . $image" :key="'image.' . $image">
+                    <img src="{{ asset($image) }}" alt="">
+                </flux:modal>
+            @endforeach
             @endteleport
         </div>
 
