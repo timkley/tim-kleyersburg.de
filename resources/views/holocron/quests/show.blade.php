@@ -40,25 +40,6 @@
             <flux:modal.trigger name="move">
                 <flux:button class="!h-(--height) px-4" icon="folder-arrow-down"></flux:button>
             </flux:modal.trigger>
-            <flux:modal name="move" class="space-y-4 w-[calc(100vw-var(--spacing)*10)]">
-                <flux:heading size="lg">Quest verschieben</flux:heading>
-
-                <flux:input wire:model.live="parentSearchTerm"></flux:input>
-
-                <div class="space-y-2">
-                    @forelse($possibleParents as $possibleParent)
-                        <flux:button
-                            class="w-full [&>span]:truncate"
-                            wire:key="{{ $possibleParent->id }}"
-                            wire:click="move({{ $possibleParent->id }})"
-                        >
-                            Nach "{{ $possibleParent->name }}" verschieben
-                        </flux:button>
-                    @empty
-                        <flux:text>Keine Ergebnisse</flux:text>
-                    @endforelse
-                </div>
-            </flux:modal>
         </div>
 
         <flux:editor
@@ -119,11 +100,6 @@
                     x-on:change="$wire.upload('image', $event.target.files[0])"
                 >
             </div>
-            @foreach($quest->images as $image)
-                <flux:modal :name="'image.' . $image" :key="'image.' . $image">
-                    <img src="{{ asset($image) }}" alt="">
-                </flux:modal>
-            @endforeach
         </div>
 
         <flux:separator class="mt-12 mb-8" text="Unter-Quests"/>
@@ -172,4 +148,30 @@
             </div>
         @endif
     </flux:card>
+
+    @foreach($quest->images as $image)
+        <flux:modal :name="'image.' . $image" :key="'image.' . $image">
+            <img src="{{ asset($image) }}" alt="">
+        </flux:modal>
+    @endforeach
+
+    <flux:modal name="move" class="space-y-4 w-[calc(100vw-var(--spacing)*10)]">
+        <flux:heading size="lg">Quest verschieben</flux:heading>
+
+        <flux:input wire:model.live="parentSearchTerm"></flux:input>
+
+        <div class="space-y-2">
+            @forelse($possibleParents as $possibleParent)
+                <flux:button
+                    class="w-full [&>span]:truncate"
+                    wire:key="{{ $possibleParent->id }}"
+                    wire:click="move({{ $possibleParent->id }})"
+                >
+                    Nach "{{ $possibleParent->name }}" verschieben
+                </flux:button>
+            @empty
+                <flux:text>Keine Ergebnisse</flux:text>
+            @endforelse
+        </div>
+    </flux:modal>
 </div>
