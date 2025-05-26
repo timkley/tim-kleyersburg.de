@@ -102,7 +102,7 @@
             </div>
         </div>
 
-        <flux:separator class="mt-12 mb-8" text="Unter-Quests"/>
+        <flux:separator class="my-12" text="Unter-Quests"/>
 
         <div class="space-y-4">
             @if($quest->children->count())
