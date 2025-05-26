@@ -12,6 +12,7 @@ use App\Models\Holocron\QuestNote;
 use App\Models\Webpage;
 use Denk\Facades\Denk;
 use Denk\ValueObjects\UserMessage;
+use Flux\Flux;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Collection;
 use Illuminate\View\View;
@@ -120,6 +121,8 @@ class Show extends HolocronComponent
         $this->quest->update([
             'quest_id' => $id,
         ]);
+
+        Flux::modal('move')->close();
     }
 
     public function addQuest(?string $name = null): void
