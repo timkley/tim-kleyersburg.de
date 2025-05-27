@@ -22,9 +22,10 @@ class Nasa
                 'explanation' => null,
             ]);
 
-            $response = Http::get('https://api.nasa.gov/planetary/apod', [
-                'api_key' => config('services.nasa.api_key'),
-            ])->collect();
+            $response = Http::timeout(2)
+                ->get('https://api.nasa.gov/planetary/apod', [
+                    'api_key' => config('services.nasa.api_key'),
+                ])->collect();
 
             return $defaults->merge($response);
         });
