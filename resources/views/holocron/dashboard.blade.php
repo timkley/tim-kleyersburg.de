@@ -7,17 +7,15 @@
     >
         Dashboard
         @if (auth()->user()->isTim())
-            <a
-                data-flux-button
+            <flux:button
+                variant="filled"
+                color="sky"
                 href="/holocron/pulse"
+                icon="chart-bar"
+                size="sm"
             >
-                <flux:badge
-                    color="sky"
-                    icon="chart-bar"
-                >
-                    Pulse
-                </flux:badge>
-            </a>
+                Pulse
+            </flux:button>
         @endif
     </x-heading>
 
