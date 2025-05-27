@@ -102,7 +102,8 @@ class Quest extends Model
     {
         return $query->whereNotExists(function (Builder $query): void {
             $query->from('quests as children')
-                ->whereColumn('children.quest_id', 'quests.id');
+                ->whereColumn('children.quest_id', 'quests.id')
+                ->whereNot('children.status', QuestStatus::Complete);
         });
     }
 
