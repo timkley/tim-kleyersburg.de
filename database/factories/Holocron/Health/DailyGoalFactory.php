@@ -6,10 +6,11 @@ namespace Database\Factories\Holocron\Health;
 
 use App\Enums\Holocron\Health\GoalTypes;
 use App\Enums\Holocron\Health\GoalUnits;
+use App\Models\Holocron\Health\DailyGoal;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Holocron\Health\DailyGoal>
+ * @extends Factory<DailyGoal>
  */
 class DailyGoalFactory extends Factory
 {

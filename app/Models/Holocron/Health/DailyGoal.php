@@ -13,6 +13,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 
+/**
+ * @property-read bool $reached
+ */
 class DailyGoal extends Model
 {
     /** @use HasFactory<DailyGoalFactory> */
