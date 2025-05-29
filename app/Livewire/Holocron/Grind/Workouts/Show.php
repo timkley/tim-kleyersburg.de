@@ -46,6 +46,8 @@ class Show extends HolocronComponent
         $this->workout->update([
             'finished_at' => now(),
         ]);
+
+        $this->dispatch('workout:finished');
     }
 
     public function render(): View
