@@ -42,7 +42,7 @@
                     </flux:table.cell>
                 </flux:table.row>
                 @foreach ($words as $word)
-                    <livewire:holocron.school.components.vocabulary-word
+                    <livewire:holocron.school.vocabulary-word
                         :$word
                         :key="$word->id"
                     />

@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\DB;
  * @property-read string $name
  * @property-read string $description
  * @property-read string $instructions
+ * @property-read mixed $pivot
  */
 class Exercise extends Model
 {

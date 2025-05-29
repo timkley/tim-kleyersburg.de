@@ -12,13 +12,7 @@
             </flux:table.columns>
             <flux:table.rows>
                 @foreach($plan->exercises as $exercise)
-                    <flux:table.row>
-                        <flux:table.cell> {{ $exercise->name }} </flux:table.cell>
-                        <flux:table.cell> {{ $exercise->pivot->sets }} Sets </flux:table.cell>
-                        <flux:table.cell> {{ $exercise->pivot->min_reps }} Wdh. </flux:table.cell>
-                        <flux:table.cell> {{ $exercise->pivot->max_reps }} Wdh. </flux:table.cell>
-                        <flux:table.cell> {{ $exercise->pivot->order }} </flux:table.cell>
-                    </flux:table.row>
+                    <livewire:holocron.grind.plans.exercise :$exercise :key="$exercise->id" />
                 @endforeach
             </flux:table.rows>
         </flux:table>

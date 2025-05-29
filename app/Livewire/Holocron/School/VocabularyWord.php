@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Livewire\Holocron\School\Components;
+namespace App\Livewire\Holocron\School;
 
 use App\Models\Holocron\School\VocabularyWord as VocabularyWordModel;
 use Illuminate\View\View;
@@ -16,6 +16,13 @@ class VocabularyWord extends Component
 
     public string $english = '';
 
+    public function updated(string $property, mixed $value): void
+    {
+        $this->word->update([
+            $property => $value,
+        ]);
+    }
+
     public function mount(VocabularyWordModel $word): void
     {
         $this->word = $word;
@@ -26,13 +33,6 @@ class VocabularyWord extends Component
 
     public function render(): View
     {
-        return view('holocron.school.components.vocabulary-word');
-    }
-
-    public function updated(string $property, mixed $value): void
-    {
-        $this->word->update([
-            $property => $value,
-        ]);
+        return view('holocron.school.vocabulary-word');
     }
 }
