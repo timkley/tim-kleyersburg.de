@@ -126,7 +126,7 @@
                 <flux:text class="max-w-lg flex justify-between items-center">
                     {{ $suggestion['name'] }}
 
-                    <flux:button wire:click="addQuest('{{ $suggestion['name'] }}')" variant="filled" size="sm">
+                    <flux:button x-on:click="$wire.addQuest('{{ $suggestion['name'] }}'); $el.parentElement.remove()" variant="filled" size="sm">
                         Hinzufügen
                     </flux:button>
                 </flux:text>
