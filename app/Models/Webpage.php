@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property string $url
+ * @property mixed $pivot
  */
 class Webpage extends Model
 {

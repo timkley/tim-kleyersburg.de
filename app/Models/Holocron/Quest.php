@@ -49,7 +49,7 @@ class Quest extends Model
      */
     public function webpages(): BelongsToMany
     {
-        return $this->belongsToMany(Webpage::class);
+        return $this->belongsToMany(Webpage::class)->withPivot('title');
     }
 
     /**

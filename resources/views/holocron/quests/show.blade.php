@@ -52,15 +52,7 @@
                 <flux:heading>Links</flux:heading>
 
                 @forelse($quest->webpages as $webpage)
-                    <flux:text>
-                        <flux:link
-                            class="break-all"
-                            href="{{ $webpage->url }}"
-                            target="_blank"
-                        >
-                            {{ $webpage->title ?? $webpage->url }}
-                        </flux:link>
-                    </flux:text>
+                    <livewire:holocron.quests.link :$webpage />
                 @empty
                     <flux:text>Keine Links</flux:text>
                 @endforelse
