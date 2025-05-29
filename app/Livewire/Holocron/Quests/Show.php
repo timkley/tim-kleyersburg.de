@@ -146,6 +146,8 @@ class Show extends HolocronComponent
 
     public function generateSubquests(): void
     {
+        $children = $this->quest->children->implode('name', '\n');
+
         $this->subquestSuggestions = Denk::json()
             ->model('google/gemini-flash-1.5-8b')
             ->properties([
@@ -170,6 +172,9 @@ Du bist ein Assistent zur Aufgabenzerlegung. Deine Aufgabe ist es, eine Hauptauf
 **Hauptaufgabe:**
 $this->name
 $this->description
+
+**Bereits vorhandene Aufgaben**
+$children
 
 **Anweisungen:**
 
