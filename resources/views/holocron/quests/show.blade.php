@@ -52,7 +52,7 @@
                 <flux:heading>Links</flux:heading>
 
                 @forelse($quest->webpages as $webpage)
-                    <livewire:holocron.quests.link :$webpage />
+                    <livewire:holocron.quests.link :$webpage :key="$webpage->id" />
                 @empty
                     <flux:text>Keine Links</flux:text>
                 @endforelse
