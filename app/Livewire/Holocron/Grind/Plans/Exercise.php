@@ -19,9 +19,9 @@ class Exercise extends HolocronComponent
 
     public int $sets;
 
-    public int $minReps;
+    public int $min_reps;
 
-    public int $maxReps;
+    public int $max_reps;
 
     public int $order;
 
@@ -38,8 +38,8 @@ class Exercise extends HolocronComponent
         $this->exerciseId = $this->exercise->pivot->exercise_id;
         $this->planId = $this->exercise->pivot->plan_id;
         $this->sets = $this->exercise->pivot->sets;
-        $this->minReps = $this->exercise->pivot->min_reps;
-        $this->maxReps = $this->exercise->pivot->max_reps;
+        $this->min_reps = $this->exercise->pivot->min_reps;
+        $this->max_reps = $this->exercise->pivot->max_reps;
         $this->order = $this->exercise->pivot->order;
     }
 
