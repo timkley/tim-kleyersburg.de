@@ -9,6 +9,7 @@ enum QuestStatus: string
     case Open = 'open';
     case InProgress = 'in_progress';
     case Complete = 'complete';
+    case Note = 'note';
 
     public function label(): string
     {
@@ -16,6 +17,7 @@ enum QuestStatus: string
             self::Open => 'Offen',
             self::InProgress => 'In Bearbeitung',
             self::Complete => 'Fertig',
+            self::Note => 'Notiz',
         };
     }
 
@@ -25,6 +27,7 @@ enum QuestStatus: string
             self::Open => 'circle-dashed',
             self::InProgress => 'circle-dot-dashed',
             self::Complete => 'circle-dot',
+            self::Note => 'document-text',
         };
     }
 }
