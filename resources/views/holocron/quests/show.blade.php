@@ -94,7 +94,12 @@
             </div>
         </div>
 
-        <flux:separator class="my-12" text="Unter-Quests"/>
+        <div class="flex items-center my-12 gap-x-4">
+            <div class="flex-1">
+                <flux:separator text="Unter-Quests"/>
+            </div>
+            <flux:switch label="Alle Unter-Quests" wire:model.live="showAllSubquests"/>
+        </div>
 
         <div class="space-y-4">
             @if($quest->children->count())

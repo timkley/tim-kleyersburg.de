@@ -13,10 +13,12 @@ use App\Models\Webpage;
 use Denk\Facades\Denk;
 use Denk\ValueObjects\UserMessage;
 use Flux\Flux;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Collection;
 use Illuminate\View\View;
 use Livewire\Attributes\Title;
+use Livewire\Attributes\Url;
 use Livewire\Attributes\Validate;
 use Livewire\WithFileUploads;
 
@@ -48,6 +50,9 @@ class Show extends HolocronComponent
     #[Validate('required')]
     #[Validate('url')]
     public string $linkDraft = '';
+
+    #[Url]
+    public bool $showAllSubquests = false;
 
     #[Validate('required')]
     #[Validate('min:3')]
@@ -111,9 +116,7 @@ class Show extends HolocronComponent
 
     public function setStatus(string $status): void
     {
-        $this->quest->update([
-            'status' => $status,
-        ]);
+        $this->quest->setStatus(QuestStatus::from($status));
     }
 
     public function move(int $id): void
@@ -234,8 +237,22 @@ EOT
 
     public function render(): View
     {
+        $questChildren = $this->quest
+            ->children()
+            ->when(! $this->showAllSubquests, function (Builder $query) {
+                $query->where(function (Builder $query) {
+                    $query->where('status', '!=', QuestStatus::Complete)
+                        ->orWhere(function (Builder $subQuery) {
+                            $subQuery->where('status', QuestStatus::Complete)
+                                ->where('updated_at', '>', now()->subWeeks(2));
+                        });
+                });
+            })
+            ->orderByDesc('status')
+            ->get();
+
         return view('holocron.quests.show', [
-            'questChildren' => $this->quest->children()->orderByDesc('status')->get(),
+            'questChildren' => $questChildren,
         ])->title($this->quest->name);
     }
 }

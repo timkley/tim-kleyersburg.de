@@ -47,6 +47,8 @@ class Show extends HolocronComponent
             'finished_at' => now(),
         ]);
 
+        request()->user()->addExperience(10, 'workout-finished', (string) $this->workout->id, 'Yeah, du hast ein Workout geschafft 💪');
+
         $this->dispatch('workout:finished');
     }
 

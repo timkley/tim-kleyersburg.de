@@ -27,6 +27,15 @@ class Quest extends Model
 
     protected $with = ['parent'];
 
+    public function setStatus(QuestStatus $status): void
+    {
+        $this->update(['status' => $status]);
+
+        if ($status === QuestStatus::Complete) {
+            defer(fn () => request()->user()->addExperience(2, 'quest-completed', (string) $this->id, 'Quest abgeschlossen'));
+        }
+    }
+
     /**
      * @return BelongsTo<Quest, $this>
      */

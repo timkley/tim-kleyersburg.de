@@ -48,7 +48,8 @@ class Goals extends Component
             ['amount' => ['required', 'numeric']]
         )->validate();
 
-        DailyGoal::for(GoalTypes::from($type), $this->selectedDate)->increment('amount', $amount);
+        $goal = DailyGoal::for(GoalTypes::from($type), $this->selectedDate);
+        $goal->increment('amount', $amount);
     }
 
     /**
