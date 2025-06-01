@@ -42,13 +42,18 @@ class User extends Authenticatable
         return $this->email === 'timkley@gmail.com';
     }
 
-    public function addExperience(int $amount, string $type, string $description): void
+    public function addExperience(int $amount, string $type, string $identifier, string $description): void
     {
+        if ($this->experienceLogs()->where('identifier', $identifier)->count()) {
+            return;
+        }
+
         $currentXp = $this->experience;
 
         $this->experienceLogs()->create([
             'amount' => $amount,
             'type' => $type,
+            'identifier' => $identifier,
             'description' => $description,
         ]);
 

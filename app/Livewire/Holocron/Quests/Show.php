@@ -116,9 +116,7 @@ class Show extends HolocronComponent
 
     public function setStatus(string $status): void
     {
-        $this->quest->update([
-            'status' => $status,
-        ]);
+        $this->quest->setStatus(QuestStatus::from($status));
     }
 
     public function move(int $id): void

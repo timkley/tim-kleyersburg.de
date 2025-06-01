@@ -50,10 +50,6 @@ class Goals extends Component
 
         $goal = DailyGoal::for(GoalTypes::from($type), $this->selectedDate);
         $goal->increment('amount', $amount);
-
-        if ($goal->reached) {
-            request()->user()->addExperience(1, 'goal-reached', "Ziel {$goal->type->name} erreicht");
-        }
     }
 
     /**
