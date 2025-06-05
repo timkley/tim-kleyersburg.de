@@ -21,7 +21,7 @@ class Exam
     public static function createFromApi(array $item): self
     {
         return self::create(
-            $item['id'] ?? hash('sha-256', $item['subject'].$item['examDate']),
+            $item['id'] ?? hash('sha256', $item['subject'].$item['examDate']),
             $item['subject'],
             CarbonImmutable::createFromFormat('Ymd', $item['examDate']),
             $item['text']

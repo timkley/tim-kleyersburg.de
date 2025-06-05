@@ -21,7 +21,7 @@ class Homework
     public static function createFromApi(array $item): self
     {
         return self::create(
-            $item['id'] ?? hash('sha-256', $item['lesson']['subject'].$item['date'].$item['dueDate']),
+            $item['id'] ?? hash('sha256', $item['lesson']['subject'].$item['date'].$item['dueDate']),
             $item['lesson']['subject'],
             Carbon::createFromFormat('Ymd', $item['date']),
             Carbon::createFromFormat('Ymd', $item['dueDate']),

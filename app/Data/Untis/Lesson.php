@@ -23,7 +23,7 @@ class Lesson
         $subject = data_get($item, 'su.0.longname') ?? data_get($item, 'lstext');
 
         return self::create(
-            $item['id'] ?? hash('sha-256', $subject.$item['start']),
+            $item['id'] ?? hash('sha256', $subject.$item['start']),
             $subject,
             Carbon::createFromFormat('Ymd Hi', $item['date'].' '.mb_str_pad((string) $item['startTime'], 4, '0', STR_PAD_LEFT)),
             Carbon::createFromFormat('Ymd Hi', $item['date'].' '.mb_str_pad((string) $item['endTime'], 4, '0', STR_PAD_LEFT)),
