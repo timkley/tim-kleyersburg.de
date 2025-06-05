@@ -42,12 +42,14 @@ class Overview extends HolocronComponent
                 ->whereNot('status', QuestStatus::Note)
                 ->noChildren()
                 ->notCompleted()
-                ->orderByDesc('status')
+                ->orderBy('status')
+                ->orderByDesc('created_at')
                 ->get(),
             'quests' => Quest::query()
                 ->whereNull('quest_id')
                 ->notCompleted()
-                ->orderByDesc('status')->get(),
+                ->orderBy('name')
+                ->get(),
         ]);
     }
 }
