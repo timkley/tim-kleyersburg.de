@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Livewire\Holocron\Quests;
 
+use App\Enums\Holocron\QuestStatus;
 use App\Livewire\Holocron\HolocronComponent;
 use App\Models\Holocron\Quest;
 use Illuminate\View\View;
@@ -37,8 +38,16 @@ class Overview extends HolocronComponent
     public function render(): View
     {
         return view('holocron.quests.overview', [
-            'questsWithoutChildren' => Quest::query()->noChildren()->notCompleted()->orderByDesc('status')->get(),
-            'quests' => Quest::query()->whereNull('quest_id')->notCompleted()->orderByDesc('status')->get(),
+            'questsWithoutChildren' => Quest::query()
+                ->whereNot('status', QuestStatus::Note)
+                ->noChildren()
+                ->notCompleted()
+                ->orderByDesc('status')
+                ->get(),
+            'quests' => Quest::query()
+                ->whereNull('quest_id')
+                ->notCompleted()
+                ->orderByDesc('status')->get(),
         ]);
     }
 }
