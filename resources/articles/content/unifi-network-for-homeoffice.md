@@ -38,7 +38,7 @@ The access points ship with a wall/ceiling mounting kit. The packaging was very 
 
 All in all the quality was even better than I expected (and I knew what I was getting into).
 
-## Setting up a the Network Controller
+## Setting up the Network Controller
 
 Last time I set up the network in my company I used a local controller on my MacBook. Since I forgot to store the backup this resulted in the need to completely reinstall the whole network when I decided to reinstall macOS.
 

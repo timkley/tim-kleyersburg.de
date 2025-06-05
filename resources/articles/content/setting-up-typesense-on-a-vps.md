@@ -8,7 +8,7 @@ image: /articles/img/ogimages/setting-up-typesense-on-a-vps.webp
 
 Typesense is a fast, typo-tolerant search engine that is easy to set up and use. In this tutorial, we will set up Typesense on a VPS and configure it to use SSL certificates. We will use a cheap VPS from Hetzner, but you can use any VPS provider that you prefer.
 
-## Preqrequisites
+## Prerequisites
 
 Before we start, you will need the following:
 
