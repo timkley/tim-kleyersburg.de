@@ -38,4 +38,7 @@
             <flux:input wire:model.live="order"></flux:input>
         </flux:input.group>
     </flux:table.cell>
+    <flux:table.cell>
+        <flux:button wire:click="$parent.removeExercise({{ $exerciseId }})" variant="danger" icon="trash" />
+    </flux:table.cell>
 </flux:table.row>

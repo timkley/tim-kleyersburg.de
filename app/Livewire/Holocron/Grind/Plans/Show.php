@@ -7,6 +7,7 @@ namespace App\Livewire\Holocron\Grind\Plans;
 use App\Livewire\Holocron\HolocronComponent;
 use App\Models\Holocron\Grind\Exercise;
 use App\Models\Holocron\Grind\Plan;
+use Flux\Flux;
 use Illuminate\View\View;
 use Livewire\Attributes\Validate;
 
@@ -43,6 +44,13 @@ class Show extends HolocronComponent
         ]);
 
         $this->reset(['exerciseId', 'sets', 'minReps', 'maxReps']);
+    }
+
+    public function removeExercise(int $exerciseId): void
+    {
+        $this->plan->exercises()->detach($exerciseId);
+
+        Flux::toast('Übung entfernt.');
     }
 
     public function mount(Plan $plan): void
