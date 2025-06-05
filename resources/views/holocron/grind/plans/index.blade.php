@@ -5,8 +5,11 @@
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
             @foreach($plans as $plan)
                 <a href="{{ route('holocron.grind.plans.show', $plan->id) }}" wire:navigate>
-                    <flux:card size="sm">
-                        <flux:text class="flex items-center justify-between">
+                    <flux:card
+                        size="sm"
+                        class="hover:bg-zinc-50 dark:hover:bg-zinc-700"
+                    >
+                        <flux:text>
                             {{ $plan->name }}
                         </flux:text>
                     </flux:card>

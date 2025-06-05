@@ -45,9 +45,7 @@ class Workout extends Model
     public function getCurrentExercise(): ?Exercise
     {
         return $this->plan->exercises()
-            ->orderBy('grind_exercise_plan.order')
-            ->skip($this->current_exercise_index)
-            ->first();
+            ->find($this->current_exercise_index);
     }
 
     /**

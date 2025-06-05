@@ -5,7 +5,7 @@
     wire:navigate
     href="{{ route('holocron.bookmarks') }}"
 >
-    <flux:card class="h-full hover:bg-white/75 dark:hover:bg-white/5">
+    <flux:card class="h-full">
         <div>
             <flux:heading
                 class="flex items-center gap-2 font-semibold"

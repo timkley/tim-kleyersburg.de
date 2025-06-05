@@ -18,14 +18,22 @@ class Index extends HolocronComponent
 
     public function start(int $planId): void
     {
+        $plan = Plan::with('exercises:id')->findOrFail($planId);
         $previousWorkout = Workout::query()->where('plan_id', $planId)->limit(1)->latest()->first();
+
         $workout = Workout::create([
             'plan_id' => $planId,
             'started_at' => now(),
         ]);
 
         if ($previousWorkout) {
-            $workout->sets()->createMany($previousWorkout->sets->map(fn ($set) => $set->only('exercise_id', 'weight', 'reps'))->toArray());
+            $setsToCopy = $previousWorkout->sets()
+                ->whereIn('exercise_id', $plan->exercises->pluck('id'))
+                ->select('exercise_id', 'weight', 'reps')
+                ->get()
+                ->toArray();
+
+            $workout->sets()->createMany($setsToCopy);
         }
 
         $this->redirect(route('holocron.grind.workouts.show', $workout));

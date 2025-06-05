@@ -2,32 +2,34 @@
     <div class="space-y-6">
         <div class="flex overflow-x-auto pb-2 scrollbar -mx-6">
             <div class="flex grow px-6 gap-x-4">
-                @foreach($workout->plan->exercises as $index => $exercise)
+                @foreach($exercises as $index => $exercise)
                     <div
                         @class([
                             'w-32 bg-black/5 dark:bg-white/10 rounded-lg flex-shrink-0 p-3 hyphens-auto flex flex-col justify-between gap-y-2 scroll-mx-4',
                             '!bg-sky-200 dark:!bg-sky-900' => $exercise->id === $currentExercise->id,
-                            'opacity-50' => $workout->sets->where('exercise_id', $exercise->id)->whereNotNull('finished_at')->count() === $exercise->pivot->sets
+                            'opacity-50' => $workout->sets->where('exercise_id', $exercise->id)->whereNotNull('finished_at')->count() === $exercise->pivot?->sets
                         ])
                         @if($exercise->id === $currentExercise->id)
                             data-current
                         @endif
-                        wire:click="setExercise({{ $index }})"
+                        wire:click="setExercise({{ $exercise->id }})"
                     >
                         <div class="font-semibold">
                             {{ $exercise->name }}
                         </div>
-                        <div>
-                            <div class="text-xs flex items-center gap-x-0.5">
-                                <span>
-                                    {{ $exercise->pivot->min_reps }}
-                                </span>
-                                <flux:icon name="arrow-long-right" variant="micro"/>
-                                <span>
-                                    {{ $exercise->pivot->max_reps }}&nbsp;Wdh.
-                                </span>
+                        @if(!$workout->finished_at)
+                            <div>
+                                <div class="text-xs flex items-center gap-x-0.5">
+                                    <span>
+                                        {{ $exercise->pivot->min_reps }}
+                                    </span>
+                                    <flux:icon name="arrow-long-right" variant="micro"/>
+                                    <span>
+                                        {{ $exercise->pivot->max_reps }}&nbsp;Wdh.
+                                    </span>
+                                </div>
                             </div>
-                        </div>
+                        @endif
                     </div>
                 @endforeach
             </div>
@@ -42,8 +44,8 @@
             @foreach($workout->sets()->where('exercise_id', $currentExercise->id)->get() as $set)
                 <livewire:holocron.grind.workouts.set
                     :$set
-                    :min-reps="$currentExercise->pivot->min_reps"
-                    :max-reps="$currentExercise->pivot->max_reps"
+                    :min-reps="$currentExercise->pivot->min_reps ?? 0"
+                    :max-reps="$currentExercise->pivot->max_reps ?? 0"
                     :key="$set->id"
                     :iteration="$loop->iteration"/>
             @endforeach

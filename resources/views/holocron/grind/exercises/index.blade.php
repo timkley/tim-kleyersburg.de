@@ -5,8 +5,13 @@
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
             @foreach($exercises as $exercise)
                 <a href="{{ route('holocron.grind.exercises.show', $exercise->id) }}" wire:navigate>
-                    <flux:card size="sm">
-                        {{ $exercise->name }}
+                    <flux:card
+                        size="sm"
+                        class="hover:bg-zinc-50 dark:hover:bg-zinc-700 space-y-2"
+                    >
+                        <flux:text>
+                            {{ $exercise->name }}
+                        </flux:text>
                     </flux:card>
                 </a>
             @endforeach

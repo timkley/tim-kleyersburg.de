@@ -9,6 +9,7 @@
                 <flux:table.column>Min. Reps</flux:table.column>
                 <flux:table.column>Max. Reps</flux:table.column>
                 <flux:table.column>Order</flux:table.column>
+                <flux:table.column></flux:table.column>
             </flux:table.columns>
             <flux:table.rows>
                 @foreach($plan->exercises as $exercise)

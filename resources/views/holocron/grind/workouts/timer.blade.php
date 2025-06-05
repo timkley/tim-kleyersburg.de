@@ -1,6 +1,6 @@
 <div>
     @if($lastFinishedSet)
-        <div class="px-3 py-2 bg-white shadow rounded-full w-fit font-semibold mx-auto"
+        <div class="px-3 py-2 bg-white dark:bg-sky-900 shadow rounded-full w-fit font-semibold mx-auto"
             x-data="{
         finished_at: '{{ $lastFinishedSet->finished_at?->toISOString() }}',
         minutes: '00',
