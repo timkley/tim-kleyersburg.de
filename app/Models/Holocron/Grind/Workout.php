@@ -12,8 +12,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 
 /**
- * @property-read ?Carbon $started_at
- * @property-read ?Carbon $finished_at
+ * @property ?Carbon $started_at
+ * @property ?Carbon $finished_at
  */
 class Workout extends Model
 {

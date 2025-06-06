@@ -14,8 +14,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 
 /**
- * @property-read GoalTypes $type
- * @property-read bool $reached
+ * @property GoalTypes $type
+ * @property bool $reached
  */
 class DailyGoal extends Model
 {
@@ -29,19 +29,20 @@ class DailyGoal extends Model
         $goal = self::query()
             ->where('date', $date->toDateString())
             ->where('type', $type)
-            ->get();
+            ->first();
 
-        if ($goal->isNotEmpty()) {
-            return $goal->first();
+        if (! $goal) {
+            $goal = self::create([
+                'date' => $date->toDateString(),
+                'type' => $type,
+                'unit' => $type->unit(),
+                'goal' => $type->goal(),
+            ]);
+
+            $goal->track($type->defaultAmount());
         }
 
-        return self::create([
-            'date' => $date->toDateString(),
-            'type' => $type,
-            'unit' => $type->unit(),
-            'goal' => $type->goal(),
-            'amount' => $type->defaultAmount(),
-        ]);
+        return $goal;
     }
 
     public static function currentStreakFor(GoalTypes $type): int
@@ -103,6 +104,27 @@ class DailyGoal extends Model
         }
 
         return $highestStreak;
+    }
+
+    public function track(int $amount): void
+    {
+        if ($amount === 0) {
+            return;
+        }
+
+        $wasPreviouslyReached = $this->reached;
+
+        $this->update([
+            'amount' => $this->amount + $amount,
+        ]);
+
+        if ($this->reached) {
+            auth()->user()->addExperience(2, 'goal-reached', (string) $this->id, 'Ziel erreicht.');
+        }
+
+        if ($wasPreviouslyReached && ! $this->reached) {
+            auth()->user()->addExperience(-2, 'goal-unreached', (string) $this->id, 'Ziel verloren.');
+        }
     }
 
     protected function casts(): array

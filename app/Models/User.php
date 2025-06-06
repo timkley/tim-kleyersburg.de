@@ -13,7 +13,7 @@ use Illuminate\Notifications\Notifiable;
 
 /**
  * @property ?UserSetting $settings
- * @property-read int $experience
+ * @property int $experience
  */
 class User extends Authenticatable
 {

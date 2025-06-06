@@ -13,10 +13,10 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\DB;
 
 /**
- * @property-read string $name
- * @property-read string $description
- * @property-read string $instructions
- * @property-read mixed $pivot
+ * @property string $name
+ * @property string $description
+ * @property string $instructions
+ * @property mixed $pivot
  */
 class Exercise extends Model
 {

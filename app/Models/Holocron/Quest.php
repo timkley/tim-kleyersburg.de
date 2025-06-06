@@ -18,8 +18,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Query\Builder;
 
-/** @property-read \Illuminate\Support\Collection $images */
-/** @property-read QuestStatus $status */
+/** @property \Illuminate\Support\Collection $images */
+/** @property QuestStatus $status */
 class Quest extends Model
 {
     /** @use HasFactory<QuestFactory> */

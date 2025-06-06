@@ -9,9 +9,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * @property-read int $amount
- * @property-read string $type
- * @property-read string $description
+ * @property int $amount
+ * @property int $identifier
+ * @property string $type
  */
 class ExperienceLog extends Model
 {

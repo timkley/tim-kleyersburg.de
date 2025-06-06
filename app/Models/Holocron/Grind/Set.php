@@ -14,14 +14,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
 
 /**
- * @property-read int $exercise_id
- * @property-read int $workout_id
- * @property-read int $reps
- * @property-read int $weight
- * @property-read float $volume
- * @property-read ?Carbon $started_at
- * @property-read ?Carbon $finished_at
- * @property-read ?float $total_volume
+ * @property int $exercise_id
+ * @property int $workout_id
+ * @property int $reps
+ * @property int $weight
+ * @property float $volume
+ * @property ?Carbon $started_at
+ * @property ?Carbon $finished_at
+ * @property ?float $total_volume
  */
 class Set extends Model
 {

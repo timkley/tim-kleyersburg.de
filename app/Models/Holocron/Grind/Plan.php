@@ -10,8 +10,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
- * @property-read string $name
- * @property-read string $description
+ * @property string $name
+ * @property string $description
  */
 class Plan extends Model
 {
