@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Livewire\Holocron\Dashboard;
 
-use App\Enums\Holocron\Health\GoalTypes;
+use App\Enums\Holocron\Health\GoalType;
 use App\Models\Holocron\Health\DailyGoal;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Collection;
@@ -48,8 +48,8 @@ class Goals extends Component
             ['amount' => ['required', 'numeric']]
         )->validate();
 
-        $goal = DailyGoal::for(GoalTypes::from($type), $this->selectedDate);
-        $goal->increment('amount', $amount);
+        $goal = DailyGoal::for(GoalType::from($type), $this->selectedDate);
+        $goal->track($amount);
     }
 
     /**

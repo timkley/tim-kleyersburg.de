@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace App\Models\Holocron\Health;
 
-use App\Enums\Holocron\Health\GoalTypes;
-use App\Enums\Holocron\Health\GoalUnits;
+use App\Enums\Holocron\ExperienceType;
+use App\Enums\Holocron\Health\GoalType;
+use App\Enums\Holocron\Health\GoalUnit;
 use Carbon\CarbonImmutable;
 use Database\Factories\Holocron\Health\DailyGoalFactory;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -14,7 +15,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 
 /**
- * @property GoalTypes $type
+ * @property GoalType $type
  * @property bool $reached
  */
 class DailyGoal extends Model
@@ -22,7 +23,7 @@ class DailyGoal extends Model
     /** @use HasFactory<DailyGoalFactory> */
     use HasFactory;
 
-    public static function for(GoalTypes $type, ?CarbonImmutable $date = null): self
+    public static function for(GoalType $type, ?CarbonImmutable $date = null): self
     {
         $date ??= today();
 
@@ -45,7 +46,7 @@ class DailyGoal extends Model
         return $goal;
     }
 
-    public static function currentStreakFor(GoalTypes $type): int
+    public static function currentStreakFor(GoalType $type): int
     {
         // Retrieve only the dates where the goal was met.
         $dates = self::where('type', $type)
@@ -71,7 +72,7 @@ class DailyGoal extends Model
         return $streak;
     }
 
-    public static function highestStreakFor(GoalTypes $type): int
+    public static function highestStreakFor(GoalType $type): int
     {
         // Retrieve valid goal dates (as Carbon objects) in ascending order.
         $dates = self::where('type', $type)
@@ -119,19 +120,19 @@ class DailyGoal extends Model
         ]);
 
         if ($this->reached) {
-            auth()->user()->addExperience(2, 'goal-reached', (string) $this->id, 'Ziel erreicht.');
+            auth()->user()->addExperience(2, ExperienceType::GoalReached, $this->id);
         }
 
         if ($wasPreviouslyReached && ! $this->reached) {
-            auth()->user()->addExperience(-2, 'goal-unreached', (string) $this->id, 'Ziel verloren.');
+            auth()->user()->addExperience(-2, ExperienceType::GoalUnreached, $this->id);
         }
     }
 
     protected function casts(): array
     {
         return [
-            'type' => GoalTypes::class,
-            'unit' => GoalUnits::class,
+            'type' => GoalType::class,
+            'unit' => GoalUnit::class,
         ];
     }
 

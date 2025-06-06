@@ -1,7 +1,7 @@
 <x-layouts.app>
     <x-slot:title>{{ $title ?? '' }}</x-slot>
     <x-slot:header>
-        <div class="mx-auto max-w-5xl print:hidden text-sm flex items-center gap-x-6">
+        <div class="mx-auto max-w-5xl print:hidden text-sm flex items-center justify-between gap-x-6">
             <a
                 href="{{ route('holocron.dashboard') }}"
                 wire:navigate
@@ -9,6 +9,10 @@
             >
                 <flux:icon.cpu-chip />
                 <span> Holocron </span>
+            </a>
+
+            <a href="{{ route('holocron.experience') }}" wire:navigate>
+                <flux:badge as="button">{{ Number::format(number: auth()->user()->experience ?? 0, locale: 'de') }} XP</flux:badge>
             </a>
         </div>
     </x-slot>

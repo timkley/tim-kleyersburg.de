@@ -1,5 +1,3 @@
-<x-slot:title>Holocron Dashboard</x-slot>
-
 <div>
     <x-heading
         class="flex items-center gap-x-3"

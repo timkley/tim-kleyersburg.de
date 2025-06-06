@@ -6,7 +6,7 @@ namespace App\Enums\Holocron\Health;
 
 use App\Concerns\Holocron\Health\CalculatesGoals;
 
-enum GoalTypes: string
+enum GoalType: string
 {
     use CalculatesGoals;
 
@@ -17,15 +17,15 @@ enum GoalTypes: string
     case NoSmoking = 'no_smoking';
     case NoAlcohol = 'no_alcohol';
 
-    public function unit(): GoalUnits
+    public function unit(): GoalUnit
     {
         return match ($this) {
-            self::Water => GoalUnits::Milliliters,
-            self::Creatine => GoalUnits::Grams,
-            self::Planks => GoalUnits::Seconds,
-            self::Mobility => GoalUnits::Boolean,
-            self::NoSmoking => GoalUnits::Boolean,
-            self::NoAlcohol => GoalUnits::Boolean,
+            self::Water => GoalUnit::Milliliters,
+            self::Creatine => GoalUnit::Grams,
+            self::Planks => GoalUnit::Seconds,
+            self::Mobility => GoalUnit::Boolean,
+            self::NoSmoking => GoalUnit::Boolean,
+            self::NoAlcohol => GoalUnit::Boolean,
         };
     }
 

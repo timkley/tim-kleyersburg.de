@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-use App\Enums\Holocron\Health\GoalTypes;
+use App\Enums\Holocron\Health\GoalType;
 use App\Models\Holocron\Health\DailyGoal;
 use App\Models\User;
 
 use function Pest\Laravel\actingAs;
 use function Pest\Laravel\travel;
 
-it('gets the daily goal for each type', function (GoalTypes $type, int $amount, ?int $weight = null, ?int $temperature = null) {
+it('gets the daily goal for each type', function (GoalType $type, int $amount, ?int $weight = null, ?int $temperature = null) {
     $user = User::factory()->create(['email' => 'timkley@gmail.com']);
     $user->settings()->create([
         'weight' => $weight,
@@ -43,44 +43,44 @@ it('gets the daily goal for each type', function (GoalTypes $type, int $amount, 
     expect(DailyGoal::count())->toBe(1);
 })->with([
     [
-        GoalTypes::Water,
+        GoalType::Water,
         2310,
         70,
         20,
     ],
     [
-        GoalTypes::Water,
+        GoalType::Water,
         2975,
         75,
         25,
     ],
     [
-        GoalTypes::Water,
+        GoalType::Water,
         3060,
         70,
         30,
     ],
     [
-        GoalTypes::Creatine,
+        GoalType::Creatine,
         5,
     ],
     [
-        GoalTypes::Planks,
+        GoalType::Planks,
         90,
     ],
 ]);
 
 it('gets a progressive goal for planks', function () {
-    expect(DailyGoal::for(GoalTypes::Planks)->goal)->toBe(90);
+    expect(DailyGoal::for(GoalType::Planks)->goal)->toBe(90);
 
     travel(5)->days();
     DailyGoal::factory()->create([
-        'type' => GoalTypes::Planks,
+        'type' => GoalType::Planks,
         'goal' => 90,
         'amount' => 90,
     ]);
 
-    expect(DailyGoal::for(GoalTypes::Planks)->goal)->toBe(95);
+    expect(DailyGoal::for(GoalType::Planks)->goal)->toBe(95);
 });
 
 it('can track a goal', function () {
@@ -108,9 +108,28 @@ it('can track a goal', function () {
 
     actingAs($user);
     Livewire::test('holocron.dashboard.goals')
-        ->call('trackGoal', GoalTypes::Water->value, 1000)
-        ->call('trackGoal', GoalTypes::NoSmoking->value, -1);
+        ->call('trackGoal', GoalType::Water->value, 1000)
+        ->call('trackGoal', GoalType::NoSmoking->value, -1);
 
-    expect(DailyGoal::for(GoalTypes::Water)->amount)->toBe(1000);
-    expect(DailyGoal::for(GoalTypes::NoSmoking)->amount)->toBe(0);
+    expect(DailyGoal::for(GoalType::Water)->amount)->toBe(1000);
+    expect(DailyGoal::for(GoalType::NoSmoking)->amount)->toBe(0);
+});
+
+it('adds experience for reached and unreached goals', function () {
+    $user = User::factory(['email' => 'timkley@gmail.com'])->create();
+    actingAs($user);
+    // creating a water goal awards no xp
+    // creating a smoking goal awards xp
+
+    $water = DailyGoal::for(GoalType::Water);
+    expect($user->fresh()->experienceLogs->count())->toBe(0);
+
+    $smoke = DailyGoal::for(GoalType::NoSmoking);
+    expect($user->fresh()->experienceLogs->count())->toBe(1);
+
+    $water->track(3000);
+    expect($user->fresh()->experienceLogs->count())->toBe(2);
+
+    $smoke->track(-1);
+    expect($user->fresh()->experienceLogs->count())->toBe(3);
 });

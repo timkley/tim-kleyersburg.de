@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-use App\Enums\Holocron\Health\GoalTypes;
+use App\Enums\Holocron\Health\GoalType;
 use App\Models\Holocron\Health\DailyGoal;
 
 it('calculates the current streak for a goal type', function () {
-    $type = GoalTypes::Water;
+    $type = GoalType::Water;
 
     // Create valid records for today and the past 4 days (a 5-day streak).
     for ($i = 0; $i < 5; $i++) {
@@ -32,7 +32,7 @@ it('calculates the current streak for a goal type', function () {
 });
 
 it('calculates the current streak if today is the goal not yet met', function () {
-    $type = GoalTypes::Water;
+    $type = GoalType::Water;
 
     // Create valid records for yesterdays and the past 4 days (a 5-day streak).
     for ($i = 1; $i < 6; $i++) {
@@ -58,7 +58,7 @@ it('calculates the current streak if today is the goal not yet met', function ()
 });
 
 it('calculates the highest streak for a goal type', function () {
-    $type = GoalTypes::Water;
+    $type = GoalType::Water;
 
     // Create a valid 5-day streak: today (day 0) to 4 days ago.
     for ($i = 0; $i < 5; $i++) {

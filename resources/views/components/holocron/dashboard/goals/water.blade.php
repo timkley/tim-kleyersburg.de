@@ -1,10 +1,10 @@
-@use(App\Enums\Holocron\Health\GoalTypes)
+@use(App\Enums\Holocron\Health\GoalType)
 
 <x-holocron.dashboard.goals.base :$goal>
     <x-slot:title>Wasser</x-slot>
 
     <form
-            @submit.prevent="$wire.trackGoal('{{ GoalTypes::Water }}', amount); amount = null;"
+            @submit.prevent="$wire.trackGoal('{{ GoalType::Water }}', amount); amount = null;"
             x-data="{ amount: null }"
     >
         <flux:input.group>

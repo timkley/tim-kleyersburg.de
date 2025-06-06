@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Enums\Holocron\ExperienceType;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -42,9 +43,9 @@ class User extends Authenticatable
         return $this->email === 'timkley@gmail.com';
     }
 
-    public function addExperience(int $amount, string $type, string $identifier, string $description): void
+    public function addExperience(int $amount, ExperienceType $type, int $identifier): void
     {
-        if ($this->experienceLogs()->where('identifier', $identifier)->count()) {
+        if ($this->experienceLogs()->where('type', $type)->where('identifier', $identifier)->count()) {
             return;
         }
 
@@ -54,7 +55,6 @@ class User extends Authenticatable
             'amount' => $amount,
             'type' => $type,
             'identifier' => $identifier,
-            'description' => $description,
         ]);
 
         $adjustment = max(0, $currentXp + $amount);

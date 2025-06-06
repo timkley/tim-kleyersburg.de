@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Concerns\Holocron\Health;
 
-use App\Enums\Holocron\Health\GoalTypes;
+use App\Enums\Holocron\Health\GoalType;
 use App\Models\Holocron\Health\DailyGoal;
 use App\Models\User;
 use App\Services\Weather;
@@ -50,6 +50,6 @@ trait CalculatesGoals
 
     protected function plankGoal(): int
     {
-        return max(90, (int) DailyGoal::where('type', GoalTypes::Planks)->max('amount') + 5);
+        return max(90, (int) DailyGoal::where('type', GoalType::Planks)->max('amount') + 5);
     }
 }

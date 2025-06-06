@@ -1,4 +1,4 @@
-@use(App\Enums\Holocron\Health\GoalTypes)
+@use(App\Enums\Holocron\Health\GoalType)
 
 <x-holocron.dashboard.goals.base :$goal>
     <x-slot:title>Mobility</x-slot>
@@ -7,7 +7,7 @@
     @if (!$goal->reached)
         <flux:button
                 class="w-full"
-                @click="$wire.trackGoal('{{ GoalTypes::Mobility }}', 1);"
+                @click="$wire.trackGoal('{{ GoalType::Mobility }}', 1);"
         >
             Gedehnt
         </flux:button>

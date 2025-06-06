@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Livewire\Holocron\Grind\Workouts;
 
+use App\Enums\Holocron\ExperienceType;
 use App\Livewire\Holocron\HolocronComponent;
 use App\Models\Holocron\Grind\Exercise;
 use App\Models\Holocron\Grind\Workout;
@@ -48,7 +49,7 @@ class Show extends HolocronComponent
             'finished_at' => now(),
         ]);
 
-        request()->user()->addExperience(10, 'workout-finished', (string) $this->workout->id, 'Yeah, du hast ein Workout geschafft 💪');
+        auth()->user()->addExperience(10, ExperienceType::WorkoutFinished, $this->workout->id);
 
         $this->dispatch('workout:finished');
     }

@@ -1,4 +1,4 @@
-@use(App\Enums\Holocron\Health\GoalTypes)
+@use(App\Enums\Holocron\Health\GoalType)
 
 <x-holocron.dashboard.goals.base :$goal>
     <x-slot:title>Nicht rauchen</x-slot>
@@ -7,7 +7,7 @@
     @if ($goal->reached)
         <flux:button
                 class="w-full"
-                @click="$wire.trackGoal('{{ GoalTypes::NoSmoking }}', -1);"
+                @click="$wire.trackGoal('{{ GoalType::NoSmoking }}', -1);"
         >
             Geraucht
         </flux:button>

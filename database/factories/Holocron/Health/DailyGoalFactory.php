@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Database\Factories\Holocron\Health;
 
-use App\Enums\Holocron\Health\GoalTypes;
-use App\Enums\Holocron\Health\GoalUnits;
+use App\Enums\Holocron\Health\GoalType;
+use App\Enums\Holocron\Health\GoalUnit;
 use App\Models\Holocron\Health\DailyGoal;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -22,8 +22,8 @@ class DailyGoalFactory extends Factory
     public function definition(): array
     {
         return [
-            'type' => GoalTypes::Water,
-            'unit' => GoalUnits::Milliliters,
+            'type' => GoalType::Water,
+            'unit' => GoalUnit::Milliliters,
             'amount' => $this->faker->numberBetween(1, 100),
         ];
     }

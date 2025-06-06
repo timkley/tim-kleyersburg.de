@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Enums\Holocron\Health;
 
-enum GoalUnits: string
+enum GoalUnit: string
 {
     case Milliliters = 'ml';
     case Grams = 'g';

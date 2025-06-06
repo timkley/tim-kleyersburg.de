@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models\Holocron;
 
+use App\Enums\Holocron\ExperienceType;
 use App\Enums\Holocron\QuestStatus;
 use App\Models\Webpage;
 use Database\Factories\Holocron\QuestFactory;
@@ -32,7 +33,7 @@ class Quest extends Model
         $this->update(['status' => $status]);
 
         if ($status === QuestStatus::Complete) {
-            defer(fn () => request()->user()->addExperience(2, 'quest-completed', (string) $this->id, 'Quest abgeschlossen'));
+            defer(fn () => auth()->user()->addExperience(2, ExperienceType::QuestCompleted, $this->id));
         }
     }
 
