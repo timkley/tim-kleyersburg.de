@@ -17,7 +17,7 @@ return new class extends Migration
         });
 
         foreach (ExperienceLog::all() as $log) {
-            $log->type = str_replace('-', '_', $log->type);
+            $log->type = str_replace('-', '_', $log->getRawOriginal('type'));
             $log->save();
         }
     }
