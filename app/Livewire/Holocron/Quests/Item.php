@@ -18,6 +18,12 @@ class Item extends Component
         $this->quest->setStatus(QuestStatus::from($status));
     }
 
+    public function toggleAccept(): void
+    {
+        $this->quest->update(['accepted' => ! $this->quest->accepted]);
+        $this->dispatch('quest:accepted');
+    }
+
     public function render(): View
     {
         return view('holocron.quests.item');

@@ -3,13 +3,23 @@
 
 <div>
     <div class="space-y-4">
+        @if($acceptedQuests->isNotEmpty())
+            <flux:card class="space-y-4">
+                <flux:heading>Angenommene Quests</flux:heading>
+
+                <div class="space-y-2">
+                    @foreach($acceptedQuests as $acceptedQuest)
+                        <livewire:holocron.quests.item
+                            :quest="$acceptedQuest"
+                            :key="'accepted-item.' . $acceptedQuest->id"
+                        />
+                    @endforeach
+                </div>
+            </flux:card>
+        @endif
+
         <flux:card class="space-y-4">
-            <div>
-                <flux:heading>Nächste Quests</flux:heading>
-                <flux:text class="mt-1">Quests, an denen als nächstes gearbeitet werden sollte, da sie keine
-                    Sidequests haben.
-                </flux:text>
-            </div>
+            <flux:heading>Nächste Quests</flux:heading>
 
             <div class="space-y-2">
                 @foreach($questsWithoutChildren as $leafQuest)
@@ -22,9 +32,8 @@
         </flux:card>
 
         <flux:card class="space-y-4">
-            <div>
-                <flux:heading>Main-Quests</flux:heading>
-            </div>
+            <flux:heading>Main-Quests</flux:heading>
+
             <div class="space-y-4">
                 <div class="space-y-2">
                     @foreach($quests as $childQuest)

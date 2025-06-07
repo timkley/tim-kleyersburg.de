@@ -19,6 +19,13 @@ class Overview extends HolocronComponent
     #[Validate('max:255')]
     public string $questDraft = '';
 
+    /**
+     * @var string[]
+     */
+    protected $listeners = [
+        'quest:accepted' => '$refresh',
+    ];
+
     public function addQuest(): void
     {
         $this->validate();
@@ -38,9 +45,16 @@ class Overview extends HolocronComponent
     public function render(): View
     {
         return view('holocron.quests.overview', [
+            'acceptedQuests' => Quest::query()
+                ->accepted()
+                ->notCompleted()
+                ->orderBy('status')
+                ->orderByDesc('created_at')
+                ->get(),
             'questsWithoutChildren' => Quest::query()
                 ->whereNot('status', QuestStatus::Note)
                 ->noChildren()
+                ->notAccepted()
                 ->notCompleted()
                 ->orderBy('status')
                 ->orderByDesc('created_at')

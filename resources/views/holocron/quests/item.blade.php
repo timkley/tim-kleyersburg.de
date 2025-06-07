@@ -35,6 +35,11 @@
     </div>
 
     <div class="flex items-center h-[25px] ml-auto">
+        @if($quest->accepted)
+            <flux:button icon="shield-minus" wire:click="toggleAccept" variant="ghost"/>
+        @else
+            <flux:button icon="shield-plus" wire:click="toggleAccept" variant="ghost"/>
+        @endif
         <flux:button icon="trash" wire:click="$parent.deleteQuest({{ $quest->id }})" wire:confirm="Willst du {{ $quest->name }} wirklich löschen?" variant="subtle"></flux:button>
     </div>
 </div>

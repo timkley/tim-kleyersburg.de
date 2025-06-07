@@ -29,6 +29,14 @@ class Quest extends Model
 
     protected $with = ['parent'];
 
+    protected $fillable = [
+        'name',
+        'status',
+        'quest_id',
+        'images',
+        'accepted',
+    ];
+
     public function setStatus(QuestStatus $status): void
     {
         $this->update(['status' => $status]);
@@ -36,6 +44,16 @@ class Quest extends Model
         if ($status === QuestStatus::Complete) {
             defer(fn () => User::tim()->addExperience(2, ExperienceType::QuestCompleted, $this->id));
         }
+    }
+
+    public function accept(): void
+    {
+        $this->update(['accepted' => true]);
+    }
+
+    public function unaccept(): void
+    {
+        $this->update(['accepted' => false]);
     }
 
     /**
@@ -119,6 +137,26 @@ class Quest extends Model
     }
 
     /**
+     * @param  EloquentBuilder<Quest>  $query
+     * @return EloquentBuilder<Quest>
+     */
+    #[Scope]
+    protected function accepted(EloquentBuilder $query): EloquentBuilder
+    {
+        return $query->where('accepted', true);
+    }
+
+    /**
+     * @param  EloquentBuilder<Quest>  $query
+     * @return EloquentBuilder<Quest>
+     */
+    #[Scope]
+    protected function notAccepted(EloquentBuilder $query): EloquentBuilder
+    {
+        return $query->where('accepted', false);
+    }
+
+    /**
      * @return string[]
      */
     protected function casts(): array
@@ -126,6 +164,7 @@ class Quest extends Model
         return [
             'status' => QuestStatus::class,
             'images' => AsCollection::class,
+            'accepted' => 'boolean',
         ];
     }
 }
