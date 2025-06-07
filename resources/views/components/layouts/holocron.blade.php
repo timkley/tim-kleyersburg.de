@@ -12,7 +12,7 @@
             </a>
 
             <a href="{{ route('holocron.experience') }}" wire:navigate>
-                <flux:badge as="button">{{ Number::format(number: auth()->user()->experience ?? 0, locale: 'de') }} XP</flux:badge>
+                <flux:badge as="button">{{ Number::format(number: auth()->user()->experience ?? 0, locale: 'de') }} XP: Level {{ auth()->user()->level }}</flux:badge>
             </a>
         </div>
     </x-slot>

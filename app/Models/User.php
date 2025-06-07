@@ -6,6 +6,7 @@ namespace App\Models;
 
 use App\Enums\Holocron\ExperienceType;
 use Database\Factories\UserFactory;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -20,6 +21,8 @@ class User extends Authenticatable
 {
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
+
+    protected int $baseXp = 100;
 
     /**
      * @var list<string>
@@ -98,5 +101,28 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    /**
+     * @return Attribute<int, never>
+     */
+    protected function level(): Attribute
+    {
+        return Attribute::make(
+            get: fn (): int => max(1, (int) floor(sqrt($this->experience / $this->baseXp))),
+        );
+    }
+
+    /**
+     * @return Attribute<int, never>
+     */
+    protected function xpForNextLevel(): Attribute
+    {
+        $currentLevel = $this->level;
+        $nextLevel = $currentLevel + 1;
+
+        return Attribute::make(
+            get: fn (): int => $this->baseXp * pow($nextLevel, 2),
+        );
     }
 }

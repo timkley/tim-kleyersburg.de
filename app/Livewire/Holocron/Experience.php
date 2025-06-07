@@ -16,7 +16,7 @@ class Experience extends HolocronComponent
     public function render(): View
     {
         return view('holocron.experience', [
-            'experiences' => auth()->user()->experienceLogs()->paginate(10),
+            'experiences' => auth()->user()->experienceLogs()->latest()->paginate(10),
         ]);
     }
 }
