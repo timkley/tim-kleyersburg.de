@@ -119,7 +119,7 @@ class Show extends HolocronComponent
         $this->quest->setStatus(QuestStatus::from($status));
     }
 
-    public function move(int $id): void
+    public function move(?int $id): void
     {
         $this->quest->update([
             'quest_id' => $id,
@@ -249,6 +249,7 @@ EOT
                 });
             })
             ->orderByDesc('status')
+            ->orderByDesc('updated_at')
             ->get();
 
         return view('holocron.quests.show', [

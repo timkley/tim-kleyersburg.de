@@ -35,7 +35,7 @@
                 </flux:menu>
             </flux:dropdown>
 
-            <flux:input class:input="md:!text-lg !h-(--height)" wire:model.live="name"/>
+            <flux:input class:input="md:!text-lg !h-(--height)" wire:model.live.debounce="name"/>
 
             <flux:modal.trigger name="move">
                 <flux:button class="!h-(--height) px-4" icon="folder-arrow-down"></flux:button>
@@ -44,7 +44,7 @@
 
         <flux:editor
             class="mt-4"
-            wire:model.live="description"
+            wire:model.live.debounce="description"
         ></flux:editor>
 
         <div class="grid md:grid-cols-2 gap-8 mt-8">
@@ -66,7 +66,7 @@
             </div>
 
             <div
-                class="aspect-video border-dashed rounded-lg border-2 border-gray-300 p-4 grid grid-cols-4 gap-4 grid-rows-2 hover:bg-black/5 dark:hover:bg-white/5"
+                class="border-dashed rounded-lg border-2 border-gray-300 p-4 grid grid-cols-4 gap-4 grid-rows-2 hover:bg-black/5 dark:hover:bg-white/5"
                 x-bind:class="{ 'border-solid': dragged, 'border-dashed': !dragged }"
                 x-data="{ dragged: false }"
                 x-on:click="$refs.fileInput.click()"
@@ -94,24 +94,13 @@
             </div>
         </div>
 
-        <div class="flex items-center my-12 gap-x-4">
-            <div class="flex-1">
-                <flux:separator text="Unter-Quests"/>
-            </div>
-            <flux:switch label="Alle Unter-Quests" wire:model.live="showAllSubquests"/>
+        <div class="mt-12 mb-6">
+            <flux:separator text="Unter-Quests"/>
         </div>
 
         <div class="space-y-4">
-            @if($quest->children->count())
-                <div class="space-y-2">
-                    @foreach($questChildren as $childQuest)
-                        <livewire:holocron.quests.item :quest="$childQuest" :key="'item.' . $childQuest->id"/>
-                    @endforeach
-                </div>
-            @endif
-
             <div class="flex flex-col sm:flex-row gap-3">
-                <form wire:submit="addQuest" class="max-w-lg flex-1">
+                <form wire:submit="addQuest" class="flex-1">
                     <flux:input wire:model="questDraft" placeholder="Neue Quest"/>
                 </form>
                 <flux:button icon="sparkles" wire:click="generateSubquests">
@@ -128,6 +117,18 @@
                     </flux:button>
                 </flux:text>
             @endforeach
+
+            @if($quest->children->count())
+                <div class="space-y-2">
+                    @foreach($questChildren as $childQuest)
+                        <livewire:holocron.quests.item :quest="$childQuest" :key="'item.' . $childQuest->id"/>
+                    @endforeach
+                </div>
+            @endif
+
+            <div class="ml-auto w-fit mr-2">
+                <flux:switch label="Alle Unter-Quests" wire:model.live="showAllSubquests"/>
+            </div>
         </div>
     </flux:card>
 
@@ -155,7 +156,7 @@
     <flux:modal name="move" class="space-y-4 w-[calc(100vw-var(--spacing)*10)]">
         <flux:heading size="lg">Quest verschieben</flux:heading>
 
-        <flux:input wire:model.live="parentSearchTerm"></flux:input>
+        <flux:input placeholder="Suche..." wire:model.live.debounce="parentSearchTerm"></flux:input>
 
         <div class="space-y-2">
             @forelse($possibleParents as $possibleParent)
@@ -167,6 +168,12 @@
                     Nach "{{ $possibleParent->name }}" verschieben
                 </flux:button>
             @empty
+                <flux:button
+                    class="w-full [&>span]:truncate"
+                    wire:click="move(null)"
+                >
+                    Zu Main-Quest machen
+                </flux:button>
                 <flux:text>Keine Ergebnisse</flux:text>
             @endforelse
         </div>
