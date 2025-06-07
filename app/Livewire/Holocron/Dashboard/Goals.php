@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Livewire\Holocron\Dashboard;
 
 use App\Enums\Holocron\Health\GoalType;
+use App\Jobs\Holocron\Health\CreateDailyGoals;
 use App\Models\Holocron\Health\DailyGoal;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Collection;
@@ -26,8 +27,14 @@ class Goals extends Component
         $goals = $this->getGoalsForPeriod(0);
         $goalsPreviousPeriod = $this->getGoalsForPeriod(20);
 
+        $todaysGoals = DailyGoal::whereDate('created_at', $this->selectedDate)->get();
+
+        if ($todaysGoals->isEmpty()) {
+            CreateDailyGoals::dispatchSync();
+        }
+
         return view('holocron.dashboard.goals', [
-            'todaysGoals' => DailyGoal::whereDate('created_at', $this->selectedDate)->get(),
+            'todaysGoals' => $todaysGoals,
             'goalsPast20DaysByDay' => $goals->groupBy('date'),
             'goalsPast20DaysCount' => $goals->count(),
             'goalsPast20DaysReachedCount' => $goals->sum('reached'),
