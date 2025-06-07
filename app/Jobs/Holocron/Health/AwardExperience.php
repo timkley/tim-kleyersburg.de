@@ -19,10 +19,7 @@ class AwardExperience implements ShouldQueue
     public function handle(): void
     {
         if (! DailyGoal::query()->whereToday('date')->get()->pluck('reached')->contains(false)) {
-            User::query()
-                ->where('email', 'timkley@gmail.com')
-                ->sole()
-                ->addExperience(5, ExperienceType::PerfectDay, (int) now()->startOfDay()->timestamp);
+            User::tim()->addExperience(5, ExperienceType::PerfectDay, (int) now()->startOfDay()->timestamp);
         }
     }
 }

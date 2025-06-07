@@ -38,6 +38,13 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    public static function tim(): self
+    {
+        return self::query()
+            ->where('email', 'timkley@gmail.com')
+            ->sole();
+    }
+
     public function isTim(): bool
     {
         return $this->email === 'timkley@gmail.com';

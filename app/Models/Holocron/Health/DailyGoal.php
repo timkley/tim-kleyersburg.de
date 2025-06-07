@@ -7,6 +7,7 @@ namespace App\Models\Holocron\Health;
 use App\Enums\Holocron\ExperienceType;
 use App\Enums\Holocron\Health\GoalType;
 use App\Enums\Holocron\Health\GoalUnit;
+use App\Models\User;
 use Carbon\CarbonImmutable;
 use Database\Factories\Holocron\Health\DailyGoalFactory;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -120,11 +121,11 @@ class DailyGoal extends Model
         ]);
 
         if ($this->reached) {
-            auth()->user()->addExperience(2, ExperienceType::GoalReached, $this->id);
+            User::tim()->addExperience(2, ExperienceType::GoalReached, $this->id);
         }
 
         if ($wasPreviouslyReached && ! $this->reached) {
-            auth()->user()->addExperience(-2, ExperienceType::GoalUnreached, $this->id);
+            User::tim()->addExperience(-2, ExperienceType::GoalUnreached, $this->id);
         }
     }
 

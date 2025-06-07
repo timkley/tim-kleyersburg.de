@@ -6,7 +6,7 @@ use App\Enums\Holocron\ExperienceType;
 use App\Models\User;
 
 test('experience', function () {
-    $user = User::factory()->create();
+    $user = User::factory(['email' => 'timkley@gmail.com'])->create();
 
     $user->addExperience(-1, ExperienceType::QuestCompleted, 1);
     expect($user->experience)->toBe(0);
