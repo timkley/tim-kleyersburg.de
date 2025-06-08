@@ -108,8 +108,8 @@
                 </flux:button>
             </div>
 
-            @foreach($subquestSuggestions as $suggestion)
-                <flux:text class="max-w-lg flex justify-between items-center">
+            @foreach($subquestSuggestions as $i => $suggestion)
+                <flux:text class="max-w-lg flex justify-between items-center" :key="$i">
                     {{ $suggestion['name'] }}
 
                     <flux:button x-on:click="$wire.addQuest('{{ $suggestion['name'] }}'); $el.parentElement.remove()" variant="filled" size="sm">
@@ -118,7 +118,7 @@
                 </flux:text>
             @endforeach
 
-            @if($quest->children->count())
+            @if($questChildren)
                 <div class="space-y-2">
                     @foreach($questChildren as $childQuest)
                         <livewire:holocron.quests.item :quest="$childQuest" :key="'item.' . $childQuest->id"/>
