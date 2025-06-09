@@ -118,7 +118,7 @@
                 </flux:text>
             @endforeach
 
-            @if($questChildren)
+            @if($questChildren->isNotEmpty())
                 <div class="space-y-2">
                     @foreach($questChildren as $childQuest)
                         <livewire:holocron.quests.item :quest="$childQuest" :key="'item.' . $childQuest->id" :show-parent="false"/>
