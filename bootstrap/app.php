@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Http\Middleware\BearerToken;
+use App\Jobs\Holocron\Health\AwardExperience;
 use App\Jobs\Holocron\Health\CreateDailyGoals;
 use App\Jobs\Holocron\School\CheckForNewThings;
 use Illuminate\Foundation\Application;
@@ -29,6 +30,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->api([BearerToken::class]);
     })
     ->withSchedule(function (Illuminate\Console\Scheduling\Schedule $schedule): void {
+        $schedule->job(AwardExperience::class)->dailyAt('23:55');
         $schedule->job(CreateDailyGoals::class)->dailyAt('00:01');
         $schedule->job(CheckForNewThings::class)->hourly()->between('7:00', '18:00');
     })
