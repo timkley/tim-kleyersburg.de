@@ -42,7 +42,10 @@ class Quest extends Model
         $this->update(['status' => $status]);
 
         if ($status === QuestStatus::Complete) {
-            defer(fn () => User::tim()->addExperience(2, ExperienceType::QuestCompleted, $this->id));
+            defer(function () {
+                $this->update(['accepted' => false]);
+                User::tim()->addExperience(2, ExperienceType::QuestCompleted, $this->id);
+            });
         }
     }
 
