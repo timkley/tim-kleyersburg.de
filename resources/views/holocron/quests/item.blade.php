@@ -29,7 +29,7 @@
                 <flux:badge size="sm">{{ $quest->children->count() }}<span class="hidden sm:inline">&nbsp;Unter-Quests</span></flux:badge>
             @endif
         </a>
-        @if($quest->parent)
+        @if($quest->parent && $showParent)
             <flux:link class="text-sm" href="{{ route('holocron.quests.show', $quest->parent->id) }}">{{ $quest->parent->name }}</flux:link>
         @endif
     </div>

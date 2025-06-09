@@ -13,6 +13,8 @@ class Item extends Component
 {
     public Quest $quest;
 
+    public bool $showParent = true;
+
     public function setStatus(string $status): void
     {
         $this->quest->setStatus(QuestStatus::from($status));
