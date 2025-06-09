@@ -54,7 +54,7 @@
                 <flux:heading>Links</flux:heading>
 
                 @forelse($quest->webpages as $webpage)
-                    <livewire:holocron.quests.link :$webpage :key="$webpage->id" />
+                    <livewire:holocron.quests.link :$webpage :key="$webpage->id"/>
                 @empty
                     <flux:text>Keine Links</flux:text>
                 @endforelse
@@ -78,7 +78,7 @@
             >
                 @forelse($quest->images as $image)
                     <flux:modal.trigger :name="'image.' . $image" :key="'image.' . $image" x-on:click.stop="">
-                        <img class="object-cover size-full rounded-md" src="{{ asset($image) }}" alt="">
+                        <img class="object-cover size-full rounded-md" src="{{ asset('storage/'.$image) }}" alt="">
                     </flux:modal.trigger>
                 @empty
                     <flux:text class="col-span-4 row-span-2 flex items-center justify-center gap-x-2">
@@ -117,7 +117,9 @@
                 >
                     {{ $suggestion['name'] }}
 
-                    <flux:button x-on:click="$wire.addQuest('{{ $suggestion['name'] }}'); $el.parentElement.remove()" variant="filled" size="sm">
+                    <flux:button x-on:click="$wire.addQuest('{{ $suggestion['name'] }}'); $el.parentElement.remove()"
+                                 variant="filled"
+                                 size="sm">
                         Hinzufügen
                     </flux:button>
                 </flux:text>
@@ -162,7 +164,7 @@
             :name="'image.' . $image"
             wire:key="image.{{ $image }}"
         >
-            <img src="{{ asset($image) }}" alt="">
+            <img src="{{ asset('storage/' . $image) }}" alt="">
         </flux:modal>
     @endforeach
 
