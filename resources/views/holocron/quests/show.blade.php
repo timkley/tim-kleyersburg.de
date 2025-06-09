@@ -9,6 +9,7 @@
                 <flux:breadcrumbs.item
                     href="{{ route('holocron.quests.show', $crumb->id) }}"
                     wire:navigate
+                    wire:key="crumb.{{ $crumb->id }}"
                     class="whitespace-nowrap"
                 >
                     {{ $crumb->name }}
@@ -28,6 +29,7 @@
                             :icon="$status->icon()"
                             :disabled="$status->value === $quest->status->value"
                             wire:click="setStatus('{{ $status->value }}')"
+                            wire:key="status.{{ $status->value }}"
                         >
                             {{ $status->label() }}
                         </flux:menu.item>
@@ -109,7 +111,10 @@
             </div>
 
             @foreach($subquestSuggestions as $i => $suggestion)
-                <flux:text class="max-w-lg flex justify-between items-center" :key="$i">
+                <flux:text
+                    class="max-w-lg flex justify-between items-center"
+                    :key="'suggestion.' . $i"
+                >
                     {{ $suggestion['name'] }}
 
                     <flux:button x-on:click="$wire.addQuest('{{ $suggestion['name'] }}'); $el.parentElement.remove()" variant="filled" size="sm">
@@ -119,9 +124,13 @@
             @endforeach
 
             @if($questChildren->isNotEmpty())
-                <div class="space-y-2">
+                <div class="space-y-2" wire:key="quest-children-container">
                     @foreach($questChildren as $childQuest)
-                        <livewire:holocron.quests.item :quest="$childQuest" :key="'item.' . $childQuest->id" :show-parent="false"/>
+                        <livewire:holocron.quests.item
+                            :quest="$childQuest"
+                            :key="'item.' . $childQuest->id"
+                            :show-parent="false"
+                        />
                     @endforeach
                 </div>
             @endif
@@ -136,9 +145,10 @@
         <form wire:submit="addNote" class="space-y-4">
             <flux:editor wire:model="noteDraft" placeholder="Neue Notiz"></flux:editor>
             <flux:button type="submit" variant="primary">Notiz speichern</flux:button>
+            <flux:button wire:click="generateSolution">Smart</flux:button>
         </form>
 
-        @if($quest->notes->count())
+        @if($quest->notes->isNotEmpty())
             <div class="space-y-2">
                 @foreach($quest->notes()->latest()->get() as $note)
                     <livewire:holocron.quests.note :note="$note" :key="'note.' . $note->id"/>
@@ -148,7 +158,10 @@
     </flux:card>
 
     @foreach($quest->images as $image)
-        <flux:modal :name="'image.' . $image" :key="'image.' . $image">
+        <flux:modal
+            :name="'image.' . $image"
+            wire:key="image.{{ $image }}"
+        >
             <img src="{{ asset($image) }}" alt="">
         </flux:modal>
     @endforeach
