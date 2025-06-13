@@ -67,7 +67,12 @@
             @php($apod = \App\Services\Nasa::apod())
 
             @if(!is_null($apod['url']))
-                <img src="{{ $apod['url'] }}" alt="{{ $apod['title'] }}" class="rounded shadow-md mb-4" />
+                <flux:modal.trigger name="apod">
+                    <img src="{{ $apod['url'] }}" alt="{{ $apod['title'] }}" class="rounded shadow-md mb-4" />
+                </flux:modal.trigger>
+                <flux:modal name="apod">
+                    <img src="{{ $apod['url'] }}" alt="{{ $apod['title'] }}" class="rounded shadow-md mb-4" />
+                </flux:modal>
 
                 <flux:accordion>
                     <flux:accordion.item>
