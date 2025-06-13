@@ -20,11 +20,39 @@
     <div class="grid gap-4 sm:grid-cols-2 md:grid-cols-3 md:gap-8">
         @if (auth()->user()->isTim())
             <livewire:holocron.dashboard.goals />
-
-            <livewire:holocron.dashboard.bookmarks />
         @endif
 
-        <flux:card class="h-full">
+        <flux:card>
+            <flux:heading
+                class="flex items-center gap-2 font-semibold"
+                size="lg"
+            >
+                <flux:icon.link />
+                Quests
+            </flux:heading>
+            <flux:subheading class="space-y-2">
+                @foreach($accepted_quests as $quest)
+                    <livewire:holocron.quests.item :$quest :key="$quest->id" :show-parent="false" />
+                @endforeach
+            </flux:subheading>
+        </flux:card>
+
+        <flux:card class="space-y-4">
+            <div>
+                <flux:heading
+                    class="flex items-center gap-2 font-semibold"
+                    size="lg"
+                >
+                    <flux:icon.link />
+                    Lesezeichen
+                </flux:heading>
+                <flux:subheading>
+                    <a href="{{ route('holocron.bookmarks') }}" wire:navigate>
+                        {{ App\Models\Holocron\Bookmark::count() }} Lesezeichen
+                    </a>
+                </flux:subheading>
+            </div>
+
             <div>
                 <flux:heading
                     class="flex items-center gap-2 font-semibold"
