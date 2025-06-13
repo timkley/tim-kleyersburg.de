@@ -35,6 +35,10 @@
             <flux:heading>Main-Quests</flux:heading>
 
             <div class="space-y-4">
+                <form wire:submit="addQuest" class="max-w-lg">
+                    <flux:input wire:model="questDraft" placeholder="Neue Quest"/>
+                </form>
+
                 <div class="space-y-2">
                     @foreach($quests as $childQuest)
                         <livewire:holocron.quests.item
@@ -42,12 +46,6 @@
                             :key="'item.' . $childQuest->id"
                         />
                     @endforeach
-                </div>
-
-                <div class="flex flex-col sm:flex-row gap-3">
-                    <form wire:submit="addQuest" class="max-w-lg flex-1">
-                        <flux:input wire:model="questDraft" placeholder="Neue Quest"/>
-                    </form>
                 </div>
             </div>
         </flux:card>
