@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Support\Carbon;
 
 /**
@@ -32,20 +33,32 @@ class Workout extends Model
     }
 
     /**
-     * @return HasMany<Set, $this>
+     * @return HasMany<WorkoutExercise, $this>
      */
-    public function sets(): HasMany
+    public function exercises(): HasMany
     {
-        return $this->hasMany(Set::class);
+        return $this->hasMany(WorkoutExercise::class);
+    }
+
+    /**
+     * @return HasManyThrough<Set, WorkoutExercise, $this>
+     */
+    public function sets(): HasManyThrough
+    {
+        return $this->hasManyThrough(
+            Set::class,
+            WorkoutExercise::class,
+            'workout_id', // Foreign key on WorkoutExercise table
+            'workout_exercise_id', // Foreign key on Set table
+        );
     }
 
     /**
      * Get the current exercise to work on
      */
-    public function getCurrentExercise(): ?Exercise
+    public function getCurrentExercise(): ?WorkoutExercise
     {
-        return $this->plan->exercises()
-            ->find($this->current_exercise_index);
+        return $this->exercises()->find($this->current_exercise_id) ?? $this->exercises()->first();
     }
 
     /**

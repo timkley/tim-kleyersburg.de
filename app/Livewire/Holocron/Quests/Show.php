@@ -150,7 +150,7 @@ class Show extends HolocronComponent
 
     public function generateSolution(): void
     {
-        $prompt = <<<EOT
+        $prompt = <<<'EOT'
 Aufgabenstruktur:
 ---
 

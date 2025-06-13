@@ -2,34 +2,32 @@
     <div class="space-y-6">
         <div class="flex overflow-x-auto pb-2 scrollbar -mx-6">
             <div class="flex grow px-6 gap-x-4">
-                @foreach($exercises as $index => $exercise)
+                @foreach($workoutExercises as $workoutExercise)
                     <div
                         @class([
                             'w-32 bg-black/5 dark:bg-white/10 rounded-lg flex-shrink-0 p-3 hyphens-auto flex flex-col justify-between gap-y-2 scroll-mx-4',
-                            '!bg-sky-200 dark:!bg-sky-900' => $exercise->id === $currentExercise->id,
-                            'opacity-50' => $workout->sets->where('exercise_id', $exercise->id)->whereNotNull('finished_at')->count() === $exercise->pivot?->sets
+                            '!bg-sky-200 dark:!bg-sky-900' => $workoutExercise->id === $currentExercise->id,
+                            'opacity-50' => $workoutExercise->sets()->whereNotNull('finished_at')->count() === $workoutExercise->sets
                         ])
-                        @if($exercise->id === $currentExercise->id)
+                        @if($workoutExercise->id === $currentExercise->id)
                             data-current
                         @endif
-                        wire:click="setExercise({{ $exercise->id }})"
+                        wire:click="setExercise({{ $workoutExercise->id }})"
                     >
                         <div class="font-semibold">
-                            {{ $exercise->name }}
+                            {{ $workoutExercise->exercise->name }}
                         </div>
-                        @if(!$workout->finished_at)
-                            <div>
-                                <div class="text-xs flex items-center gap-x-0.5">
-                                    <span>
-                                        {{ $exercise->pivot->min_reps }}
-                                    </span>
-                                    <flux:icon name="arrow-long-right" variant="micro"/>
-                                    <span>
-                                        {{ $exercise->pivot->max_reps }}&nbsp;Wdh.
-                                    </span>
-                                </div>
+                        <div>
+                            <div class="text-xs flex items-center gap-x-0.5">
+                                <span>
+                                    {{ $workoutExercise->min_reps }}
+                                </span>
+                                <flux:icon name="arrow-long-right" variant="micro"/>
+                                <span>
+                                    {{ $workoutExercise->max_reps }}&nbsp;Wdh.
+                                </span>
                             </div>
-                        @endif
+                        </div>
                     </div>
                 @endforeach
             </div>
@@ -41,11 +39,11 @@
                 <div>kg</div>
                 <div>Wdh.</div>
             </div>
-            @foreach($workout->sets()->where('exercise_id', $currentExercise->id)->get() as $set)
+            @foreach($currentExercise->sets()->get() as $set)
                 <livewire:holocron.grind.workouts.set
                     :$set
-                    :min-reps="$currentExercise->pivot->min_reps ?? 0"
-                    :max-reps="$currentExercise->pivot->max_reps ?? 0"
+                    :min-reps="$currentExercise->min_reps"
+                    :max-reps="$currentExercise->max_reps"
                     :key="$set->id"
                     :iteration="$loop->iteration"/>
             @endforeach
@@ -65,7 +63,9 @@
 
         <div class="flex justify-center">
             @if(!$workout->finished_at)
-                <flux:button class="mx-auto" icon="check-badge" variant="primary" wire:click="finish">Workout abschließen</flux:button>
+                <flux:button class="mx-auto" icon="check-badge" variant="primary" wire:click="finish">Workout
+                    abschließen
+                </flux:button>
             @else
                 <flux:text class="text-base">
                     Workout abgeschlossen 🚀
@@ -80,7 +80,7 @@
     const scrollIntoView = (el) => {
         el.scrollIntoView({
             behavior: 'smooth',
-            block: 'center',
+            block: 'left',
         })
     }
 
