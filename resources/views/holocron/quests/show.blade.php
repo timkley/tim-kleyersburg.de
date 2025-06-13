@@ -146,8 +146,10 @@
     <flux:card class="space-y-3">
         <form wire:submit="addNote" class="space-y-4">
             <flux:editor wire:model="noteDraft" placeholder="Neue Notiz"></flux:editor>
-            <flux:button type="submit" variant="primary">Notiz speichern</flux:button>
-            <flux:button wire:click="generateSolution">Smart</flux:button>
+            <div class="flex gap-2">
+                <flux:button type="submit" variant="primary">Notiz speichern</flux:button>
+                <flux:button wire:click="generateSolution" icon="sparkles">Smarte Lösung</flux:button>
+            </div>
         </form>
 
         @if($quest->notes->isNotEmpty())

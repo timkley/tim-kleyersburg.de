@@ -11,6 +11,7 @@ use App\Models\Holocron\Quest;
 use App\Models\Holocron\QuestNote;
 use App\Models\Webpage;
 use Denk\Facades\Denk;
+use Denk\ValueObjects\DeveloperMessage;
 use Denk\ValueObjects\UserMessage;
 use Flux\Flux;
 use Illuminate\Database\Eloquent\Builder;
@@ -147,6 +148,39 @@ class Show extends HolocronComponent
         Quest::destroy($id);
     }
 
+    public function generateSolution(): void
+    {
+        $prompt = <<<EOT
+Aufgabenstruktur:
+---
+
+EOT;
+
+        foreach ($this->quest->breadcrumb() as $index => $quest) {
+            $indent = str_repeat('  ', $index);
+
+            $prompt .= <<<EOT
+{$indent}- Name: {$quest->name}
+{$indent}  Beschreibung: {$quest->description}
+
+EOT;
+        }
+
+        $prompt .= '---';
+
+        $solution = Denk::text()
+            ->model('google/gemini-2.5-flash-preview-05-20:online')
+            ->messages([
+                new DeveloperMessage(view('prompts.solution')->render()),
+                new UserMessage($prompt),
+            ])
+            ->generate();
+
+        $this->quest->notes()->create([
+            'content' => str($solution)->markdown(),
+        ]);
+    }
+
     public function generateSubquests(): void
     {
         $children = $this->quest->children->implode('name', '\n');
@@ -168,29 +202,11 @@ class Show extends HolocronComponent
                 ],
             ])
             ->messages([
-                new UserMessage(
-                    <<<EOT
-Du bist ein Assistent zur Aufgabenzerlegung. Deine Aufgabe ist es, eine Hauptaufgabe in die nächsten logischen und umsetzbaren Unteraufgaben zu zerlegen.
-
-**Hauptaufgabe:**
-$this->name
-$this->description
-
-**Bereits vorhandene Aufgaben**
-$children
-
-**Anweisungen:**
-
-1.  **Analysiere die Hauptaufgabe:** Identifiziere die *ersten* Schritte, die zur Bearbeitung notwendig sind.
-2.  **Generiere Unteraufgaben:** Erstelle eine Liste von maximal 3-5 Unteraufgaben.
-3.  **Reduziere Komplexität:** Jede Unteraufgabe muss *signifikant* einfacher sein als die Hauptaufgabe.
-4.  **Formulierung:** Schreibe klare, prägnante und handlungsorientierte Unteraufgaben (z.B. "Konzept erstellen", "Daten sammeln", "Kunden kontaktieren").
-5.  **Kontexthandhabung:** Wenn der Kontext der Hauptaufgabe unklar ist, schlage allgemeine erste Schritte vor, die typischerweise für eine solche Aufgabe anfallen, oder formuliere eine Unteraufgabe zur Klärung (z.B. "Anforderungen für [Thema] definieren").
-
-**Output:**
-Gib *nur* die Liste der generierten Unteraufgaben als JSON-Array zurück, eine pro Zeile, ohne zusätzliche Erklärungen oder Nummerierungen.
-EOT
-                ),
+                new UserMessage(view('prompts.subquests', [
+                    'name' => $this->name,
+                    'description' => $this->description,
+                    'children' => $children,
+                ])->render()),
             ])->generate()['subtasks'];
     }
 

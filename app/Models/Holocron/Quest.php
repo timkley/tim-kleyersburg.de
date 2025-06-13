@@ -112,7 +112,7 @@ class Quest extends Model
             $breadcrumb->push($current);
         }
 
-        return $breadcrumb->reverse();
+        return $breadcrumb->reverse()->values();
     }
 
     /**
