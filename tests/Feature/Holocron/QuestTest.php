@@ -29,9 +29,9 @@ it('can construct a breadcrumb', function () {
 
     $breadcrumb = $quest3->breadcrumb();
     expect($breadcrumb)->toHaveCount(3);
-    expect($breadcrumb[0]['name'])->toBe($quest3->name);
+    expect($breadcrumb[0]['name'])->toBe($quest->name);
     expect($breadcrumb[1]['name'])->toBe($quest2->name);
-    expect($breadcrumb[2]['name'])->toBe($quest->name);
+    expect($breadcrumb[2]['name'])->toBe($quest3->name);
 });
 
 it('can delete a quest', function () {
