@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Query\Builder;
+use Laravel\Scout\Searchable;
 
 /** @property \Illuminate\Support\Collection $images */
 /** @property QuestStatus $status */
@@ -26,6 +27,8 @@ class Quest extends Model
 {
     /** @use HasFactory<QuestFactory> */
     use HasFactory;
+
+    use Searchable;
 
     protected $with = ['parent'];
 
@@ -113,6 +116,17 @@ class Quest extends Model
         }
 
         return $breadcrumb->reverse()->values();
+    }
+
+    /**
+     * @return string[]
+     */
+    public function toSearchableArray(): array
+    {
+        return array_merge($this->toArray(), [
+            'id' => (string) $this->id,
+            'created_at' => $this->created_at->timestamp,
+        ]);
     }
 
     /**

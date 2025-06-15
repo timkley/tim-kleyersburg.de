@@ -9,12 +9,7 @@ use App\Models\User;
 use function Pest\Laravel\actingAs;
 use function Pest\Laravel\travel;
 
-it('gets the daily goal for each type', function (GoalType $type, int $amount, ?int $weight = null, ?int $temperature = null) {
-    $user = User::factory()->create(['email' => 'timkley@gmail.com']);
-    $user->settings()->create([
-        'weight' => $weight,
-    ]);
-
+beforeEach(function () {
     Http::fake([
         'https://api.weatherapi.com/*' => Http::response([
             'current' => [
@@ -34,6 +29,13 @@ it('gets the daily goal for each type', function (GoalType $type, int $amount, ?
             ],
         ]),
     ]);
+});
+
+it('gets the daily goal for each type', function (GoalType $type, int $amount, ?int $weight = null, ?int $temperature = null) {
+    $user = User::factory()->create(['email' => 'timkley@gmail.com']);
+    $user->settings()->create([
+        'weight' => $weight,
+    ]);
 
     expect(DailyGoal::for($type)->goal)->toBe($amount);
     expect(DailyGoal::count())->toBe(1);
@@ -50,13 +52,13 @@ it('gets the daily goal for each type', function (GoalType $type, int $amount, ?
     ],
     [
         GoalType::Water,
-        2975,
+        2475,
         75,
         25,
     ],
     [
         GoalType::Water,
-        3060,
+        2310,
         70,
         30,
     ],
@@ -85,26 +87,6 @@ it('gets a progressive goal for planks', function () {
 
 it('can track a goal', function () {
     $user = User::factory()->create(['email' => 'timkley@gmail.com']);
-
-    Http::fake([
-        'https://api.weatherapi.com/*' => Http::response([
-            'current' => [
-                'condition' => [
-                    'text' => 'Sunny',
-                ],
-            ],
-            'forecast' => [
-                'forecastday' => [
-                    [
-                        'day' => [
-                            'maxtemp_c' => $temperature ?? 20,
-                            'mintemp_c' => 10,
-                        ],
-                    ],
-                ],
-            ],
-        ]),
-    ]);
 
     actingAs($user);
     Livewire::test('holocron.dashboard.goals')

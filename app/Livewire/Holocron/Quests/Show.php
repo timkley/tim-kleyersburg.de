@@ -90,10 +90,7 @@ class Show extends HolocronComponent
             return;
         }
 
-        $this->possibleParents = Quest::query()
-            ->where('name', 'like', '%'.$value.'%')
-            ->limit(20)
-            ->get();
+        $this->possibleParents = Quest::search($value)->take(10)->get();
     }
 
     public function updatedImage(): void

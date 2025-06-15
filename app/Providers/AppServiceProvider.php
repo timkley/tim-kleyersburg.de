@@ -13,6 +13,7 @@ use Illuminate\Auth\Access\Response;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\ServiceProvider;
 use Livewire;
 
@@ -42,6 +43,7 @@ class AppServiceProvider extends ServiceProvider
         $this->configureModels();
         $this->configureGates();
         $this->configureLivewire();
+        $this->configureHttp();
     }
 
     private function configureDates(): void
@@ -66,5 +68,12 @@ class AppServiceProvider extends ServiceProvider
     private function configureLivewire(): void
     {
         Livewire::useScriptTagAttributes(['id' => 'livewire-script']);
+    }
+
+    private function configureHttp(): void
+    {
+        if (app()->runningUnitTests()) {
+            Http::preventStrayRequests();
+        }
     }
 }

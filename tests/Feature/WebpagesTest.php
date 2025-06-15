@@ -9,6 +9,7 @@ use OpenAI\Responses\Chat\CreateResponse;
 it('dispatches a job that crawls for more content', function () {
     Http::fake([
         'https://example.com' => Http::response(file_get_contents(base_path('tests/fixtures/example.html'))),
+        'https://example.com/favicon.ico' => Http::response(file_get_contents(base_path('tests/fixtures/example.html'))),
     ]);
     Denk::fake([
         CreateResponse::fake([
