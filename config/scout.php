@@ -207,6 +207,11 @@ return [
                             'facet' => true,
                         ],
                         [
+                            'name' => 'accepted',
+                            'type' => 'bool',
+                            'facet' => true,
+                        ],
+                        [
                             'name' => 'created_at',
                             'type' => 'int64',
                         ],
