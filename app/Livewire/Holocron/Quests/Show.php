@@ -35,11 +35,6 @@ class Show extends HolocronComponent
     #[Validate('max:255')]
     public string $name = '';
 
-    public string $parentSearchTerm = '';
-
-    /** @var array<mixed>|Collection<int, Quest> */
-    public $possibleParents = [];
-
     public ?string $description = '';
 
     public QuestStatus $status;
@@ -82,17 +77,6 @@ class Show extends HolocronComponent
         $this->reset($property);
     }
 
-    public function updatingParentSearchTerm(mixed $value): void
-    {
-        if (empty($value)) {
-            $this->possibleParents = [];
-
-            return;
-        }
-
-        $this->possibleParents = Quest::search($value)->take(10)->get();
-    }
-
     public function updatedImage(): void
     {
         /** @var Collection<int, string> $images */
@@ -123,7 +107,7 @@ class Show extends HolocronComponent
             'quest_id' => $id,
         ]);
 
-        Flux::modal('move')->close();
+        Flux::modal('parent-search')->close();
     }
 
     public function addQuest(?string $name = null): void

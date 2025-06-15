@@ -36,7 +36,15 @@
 
             <div class="space-y-4">
                 <form wire:submit="addQuest" class="max-w-lg">
-                    <flux:input wire:model="questDraft" placeholder="Neue Quest"/>
+                    <div class="flex gap-x-2">
+                        <flux:input wire:model="questDraft" placeholder="Neue Quest"/>
+                        <flux:modal.trigger name="parent-search">
+                            <flux:button class="px-4" icon="folder-arrow-down"></flux:button>
+                        </flux:modal.trigger>
+                    </div>
+                    @if($parentQuestName)
+                        <flux:text>Wird abgelegt unter <span class="font-medium">{{ $parentQuestName }}</span></flux:text>
+                    @endif
                 </form>
 
                 <div class="space-y-2">
@@ -50,4 +58,6 @@
             </div>
         </flux:card>
     </div>
+
+    <livewire:holocron.quests.parent-search @select="setParentQuest($event.detail)" />
 </div>

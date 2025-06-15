@@ -7,6 +7,7 @@ namespace App\Livewire\Holocron\Quests;
 use App\Enums\Holocron\QuestStatus;
 use App\Livewire\Holocron\HolocronComponent;
 use App\Models\Holocron\Quest;
+use Flux\Flux;
 use Illuminate\View\View;
 use Livewire\Attributes\Title;
 use Livewire\Attributes\Validate;
@@ -18,6 +19,10 @@ class Overview extends HolocronComponent
     #[Validate('min:3')]
     #[Validate('max:255')]
     public string $questDraft = '';
+
+    public ?int $parentQuestId = null;
+
+    public ?string $parentQuestName = null;
 
     /**
      * @var string[]
@@ -31,15 +36,25 @@ class Overview extends HolocronComponent
         $this->validate();
 
         Quest::create([
+            'quest_id' => $this->parentQuestId,
             'name' => $this->questDraft,
+            'status' => QuestStatus::Open,
         ]);
 
-        $this->reset(['questDraft']);
+        $this->reset();
     }
 
     public function deleteQuest(int $id): void
     {
         Quest::destroy($id);
+    }
+
+    public function setParentQuest(?int $id): void
+    {
+        $this->parentQuestId = $id;
+        $this->parentQuestName = Quest::find($id)->name;
+
+        Flux::modal('parent-search')->close();
     }
 
     public function render(): View

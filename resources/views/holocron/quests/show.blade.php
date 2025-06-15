@@ -39,7 +39,7 @@
 
             <flux:input class:input="md:!text-lg !h-(--height)" wire:model.live.debounce="name"/>
 
-            <flux:modal.trigger name="move">
+            <flux:modal.trigger name="parent-search">
                 <flux:button class="!h-(--height) px-4" icon="folder-arrow-down"></flux:button>
             </flux:modal.trigger>
         </div>
@@ -170,29 +170,5 @@
         </flux:modal>
     @endforeach
 
-    <flux:modal name="move" class="space-y-4 w-[calc(100vw-var(--spacing)*10)]">
-        <flux:heading size="lg">Quest verschieben</flux:heading>
-
-        <flux:input placeholder="Suche..." wire:model.live.debounce="parentSearchTerm"></flux:input>
-
-        <div class="space-y-2">
-            @forelse($possibleParents as $possibleParent)
-                <flux:button
-                    class="w-full [&>span]:truncate"
-                    wire:key="{{ $possibleParent->id }}"
-                    wire:click="move({{ $possibleParent->id }})"
-                >
-                    Nach "{{ $possibleParent->name }}" verschieben
-                </flux:button>
-            @empty
-                <flux:button
-                    class="w-full [&>span]:truncate"
-                    wire:click="move(null)"
-                >
-                    Zu Main-Quest machen
-                </flux:button>
-                <flux:text>Keine Ergebnisse</flux:text>
-            @endforelse
-        </div>
-    </flux:modal>
+    <livewire:holocron.quests.parent-search @select="move($event.detail)" />
 </div>
