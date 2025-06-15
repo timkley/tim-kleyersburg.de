@@ -47,6 +47,14 @@ class Set extends Model
     }
 
     /**
+     * @return BelongsTo<WorkoutExercise, $this>
+     */
+    public function workoutExercise()
+    {
+        return $this->belongsTo(WorkoutExercise::class);
+    }
+
+    /**
      * @param  EloquentBuilder<Quest>  $query
      * @return EloquentBuilder<Quest>
      */
