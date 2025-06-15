@@ -13,7 +13,7 @@
     >
         <flux:input
             x-ref="editTitle"
-            wire:model.live="title"
+            wire:model.live.debounce="title"
             x-on:keyup.enter="editing = false"
             x-on:keyup.escape="editing = false"
         />
