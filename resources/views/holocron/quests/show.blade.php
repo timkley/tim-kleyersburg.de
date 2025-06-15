@@ -18,7 +18,7 @@
         </flux:breadcrumbs>
     </div>
 
-    <flux:card>
+    <flux:card size="sm">
         <div class="flex gap-x-2 md:[--height:calc(var(--spacing)*12)]">
             <flux:dropdown class="flex items-center">
                 <flux:button :icon="$quest->status->icon()" variant="ghost"></flux:button>
@@ -143,7 +143,7 @@
         </div>
     </flux:card>
 
-    <flux:card class="space-y-3">
+    <flux:card class="space-y-3" size="sm">
         <form wire:submit="addNote" class="space-y-4">
             <flux:editor wire:model="noteDraft" placeholder="Neue Notiz"></flux:editor>
             <div class="flex gap-2">
