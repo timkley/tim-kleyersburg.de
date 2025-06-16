@@ -7,7 +7,6 @@
         @if (auth()->user()->isTim())
             <flux:button
                 variant="filled"
-                color="sky"
                 href="/holocron/pulse"
                 icon="chart-bar"
                 size="sm"
