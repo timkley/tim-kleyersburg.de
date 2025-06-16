@@ -80,7 +80,7 @@
     const scrollIntoView = (el) => {
         el.scrollIntoView({
             behavior: 'smooth',
-            block: 'left',
+            inline: 'start',
         })
     }
 
