@@ -26,6 +26,6 @@ class Plan extends Model
      */
     public function exercises(): BelongsToMany
     {
-        return $this->belongsToMany(Exercise::class, 'grind_exercise_plan')->withPivot('sets', 'min_reps', 'max_reps', 'order');
+        return $this->belongsToMany(Exercise::class, 'grind_exercise_plan')->withPivot('sets', 'min_reps', 'max_reps', 'order')->orderBy('order');
     }
 }

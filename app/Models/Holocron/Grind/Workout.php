@@ -37,7 +37,7 @@ class Workout extends Model
      */
     public function exercises(): HasMany
     {
-        return $this->hasMany(WorkoutExercise::class);
+        return $this->hasMany(WorkoutExercise::class)->orderBy('order');
     }
 
     /**
