@@ -15,6 +15,7 @@
         "bugsnag/bugsnag-laravel": "^2.29",
         "laravel-notification-channels/discord": "dev-l12-compatibility",
         "laravel/framework": "^12.0",
+        "laravel/nightwatch": "^1.7",
         "laravel/pulse": "^1.3.3",
         "laravel/scout": "^10.15",
         "laravel/tinker": "^2.10.1",
