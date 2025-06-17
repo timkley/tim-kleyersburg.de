@@ -57,6 +57,9 @@
                         '@touchstart'() { this.handleStart(); },
                         '@touchend'() { this.handleEnd(); },
                         '@touchcancel'() { this.handleEnd(); },
+                        '@contextmenu.prevent'() {},
+                        '@selectstart.prevent'() {},
+                        '@dragstart.prevent'() {}
                     };
                 }
             }));
