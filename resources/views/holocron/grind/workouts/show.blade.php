@@ -5,7 +5,7 @@
                 @foreach($workoutExercises as $workoutExercise)
                     <div
                         @class([
-                            'w-32 bg-black/5 dark:bg-white/10 rounded-lg flex-shrink-0 p-3 hyphens-auto flex flex-col justify-between gap-y-2 scroll-mx-4',
+                            'w-32 bg-black/5 dark:bg-white/10 rounded-lg flex-shrink-0 p-3 hyphens-auto flex flex-col justify-between gap-y-2 scroll-mx-4 select-none',
                             '!bg-sky-200 dark:!bg-sky-900' => $workoutExercise->id === $currentExercise->id,
                             'opacity-50' => $workoutExercise->sets()->whereNotNull('finished_at')->count() === $workoutExercise->sets
                         ])

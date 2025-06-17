@@ -51,7 +51,6 @@
 
                 get events() {
                     return {
-                        '@contextmenu'(e) { e.preventDefault(); },
                         '@mousedown'() { this.handleStart(); },
                         '@mouseup'() { this.handleEnd(); },
                         '@mouseleave'() { this.handleEnd(); },
