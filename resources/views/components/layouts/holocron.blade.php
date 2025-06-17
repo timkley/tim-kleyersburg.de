@@ -28,4 +28,39 @@
     @persist('toast')
         <flux:toast />
     @endpersist
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('longpress', (config = {}) => ({
+                timer: null,
+                isPressed: false,
+                delay: config.delay || 500,
+                onLongPress: config.onLongPress || (() => {}),
+
+                handleStart() {
+                    this.isPressed = true;
+                    this.timer = setTimeout(() => {
+                        this.onLongPress();
+                        this.isPressed = false;
+                    }, this.delay);
+                },
+
+                handleEnd() {
+                    this.isPressed = false;
+                    clearTimeout(this.timer);
+                },
+
+                get events() {
+                    return {
+                        '@contextmenu'(e) { e.preventDefault(); },
+                        '@mousedown'() { this.handleStart(); },
+                        '@mouseup'() { this.handleEnd(); },
+                        '@mouseleave'() { this.handleEnd(); },
+                        '@touchstart'() { this.handleStart(); },
+                        '@touchend'() { this.handleEnd(); },
+                        '@touchcancel'() { this.handleEnd(); },
+                    };
+                }
+            }));
+        })
+    </script>
 </x-layouts.app>

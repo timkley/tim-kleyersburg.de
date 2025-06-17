@@ -6,8 +6,10 @@ namespace App\Livewire\Holocron\Grind\Workouts;
 
 use App\Enums\Holocron\ExperienceType;
 use App\Livewire\Holocron\HolocronComponent;
+use App\Models\Holocron\Grind\Exercise;
 use App\Models\Holocron\Grind\Workout;
 use App\Models\User;
+use Flux\Flux;
 use Illuminate\View\View;
 use Livewire\Attributes\Title;
 use Livewire\Attributes\Validate;
@@ -23,11 +25,27 @@ class Show extends HolocronComponent
     #[Validate('required|int')]
     public int $reps;
 
+    public ?int $exerciseIdToChange = null;
+
     public function setExercise(int $id): void
     {
         $this->workout->update([
             'current_exercise_id' => $id,
         ]);
+    }
+
+    public function swapExercise(int $newExerciseId): void
+    {
+        $this->workout->exercises()->where('id', $this->exerciseIdToChange)->update(['exercise_id' => $newExerciseId]);
+
+        Flux::modal('exercise-dropdown')->close();
+    }
+
+    public function deleteExercise(): void
+    {
+        $this->workout->exercises()->where('id', $this->exerciseIdToChange)->delete();
+
+        Flux::modal('exercise-dropdown')->close();
     }
 
     public function recordSet(): void
@@ -61,6 +79,10 @@ class Show extends HolocronComponent
         $workoutExercises = $this->workout->exercises;
         $currentExercise = $this->workout->getCurrentExercise() ?: $workoutExercises->first();
 
-        return view('holocron.grind.workouts.show', compact('currentExercise', 'workoutExercises'));
+        return view('holocron.grind.workouts.show', [
+            'workoutExercises' => $workoutExercises,
+            'currentExercise' => $currentExercise,
+            'availableExercises' => Exercise::all(['id', 'name']),
+        ]);
     }
 }

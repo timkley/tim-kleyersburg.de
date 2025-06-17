@@ -12,7 +12,15 @@
                         @if($workoutExercise->id === $currentExercise->id)
                             data-current
                         @endif
-                        wire:click="setExercise({{ $workoutExercise->id }})"
+                        x-data="longpress({
+                           onLongPress: () => {
+                            $flux.modal('exercise-dropdown').show();
+                            $wire.exerciseIdToChange = {{ $workoutExercise->id }};
+                           },
+                           delay: 400
+                        })"
+                        x-bind="events"
+                        :class="{ 'scale-95 ease-out duration-400': isPressed }"
                     >
                         <div class="font-semibold">
                             {{ $workoutExercise->exercise->name }}
@@ -73,6 +81,31 @@
             @endif
         </div>
     </div>
+
+    <flux:modal
+        name="exercise-dropdown"
+        variant="flyout"
+        position="bottom"
+        x-data="{
+            swapWith: null,
+        }"
+    >
+        <flux:heading size="lg">Übung: <span x-text="$wire.exerciseIdToChange"></span></flux:heading>
+
+        <div class="grid gap-3 mt-4">
+            <div class="flex gap-x-2 [&>ui-field]:flex-1">
+                <flux:select label="Austauschen mit" x-model="swapWith" placeholder="Übung auswählen">
+                    @foreach($availableExercises as $availableExercise)
+                        <flux:select.option :value="$availableExercise->id">
+                            {{ $availableExercise->name }}
+                        </flux:select.option>
+                    @endforeach
+                </flux:select>
+                <flux:button class="self-end" variant="primary" icon="rocket-launch" x-on:click="$wire.swapExercise(swapWith)"/>
+            </div>
+            <flux:button variant="danger" wire:click="deleteExercise">Übung entfernen</flux:button>
+        </div>
+    </flux:modal>
 </div>
 
 @script
