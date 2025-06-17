@@ -20,6 +20,7 @@
                            delay: 400
                         })"
                         x-bind="events"
+                        wire:click="selectExercise({{ $workoutExercise->id }})"
                         :class="{ 'scale-95 ease-out duration-400': isPressed }"
                     >
                         <div class="font-semibold">
