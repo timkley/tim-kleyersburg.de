@@ -26,9 +26,6 @@ class CrawlWebpageInformation implements ShouldQueue
             return;
         }
 
-        $faviconResponse = Http::get($parsedUrl['scheme'].'://'.$parsedUrl['host'].'/favicon.ico');
-        $favicon = $faviconResponse->ok() ? $faviconResponse->body() : null;
-
         $body = Http::get($url)->body();
         libxml_use_internal_errors(true);
         $document = HTMLDocument::createFromString($body);
@@ -40,7 +37,6 @@ class CrawlWebpageInformation implements ShouldQueue
         $summary = $this->createSummary($description.' '.$content);
 
         $this->webpage->update([
-            'favicon' => $favicon,
             'title' => $title,
             'description' => $description,
             'summary' => $summary,
@@ -52,14 +48,14 @@ class CrawlWebpageInformation implements ShouldQueue
         return Denk::text()
             ->model('google/gemini-flash-1.5-8b')
             ->prompt(<<<EOT
-Summarize the the given webpage content in triple quotes in 1-2 sentences, focus on the purpose only. Exclude information like:
+Summarize the given webpage content in triple quotes in 1-2 sentences, focus on the purpose only. Exclude information like:
 - login elements
 - contact information
 - cookie consent / data privacy
 - footer information
 - payment / upgrade information
 
-If no content was provided answer with "No content provided."
+If no content was provided answer with "The summary could not be generated."
 
 """
 $content

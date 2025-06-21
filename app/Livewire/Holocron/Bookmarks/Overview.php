@@ -8,8 +8,9 @@ use App\Jobs\CrawlWebpageInformation;
 use App\Livewire\Holocron\HolocronComponent;
 use App\Models\Holocron\Bookmark;
 use App\Models\Webpage;
-use Flux;
+use Flux\Flux;
 use Illuminate\View\View;
+use Livewire\Attributes\Url;
 use Livewire\Attributes\Validate;
 use Livewire\WithPagination;
 
@@ -20,10 +21,19 @@ class Overview extends HolocronComponent
     #[Validate(['required', 'url', 'unique:bookmarks'])]
     public string $url;
 
+    #[Url]
+    public string $query = '';
+
     public function render(): View
     {
+        if ($this->query) {
+            $bookmarks = Bookmark::search($this->query)->paginate(20);
+        } else {
+            $bookmarks = Bookmark::with('webpage')->latest()->paginate(20);
+        }
+
         return view('holocron.bookmarks.overview', [
-            'bookmarks' => Bookmark::with('webpage')->latest()->simplePaginate(20),
+            'bookmarks' => $bookmarks,
         ]);
     }
 

@@ -11,11 +11,7 @@
 
                 <a href="{{ $url }}" target="_blank"
                    class="inline-flex max-w-full items-center gap-1 line-clamp-1">
-                    @unless(is_null($base64Favicon))
-                        <img src="{{ $base64Favicon }}" alt="{{ $title }}" class="size-4"/>
-                    @else
-                        <flux:icon.arrow-top-right-on-square variant="micro"/>
-                    @endunless
+                    <flux:icon.arrow-top-right-on-square variant="micro"/>
                     <span class="truncate">{{ $cleanUrl }}</span>
                 </a>
 

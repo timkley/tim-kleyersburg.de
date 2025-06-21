@@ -16,10 +16,18 @@
             <flux:button
                 type="submit"
                 icon="plus"
-                >Speichern</flux:button
+            >Speichern
+            </flux:button
             >
         </flux:input.group>
     </form>
+
+    <flux:input
+        class="mt-3"
+        icon="magnifying-glass"
+        wire:model.live.debounce="query"
+        placeholder="Suche"
+    />
 
     <div class="mt-8 grid gap-4 sm:grid-cols-2">
         @foreach ($bookmarks as $bookmark)
@@ -30,5 +38,5 @@
         @endforeach
     </div>
 
-    <flux:pagination :paginator="$bookmarks" />
+    <flux:pagination :paginator="$bookmarks"/>
 </div>

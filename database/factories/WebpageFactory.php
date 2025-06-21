@@ -20,7 +20,6 @@ class WebpageFactory extends Factory
     {
         return [
             'url' => fake()->url(),
-            'favicon' => 'asdf',
             'title' => fake()->sentence,
             'description' => fake()->sentence,
             'summary' => fake()->paragraph,

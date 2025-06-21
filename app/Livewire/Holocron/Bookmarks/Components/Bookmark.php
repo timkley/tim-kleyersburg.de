@@ -7,7 +7,7 @@ namespace App\Livewire\Holocron\Bookmarks\Components;
 use App\Jobs\CrawlWebpageInformation;
 use App\Livewire\Holocron\HolocronComponent;
 use App\Models\Holocron\Bookmark as BookmarkModel;
-use Flux;
+use Flux\Flux;
 use Illuminate\View\View;
 use Livewire\Attributes\Renderless;
 
