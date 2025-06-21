@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Models\Holocron\Bookmark;
 use App\Models\Holocron\Quest;
 
 return [
@@ -220,6 +221,43 @@ return [
                 ],
                 'search-parameters' => [
                     'query_by' => 'name,description',
+                ],
+            ],
+            Bookmark::class => [
+                'collection-schema' => [
+                    'fields' => [
+                        [
+                            'name' => 'id',
+                            'type' => 'string',
+                        ],
+                        [
+                            'name' => 'url',
+                            'type' => 'string',
+                        ],
+                        [
+                            'name' => 'title',
+                            'type' => 'string',
+                            'optional' => true,
+                        ],
+                        [
+                            'name' => 'description',
+                            'type' => 'string',
+                            'optional' => true,
+                        ],
+                        [
+                            'name' => 'summary',
+                            'type' => 'string',
+                            'optional' => true,
+                        ],
+                        [
+                            'name' => 'created_at',
+                            'type' => 'int64',
+                        ],
+                    ],
+                    'default_sorting_field' => 'created_at',
+                ],
+                'search-parameters' => [
+                    'query_by' => 'title,url,description,summary',
                 ],
             ],
         ],

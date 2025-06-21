@@ -30,7 +30,5 @@
         @endforeach
     </div>
 
-    <div class="mt-8">
-        {{ $bookmarks->links() }}
-    </div>
+    <flux:pagination :paginator="$bookmarks" />
 </div>
