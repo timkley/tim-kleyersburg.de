@@ -24,19 +24,6 @@ class Overview extends HolocronComponent
     #[Url]
     public string $query = '';
 
-    public function render(): View
-    {
-        if ($this->query) {
-            $bookmarks = Bookmark::search($this->query)->paginate(20);
-        } else {
-            $bookmarks = Bookmark::with('webpage')->latest()->paginate(20);
-        }
-
-        return view('holocron.bookmarks.overview', [
-            'bookmarks' => $bookmarks,
-        ]);
-    }
-
     public function submit(): void
     {
         $this->validate();
@@ -60,5 +47,18 @@ class Overview extends HolocronComponent
         Bookmark::find($id)->delete();
 
         Flux::toast('Lesezeichen gelöscht.');
+    }
+
+    public function render(): View
+    {
+        if ($this->query) {
+            $bookmarks = Bookmark::search($this->query)->paginate(20);
+        } else {
+            $bookmarks = Bookmark::with('webpage')->latest()->paginate(20);
+        }
+
+        return view('holocron.bookmarks.overview', [
+            'bookmarks' => $bookmarks,
+        ]);
     }
 }

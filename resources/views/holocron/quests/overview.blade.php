@@ -43,9 +43,27 @@
                         </flux:modal.trigger>
                     </div>
                     @if($parentQuestName)
-                        <flux:text>Wird abgelegt unter <span class="font-medium">{{ $parentQuestName }}</span></flux:text>
+                        <flux:text>Wird abgelegt unter <span class="font-medium">{{ $parentQuestName }}</span>
+                        </flux:text>
                     @endif
                 </form>
+
+                <flux:input
+                    class="mt-4"
+                    wire:model.live.debounce="query"
+                    placeholder="Suche"
+                />
+
+                @if($searchResults)
+                    <div class="space-y-2">
+                        @foreach($searchResults as $searchResult)
+                            <livewire:holocron.quests.item
+                                :quest="$searchResult"
+                                :key="'item.' . $searchResult->id"
+                            />
+                        @endforeach
+                    </div>
+                @endif
 
                 <div class="space-y-2">
                     @foreach($quests as $childQuest)
@@ -59,5 +77,5 @@
         </flux:card>
     </div>
 
-    <livewire:holocron.quests.parent-search @select="setParentQuest($event.detail)" />
+    <livewire:holocron.quests.parent-search @select="setParentQuest($event.detail)"/>
 </div>

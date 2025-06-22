@@ -10,6 +10,7 @@ use App\Models\Holocron\Quest;
 use Flux\Flux;
 use Illuminate\View\View;
 use Livewire\Attributes\Title;
+use Livewire\Attributes\Url;
 use Livewire\Attributes\Validate;
 
 #[Title('Quests')]
@@ -23,6 +24,9 @@ class Overview extends HolocronComponent
     public ?int $parentQuestId = null;
 
     public ?string $parentQuestName = null;
+
+    #[Url]
+    public ?string $query = null;
 
     /**
      * @var string[]
@@ -79,6 +83,7 @@ class Overview extends HolocronComponent
                 ->notCompleted()
                 ->orderBy('name')
                 ->get(),
+            'searchResults' => $this->query ? Quest::search($this->query)->get() : null,
         ]);
     }
 }
