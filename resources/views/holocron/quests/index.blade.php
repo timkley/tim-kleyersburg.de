@@ -43,8 +43,7 @@
                         </flux:modal.trigger>
                     </div>
                     @if($parentQuestName)
-                        <flux:text>Wird abgelegt unter <span class="font-medium">{{ $parentQuestName }}</span>
-                        </flux:text>
+                        <flux:text>Wird abgelegt unter <span class="font-medium">{{ $parentQuestName }}</span></flux:text>
                     @endif
                 </form>
 
@@ -59,7 +58,7 @@
                         @foreach($searchResults as $searchResult)
                             <livewire:holocron.quests.components.item
                                 :quest="$searchResult"
-                                :key="'item.' . $searchResult->id"
+                                :key="'search-quest.' . $searchResult->id"
                             />
                         @endforeach
                     </div>
@@ -69,7 +68,7 @@
                     @foreach($quests as $childQuest)
                         <livewire:holocron.quests.components.item
                             :quest="$childQuest"
-                            :key="'item.' . $childQuest->id"
+                            :key="'main-quest.' . $childQuest->id"
                         />
                     @endforeach
                 </div>
