@@ -10,6 +10,7 @@
                     :icon="$status->icon()"
                     :disabled="$status->value === $quest->status->value"
                     wire:click="setStatus('{{ $status->value }}')"
+                    wire:key="{{ $status->value }}"
                 >
                     {{ $status->label() }}
                 </flux:menu.item>
