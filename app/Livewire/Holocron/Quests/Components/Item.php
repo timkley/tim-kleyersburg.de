@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Livewire\Holocron\Quests;
+namespace App\Livewire\Holocron\Quests\Components;
 
 use App\Enums\Holocron\QuestStatus;
 use App\Models\Holocron\Quest;
@@ -28,6 +28,6 @@ class Item extends Component
 
     public function render(): View
     {
-        return view('holocron.quests.item');
+        return view('holocron.quests.components.item');
     }
 }

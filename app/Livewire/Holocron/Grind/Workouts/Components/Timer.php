@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Livewire\Holocron\Grind\Workouts;
+namespace App\Livewire\Holocron\Grind\Workouts\Components;
 
 use App\Livewire\Holocron\HolocronComponent;
 use App\Models\Holocron\Grind\Workout;
@@ -36,7 +36,7 @@ class Timer extends HolocronComponent
                 ->first();
         }
 
-        return view('holocron.grind.workouts.timer', [
+        return view('holocron.grind.workouts.components.timer', [
             'lastFinishedSet' => $lastFinishedSet ?? null,
         ]);
     }

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Livewire\Holocron\Grind\Plans;
+namespace App\Livewire\Holocron\Grind\Plans\Components;
 
 use App\Livewire\Holocron\HolocronComponent;
 use App\Models\Holocron\Grind\Exercise as ExerciseModel;
@@ -45,6 +45,6 @@ class Exercise extends HolocronComponent
 
     public function render(): View
     {
-        return view('holocron.grind.plans.exercise');
+        return view('holocron.grind.plans.components.exercise');
     }
 }

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Livewire\Holocron\Quests;
+namespace App\Livewire\Holocron\Quests\Components;
 
 use App\Models\Holocron\Quest;
 use Illuminate\Support\Collection;
@@ -29,6 +29,6 @@ class ParentSearch extends Component
 
     public function render(): View
     {
-        return view('holocron.quests.parent-search');
+        return view('holocron.quests.components.parent-search');
     }
 }

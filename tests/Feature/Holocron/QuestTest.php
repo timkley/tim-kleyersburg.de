@@ -13,7 +13,7 @@ it('is not reachable when unauthenticated', function () {
 });
 
 it('can add a quest', function () {
-    Livewire::test('holocron.quests.overview')
+    Livewire::test('holocron.quests.index')
         ->set('questDraft', 'test')
         ->call('addQuest');
 
@@ -37,7 +37,7 @@ it('can construct a breadcrumb', function () {
 it('can delete a quest', function () {
     $quest = Quest::factory()->create();
 
-    Livewire::test('holocron.quests.overview')
+    Livewire::test('holocron.quests.index')
         ->call('deleteQuest', $quest->id);
 
     expect(Quest::count())->toBe(0);

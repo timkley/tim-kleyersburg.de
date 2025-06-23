@@ -20,7 +20,7 @@
     <div class="mx-auto mt-6 max-w-5xl mb-24">
         {{ $slot }}
 
-        <livewire:holocron.bottom-navigation />
+        <livewire:holocron.components.bottom-navigation />
     </div>
 
     <x-slot:footer></x-slot>

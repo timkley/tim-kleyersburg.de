@@ -30,8 +30,6 @@ class Quest extends Model
 
     use Searchable;
 
-    protected $with = ['parent'];
-
     protected $fillable = [
         'name',
         'status',

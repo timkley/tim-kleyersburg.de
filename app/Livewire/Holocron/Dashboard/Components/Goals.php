@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Livewire\Holocron\Dashboard;
+namespace App\Livewire\Holocron\Dashboard\Components;
 
 use App\Enums\Holocron\Health\GoalType;
 use App\Jobs\Holocron\Health\CreateDailyGoals;
@@ -33,7 +33,7 @@ class Goals extends Component
             CreateDailyGoals::dispatchSync();
         }
 
-        return view('holocron.dashboard.goals', [
+        return view('holocron.dashboard.components.goals', [
             'todaysGoals' => $todaysGoals,
             'goalsPast20DaysByDay' => $goals->groupBy('date'),
             'goalsPast20DaysCount' => $goals->count(),

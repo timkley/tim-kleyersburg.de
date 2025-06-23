@@ -49,7 +49,7 @@
                 <div>Wdh.</div>
             </div>
             @foreach($currentExercise->sets()->get() as $set)
-                <livewire:holocron.grind.workouts.set
+                <livewire:holocron.grind.workouts.components.set
                     :$set
                     :min-reps="$currentExercise->min_reps"
                     :max-reps="$currentExercise->max_reps"
@@ -65,7 +65,7 @@
             </form>
         </div>
         @if(!$workout->finished_at)
-            <livewire:holocron.grind.workouts.timer :$workout/>
+            <livewire:holocron.grind.workouts.components.timer :$workout/>
         @endif
 
         <flux:separator class="mt-4"/>

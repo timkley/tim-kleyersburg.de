@@ -9,7 +9,7 @@
 
                 <div class="space-y-2">
                     @foreach($acceptedQuests as $acceptedQuest)
-                        <livewire:holocron.quests.item
+                        <livewire:holocron.quests.components.item
                             :quest="$acceptedQuest"
                             :key="'accepted-item.' . $acceptedQuest->id"
                         />
@@ -23,7 +23,7 @@
 
             <div class="space-y-2">
                 @foreach($questsWithoutChildren as $leafQuest)
-                    <livewire:holocron.quests.item
+                    <livewire:holocron.quests.components.item
                         :quest="$leafQuest"
                         :key="'leaf-item.' . $leafQuest->id"
                     />
@@ -57,7 +57,7 @@
                 @if($searchResults)
                     <div class="space-y-2">
                         @foreach($searchResults as $searchResult)
-                            <livewire:holocron.quests.item
+                            <livewire:holocron.quests.components.item
                                 :quest="$searchResult"
                                 :key="'item.' . $searchResult->id"
                             />
@@ -67,7 +67,7 @@
 
                 <div class="space-y-2">
                     @foreach($quests as $childQuest)
-                        <livewire:holocron.quests.item
+                        <livewire:holocron.quests.components.item
                             :quest="$childQuest"
                             :key="'item.' . $childQuest->id"
                         />
@@ -77,5 +77,5 @@
         </flux:card>
     </div>
 
-    <livewire:holocron.quests.parent-search @select="setParentQuest($event.detail)"/>
+    <livewire:holocron.quests.components.parent-search @select="setParentQuest($event.detail)"/>
 </div>

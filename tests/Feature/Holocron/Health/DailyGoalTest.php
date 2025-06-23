@@ -89,7 +89,7 @@ it('can track a goal', function () {
     $user = User::factory()->create(['email' => 'timkley@gmail.com']);
 
     actingAs($user);
-    Livewire::test('holocron.dashboard.goals')
+    Livewire::test('holocron.dashboard.components.goals')
         ->call('trackGoal', GoalType::Water->value, 1000)
         ->call('trackGoal', GoalType::NoSmoking->value, -1);
 

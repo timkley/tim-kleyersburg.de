@@ -14,7 +14,7 @@ use Livewire\Attributes\Url;
 use Livewire\Attributes\Validate;
 
 #[Title('Quests')]
-class Overview extends HolocronComponent
+class Index extends HolocronComponent
 {
     #[Validate('required')]
     #[Validate('min:3')]
@@ -63,7 +63,7 @@ class Overview extends HolocronComponent
 
     public function render(): View
     {
-        return view('holocron.quests.overview', [
+        return view('holocron.quests.index', [
             'acceptedQuests' => Quest::query()
                 ->accepted()
                 ->notCompleted()

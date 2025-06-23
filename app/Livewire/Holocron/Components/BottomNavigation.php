@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Livewire\Holocron;
+namespace App\Livewire\Holocron\Components;
 
 use Illuminate\View\View;
 use Livewire\Component;
@@ -18,6 +18,6 @@ class BottomNavigation extends Component
 
     public function render(): View
     {
-        return view('holocron.bottom-navigation');
+        return view('holocron.components.bottom-navigation');
     }
 }

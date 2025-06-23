@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use App\Livewire\Holocron\Bookmarks;
-use App\Livewire\Holocron\Dashboard;
+use App\Livewire\Holocron\Dashboard\Index;
 use App\Livewire\Holocron\Experience;
 use App\Livewire\Holocron\Grind;
 use App\Livewire\Holocron\Quests;
@@ -11,10 +11,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth')->name('holocron.')->prefix('holocron')->group(function () {
     Route::get('/', fn () => redirect()->route('holocron.dashboard'));
-    Route::get('/dashboard', Dashboard::class)->name('dashboard');
-    Route::get('/bookmarks', Bookmarks\Overview::class)->name('bookmarks');
+    Route::get('/dashboard', Index::class)->name('dashboard');
 
-    Route::get('/quests', Quests\Overview::class)->name('quests');
+    Route::get('/bookmarks', Bookmarks\Index::class)->name('bookmarks');
+
+    Route::get('/quests', Quests\Index::class)->name('quests');
     Route::get('/quests/{quest}', Quests\Show::class)->name('quests.show');
 
     Route::get('/grind', fn () => to_route('holocron.grind.workouts.index'))->name('grind');

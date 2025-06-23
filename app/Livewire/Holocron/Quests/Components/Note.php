@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Livewire\Holocron\Quests;
+namespace App\Livewire\Holocron\Quests\Components;
 
 use App\Models\Holocron\QuestNote;
 use Illuminate\View\View;
@@ -14,6 +14,6 @@ class Note extends Component
 
     public function render(): View
     {
-        return view('holocron.quests.note');
+        return view('holocron.quests.components.note');
     }
 }

@@ -14,7 +14,7 @@ use Livewire\Attributes\Url;
 use Livewire\Attributes\Validate;
 use Livewire\WithPagination;
 
-class Overview extends HolocronComponent
+class Index extends HolocronComponent
 {
     use WithPagination;
 
@@ -57,7 +57,7 @@ class Overview extends HolocronComponent
             $bookmarks = Bookmark::with('webpage')->latest()->paginate(20);
         }
 
-        return view('holocron.bookmarks.overview', [
+        return view('holocron.bookmarks.index', [
             'bookmarks' => $bookmarks,
         ]);
     }

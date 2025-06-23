@@ -15,7 +15,7 @@ it('is not reachable when unauthenticated', function () {
 it('can add a bookmark', function () {
     Queue::fake([CrawlWebpageInformation::class]);
 
-    Livewire::test('holocron.bookmarks.overview')
+    Livewire::test('holocron.bookmarks.index')
         ->set('url', 'https://example.com')
         ->call('submit');
 
@@ -26,17 +26,17 @@ it('can add a bookmark', function () {
 it('validates', function () {
     Queue::fake([CrawlWebpageInformation::class]);
 
-    Livewire::test('holocron.bookmarks.overview')
+    Livewire::test('holocron.bookmarks.index')
         ->set('url', 'asdf')
         ->call('submit')
         ->assertHasErrors();
 
-    Livewire::test('holocron.bookmarks.overview')
+    Livewire::test('holocron.bookmarks.index')
         ->set('url', '')
         ->call('submit')
         ->assertHasErrors();
 
-    Livewire::test('holocron.bookmarks.overview')
+    Livewire::test('holocron.bookmarks.index')
         ->set('url', 'https://example.com')
         ->call('submit')
         ->assertHasNoErrors();
@@ -45,7 +45,7 @@ it('validates', function () {
 it('can delete a bookmark', function () {
     $bookmark = Bookmark::factory()->create();
 
-    Livewire::test('holocron.bookmarks.overview')
+    Livewire::test('holocron.bookmarks.index')
         ->call('delete', $bookmark->id);
 
     expect(Bookmark::where('id', $bookmark->id)->exists())->toBeFalse();

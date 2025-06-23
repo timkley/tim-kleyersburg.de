@@ -54,7 +54,7 @@
                 <flux:heading>Links</flux:heading>
 
                 @forelse($quest->webpages as $webpage)
-                    <livewire:holocron.quests.link :$webpage :key="$webpage->id"/>
+                    <livewire:holocron.quests.components.link :$webpage :key="$webpage->id"/>
                 @empty
                     <flux:text>Keine Links</flux:text>
                 @endforelse
@@ -128,7 +128,7 @@
             @if($questChildren->isNotEmpty())
                 <div class="space-y-2" wire:key="quest-children-container">
                     @foreach($questChildren as $childQuest)
-                        <livewire:holocron.quests.item
+                        <livewire:holocron.quests.components.item
                             :quest="$childQuest"
                             :key="'item.' . $childQuest->id"
                             :show-parent="false"
@@ -155,7 +155,7 @@
         @if($quest->notes->isNotEmpty())
             <div class="space-y-2">
                 @foreach($quest->notes()->latest()->get() as $note)
-                    <livewire:holocron.quests.note :note="$note" :key="'note.' . $note->id"/>
+                    <livewire:holocron.quests.components.note :note="$note" :key="'note.' . $note->id"/>
                 @endforeach
             </div>
         @endif
@@ -170,5 +170,5 @@
         </flux:modal>
     @endforeach
 
-    <livewire:holocron.quests.parent-search @select="move($event.detail)" />
+    <livewire:holocron.quests.components.parent-search @select="move($event.detail)" />
 </div>

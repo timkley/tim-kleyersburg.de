@@ -13,7 +13,7 @@
             </flux:table.columns>
             <flux:table.rows>
                 @foreach($plan->exercises as $exercise)
-                    <livewire:holocron.grind.plans.exercise :$exercise :key="$exercise->id" />
+                    <livewire:holocron.grind.plans.components.exercise :$exercise :key="$exercise->id" />
                 @endforeach
             </flux:table.rows>
         </flux:table>

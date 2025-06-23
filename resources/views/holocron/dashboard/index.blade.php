@@ -18,7 +18,7 @@
 
     <div class="grid gap-4 sm:grid-cols-2 md:grid-cols-3 md:gap-8">
         @if (auth()->user()->isTim())
-            <livewire:holocron.dashboard.goals />
+            <livewire:holocron.dashboard.components.goals />
         @endif
 
         <flux:card>
@@ -31,7 +31,7 @@
             </flux:heading>
             <flux:subheading class="space-y-2">
                 @foreach($accepted_quests as $quest)
-                    <livewire:holocron.quests.item :$quest :key="$quest->id" :show-parent="false" />
+                    <livewire:holocron.quests.components.item :$quest :key="$quest->id" :show-parent="false" />
                 @endforeach
             </flux:subheading>
         </flux:card>

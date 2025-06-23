@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Livewire\Holocron\Grind\Workouts;
+namespace App\Livewire\Holocron\Grind\Workouts\Components;
 
 use App\Livewire\Holocron\HolocronComponent;
 use App\Models\Holocron\Grind\Set as SetModel;
@@ -71,6 +71,6 @@ class Set extends HolocronComponent
 
     public function render(): View
     {
-        return view('holocron.grind.workouts.set');
+        return view('holocron.grind.workouts.components.set');
     }
 }
