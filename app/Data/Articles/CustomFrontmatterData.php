@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Data\Articles;
 
-use BenBjurstrom\Prezet\Data\FrontmatterData;
+use Prezet\Prezet\Data\FrontmatterData;
 use WendellAdriel\ValidatedDTO\Attributes\Rules;
 
 class CustomFrontmatterData extends FrontmatterData

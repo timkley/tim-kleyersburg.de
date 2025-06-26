@@ -2,13 +2,15 @@
     'headings' => [],
 ])
 
-<x-heading
-    tag="h2"
-    class="mt-8"
->
-    Table of Contents
-</x-heading>
+@if(count($headings))
+    <x-heading
+        tag="h2"
+        class="mt-8"
+    >
+        Table of Contents
+    </x-heading>
 
-<div {{ $attributes }}>
-    <x-articles.toc.headings :headings="$headings" />
-</div>
+    <div {{ $attributes }}>
+        <x-articles.toc.headings :headings="$headings" />
+    </div>
+@endif

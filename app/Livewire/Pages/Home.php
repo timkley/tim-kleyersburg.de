@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App\Livewire\Pages;
 
 use App\Models\Article;
-use BenBjurstrom\Prezet\Models\Document;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\View\View;
 use Livewire\Component;
+use Prezet\Prezet\Models\Document;
 
 class Home extends Component
 {

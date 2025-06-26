@@ -11,7 +11,6 @@
         "php": "^8.4",
         "ext-dom": "*",
         "ext-libxml": "*",
-        "benbjurstrom/prezet": "v1.0.0-rc6",
         "bugsnag/bugsnag-laravel": "^2.29",
         "laravel-notification-channels/discord": "dev-l12-compatibility",
         "laravel/framework": "^12.0",
@@ -22,6 +21,7 @@
         "livewire/flux": "^2.0",
         "livewire/flux-pro": "^2.0",
         "livewire/livewire": "^3.5.18",
+        "prezet/prezet": "^1.2",
         "spatie/laravel-feed": "^4.4",
         "timkley/denk": "^0.3.0",
         "typesense/typesense-php": "^5.1"

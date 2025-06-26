@@ -9,8 +9,6 @@ image: /articles/img/ogimages/keys-to-effiency-part-1-hard-skills.webp
 
 **Efficiency is a mindset**. You don't get efficient by learning just one or two skills alone. Instead, you want to master the basics and get into a mental state where you’re always looking for ways to improve. This series is about building a foundation of skills and hopefully inspiring you to keep questioning and improving your workflows.
 
----
-
 Imagine a carpenter who needs 10 minutes just to hold his hammer correctly – unimaginable, right? Yet many office workers spend valuable time each day inefficiently using their basic tools like the keyboard and mouse. With just a bit of effort, you could work much faster and with less frustration. This first post is all about the basics for an efficient workflow and why I think it should be your top priority.
 
 ## The Keyboard – Your Most Important Tool

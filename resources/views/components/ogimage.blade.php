@@ -16,7 +16,7 @@
                     </div>
                 </div>
                 <span class="text-gray-500">
-                    on {{ $fm->createdAt->format('F j, Y') }}
+                    on {{ $fm->date->format('F j, Y') }}
                 </span>
             </div>
 

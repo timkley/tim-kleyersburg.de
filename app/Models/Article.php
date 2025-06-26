@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use BenBjurstrom\Prezet\Models\Document;
-use BenBjurstrom\Prezet\Prezet;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Support\Collection;
+use Prezet\Prezet\Models\Document;
+use Prezet\Prezet\Prezet;
 use Spatie\Feed\FeedItem;
 
 class Article
@@ -27,7 +27,7 @@ class Article
     /**
      * @return Builder<Document>
      */
-    public static function published()
+    public static function published(): Builder
     {
         return Document::when(fn ($query): bool => config('app.env') !== 'local', fn ($query) => $query->where('draft', false))
             ->orderBy('date', 'desc');

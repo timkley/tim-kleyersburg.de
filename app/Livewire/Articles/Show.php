@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace App\Livewire\Articles;
 
 use App\Models\Article;
-use BenBjurstrom\Prezet\Models\Document;
-use BenBjurstrom\Prezet\Prezet;
 use Denk\Facades\Denk;
 use Denk\ValueObjects\DeveloperMessage;
 use Denk\ValueObjects\UserMessage;
 use Illuminate\View\View;
 use Livewire\Component;
+use Prezet\Prezet\Models\Document;
+use Prezet\Prezet\Prezet;
 
 class Show extends Component
 {

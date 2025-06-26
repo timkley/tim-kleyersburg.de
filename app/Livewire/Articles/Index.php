@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App\Livewire\Articles;
 
 use App\Models\Article;
-use BenBjurstrom\Prezet\Prezet;
 use Illuminate\View\View;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Prezet\Prezet\Prezet;
 
 class Index extends Component
 {
@@ -21,7 +21,7 @@ class Index extends Component
         }
 
         $articles = Article::published()
-            ->simplePaginate(10);
+            ->paginate(10);
 
         return view('articles.index', [
             'articles' => $articles,
