@@ -12,7 +12,7 @@
         "ext-dom": "*",
         "ext-libxml": "*",
         "bugsnag/bugsnag-laravel": "^2.29",
-        "laravel-notification-channels/discord": "dev-l12-compatibility",
+        "laravel-notification-channels/discord": "^1.7.0",
         "laravel/framework": "^12.0",
         "laravel/nightwatch": "^1.7",
         "laravel/pulse": "^1.3.3",
@@ -108,10 +108,6 @@
         "flux-pro": {
             "type": "composer",
             "url": "https://composer.fluxui.dev"
-        },
-        "discord": {
-            "type": "vcs",
-            "url": "https://github.com/laravel-shift/discord.git"
         }
     }
 }
