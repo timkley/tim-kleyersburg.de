@@ -53,8 +53,8 @@ return [
             League\CommonMark\Extension\ExternalLink\ExternalLinkExtension::class,
             League\CommonMark\Extension\FrontMatter\FrontMatterExtension::class,
             League\CommonMark\Extension\SmartPunct\SmartPunctExtension::class,
-            BenBjurstrom\Prezet\Extensions\MarkdownBladeExtension::class,
-            BenBjurstrom\Prezet\Extensions\MarkdownImageExtension::class,
+            Prezet\Prezet\Extensions\MarkdownBladeExtension::class,
+            Prezet\Prezet\Extensions\MarkdownImageExtension::class,
         ],
 
         'config' => [
@@ -72,7 +72,7 @@ return [
                 'aria_hidden' => false,
             ],
             'external_link' => [
-                'internal_hosts' => 'www.example.com', // Don't forget to set this!
+                'internal_hosts' => env('APP_URL'),
                 'open_in_new_window' => true,
                 'html_class' => 'external-link',
                 'nofollow' => 'external',
@@ -102,7 +102,7 @@ return [
 
         'sizes' => '92vw, (max-width: 1024px) 92vw, 768px',
 
-        'zoomable' => false,
+        'zoomable' => true,
     ],
 
     /*

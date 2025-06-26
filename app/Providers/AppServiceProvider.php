@@ -7,7 +7,6 @@ namespace App\Providers;
 use App\Data\Articles\CustomFrontmatterData;
 use App\Models\User;
 use App\Services\Untis;
-use BenBjurstrom\Prezet\Data\FrontmatterData;
 use Carbon\CarbonImmutable;
 use Illuminate\Auth\Access\Response;
 use Illuminate\Database\Eloquent\Model;
@@ -16,6 +15,7 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\ServiceProvider;
 use Livewire;
+use Prezet\Prezet\Data\FrontmatterData;
 
 class AppServiceProvider extends ServiceProvider
 {
