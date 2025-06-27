@@ -1,4 +1,4 @@
-@use(App\Models\Holocron\Quest)
+@use(App\Models\Holocron\Quest\Quest)
 @use(App\Enums\Holocron\QuestStatus)
 
 <div class="space-y-4">
@@ -170,5 +170,5 @@
         </flux:modal>
     @endforeach
 
-    <livewire:holocron.quests.components.parent-search @select="move($event.detail)" />
+    <livewire:holocron.quests.components.parent-search @select="move($event.detail)"/>
 </div>

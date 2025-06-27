@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-use App\Models\Holocron\Quest;
-use App\Models\Holocron\QuestNote;
+use App\Models\Holocron\Quest\Note;
+use App\Models\Holocron\Quest\Quest;
 
 use function Pest\Laravel\get;
 
@@ -45,7 +45,7 @@ it('can delete a quest', function () {
 
 it('has notes', function () {
     $quest = Quest::factory()->create();
-    QuestNote::factory()->for($quest)->count(3)->create();
+    Note::factory()->for($quest)->count(3)->create();
 
     expect($quest->notes)->toHaveCount(3);
 });
@@ -62,7 +62,7 @@ it('can add notes', function () {
 
 it('can delete a note', function () {
     $quest = Quest::factory()->create();
-    QuestNote::factory()->for($quest)->create();
+    Note::factory()->for($quest)->create();
 
     Livewire::test('holocron.quests.show', [$quest->id])
         ->call('deleteNote', $quest->notes->first()->id);
@@ -106,7 +106,7 @@ it('can add links', function () {
     Denk\Facades\Denk::fake();
     Illuminate\Support\Facades\Bus::fake();
     $quest = Quest::factory()->create();
-    QuestNote::factory()->for($quest)->create();
+    Note::factory()->for($quest)->create();
 
     Livewire::test('holocron.quests.show', [$quest->id])
         ->set('linkDraft', 'https://example.com')

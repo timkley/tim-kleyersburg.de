@@ -12,7 +12,7 @@ return new class extends Migration
     {
         Schema::create('quests', function (Blueprint $table): void {
             $table->id();
-            $table->foreignIdFor(App\Models\Holocron\Quest::class)->nullable();
+            $table->foreignIdFor(App\Models\Holocron\Quest\Quest::class)->nullable();
             $table->string('name');
             $table->text('description')->nullable();
             $table->string('status')->default(App\Enums\Holocron\QuestStatus::Open);

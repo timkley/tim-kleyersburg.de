@@ -7,8 +7,8 @@ namespace App\Livewire\Holocron\Quests;
 use App\Enums\Holocron\QuestStatus;
 use App\Jobs\CrawlWebpageInformation;
 use App\Livewire\Holocron\HolocronComponent;
-use App\Models\Holocron\Quest;
-use App\Models\Holocron\QuestNote;
+use App\Models\Holocron\Quest\Note;
+use App\Models\Holocron\Quest\Quest;
 use App\Models\Webpage;
 use Denk\Facades\Denk;
 use Denk\ValueObjects\DeveloperMessage;
@@ -221,7 +221,7 @@ EOT;
 
     public function deleteNote(int $id): void
     {
-        QuestNote::destroy($id);
+        Note::destroy($id);
     }
 
     public function mount(Quest $quest): void

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Livewire\Holocron\Quests\Components;
 
 use App\Enums\Holocron\QuestStatus;
-use App\Models\Holocron\Quest;
+use App\Models\Holocron\Quest\Quest;
 use Illuminate\View\View;
 use Livewire\Component;
 

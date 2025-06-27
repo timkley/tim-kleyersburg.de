@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Models\Holocron\Grind;
 
-use App\Models\Holocron\Quest;
 use Database\Factories\Holocron\Grind\SetFactory;
 use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
@@ -49,14 +48,14 @@ class Set extends Model
     /**
      * @return BelongsTo<WorkoutExercise, $this>
      */
-    public function workoutExercise()
+    public function workoutExercise(): BelongsTo
     {
         return $this->belongsTo(WorkoutExercise::class);
     }
 
     /**
-     * @param  EloquentBuilder<Quest>  $query
-     * @return EloquentBuilder<Quest>
+     * @param  EloquentBuilder<Set>  $query
+     * @return EloquentBuilder<Set>
      */
     #[Scope]
     protected function siblings(EloquentBuilder $query): EloquentBuilder

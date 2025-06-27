@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('quest_notes', function (Blueprint $table): void {
             $table->id();
-            $table->foreignIdFor(App\Models\Holocron\Quest::class);
+            $table->foreignIdFor(App\Models\Holocron\Quest\Quest::class);
             $table->text('content');
             $table->string('status')->nullable();
             $table->timestamps();

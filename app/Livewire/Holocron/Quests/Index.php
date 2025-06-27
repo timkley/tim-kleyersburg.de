@@ -6,7 +6,7 @@ namespace App\Livewire\Holocron\Quests;
 
 use App\Enums\Holocron\QuestStatus;
 use App\Livewire\Holocron\HolocronComponent;
-use App\Models\Holocron\Quest;
+use App\Models\Holocron\Quest\Quest;
 use Flux\Flux;
 use Illuminate\View\View;
 use Livewire\Attributes\Title;

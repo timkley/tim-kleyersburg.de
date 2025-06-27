@@ -2,15 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Database\Factories\Holocron;
+namespace Database\Factories\Holocron\Quest;
 
-use App\Models\Holocron\Quest;
+use App\Models\Holocron\Quest\Note;
+use App\Models\Holocron\Quest\Quest;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Holocron\QuestNote>
+ * @extends Factory<Note>
  */
-class QuestNoteFactory extends Factory
+class NoteFactory extends Factory
 {
     /**
      * Define the model's default state.

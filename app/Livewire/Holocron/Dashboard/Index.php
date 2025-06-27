@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Livewire\Holocron\Dashboard;
 
 use App\Livewire\Holocron\HolocronComponent;
-use App\Models\Holocron\Quest;
+use App\Models\Holocron\Quest\Quest;
 use Illuminate\View\View;
 use Livewire\Attributes\Title;
 

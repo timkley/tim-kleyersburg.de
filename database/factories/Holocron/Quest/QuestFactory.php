@@ -2,13 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Database\Factories\Holocron;
+namespace Database\Factories\Holocron\Quest;
 
 use App\Enums\Holocron\QuestStatus;
+use App\Models\Holocron\Quest\Quest;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Holocron\Quest>
+ * @extends Factory<Quest>
  */
 class QuestFactory extends Factory
 {

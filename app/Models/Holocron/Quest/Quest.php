@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\Models\Holocron;
+namespace App\Models\Holocron\Quest;
 
 use App\Enums\Holocron\ExperienceType;
 use App\Enums\Holocron\QuestStatus;
 use App\Models\User;
 use App\Models\Webpage;
-use Database\Factories\Holocron\QuestFactory;
+use Database\Factories\Holocron\Quest\QuestFactory;
 use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Casts\AsCollection;
@@ -21,7 +21,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Query\Builder;
 use Laravel\Scout\Searchable;
 
-/** @property \Illuminate\Support\Collection $images */
+/** @property Collection $images */
 /** @property QuestStatus $status */
 class Quest extends Model
 {
@@ -29,14 +29,6 @@ class Quest extends Model
     use HasFactory;
 
     use Searchable;
-
-    protected $fillable = [
-        'name',
-        'status',
-        'quest_id',
-        'images',
-        'accepted',
-    ];
 
     public function setStatus(QuestStatus $status): void
     {
@@ -86,11 +78,19 @@ class Quest extends Model
     }
 
     /**
-     * @return HasMany<QuestNote, $this>
+     * @return HasMany<Note, $this>
      */
     public function notes(): HasMany
     {
-        return $this->hasMany(QuestNote::class);
+        return $this->hasMany(Note::class);
+    }
+
+    /**
+     * @return HasMany<Reminder, $this>
+     */
+    public function reminders(): HasMany
+    {
+        return $this->hasMany(Reminder::class);
     }
 
     /**

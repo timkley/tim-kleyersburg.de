@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use App\Models\Holocron\Bookmark;
-use App\Models\Holocron\Quest;
+use App\Models\Holocron\Quest\Quest;
 
 return [
 

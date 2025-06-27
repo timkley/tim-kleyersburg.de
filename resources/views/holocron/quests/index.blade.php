@@ -1,4 +1,4 @@
-@use(App\Models\Holocron\Quest)
+@use(App\Models\Holocron\Quest\Quest)
 @use(App\Enums\Holocron\QuestStatus)
 
 <div>
@@ -43,7 +43,8 @@
                         </flux:modal.trigger>
                     </div>
                     @if($parentQuestName)
-                        <flux:text>Wird abgelegt unter <span class="font-medium">{{ $parentQuestName }}</span></flux:text>
+                        <flux:text>Wird abgelegt unter <span class="font-medium">{{ $parentQuestName }}</span>
+                        </flux:text>
                     @endif
                 </form>
 
