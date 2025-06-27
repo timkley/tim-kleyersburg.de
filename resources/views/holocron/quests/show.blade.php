@@ -42,6 +42,16 @@
             <flux:modal.trigger name="parent-search">
                 <flux:button class="!h-(--height) px-4" icon="folder-arrow-down"></flux:button>
             </flux:modal.trigger>
+
+            <flux:modal.trigger name="reminder-modal">
+                <flux:button
+                    @class([
+                        '!h-(--height) px-4 relative',
+                        'after:absolute after:size-2 after:rounded-full after:bg-sky-500 after:-top-0.5 after:-right-0.5' => $this->activeReminders->isNotEmpty()
+                    ])
+                    icon="bell"
+                />
+            </flux:modal.trigger>
         </div>
 
         <flux:editor
@@ -171,4 +181,6 @@
     @endforeach
 
     <livewire:holocron.quests.components.parent-search @select="move($event.detail)"/>
+
+    @include('holocron.quests.components.reminder-modal')
 </div>

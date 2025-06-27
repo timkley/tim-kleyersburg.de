@@ -18,7 +18,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Query\Builder;
+use Illuminate\Database\Query\Builder as QueryBuilder;
 use Laravel\Scout\Searchable;
 
 /** @property Collection $images */
@@ -144,7 +144,7 @@ class Quest extends Model
     #[Scope]
     protected function noChildren(EloquentBuilder $query): EloquentBuilder
     {
-        return $query->whereNotExists(function (Builder $query): void {
+        return $query->whereNotExists(function (QueryBuilder $query): void {
             $query->from('quests as children')
                 ->whereColumn('children.quest_id', 'quests.id')
                 ->whereNot('children.status', QuestStatus::Complete);

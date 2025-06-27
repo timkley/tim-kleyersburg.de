@@ -10,6 +10,7 @@ use App\Livewire\Holocron\HolocronComponent;
 use App\Models\Holocron\Quest\Note;
 use App\Models\Holocron\Quest\Quest;
 use App\Models\Webpage;
+use App\Traits\Livewire\Holocron\Quests\WithReminders;
 use Denk\Facades\Denk;
 use Denk\ValueObjects\DeveloperMessage;
 use Denk\ValueObjects\UserMessage;
@@ -27,6 +28,7 @@ use Livewire\WithFileUploads;
 class Show extends HolocronComponent
 {
     use WithFileUploads;
+    use WithReminders;
 
     public Quest $quest;
 

@@ -33,6 +33,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $schedule->job(AwardExperience::class)->dailyAt('23:55');
         $schedule->job(CreateDailyGoals::class)->dailyAt('00:01');
         $schedule->job(CheckForNewThings::class)->hourly()->between('7:00', '18:00');
+        $schedule->command('reminders:process')->everyMinute();
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

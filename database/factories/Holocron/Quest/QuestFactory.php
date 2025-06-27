@@ -24,6 +24,7 @@ class QuestFactory extends Factory
             'name' => fake()->sentence,
             'description' => fake()->paragraph,
             'status' => QuestStatus::InProgress,
+            'images' => [],
         ];
     }
 }
