@@ -24,22 +24,13 @@ class QuestReminder extends Notification
         return [DiscordChannel::class];
     }
 
-    /**
-     * Get the Discord representation of the notification.
-     */
     public function toDiscord(mixed $notifiable): DiscordMessage
     {
         $quest = $this->reminder->quest;
 
-        $content = "**Reminder**\n";
+        $content = "**Erinnerung**\n";
         $content .= "Quest: **{$quest->name}**\n";
 
         return DiscordMessage::create($content);
-    }
-
-    public function routeNotificationForDiscord(): string
-    {
-        // Use tim's personal channel for reminders
-        return config('services.discord.tim_channel');
     }
 }

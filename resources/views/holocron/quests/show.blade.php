@@ -47,7 +47,7 @@
                 <flux:button
                     @class([
                         '!h-(--height) px-4 relative',
-                        'after:absolute after:size-2 after:rounded-full after:bg-sky-500 after:-top-0.5 after:-right-0.5' => $this->activeReminders->isNotEmpty()
+                        'after:absolute after:size-2 after:box-content after:rounded-full after:bg-sky-500 after:border-2 after:border-white dark:after:border-zinc-600 after:-top-1 after:-right-1' => $this->activeReminders->isNotEmpty()
                     ])
                     icon="bell"
                 />

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Console\Commands;
 
 use App\Models\Holocron\Quest\Reminder;
+use App\Notifications\DiscordTimChannel;
 use App\Notifications\Holocron\QuestReminder;
 use Illuminate\Console\Command;
 
@@ -55,8 +56,7 @@ class ProcessReminders extends Command
 
     protected function sendNotification(Reminder $reminder): void
     {
-        \Illuminate\Support\Facades\Notification::route('discord', config('services.discord.tim_channel'))
-            ->notify(new QuestReminder($reminder));
+        (new DiscordTimChannel)->notify(new QuestReminder($reminder));
 
         $this->info("Notification sent for reminder #{$reminder->id}");
     }
