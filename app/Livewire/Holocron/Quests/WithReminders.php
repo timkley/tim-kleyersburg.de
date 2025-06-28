@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Traits\Livewire\Holocron\Quests;
+namespace App\Livewire\Holocron\Quests;
 
 use App\Enums\Holocron\ReminderType;
 use App\Models\Holocron\Quest\Reminder;

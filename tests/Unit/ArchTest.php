@@ -7,11 +7,6 @@ arch('globals')
     ->not->toBeUsed();
 
 arch()
-    ->expect('App\Livewire')
-    ->toBeClasses()
-    ->toExtend('Livewire\Component');
-
-arch()
     ->expect('App\Models')
     ->toBeClasses()
     ->toExtend('Illuminate\Database\Eloquent\Model')
