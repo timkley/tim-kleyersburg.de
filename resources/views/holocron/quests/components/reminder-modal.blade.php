@@ -2,7 +2,7 @@
     <form wire:submit="updateReminder" class="space-y-4">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <flux:input label="Datum" type="date" wire:model="reminderDate" />
-            <flux:input label="Datum" type="time" wire:model="reminderTime" />
+            <flux:input label="Zeit" type="time" wire:model="reminderTime" />
         </div>
 
         <div class="flex justify-end gap-2">
