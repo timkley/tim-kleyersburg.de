@@ -15,6 +15,8 @@ use Livewire\Component;
 
 class Goals extends Component
 {
+    public const int DAYS_TO_SHOW = 14;
+
     public CarbonImmutable $selectedDate;
 
     public function mount(): void
@@ -25,7 +27,7 @@ class Goals extends Component
     public function render(): View
     {
         $goals = $this->getGoalsForPeriod(0);
-        $goalsPreviousPeriod = $this->getGoalsForPeriod(20);
+        $goalsPreviousPeriod = $this->getGoalsForPeriod(self::DAYS_TO_SHOW);
 
         $todaysGoals = DailyGoal::whereDate('created_at', $this->selectedDate)->get();
 
@@ -65,7 +67,7 @@ class Goals extends Component
     private function getGoalsForPeriod(int $days): Collection
     {
         $startDate = now()->subDays($days);
-        $endDate = now()->subDays($days + 20); // Calculate the end date based on the number of days
+        $endDate = now()->subDays($days + self::DAYS_TO_SHOW); // Calculate the end date based on the number of days
 
         return DailyGoal::whereBetween('date', [$endDate, $startDate])
             ->orderBy('date')

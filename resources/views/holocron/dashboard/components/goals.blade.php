@@ -12,7 +12,7 @@
 
     <x-holocron.dashboard.goals.calendar :$goalsPast20DaysByDay :$selectedDate/>
 
-    <div class="mt-4 grid gap-x-16 gap-y-8 sm:grid-cols-2 md:gap-x-20 lg:grid-cols-3">
+    <div class="mt-4 grid gap-x-16 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
         @foreach ($todaysGoals as $goal)
             <x-dynamic-component
                 :component="'holocron.dashboard.goals.'.$goal->type->value"

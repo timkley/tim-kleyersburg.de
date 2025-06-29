@@ -18,6 +18,7 @@
             <flux:badge
                 size="sm"
                 color="sky"
+                inset="top bottom"
             >
                 Ziel erreicht 🎉
             </flux:badge>

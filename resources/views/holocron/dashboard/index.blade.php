@@ -97,7 +97,7 @@
                 <flux:modal.trigger name="apod">
                     <img src="{{ $apod['url'] }}" alt="{{ $apod['title'] }}" class="rounded shadow-md mb-4" />
                 </flux:modal.trigger>
-                <flux:modal name="apod">
+                <flux:modal name="apod" class="max-w-5xl">
                     <img src="{{ $apod['url'] }}" alt="{{ $apod['title'] }}" class="rounded shadow-md mb-4" />
                 </flux:modal>
 
