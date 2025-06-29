@@ -53,7 +53,7 @@ class Bookmark extends HolocronComponent
 
     public function updated(string $property, mixed $value): void
     {
-        $this->bookmark->update([
+        $this->bookmark->webpage->update([
             $property => $value,
         ]);
     }
