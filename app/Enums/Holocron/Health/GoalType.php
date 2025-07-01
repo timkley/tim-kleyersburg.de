@@ -16,6 +16,7 @@ enum GoalType: string
     case Mobility = 'mobility';
     case NoSmoking = 'no_smoking';
     case NoAlcohol = 'no_alcohol';
+    case Protein = 'protein';
 
     public function unit(): GoalUnit
     {
@@ -26,6 +27,7 @@ enum GoalType: string
             self::Mobility => GoalUnit::Boolean,
             self::NoSmoking => GoalUnit::Boolean,
             self::NoAlcohol => GoalUnit::Boolean,
+            self::Protein => GoalUnit::Grams,
         };
     }
 

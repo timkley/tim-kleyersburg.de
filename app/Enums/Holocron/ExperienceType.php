@@ -11,6 +11,7 @@ enum ExperienceType: string
     case PerfectDay = 'perfect_day';
     case GoalReached = 'goal_reached';
     case GoalUnreached = 'goal_unreached';
+    case StreakGoalReached = 'streak_goal_reached';
 
     public function label(): string
     {
@@ -20,6 +21,7 @@ enum ExperienceType: string
             self::PerfectDay => 'Perfekter Tag',
             self::GoalReached => 'Ziel erreicht',
             self::GoalUnreached => 'Ziel verloren',
+            self::StreakGoalReached => 'Streak-Ziel erreicht',
         };
     }
 
@@ -31,6 +33,7 @@ enum ExperienceType: string
             self::PerfectDay => 'An Tagen wie diesen...',
             self::GoalReached => 'Nice.',
             self::GoalUnreached => 'Kein Durchhaltevermögen, der Typ.',
+            self::StreakGoalReached => 'Deine Streak wächst und wächst!',
         };
     }
 
@@ -42,6 +45,7 @@ enum ExperienceType: string
             self::PerfectDay => 'calendar',
             self::GoalReached => 'hand-thumb-up',
             self::GoalUnreached => 'hand-thumb-down',
+            self::StreakGoalReached => 'fire',
         };
     }
 }

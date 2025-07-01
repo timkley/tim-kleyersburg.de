@@ -20,6 +20,7 @@ trait CalculatesGoals
             self::Mobility => 1,
             self::NoSmoking => 1,
             self::NoAlcohol => 1,
+            self::Protein => $this->proteinGoal(),
         };
     }
 
@@ -34,7 +35,7 @@ trait CalculatesGoals
 
     protected function waterGoal(): int
     {
-        $user = User::where('email', 'timkley@gmail.com')->sole();
+        $user = User::tim();
         $weight = $user->settings?->weight;
         $temperature = Weather::today()->maxTemp;
         $goal = $weight * 0.033;
@@ -51,5 +52,13 @@ trait CalculatesGoals
     protected function plankGoal(): int
     {
         return max(90, (int) DailyGoal::where('type', GoalType::Planks)->max('amount') + 5);
+    }
+
+    protected function proteinGoal(): int
+    {
+        $user = User::tim();
+        $weight = $user->settings?->weight;
+
+        return (int) round($weight * 1.2);
     }
 }
