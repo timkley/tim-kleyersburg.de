@@ -122,6 +122,9 @@ class DailyGoal extends Model
 
         if ($this->reached) {
             User::tim()->addExperience(2, ExperienceType::GoalReached, $this->id);
+
+            // Check for streak goals when a goal is reached
+            \App\Services\Holocron\Health\StreakGoalService::checkStreakGoals($this->type);
         }
 
         if ($wasPreviouslyReached && ! $this->reached) {
