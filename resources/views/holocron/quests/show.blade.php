@@ -156,9 +156,12 @@
     <flux:card class="space-y-3" size="sm">
         <form wire:submit="addNote" class="space-y-4">
             <flux:editor wire:model="noteDraft" placeholder="Neue Notiz"></flux:editor>
-            <div class="flex gap-2">
+            <div class="flex justify-between items-center gap-2">
                 <flux:button type="submit" variant="primary">Notiz speichern</flux:button>
-                <flux:button wire:click="generateSolution" icon="sparkles">Smarte Lösung</flux:button>
+
+                <div>
+                    <flux:switch wire:model.live="chat" label="Chat" />
+                </div>
             </div>
         </form>
 
