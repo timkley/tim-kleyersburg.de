@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "81e5861198851a471eda2ebcb4bb3161",
+    "content-hash": "db722b5bdd048ef8c9510525fb6971e3",
     "packages": [
         {
             "name": "benbjurstrom/laravel-sitemap-lite",
@@ -7736,16 +7736,16 @@
         },
         {
             "name": "timkley/denk",
-            "version": "0.3.1",
+            "version": "0.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/timkley/denk.git",
-                "reference": "a57ba02ec8f936db6dd5a1c8b0a1d27706398ab5"
+                "reference": "7daca35a54e4cdcace8b6e775f6d7d407d3e7ec7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/timkley/denk/zipball/a57ba02ec8f936db6dd5a1c8b0a1d27706398ab5",
-                "reference": "a57ba02ec8f936db6dd5a1c8b0a1d27706398ab5",
+                "url": "https://api.github.com/repos/timkley/denk/zipball/7daca35a54e4cdcace8b6e775f6d7d407d3e7ec7",
+                "reference": "7daca35a54e4cdcace8b6e775f6d7d407d3e7ec7",
                 "shasum": ""
             },
             "require": {
@@ -7793,9 +7793,9 @@
             "description": "OpenAI helpers",
             "support": {
                 "issues": "https://github.com/timkley/denk/issues",
-                "source": "https://github.com/timkley/denk/tree/v0.3.1"
+                "source": "https://github.com/timkley/denk/tree/v0.4.0"
             },
-            "time": "2025-05-01T05:55:21+00:00"
+            "time": "2025-07-05T10:42:24+00:00"
         },
         {
             "name": "typesense/typesense-php",

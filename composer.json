@@ -23,7 +23,7 @@
         "livewire/livewire": "^3.5.18",
         "prezet/prezet": "^1.2",
         "spatie/laravel-feed": "^4.4",
-        "timkley/denk": "^0.3.0",
+        "timkley/denk": "^0.4.0",
         "typesense/typesense-php": "^5.1"
     },
     "require-dev": {
