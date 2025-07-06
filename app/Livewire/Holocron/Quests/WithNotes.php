@@ -86,12 +86,25 @@ EOT;
                 new UserMessage($prompt),
                 ...$messages,
             ])
-            ->generate();
+            ->generateStreamed();
+
+        foreach ($answer as $chunk) {
+            $content = $chunk->choices[0]->delta->content;
+
+            if (empty($content)) {
+                continue; // Skip empty chunks
+            }
+            $this->streamedAnswer .= $content;
+
+            $this->stream(
+                to: 'streamedAnswer',
+                content: str($this->streamedAnswer)->markdown(),
+                replace: true
+            );
+        }
 
         Note::find($noteId)->update([
-            'content' => str($answer)->markdown(),
+            'content' => str($this->streamedAnswer)->markdown(),
         ]);
-
-        $this->dispatch('note-updated.'.$noteId);
     }
 }
