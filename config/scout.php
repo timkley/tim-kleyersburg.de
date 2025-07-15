@@ -216,11 +216,26 @@ return [
                             'name' => 'created_at',
                             'type' => 'int64',
                         ],
+                        [
+                            'name' => 'embedding',
+                            'type' => 'float[]',
+                            'embed' => [
+                                'from' => [
+                                    'name',
+                                    'description',
+                                ],
+                                'model_config' => [
+                                    'model_name' => 'openai/text-embedding-3-small',
+                                    'api_key' => env('OPENAI_API_KEY'),
+                                ],
+                            ],
+                        ],
                     ],
                     'default_sorting_field' => 'created_at',
                 ],
                 'search-parameters' => [
                     'query_by' => 'name,description',
+                    'exclude_fields' => 'embedding',
                 ],
             ],
             Bookmark::class => [
