@@ -52,8 +52,8 @@
 
             <form wire:submit="recordSet" class="grid grid-cols-subgrid col-span-4">
                 <div></div>
-                <flux:input wire:model="weight" placeholder="Gewicht"/>
-                <flux:input wire:model="reps" placeholder="Wdh."/>
+                <flux:input wire:model="weight" placeholder="Gewicht" inputmode="numeric"/>
+                <flux:input wire:model="reps" placeholder="Wdh." inputmode="numeric"/>
                 <flux:button type="submit" icon="arrow-right"/>
             </form>
         </div>
