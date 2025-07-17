@@ -76,7 +76,7 @@ EOT
                 ),
             ];
 
-            return Denk::text()->model('google/gemini-2.5-flash-preview')->messages($messages)->generate();
+            return Denk::text()->model('google/gemini-2.5-flash')->messages($messages)->generate();
         });
     }
 }

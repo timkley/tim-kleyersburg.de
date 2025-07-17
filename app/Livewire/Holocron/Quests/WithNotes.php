@@ -80,7 +80,7 @@ EOT;
         });
 
         $answer = Denk::text()
-            ->model('google/gemini-2.5-flash-preview-05-20:online')
+            ->model('google/gemini-2.5-flash:online')
             ->messages([
                 new DeveloperMessage(view('prompts.solution')->render()),
                 new UserMessage($prompt),

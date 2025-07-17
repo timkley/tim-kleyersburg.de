@@ -19,7 +19,7 @@ class Chopper
         $history[] = new UserMessage($message);
 
         $answer = Denk::text()
-            ->model('google/gemini-2.5-flash-preview')
+            ->model('google/gemini-2.5-flash')
             ->messages([
                 new DeveloperMessage(self::personality()),
                 ...$history,
