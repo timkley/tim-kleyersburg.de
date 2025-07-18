@@ -26,6 +26,12 @@ class Item extends Component
         $this->dispatch('quest:accepted');
     }
 
+    public function deleteQuest(int $id): void
+    {
+        Quest::destroy($id);
+        $this->dispatch('quest:deleted');
+    }
+
     public function render(): View
     {
         return view('holocron.quests.components.item');

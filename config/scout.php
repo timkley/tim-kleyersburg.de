@@ -211,6 +211,7 @@ return [
                             'name' => 'accepted',
                             'type' => 'bool',
                             'facet' => true,
+                            'optional' => true,
                         ],
                         [
                             'name' => 'created_at',
