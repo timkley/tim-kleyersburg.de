@@ -1,5 +1,6 @@
 ** Project information **
 - This project is built with Laravel 12 using Livewire and Tailwind v4 as well as the Flux UI kit
+- the project requirements definition is located at `project.prd`
 - use context7 to get up-to-date information about these frameworks when using them
 
 ** Rules **
