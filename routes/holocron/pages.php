@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Livewire\Holocron\Bookmarks;
+use App\Livewire\Holocron\Chopper;
 use App\Livewire\Holocron\Dashboard\Index;
 use App\Livewire\Holocron\Experience;
 use App\Livewire\Holocron\Grind;
@@ -30,4 +31,6 @@ Route::middleware('auth')->name('holocron.')->prefix('holocron')->group(function
     Route::get('/grind/workouts/{workout}', Grind\Workouts\Show::class)->name('grind.workouts.show');
 
     Route::get('/experience', Experience::class)->name('experience');
+
+    Route::get('/chopper', Chopper::class)->name('chopper');
 });

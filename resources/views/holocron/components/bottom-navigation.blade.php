@@ -28,6 +28,15 @@
             <flux:icon icon="dumbbell" class="mx-auto" variant="mini" />
             Grind
         </a>
+        <flux:separator vertical />
+        <a
+            href="{{ route('holocron.chopper') }}"
+           wire:navigate
+           wire:current="font-semibold"
+        >
+            <flux:icon icon="sparkles" class="mx-auto" variant="mini" />
+            Chopper
+        </a>
 
         @if($workout = Workout::query()->whereNotNull('started_at')->whereNull('finished_at')->limit(1)->first())
             <flux:separator vertical />
