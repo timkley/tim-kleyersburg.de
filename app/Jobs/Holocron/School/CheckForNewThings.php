@@ -36,11 +36,11 @@ class CheckForNewThings implements ShouldQueue
         $this->untis = $untis;
 
         $this->checkNews();
-        Sleep::for(300)->milliseconds();
+        Sleep::for(600)->milliseconds();
         $this->checkHomeworks();
-        Sleep::for(300)->milliseconds();
+        Sleep::for(600)->milliseconds();
         $this->checkExams();
-        Sleep::for(300)->milliseconds();
+        Sleep::for(600)->milliseconds();
         $this->checkLessons();
     }
 
@@ -57,7 +57,7 @@ class CheckForNewThings implements ShouldQueue
             }
 
             $this->cache()->put($key, true, now()->addYear());
-            Sleep::for(300)->milliseconds();
+            Sleep::for(600)->milliseconds();
             (new DiscordSchoolChannel)->notify(new NewNews($news));
         });
     }
@@ -84,7 +84,7 @@ class CheckForNewThings implements ShouldQueue
                 }
 
                 $this->cache()->put($key, true, $homework->dueDate->clone()->addWeek());
-                Sleep::for(300)->milliseconds();
+                Sleep::for(600)->milliseconds();
                 (new DiscordSchoolChannel)->notify(new NewHomework($homework));
             });
     }
@@ -102,7 +102,7 @@ class CheckForNewThings implements ShouldQueue
             }
 
             $this->cache()->put($key, true, now()->addMonth());
-            Sleep::for(300)->milliseconds();
+            Sleep::for(600)->milliseconds();
             (new DiscordSchoolChannel)->notify(new NewExam($exam));
         });
     }
@@ -123,7 +123,7 @@ class CheckForNewThings implements ShouldQueue
                 }
 
                 $this->cache()->put($key, true, $lesson->end);
-                Sleep::for(300)->milliseconds();
+                Sleep::for(600)->milliseconds();
                 (new DiscordSchoolChannel)->notify(new ClassCancelled($lesson));
             });
     }
