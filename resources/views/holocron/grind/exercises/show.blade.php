@@ -3,6 +3,8 @@
 
     <flux:heading size="xl">{{ $exercise->name }}</flux:heading>
 
+    <flux:textarea label="Beschreibung" wire:model.live.debounce="description"></flux:textarea>
+
     <flux:text class="text-base">
         Stärkster Satz: <span class="font-semibold">{{ $exercise->personalRecord()->volume }}&nbsp;kg</span> Volumen
     </flux:text>

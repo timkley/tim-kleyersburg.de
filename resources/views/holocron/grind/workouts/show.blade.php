@@ -35,6 +35,10 @@
             </div>
         </div>
 
+        <div class="text-sm">
+            {{ $currentExercise->exercise->description }}
+        </div>
+
         <div class="grid grid-cols-[calc(var(--spacing)*5)_100px_125px_1fr] gap-x-3 gap-y-3">
             <div class="grid grid-cols-subgrid col-span-4 text-sm text-center">
                 <div></div>

@@ -13,9 +13,23 @@ class Show extends HolocronComponent
 {
     public Exercise $exercise;
 
+    public ?string $description;
+
+    public function updated(string $property, mixed $value): void
+    {
+        $this->exercise->update([
+            $property => $value,
+        ]);
+    }
+
+    public function mount(Exercise $exercise): void
+    {
+        $this->fill($exercise);
+    }
+
     public function render(): View
     {
-        /** @var Collection<int, array{date: string, total_volume: float|int}> */
+        /** @var Collection<int, array{date: string, total_volume: float|int}> $data */
         $data = $this->exercise->volumePerWorkout()
             ->map(fn ($set): array => [
                 'date' => $set->workout->finished_at,
