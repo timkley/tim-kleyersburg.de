@@ -78,14 +78,14 @@ test('it does not process reminders for completed quests', function () {
         ->assertExitCode(0);
 
     Notification::assertSentTo(
-        new DiscordTimChannel(),
+        new DiscordTimChannel,
         function (QuestReminder $notification) use ($openQuestReminder) {
             return $notification->reminder->id === $openQuestReminder->id;
         }
     );
 
     Notification::assertNotSentTo(
-        new DiscordTimChannel(),
+        new DiscordTimChannel,
         function (QuestReminder $notification) use ($completedQuestReminder) {
             return $notification->reminder->id === $completedQuestReminder->id;
         }
