@@ -2,8 +2,10 @@
 
 declare(strict_types=1);
 
+use App\Enums\Holocron\QuestStatus;
 use App\Models\Holocron\Quest\Quest;
 use App\Models\Holocron\Quest\Reminder;
+use App\Notifications\DiscordTimChannel;
 use App\Notifications\Holocron\QuestReminder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Notification;
@@ -46,6 +48,48 @@ test('it processes due reminders', function () {
 
     // Assert that a notification was sent for the due reminder
     Notification::assertSentTimes(QuestReminder::class, 1);
+});
+
+test('it does not process reminders for completed quests', function () {
+    Notification::fake();
+
+    $completedQuest = Quest::factory()->create([
+        'name' => 'Completed Quest',
+        'status' => QuestStatus::Complete,
+    ]);
+    $openQuest = Quest::factory()->create([
+        'name' => 'Open Quest',
+        'status' => QuestStatus::Open,
+    ]);
+
+    $completedQuestReminder = Reminder::factory()->once()->create([
+        'quest_id' => $completedQuest->id,
+        'remind_at' => now()->subMinute(),
+    ]);
+    $openQuestReminder = Reminder::factory()->once()->create([
+        'quest_id' => $openQuest->id,
+        'remind_at' => now()->subMinute(),
+    ]);
+
+    $this->artisan('reminders:process')
+        ->expectsOutput('Processing 1 due reminders...')
+        ->expectsOutput("Processing reminder #{$openQuestReminder->id} for quest 'Open Quest'")
+        ->doesntExpectOutput("Processing reminder #{$completedQuestReminder->id} for quest 'Completed Quest'")
+        ->assertExitCode(0);
+
+    Notification::assertSentTo(
+        new DiscordTimChannel(),
+        function (QuestReminder $notification) use ($openQuestReminder) {
+            return $notification->reminder->id === $openQuestReminder->id;
+        }
+    );
+
+    Notification::assertNotSentTo(
+        new DiscordTimChannel(),
+        function (QuestReminder $notification) use ($completedQuestReminder) {
+            return $notification->reminder->id === $completedQuestReminder->id;
+        }
+    );
 });
 
 test('it handles no due reminders', function () {

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Console\Commands;
 
+use App\Enums\Holocron\QuestStatus;
 use App\Models\Holocron\Quest\Reminder;
 use App\Notifications\DiscordTimChannel;
 use App\Notifications\Holocron\QuestReminder;
@@ -21,6 +22,9 @@ class ProcessReminders extends Command
     {
         $dueReminders = Reminder::query()
             ->due()
+            ->whereHas('quest', function ($query) {
+                $query->where('status', '!=', QuestStatus::Complete->value);
+            })
             ->with('quest')
             ->get();
 
