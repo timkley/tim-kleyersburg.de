@@ -34,16 +34,27 @@
             @endif
 
             <div class="space-y-2" wire:key="main-quests">
-                @foreach($mainQuests as $quest)
+                @foreach($tasks as $quest)
                     <livewire:holocron.quests.components.item
                         :$quest
                         :key="'main-quest.' . $quest->id"
                     />
                 @endforeach
             </div>
+
+            @if($notes->isNotEmpty())
+                <div class="space-y-2" wire:key="main-notes">
+                    <flux:heading>Notizen</flux:heading>
+                    @foreach($notes as $quest)
+                        <livewire:holocron.quests.components.item
+                            :$quest
+                            :key="'main-note.' . $quest->id"
+                        />
+                    @endforeach
+                </div>
+            @endif
         </div>
     </flux:card>
 
     <livewire:holocron.quests.components.parent-search @select="setParentQuest($event.detail)"/>
 </div>
-

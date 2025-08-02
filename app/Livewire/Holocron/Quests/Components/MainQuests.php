@@ -57,12 +57,16 @@ class MainQuests extends Component
 
     public function render(): View
     {
+        [$tasks, $notes] = Quest::query()
+            ->whereNull('quest_id')
+            ->notCompleted()
+            ->orderBy('name')
+            ->get()
+            ->partition(fn (Quest $quest) => $quest->status !== QuestStatus::Note);
+
         return view('holocron.quests.components.main-quests', [
-            'mainQuests' => Quest::query()
-                ->whereNull('quest_id')
-                ->notCompleted()
-                ->orderBy('name')
-                ->get(),
+            'tasks' => $tasks,
+            'notes' => $notes,
             'searchResults' => $this->query ? Quest::search($this->query)->get() : null,
         ]);
     }
