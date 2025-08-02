@@ -23,7 +23,7 @@
             />
 
             @if($searchResults)
-                <div class="space-y-2">
+                <div class="space-y-2" wire:key="search-results">
                     @foreach($searchResults as $searchResult)
                         <livewire:holocron.quests.components.item
                             :quest="$searchResult"
@@ -33,7 +33,7 @@
                 </div>
             @endif
 
-            <div class="space-y-2">
+            <div class="space-y-2" wire:key="main-quests">
                 @foreach($mainQuests as $quest)
                     <livewire:holocron.quests.components.item
                         :$quest
