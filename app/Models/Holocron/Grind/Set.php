@@ -20,6 +20,7 @@ use Illuminate\Support\Carbon;
  * @property ?Carbon $started_at
  * @property ?Carbon $finished_at
  * @property ?float $total_volume
+ * @property ?string $workout_completed_at
  */
 class Set extends Model
 {

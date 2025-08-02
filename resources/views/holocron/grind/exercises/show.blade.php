@@ -5,9 +5,11 @@
 
     <flux:textarea label="Beschreibung" wire:model.live.debounce="description"></flux:textarea>
 
-    <flux:text class="text-base">
-        Stärkster Satz: <span class="font-semibold">{{ $exercise->personalRecord()->volume }}&nbsp;kg</span> Volumen
-    </flux:text>
+    @if($exercise->personalRecord())
+        <flux:text class="text-base">
+            Stärkster Satz: <span class="font-semibold">{{ $exercise->personalRecord()->volume }}&nbsp;kg</span> Volumen
+        </flux:text>
+    @endif
 
     <flux:chart :value="$data" class="aspect-[3/1]">
         <flux:chart.svg>
