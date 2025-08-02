@@ -7,6 +7,7 @@ namespace App\Livewire\Holocron\Grind\Workouts;
 use App\Livewire\Holocron\HolocronComponent;
 use App\Models\Holocron\Grind\Exercise;
 use App\Models\Holocron\Grind\Plan;
+use App\Models\Holocron\Grind\Set;
 use App\Models\Holocron\Grind\Workout;
 use Illuminate\View\View;
 use Livewire\Attributes\Title;
@@ -44,12 +45,13 @@ class Index extends HolocronComponent
         $previousWorkout = Workout::query()->where('plan_id', $planId)->whereNotNull('finished_at')->limit(1)->latest()->first();
 
         if ($previousWorkout) {
-            // Get previous sets grouped by exercise
-            $previousSets = $previousWorkout->sets()
-                ->whereIn('grind_sets.exercise_id', $plan->exercises->pluck('id'))
-                ->select('grind_sets.exercise_id', 'grind_sets.workout_id', 'weight', 'reps')
-                ->get()
-                ->groupBy('exercise_id');
+            $previousSets = $previousWorkout->sets->map(function (Set $set) {
+                return [
+                    'exercise_id' => $set->workoutExercise->exercise_id,
+                    'reps' => $set->reps,
+                    'weight' => $set->weight,
+                ];
+            })->groupBy('exercise_id');
 
             // Create sets for each workout exercise
             foreach ($workout->exercises as $workoutExercise) {
@@ -58,10 +60,8 @@ class Index extends HolocronComponent
                 if (isset($previousSets[$exerciseId])) {
                     $setsData = $previousSets[$exerciseId]->map(function ($set) {
                         return [
-                            'workout_id' => $set->workout_id,
-                            'exercise_id' => $set->exercise_id,
-                            'weight' => $set->weight,
-                            'reps' => $set->reps,
+                            'weight' => $set['weight'],
+                            'reps' => $set['reps'],
                         ];
                     })->toArray();
 

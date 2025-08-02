@@ -4,7 +4,7 @@
 - use context7 to get up-to-date information about these frameworks when using them
 
 ** Rules **
-- only add comments to really complex code, not every line
+- only add comments to really complex code, not to every line
  
 ** Laravel specific rules **
 - Models are always globally unguarded, never create the `$fillable` property

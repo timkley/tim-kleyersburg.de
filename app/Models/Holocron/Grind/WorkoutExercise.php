@@ -27,6 +27,14 @@ class WorkoutExercise extends Model
     }
 
     /**
+     * @return BelongsTo<Workout, $this>
+     */
+    public function workout(): BelongsTo
+    {
+        return $this->belongsTo(Workout::class);
+    }
+
+    /**
      * @return HasMany<Set, $this>
      */
     public function sets(): HasMany

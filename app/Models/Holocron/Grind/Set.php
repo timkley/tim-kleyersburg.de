@@ -13,8 +13,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
 
 /**
- * @property int $exercise_id
- * @property int $workout_id
+ * @property int $workout_exercise_id
  * @property int $reps
  * @property int $weight
  * @property float $volume
@@ -28,22 +27,6 @@ class Set extends Model
     use HasFactory;
 
     protected $table = 'grind_sets';
-
-    /**
-     * @return BelongsTo<Exercise, $this>
-     */
-    public function exercise(): BelongsTo
-    {
-        return $this->belongsTo(Exercise::class);
-    }
-
-    /**
-     * @return BelongsTo<Workout, $this>
-     */
-    public function workout(): BelongsTo
-    {
-        return $this->belongsTo(Workout::class);
-    }
 
     /**
      * @return BelongsTo<WorkoutExercise, $this>
@@ -60,7 +43,7 @@ class Set extends Model
     #[Scope]
     protected function siblings(EloquentBuilder $query): EloquentBuilder
     {
-        return $query->where('workout_id', $this->workout_id);
+        return $query->where('workout_exercise_id', $this->workout_exercise_id);
     }
 
     protected function casts(): array

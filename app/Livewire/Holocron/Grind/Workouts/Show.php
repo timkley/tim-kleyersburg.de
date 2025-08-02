@@ -54,8 +54,6 @@ class Show extends HolocronComponent
 
         $this->workout->sets()->create([
             'workout_exercise_id' => $this->workout->getCurrentExercise()->id,
-            'exercise_id' => $this->workout->getCurrentExercise()->exercise->id,
-            'workout_id' => $this->workout->id,
             'weight' => $this->weight,
             'reps' => $this->reps,
         ]);

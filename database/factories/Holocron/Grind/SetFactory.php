@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace Database\Factories\Holocron\Grind;
 
-use App\Models\Holocron\Grind\Exercise;
 use App\Models\Holocron\Grind\Set;
-use App\Models\Holocron\Grind\Workout;
+use App\Models\Holocron\Grind\WorkoutExercise;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -22,8 +21,7 @@ class SetFactory extends Factory
     public function definition(): array
     {
         return [
-            'exercise_id' => Exercise::factory(),
-            'workout_id' => Workout::factory(),
+            'workout_exercise_id' => WorkoutExercise::factory(),
             'reps' => fake()->numberBetween(1, 10),
             'weight' => fake()->randomFloat(2, 50, 100),
         ];

@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -35,11 +35,11 @@ class Exercise extends Model
     }
 
     /**
-     * @return HasMany<Set, $this>
+     * @return HasManyThrough<Set, WorkoutExercise, $this>
      */
-    public function sets(): HasMany
+    public function sets(): HasManyThrough
     {
-        return $this->hasMany(Set::class);
+        return $this->hasManyThrough(Set::class, WorkoutExercise::class);
     }
 
     public function personalRecord(): ?Set
@@ -57,13 +57,13 @@ class Exercise extends Model
     {
         return $this->sets()
             ->select(
-                'workout_id',
+                'grind_workout_exercises.workout_id',
                 DB::raw('MAX(finished_at) as workout_completed_at'), // Be explicit: e.g., last set's finish time for the workout
                 DB::raw('SUM(volume) as total_volume') // Calculate sum of product
             )
             ->whereNotNull('finished_at')
             ->orderBy('workout_completed_at', 'desc') // Order by the aggregated time
-            ->groupBy('workout_id', 'finished_at')
+            ->groupBy('grind_workout_exercises.workout_id')
             ->limit(30)
             ->get()
             ->reverse();

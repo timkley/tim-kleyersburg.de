@@ -45,12 +45,7 @@ class Workout extends Model
      */
     public function sets(): HasManyThrough
     {
-        return $this->hasManyThrough(
-            Set::class,
-            WorkoutExercise::class,
-            'workout_id', // Foreign key on WorkoutExercise table
-            'workout_exercise_id', // Foreign key on Set table
-        );
+        return $this->hasManyThrough(Set::class, WorkoutExercise::class);
     }
 
     /**
