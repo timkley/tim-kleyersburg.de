@@ -6,5 +6,8 @@ namespace App\Data;
 
 class Forecast
 {
-    public function __construct(public float $minTemp, public float $maxTemp, public string $condition) {}
+    /**
+     * @param  array<string,mixed>  $raw
+     */
+    public function __construct(public float $minTemp, public float $maxTemp, public string $condition, public string $conditionIcon, public array $raw) {}
 }

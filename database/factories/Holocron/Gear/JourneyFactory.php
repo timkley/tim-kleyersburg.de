@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Factories\Holocron\Gear;
 
 use App\Models\Holocron\Gear\Journey;
@@ -19,8 +21,6 @@ class JourneyFactory extends Factory
     {
         return [
             'destination' => $this->faker->city,
-            'latitude' => $this->faker->latitude,
-            'longitude' => $this->faker->longitude,
             'starts_at' => $this->faker->dateTimeBetween('+1 day', '+1 week'),
             'ends_at' => $this->faker->dateTimeBetween('+2 weeks', '+3 weeks'),
             'participants' => ['adult'],

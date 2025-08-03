@@ -20,6 +20,7 @@ return Application::configure(basePath: dirname(__DIR__))
             __DIR__.'/../routes/holocron/pages.php',
             __DIR__.'/../routes/holocron/helpers.php',
             __DIR__.'/../routes/holocron/school.php',
+            __DIR__.'/../routes/holocron/gear.php',
         ],
         api: __DIR__.'/../routes/api.php',
         commands: __DIR__.'/../routes/console.php',

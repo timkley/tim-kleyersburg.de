@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models\Holocron\Gear;
 
 use Database\Factories\Holocron\Gear\CategoryFactory;

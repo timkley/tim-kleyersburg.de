@@ -12,7 +12,7 @@ class Weather
 {
     public static function today(string $query = 'Fellbach'): Forecast
     {
-        $response = Cache::remember('weather', now()->addHours(2), fn () => Http::get('https://api.weatherapi.com/v1/forecast.json', [
+        $response = Cache::remember('weather:'.str($query)->slug(), now()->addHours(2), fn () => Http::get('https://api.weatherapi.com/v1/forecast.json', [
             'key' => config('services.weatherapi.api_key'),
             'q' => $query,
             'days' => 1,
@@ -22,6 +22,25 @@ class Weather
             minTemp: data_get($response, 'forecast.forecastday.0.day.mintemp_c', 0),
             maxTemp: data_get($response, 'forecast.forecastday.0.day.maxtemp_c', 0),
             condition: data_get($response, 'current.condition.text', 'unknown'),
+            conditionIcon: data_get($response, 'current.condition.icon', 'unknown'),
+            raw: $response
+        );
+    }
+
+    public static function forecast(string $query, int $days = 1): Forecast
+    {
+        $response = Cache::remember('weather:'.str($query)->slug(), now()->addHours(2), fn () => Http::get('https://api.weatherapi.com/v1/forecast.json', [
+            'key' => config('services.weatherapi.api_key'),
+            'q' => $query,
+            'days' => $days,
+        ])->json());
+
+        return new Forecast(
+            minTemp: data_get($response, 'forecast.forecastday.0.day.mintemp_c', 0),
+            maxTemp: data_get($response, 'forecast.forecastday.0.day.maxtemp_c', 0),
+            condition: data_get($response, 'current.condition.text', 'unknown'),
+            conditionIcon: data_get($response, 'current.condition.icon', 'unknown'),
+            raw: $response
         );
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models\Holocron\Gear;
 
 use Database\Factories\Holocron\Gear\JourneyFactory;
@@ -10,11 +12,9 @@ use Illuminate\Support\Carbon;
 /**
  * @property int $id
  * @property string $destination
- * @property float $latitude
- * @property float $longitude
  * @property Carbon $starts_at
  * @property Carbon $ends_at
- * @property array $participants
+ * @property array|string[] $participants
  * @property Carbon $created_at
  * @property Carbon $updated_at
  */
