@@ -48,7 +48,7 @@ class CrawlWebpageInformation implements ShouldQueue
         return Denk::text()
             ->model('google/gemini-flash-1.5-8b')
             ->prompt(<<<EOT
-Summarize the given webpage content in triple quotes in 1-2 sentences, focus on the purpose only. Exclude information like:
+Summarize the given webpage content in 1-2 sentences, focus on the purpose only. Exclude information like:
 - login elements
 - contact information
 - cookie consent / data privacy
@@ -56,6 +56,8 @@ Summarize the given webpage content in triple quotes in 1-2 sentences, focus on 
 - payment / upgrade information
 
 If no content was provided answer with "The summary could not be generated."
+
+You will answer ONLY with the summary, no quotes, delimiters.
 
 """
 $content
