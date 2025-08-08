@@ -39,10 +39,10 @@ class Chopper
     {
         $date = now()->format('l, j. F Y');
         $time = now()->toTimeString();
-        $forecast = Weather::today();
-        $condition = $forecast->condition;
-        $maxTemp = $forecast->maxTemp;
-        $minTemp = $forecast->minTemp;
+        $forecast = Weather::forecast('Fellbach', CarbonImmutable::now(), CarbonImmutable::now());
+        $condition = $forecast->days[0]->condition ?? 'Unknown';
+        $maxTemp = $forecast->days[0]->maxTemp ?? 'Unknown';
+        $minTemp = $forecast->days[0]->minTemp ?? 'Unknown';
 
         return
             <<<EOT

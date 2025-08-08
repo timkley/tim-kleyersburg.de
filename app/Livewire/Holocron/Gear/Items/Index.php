@@ -6,6 +6,7 @@ namespace App\Livewire\Holocron\Gear\Items;
 
 use App\Enums\Holocron\Gear\Property;
 use App\Livewire\Holocron\HolocronComponent;
+use App\Models\Holocron\Gear\Category;
 use App\Models\Holocron\Gear\Item;
 use Illuminate\View\View;
 use Livewire\Attributes\Title;
@@ -16,6 +17,9 @@ class Index extends HolocronComponent
 {
     #[Validate('required|string|min:3|max:255')]
     public string $name = '';
+
+    #[Validate('integer|min:0')]
+    public string|int $category_id = '';
 
     /** @var array|string[] */
     #[Validate('array')]
@@ -39,6 +43,7 @@ class Index extends HolocronComponent
     {
         return view('holocron.gear.items.index', [
             'items' => Item::all(),
+            'categories' => Category::pluck('name', 'id'),
             'availableProperties' => Property::cases(),
         ]);
     }

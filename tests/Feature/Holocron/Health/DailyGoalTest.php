@@ -11,23 +11,7 @@ use function Pest\Laravel\travel;
 
 beforeEach(function () {
     Http::fake([
-        'https://api.weatherapi.com/*' => Http::response([
-            'current' => [
-                'condition' => [
-                    'text' => 'Sunny',
-                ],
-            ],
-            'forecast' => [
-                'forecastday' => [
-                    [
-                        'day' => [
-                            'maxtemp_c' => $temperature ?? 20,
-                            'mintemp_c' => 10,
-                        ],
-                    ],
-                ],
-            ],
-        ]),
+        'https://geocoding-api.open-meteo.com/v1/search?name=Fellbach&count=1&language=de&format=json' => Http::response([]),
     ]);
 });
 

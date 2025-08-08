@@ -12,12 +12,12 @@ use Livewire\Attributes\Title;
 #[Title('Gear')]
 class Index extends HolocronComponent
 {
-    use WithJourneyCreation;
+    use WithJourneyCreation, WithPacklistGeneration;
 
     public function render(): View
     {
         return view('holocron.gear.index', [
-            'journeys' => Journey::all(),
+            'journeys' => Journey::query()->whereAfterToday('ends_at')->get(),
         ]);
     }
 }

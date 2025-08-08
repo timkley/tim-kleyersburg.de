@@ -7,6 +7,7 @@ namespace App\Models\Holocron\Gear;
 use Database\Factories\Holocron\Gear\JourneyItemFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
 
 /**
@@ -30,4 +31,12 @@ class JourneyItem extends Model
         'packed_for_departure' => 'boolean',
         'packed_for_return' => 'boolean',
     ];
+
+    /**
+     * @return BelongsTo<Item, $this>
+     */
+    public function item(): BelongsTo
+    {
+        return $this->belongsTo(Item::class);
+    }
 }

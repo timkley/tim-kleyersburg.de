@@ -81,7 +81,7 @@
             "rector --dry-run"
         ],
         "test": [
-            "@php artisan test --exclude-group=network"
+            "@php artisan test --exclude-group=network --parallel"
         ],
         "prepush": [
             "@phpstan",
