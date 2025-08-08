@@ -8,6 +8,7 @@ use App\Enums\Holocron\Health\GoalType;
 use App\Models\Holocron\Health\DailyGoal;
 use App\Models\User;
 use App\Services\Weather;
+use Carbon\CarbonImmutable;
 
 trait CalculatesGoals
 {
@@ -37,7 +38,7 @@ trait CalculatesGoals
     {
         $user = User::tim();
         $weight = $user->settings?->weight;
-        $temperature = Weather::today()->maxTemp;
+        $temperature = Weather::forecast('Fellbach', CarbonImmutable::now(), CarbonImmutable::now())->avgMaxTemp;
         $goal = $weight * 0.033;
 
         match (true) {

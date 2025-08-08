@@ -6,6 +6,7 @@ use App\Livewire\Holocron\Bookmarks;
 use App\Livewire\Holocron\Chopper;
 use App\Livewire\Holocron\Dashboard\Index;
 use App\Livewire\Holocron\Experience;
+use App\Livewire\Holocron\Gear;
 use App\Livewire\Holocron\Grind;
 use App\Livewire\Holocron\Quests;
 use App\Livewire\Holocron\Settings;
@@ -29,6 +30,11 @@ Route::middleware('auth')->name('holocron.')->prefix('holocron')->group(function
     Route::get('/grind/plans/{plan}', Grind\Plans\Show::class)->name('grind.plans.show');
     Route::get('/grind/workouts', Grind\Workouts\Index::class)->name('grind.workouts.index');
     Route::get('/grind/workouts/{workout}', Grind\Workouts\Show::class)->name('grind.workouts.show');
+
+    Route::get('/gear', Gear\Index::class)->name('gear');
+    Route::get('/gear/categories', Gear\Categories\Index::class)->name('gear.categories');
+    Route::get('/gear/items', Gear\Items\Index::class)->name('gear.items');
+    Route::get('/gear/journeys/{journey}', Gear\Journeys\Show::class)->name('gear.journeys.show');
 
     Route::get('/experience', Experience::class)->name('experience');
 
