@@ -59,12 +59,13 @@ class Weather
         $cacheKey = 'weather:geocode:'.mb_strtolower(str_replace(' ', '-', $query));
 
         return Cache::remember($cacheKey, now()->addDays(30), function () use ($query) {
-            $response = Http::get(self::GEOCODING_API_URL, [
-                'name' => $query,
-                'count' => 1,
-                'language' => 'de',
-                'format' => 'json',
-            ])->json();
+            $response = Http::retry(3, 1000)
+                ->get(self::GEOCODING_API_URL, [
+                    'name' => $query,
+                    'count' => 1,
+                    'language' => 'de',
+                    'format' => 'json',
+                ])->json();
 
             $result = data_get($response, 'results.0');
 
@@ -140,7 +141,7 @@ class Weather
         $cacheKey = 'weather:'.hash('sha256', $url.http_build_query($params));
 
         $response = Cache::remember($cacheKey, now()->addHours(4), function () use ($url, $params) {
-            return Http::get($url, $params)->json();
+            return Http::retry(3, 1000)->get($url, $params)->json();
         });
 
         if (! $response || isset($response['error'])) {
