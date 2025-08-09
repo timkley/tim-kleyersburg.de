@@ -18,8 +18,8 @@ class Index extends HolocronComponent
     #[Validate('required|string|min:3|max:255')]
     public string $name = '';
 
-    #[Validate('integer|min:0')]
-    public string|int $category_id = '';
+    #[Validate('integer')]
+    public ?int $category_id = null;
 
     /** @var array|string[] */
     #[Validate('array')]
