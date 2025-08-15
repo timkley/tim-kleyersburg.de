@@ -18,12 +18,26 @@
         </flux:select>
     </flux:table.cell>
     <flux:table.cell>
-        <flux:input wire:model.live.debounce="quantity"></flux:input>
+        <flux:input
+            wire:model.lazy="quantity"
+            wire:dirty.class="bg-yellow-50 dark:bg-yellow-900"
+            inputmode="decimal"
+            :loading="false"
+            x-on:input="$event.target.value = $event.target.value.replace(',', '.')"
+        ></flux:input>
     </flux:table.cell>
     <flux:table.cell>
-        <flux:input wire:model.live.debounce="quantity_per_day" :disabled="$quantity != 0"></flux:input>
+        <flux:input
+            wire:model.lazy="quantity_per_day"
+            wire:dirty.class="bg-yellow-50 dark:bg-yellow-900"
+            type="number"
+            inputmode="decimal"
+            :loading="false"
+            x-on:input="$event.target.value = $event.target.value.replace(',', '.')"
+            :disabled="$quantity != 0"
+        ></flux:input>
     </flux:table.cell>
     <flux:table.cell>
-        <flux:button wire:click="$parent.delete({{ $item->id }})" icon="trash" size="sm" variant="danger" ></flux:button>
+        <flux:button wire:click="$parent.delete({{ $item->id }})" icon="trash" size="sm" variant="danger"></flux:button>
     </flux:table.cell>
 </flux:table.row>

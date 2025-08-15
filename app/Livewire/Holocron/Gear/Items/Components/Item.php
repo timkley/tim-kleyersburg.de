@@ -10,13 +10,16 @@ use App\Models\Holocron\Gear\Category;
 use App\Models\Holocron\Gear\Item as ItemModel;
 use Illuminate\Support\Collection;
 use Illuminate\View\View;
+use Livewire\Attributes\Validate;
 
 class Item extends HolocronComponent
 {
     public ItemModel $item;
 
+    #[Validate('required')]
     public string $name = '';
 
+    #[Validate('required|exists:categories,id')]
     public string|int $category_id = '';
 
     /**
@@ -24,12 +27,16 @@ class Item extends HolocronComponent
      */
     public ?Collection $properties;
 
+    #[Validate('required|int')]
     public int $quantity = 0;
 
+    #[Validate('required|numeric')]
     public float $quantity_per_day = 0;
 
     public function updated(string $property, mixed $value): void
     {
+        $this->validateOnly($property);
+
         if (str_starts_with($property, 'properties')) {
             $this->item->update([
                 'properties' => $this->properties,
