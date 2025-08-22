@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Console\Commands;
 
-use App\Jobs\Holocron\School\CheckForNewThings;
 use Illuminate\Console\Command;
+use Modules\Holocron\School\Jobs\CheckForNewThings;
 
 class TestCommand extends Command
 {

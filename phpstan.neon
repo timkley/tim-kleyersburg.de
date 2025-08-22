@@ -6,11 +6,14 @@ parameters:
 
     paths:
         - app/
+        - modules/
 
     # Level 9 is the highest level
     level: 7
 
     excludePaths:
-        - ./app/Console/Commands/ImportWorkouts.php
+        - modules/**/Tests/*/
+        - modules/**/Migrations/*/
+        - modules/Holocron/Grind/Commands/ImportWorkouts.php
 #
 #    checkMissingIterableValueType: false

@@ -3,25 +3,18 @@
 declare(strict_types=1);
 
 use App\Http\Middleware\BearerToken;
-use App\Jobs\Holocron\Health\AwardExperience;
-use App\Jobs\Holocron\Health\CreateDailyGoals;
-use App\Jobs\Holocron\School\CheckForNewThings;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Http\Request;
+use Modules\Holocron\Quest\Jobs\ProcessReminders;
+use Modules\Holocron\School\Jobs\CheckForNewThings;
+use Modules\Holocron\User\Jobs\AwardExperience;
+use Modules\Holocron\User\Jobs\CreateDailyGoals;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
-        web: [
-            __DIR__.'/../routes/public/pages.php',
-            __DIR__.'/../routes/public/articles.php',
-            __DIR__.'/../routes/holocron/auth.php',
-            __DIR__.'/../routes/holocron/pages.php',
-            __DIR__.'/../routes/holocron/helpers.php',
-            __DIR__.'/../routes/holocron/school.php',
-            __DIR__.'/../routes/holocron/gear.php',
-        ],
+        web: __DIR__.'/../routes/web.php',
         api: __DIR__.'/../routes/api.php',
         commands: __DIR__.'/../routes/console.php',
         health: '/up',
@@ -34,7 +27,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $schedule->job(AwardExperience::class)->dailyAt('23:55');
         $schedule->job(CreateDailyGoals::class)->dailyAt('00:01');
         $schedule->job(CheckForNewThings::class)->hourly()->between('7:00', '18:00');
-        $schedule->command('reminders:process')->everyMinute();
+        $schedule->job(ProcessReminders::class)->everyMinute();
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //
