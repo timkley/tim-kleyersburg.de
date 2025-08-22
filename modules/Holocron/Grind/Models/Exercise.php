@@ -58,11 +58,13 @@ class Exercise extends Model
         return $this->sets()
             ->select(
                 'grind_workout_exercises.workout_id',
-                DB::raw('MAX(finished_at) as workout_completed_at'), // Be explicit: e.g., last set's finish time for the workout
-                DB::raw('SUM(volume) as total_volume') // Calculate sum of product
+                DB::raw('MAX(grind_workouts.finished_at) as workout_finished_at'),
+                DB::raw('SUM(volume) as total_volume')
             )
-            ->whereNotNull('finished_at')
-            ->orderBy('workout_completed_at', 'desc') // Order by the aggregated time
+            ->join('grind_workouts', 'grind_workout_exercises.workout_id', '=', 'grind_workouts.id')
+            ->whereNotNull('grind_workouts.finished_at')
+            ->whereNotNull('grind_sets.finished_at')
+            ->orderBy('workout_finished_at', 'desc')
             ->groupBy('grind_workout_exercises.workout_id')
             ->limit(30)
             ->get()

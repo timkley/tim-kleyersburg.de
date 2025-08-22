@@ -3,6 +3,7 @@
         <flux:chart.cursor/>
 
         <flux:chart.line field="total_volume" curve="none" class="text-sky-600"/>
+        <flux:chart.line field="trendline" curve="none" class="text-gray-400" stroke-dasharray="4 4" />
 
         <flux:chart.axis axis="x" field="date" tick-count="10">
             <flux:chart.axis.mark/>

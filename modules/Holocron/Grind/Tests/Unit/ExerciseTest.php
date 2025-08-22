@@ -46,10 +46,12 @@ test('volumePerWorkout returns sets grouped by workout with total volume', funct
     // Create two workouts
     $workout1 = Workout::factory()->create([
         'started_at' => Carbon::now()->subDays(2),
+        'finished_at' => Carbon::now()->subDays(2)->addHour(),
     ]);
 
     $workout2 = Workout::factory()->create([
         'started_at' => Carbon::now()->subDays(1),
+        'finished_at' => Carbon::now()->subDays(1)->addHour(),
     ]);
 
     // Create workout exercises linking the exercise to the workouts
@@ -133,7 +135,9 @@ test('volumePerWorkout only includes sets with finished_at not null', function (
     $exercise = Exercise::factory()->create();
 
     // Create a workout
-    $workout = Workout::factory()->create();
+    $workout = Workout::factory()->create([
+        'finished_at' => Carbon::now(),
+    ]);
 
     // Create workout exercise
     $workoutExercise = WorkoutExercise::factory()->create([
@@ -183,6 +187,7 @@ test('volumePerWorkout limits results to 30 workouts', function () {
     for ($i = 0; $i < 35; $i++) {
         $workout = Workout::factory()->create([
             'started_at' => Carbon::now()->subDays($i),
+            'finished_at' => Carbon::now()->subDays($i)->addHour(),
         ]);
 
         $workoutExercise = WorkoutExercise::factory()->create([
