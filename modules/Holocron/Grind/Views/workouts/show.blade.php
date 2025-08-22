@@ -61,6 +61,9 @@
                 <flux:button type="submit" icon="arrow-right"/>
             </form>
         </div>
+
+        <livewire:holocron.grind.components.volume-per-workout-chart :exercise-id="$currentExercise->exercise->id" :key="'chart-' . $currentExercise->exercise->id" />
+
         @if(!$workout->finished_at)
             <livewire:holocron.grind.workouts.components.timer :$workout/>
         @endif

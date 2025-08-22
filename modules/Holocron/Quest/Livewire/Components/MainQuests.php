@@ -45,6 +45,8 @@ class MainQuests extends Component
         ]);
 
         $this->reset();
+
+        $this->dispatch('quest:created');
     }
 
     public function setParentQuest(?int $id): void
