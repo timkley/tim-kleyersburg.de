@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-use App\Models\Holocron\Bookmark;
-use App\Models\Holocron\Quest\Quest;
+use Modules\Holocron\Bookmarks\Models\Bookmark;
+use Modules\Holocron\Quest\Models\Quest;
 
 return [
 

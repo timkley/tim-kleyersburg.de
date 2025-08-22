@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Providers;
 
 use App\Data\Articles\CustomFrontmatterData;
-use App\Models\User;
 use App\Services\Untis;
 use Carbon\CarbonImmutable;
 use Illuminate\Auth\Access\Response;
@@ -15,6 +14,7 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\ServiceProvider;
 use Livewire;
+use Modules\Holocron\User\Models\User;
 use Prezet\Prezet\Data\FrontmatterData;
 
 class AppServiceProvider extends ServiceProvider

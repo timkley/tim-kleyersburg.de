@@ -1,0 +1,36 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Modules\Holocron\Grind\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Modules\Holocron\Grind\Database\Factories\PlanFactory;
+
+/**
+ * @property string $name
+ * @property string $description
+ */
+class Plan extends Model
+{
+    /** @use HasFactory<PlanFactory> */
+    use HasFactory;
+
+    /** @var string */
+    protected $table = 'grind_plans';
+
+    /** The exercises belonging to the plan.
+     * @return BelongsToMany<Exercise, $this>
+     */
+    public function exercises(): BelongsToMany
+    {
+        return $this->belongsToMany(Exercise::class, 'grind_exercise_plan')->withPivot('sets', 'min_reps', 'max_reps', 'order')->orderBy('order');
+    }
+
+    protected static function newFactory(): PlanFactory
+    {
+        return PlanFactory::new();
+    }
+}
