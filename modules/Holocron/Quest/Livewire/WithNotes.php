@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace Modules\Holocron\Quest\Livewire;
 
-use Denk\Facades\Denk;
-use Denk\ValueObjects\AssistantMessage;
-use Denk\ValueObjects\DeveloperMessage;
-use Denk\ValueObjects\UserMessage;
 use Livewire\Attributes\Url;
 use Livewire\Attributes\Validate;
 use Modules\Holocron\Quest\Models\Note;
+use Prism\Prism\Enums\Provider;
+use Prism\Prism\Prism;
+use Prism\Prism\ValueObjects\Messages\AssistantMessage;
+use Prism\Prism\ValueObjects\Messages\SystemMessage;
+use Prism\Prism\ValueObjects\Messages\UserMessage;
 
 trait WithNotes
 {
@@ -50,7 +51,9 @@ trait WithNotes
 
     public function ask(int $noteId): void
     {
-        $messages[] = new DeveloperMessage(view('prompts.solution')->render());
+        $this->streamedAnswer = '';
+
+        $messages[] = new SystemMessage(view('prompts.solution')->render());
         $prompt = <<<'EOT'
 Aufgabenstruktur:
 ---
@@ -68,6 +71,7 @@ EOT;
         }
 
         $prompt .= '---';
+
         $messages[] = new UserMessage($prompt);
 
         $this->quest->notes->each(function (Note $note) use (&$messages) {
@@ -79,17 +83,13 @@ EOT;
                 new AssistantMessage($note->content);
         });
 
-        $answer = Denk::text()
-            ->model('google/gemini-2.5-flash:online')
-            ->messages([
-                new DeveloperMessage(view('prompts.solution')->render()),
-                new UserMessage($prompt),
-                ...$messages,
-            ])
-            ->generateStreamed();
+        $answer = Prism::text()
+            ->using(Provider::OpenRouter, 'google/gemini-2.5-flash:online')
+            ->withMessages([...$messages])
+            ->asStream();
 
         foreach ($answer as $chunk) {
-            $content = $chunk->choices[0]->delta->content;
+            $content = $chunk->text;
 
             if (empty($content)) {
                 continue; // Skip empty chunks

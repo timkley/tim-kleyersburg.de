@@ -4,22 +4,16 @@ declare(strict_types=1);
 
 use Modules\Holocron\Bookmarks\Jobs\CrawlWebpageInformation;
 use Modules\Holocron\Bookmarks\Models\Webpage;
-use OpenAI\Responses\Chat\CreateResponse;
+use Prism\Prism\Prism;
+use Prism\Prism\Testing\TextResponseFake;
 
 it('dispatches a job that crawls for more content', function () {
     Http::fake([
         'https://example.com' => Http::response(file_get_contents(base_path('tests/fixtures/example.html'))),
     ]);
-    Denk::fake([
-        CreateResponse::fake([
-            'choices' => [
-                [
-                    'message' => [
-                        'content' => 'Good day sir!!',
-                    ],
-                ],
-            ],
-        ]),
+    Prism::fake([
+        TextResponseFake::make()
+            ->withText('Good day sir!!'),
     ]);
     $webpage = Webpage::factory()->create([
         'url' => 'https://example.com',

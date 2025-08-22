@@ -5,6 +5,7 @@ declare(strict_types=1);
 use Modules\Holocron\Bookmarks\Jobs\CrawlWebpageInformation;
 use Modules\Holocron\Quest\Models\Note;
 use Modules\Holocron\Quest\Models\Quest;
+use Prism\Prism\Prism;
 
 use function Pest\Laravel\get;
 
@@ -104,7 +105,7 @@ it('can find quests without children', function () {
 });
 
 it('can add links', function () {
-    Denk\Facades\Denk::fake();
+    Prism::fake();
     Illuminate\Support\Facades\Bus::fake();
     $quest = Quest::factory()->create();
     Note::factory()->for($quest)->create();
@@ -114,4 +115,43 @@ it('can add links', function () {
         ->call('addLink');
 
     Illuminate\Support\Facades\Bus::assertDispatched(CrawlWebpageInformation::class);
+});
+
+it('does not accumulate streamed content across multiple ai requests', function () {
+    Prism::fake([
+        \Prism\Prism\Testing\TextResponseFake::make()
+            ->withText('First AI response'),
+        \Prism\Prism\Testing\TextResponseFake::make()
+            ->withText('Second AI response'),
+    ]);
+
+    $quest = Quest::factory()->create();
+
+    $component = Livewire::test('holocron.quest.show', [$quest->id])
+        ->set('chat', true);
+
+    // Add first user note which triggers AI response
+    $component->set('noteDraft', 'First question')
+        ->call('addNote');
+
+    // Simulate the first AI response streaming
+    $firstNote = $quest->notes()->where('role', 'assistant')->first();
+    $component->call('ask', $firstNote->id);
+
+    // Verify first response content
+    $firstNote->refresh();
+    expect($firstNote->content)->toContain('First AI response');
+
+    // Add second user note which triggers another AI response
+    $component->set('noteDraft', 'Second question')
+        ->call('addNote');
+
+    // Simulate the second AI response streaming
+    $secondNote = $quest->notes()->where('role', 'assistant')->latest()->first();
+    $component->call('ask', $secondNote->id);
+
+    // Verify second response doesn't contain first response content
+    $secondNote->refresh();
+    expect($secondNote->content)->toContain('Second AI response');
+    expect($secondNote->content)->not->toContain('First AI response');
 });

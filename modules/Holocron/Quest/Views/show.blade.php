@@ -122,14 +122,16 @@
 
             @foreach($subquestSuggestions as $i => $suggestion)
                 <flux:text
-                    class="max-w-lg flex justify-between items-center"
+                    class="flex justify-between items-center"
                     :key="'suggestion.' . $i"
                 >
-                    {{ $suggestion['name'] }}
+                    {{ $suggestion }}
 
-                    <flux:button x-on:click="$wire.addQuest('{{ $suggestion['name'] }}'); $el.parentElement.remove()"
-                                 variant="filled"
-                                 size="sm">
+                    <flux:button
+                        x-on:click="$wire.addQuest('{{ $suggestion }}'); $el.parentElement.remove()"
+                        variant="filled"
+                        size="sm"
+                    >
                         Hinzufügen
                     </flux:button>
                 </flux:text>

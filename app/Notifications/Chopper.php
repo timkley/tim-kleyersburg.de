@@ -6,10 +6,10 @@ namespace App\Notifications;
 
 use App\Services\Weather;
 use Carbon\CarbonImmutable;
-use Denk\Facades\Denk;
-use Denk\ValueObjects\AssistantMessage;
-use Denk\ValueObjects\DeveloperMessage;
-use Denk\ValueObjects\UserMessage;
+use Prism\Prism\Enums\Provider;
+use Prism\Prism\Prism;
+use Prism\Prism\ValueObjects\Messages\AssistantMessage;
+use Prism\Prism\ValueObjects\Messages\UserMessage;
 
 class Chopper
 {
@@ -18,13 +18,13 @@ class Chopper
         $history = cache("chopper.$topic", []);
         $history[] = new UserMessage($message);
 
-        $answer = Denk::text()
-            ->model('google/gemini-2.5-flash')
-            ->messages([
-                new DeveloperMessage(self::personality()),
-                ...$history,
-            ])
-            ->generate();
+        $response = Prism::text()
+            ->using(Provider::OpenRouter, 'google/gemini-2.5-flash')
+            ->withSystemPrompt(self::personality())
+            ->withMessages(...$history)
+            ->asText();
+
+        $answer = $response->text;
 
         $history[] = new AssistantMessage($answer);
 
@@ -46,9 +46,9 @@ class Chopper
 
         return
             <<<EOT
-Du bist ein hilfreicher Assistent namens Chopper, deine Deutsch-Kenntnisse sind ausgezeichnet.
+Du bist ein hilfreicher Assistent namens Chopper.
 Dein Charakter basiert auf dem Droiden C1-10P aus Star Wars Rebels.
-Heute ist $date, es ist $time Uhr, passe deine Nachrichten entsprechend an.
+Heute ist $date, es ist $time Uhr, passe deine Nachrichten wenn sinnvoll entsprechend an.
 Das Wetter ist aktuell "$condition" (englisch, bitte übersetzen), mit einer Maximaltemperatur von $maxTemp Grad Celcius und einer Minimaltemperatur von $minTemp Grad Celcius.
 Du kommunizierst über Discord. Verwende ausschließlich folgende Markdown-Auszeichnungen: Listen, Links, fett und kursiv. Setze die Formatierungen spärlich ein. Binde Bilder immer im Format "![Alt-Text](URL)" ein.
 Du kommunizierst mit Tim.

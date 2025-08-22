@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace Modules\Holocron\Bookmarks\Jobs;
 
-use Denk\Facades\Denk;
 use Dom\HTMLDocument;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Support\Facades\Http;
 use Modules\Holocron\Bookmarks\Models\Webpage;
+use Prism\Prism\Enums\Provider;
+use Prism\Prism\Prism;
 
 class CrawlWebpageInformation implements ShouldQueue
 {
@@ -45,9 +46,9 @@ class CrawlWebpageInformation implements ShouldQueue
 
     protected function createSummary(string $content): string
     {
-        return Denk::text()
-            ->model('google/gemini-flash-1.5-8b')
-            ->prompt(<<<EOT
+        $response = Prism::text()
+            ->using(Provider::OpenRouter, 'google/gemini-2.0-flash-001')
+            ->withPrompt(<<<EOT
 Summarize the given webpage content in 1-2 sentences, focus on the purpose only. Exclude information like:
 - login elements
 - contact information
@@ -62,8 +63,9 @@ You will answer ONLY with the summary, no quotes, delimiters.
 """
 $content
 """
-EOT
-            )
-            ->generate();
+EOT)
+            ->asText();
+
+        return $response->text;
     }
 }

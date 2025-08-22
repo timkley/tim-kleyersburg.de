@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace Modules\Holocron\_Shared\Livewire;
 
-use Denk\Facades\Denk;
-use Denk\ValueObjects\DeveloperMessage;
-use Denk\ValueObjects\UserMessage;
 use Illuminate\View\View;
 use Livewire\Attributes\Title;
 use Modules\Holocron\Quest\Models\Quest;
+use Prism\Prism\Enums\Provider;
+use Prism\Prism\Prism;
 
 #[Title('Chopper')]
 class Chopper extends HolocronComponent
@@ -29,11 +28,10 @@ class Chopper extends HolocronComponent
             ->map(fn (Quest $quest) => $quest->name.': '.$quest->description)
             ->implode(', ');
 
-        $answer = Denk::text()
-            ->model('google/gemini-2.5-flash')
-            ->messages([
-                new DeveloperMessage("You are an assistant for question-answering. You can only make conversations based on the provided context. If a response cannot be formed strictly using the context, politely say you don't have knowledge about that topic."),
-                new UserMessage(<<<EOT
+        $response = Prism::text()
+            ->using(Provider::OpenRouter, 'google/gemini-2.5-flash')
+            ->withSystemPrompt("You are an assistant for question-answering. You can only make conversations based on the provided context. If a response cannot be formed strictly using the context, politely say you don't have knowledge about that topic.")
+            ->withPrompt(<<<EOT
 <Context>
     $context
 </Context>
@@ -42,11 +40,11 @@ class Chopper extends HolocronComponent
     $this->question
 </Question>
 EOT
-                ),
-            ])->generateStreamed();
+            )
+            ->asStream();
 
-        foreach ($answer as $chunk) {
-            $content = $chunk->choices[0]->delta->content;
+        foreach ($response as $chunk) {
+            $content = $chunk->text;
 
             if (empty($content)) {
                 continue; // Skip empty chunks

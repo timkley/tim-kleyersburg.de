@@ -14,8 +14,10 @@ use Modules\Holocron\User\Enums\GoalType;
 use Modules\Holocron\User\Enums\GoalUnit;
 
 /**
- * @property GoalType $type
- * @property bool $reached
+ * @property-read GoalType $type
+ * @property-read int $goal
+ * @property-read int $amount
+ * @property-read bool $reached
  */
 class DailyGoal extends Model
 {
