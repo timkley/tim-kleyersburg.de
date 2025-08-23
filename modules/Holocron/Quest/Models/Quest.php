@@ -26,6 +26,7 @@ use Modules\Holocron\User\Models\User;
  * @property-read ?int $quest_id
  * @property-read string $name
  * @property-read string $description
+ * @property-read ?\Carbon\CarbonImmutable $quest_date
  * @property-read \Illuminate\Support\Collection<int,string> $images
  * @property-read QuestStatus $status
  * @property-read bool $accepted
@@ -191,6 +192,7 @@ class Quest extends Model
     protected function casts(): array
     {
         return [
+            'quest_date' => 'date:Y-m-d',
             'status' => QuestStatus::class,
             'images' => AsCollection::class,
             'accepted' => 'boolean',

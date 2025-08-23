@@ -20,6 +20,7 @@ class QuestFactory extends Factory
         return [
             'name' => fake()->sentence,
             'description' => fake()->paragraph,
+            'quest_date' => fake()->date(),
             'status' => QuestStatus::InProgress,
             'images' => [],
         ];
