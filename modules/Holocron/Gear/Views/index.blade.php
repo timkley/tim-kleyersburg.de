@@ -3,13 +3,13 @@
 
     <div>
         <form class="space-y-2" wire:submit="submit">
-            <div class="flex items-center gap-x-4">
+            <div class="flex flex-col sm:flex-row items-center gap-2">
                 <flux:input icon="map-pin" wire:model.live="destination" placeholder="Zielort"/>
                 <flux:input type="date" wire:model.live="starts_at" placeholder="Ankunft"/>
                 <flux:input type="date" wire:model.live="ends_at" placeholder="Abfahrt"/>
 
-                <flux:button wire:click="toggleKid" :variant="in_array('kid', $participants) ? 'primary' : null">Mit
-                    Kind
+                <flux:button wire:click="toggleKid" :variant="in_array('kid', $participants) ? 'primary' : null" class="w-full">
+                    Mit Kind
                 </flux:button>
             </div>
 

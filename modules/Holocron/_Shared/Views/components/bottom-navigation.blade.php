@@ -28,6 +28,14 @@
             <flux:icon icon="dumbbell" class="mx-auto" variant="mini"/>
             Grind
         </a>
+        <a
+            href="{{ route('holocron.gear') }}"
+            wire:navigate
+            wire:current="font-semibold"
+        >
+            <flux:icon icon="shopping-bag" class="mx-auto" variant="mini"/>
+            Gear
+        </a>
         <flux:separator vertical/>
         <a
             href="{{ route('holocron.chopper') }}"

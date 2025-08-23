@@ -1,5 +1,5 @@
 <flux:table.row>
-    <flux:table.cell>
+    <flux:table.cell class="w-8">
         {{ $journeyItem->quantity }} x
     </flux:table.cell>
     <flux:table.cell>

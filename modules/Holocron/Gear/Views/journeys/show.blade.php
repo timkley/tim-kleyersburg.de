@@ -9,7 +9,7 @@
         {{ $journey->starts_at->format('d.m.Y') }} → {{ $journey->ends_at->format('d.m.Y') }}
     </p>
 
-    <div class="grid grid-cols-7 gap-4">
+    <div class="grid grid-cols-3 sm:grid-cols-7 gap-4">
         @foreach($journey->forecast()->days as $day)
             <div class="bg-white rounded p-3 text-sm">
                 <p>
@@ -35,7 +35,7 @@
         <flux:table.rows>
             @foreach($groups as $group)
                 <flux:table.row>
-                    <flux:table.cell class="font-medium">{{ $group->first()->item->category->name }}</flux:table.cell>
+                    <flux:table.cell class="font-medium" colspan="5">{{ $group->first()->item->category->name }}</flux:table.cell>
                 </flux:table.row>
                 @foreach($group as $journeyItem)
                     <livewire:holocron.gear.journeys.components.journey-item :$journeyItem :key="$journeyItem->id" />
