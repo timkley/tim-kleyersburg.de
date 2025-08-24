@@ -2,7 +2,7 @@
     'bg-gray-100 dark:bg-gray-800 rounded-md p-4 space-y-2 relative',
     'ml-8' => $note->role === 'assistant'
 ])>
-    <div class="prose group"
+    <div class="prose dark:prose-invert group"
          @if(empty($note->content) && $note->role === 'assistant') wire:stream="streamedAnswer" data-loading @endif
     >
         {!! $note->content !!}
