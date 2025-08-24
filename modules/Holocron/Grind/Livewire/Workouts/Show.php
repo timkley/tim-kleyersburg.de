@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace Modules\Holocron\Grind\Livewire\Workouts;
 
 use Flux\Flux;
-use Illuminate\Support\Carbon;
-use Illuminate\Support\Collection;
 use Illuminate\View\View;
 use Livewire\Attributes\Title;
 use Livewire\Attributes\Validate;
@@ -79,18 +77,9 @@ class Show extends HolocronComponent
         $workoutExercises = $this->workout->exercises;
         $currentExercise = $this->workout->getCurrentExercise() ?: $workoutExercises->first();
 
-        /** @var Collection<int, array{date: string, total_volume: float|int}> $data */
-        $chartData = $currentExercise->exercise->volumePerWorkout()
-            ->map(fn ($item): array => [
-                'date' => Carbon::parse($item->workout_completed_at)->format('Y-m-d'),
-                'total_volume' => (float) $item->total_volume,
-            ])
-            ->values();
-
         return view('holocron-grind::workouts.show', [
             'workoutExercises' => $workoutExercises,
             'currentExercise' => $currentExercise,
-            'chartData' => $chartData->toArray(),
             'availableExercises' => Exercise::all(['id', 'name']),
         ]);
     }

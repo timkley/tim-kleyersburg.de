@@ -24,6 +24,7 @@ use Modules\Holocron\User\Models\User;
 
 /**
  * @property-read ?int $quest_id
+ * @property-read ?CarbonImmutable $date
  * @property-read string $name
  * @property-read string $description
  * @property-read \Illuminate\Support\Collection<int,string> $images
@@ -193,6 +194,27 @@ class Quest extends Model
     protected function notAccepted(EloquentBuilder $query): EloquentBuilder
     {
         return $query->where('accepted', false);
+    }
+
+    /**
+     * @param  EloquentBuilder<Quest>  $query
+     * @return EloquentBuilder<Quest>
+     */
+    #[Scope]
+    protected function dailyAgenda(EloquentBuilder $query, CarbonImmutable $date): EloquentBuilder
+    {
+        return $query->whereHas('parent', function (EloquentBuilder $query) {
+            $query->whereNotNull('date');
+        })
+            ->where(function (EloquentBuilder $query) use ($date) {
+                $query->where(function (EloquentBuilder $query) use ($date) {
+                    $query->whereHas('parent', function (EloquentBuilder $query) use ($date) {
+                        $query->whereDate('date', '<', $date);
+                    })->notCompleted();
+                })->orWhereHas('parent', function (EloquentBuilder $query) use ($date) {
+                    $query->whereDate('date', $date);
+                });
+            });
     }
 
     /**

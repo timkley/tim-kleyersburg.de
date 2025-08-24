@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace Modules\Holocron\Quest\Livewire\Components;
 
+use Carbon\CarbonImmutable;
 use Illuminate\View\View;
 use Livewire\Component;
 use Modules\Holocron\Quest\Enums\QuestStatus;
 use Modules\Holocron\Quest\Models\Quest;
-
-use Carbon\CarbonImmutable;
 
 class Item extends Component
 {

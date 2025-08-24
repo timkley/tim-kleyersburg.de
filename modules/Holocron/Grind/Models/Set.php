@@ -20,7 +20,7 @@ use Modules\Holocron\Grind\Database\Factories\SetFactory;
  * @property ?Carbon $started_at
  * @property ?Carbon $finished_at
  * @property ?float $total_volume
- * @property ?string $workout_completed_at
+ * @property ?string $workout_finished_at
  */
 class Set extends Model
 {

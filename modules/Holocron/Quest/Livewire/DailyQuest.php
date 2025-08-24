@@ -50,10 +50,10 @@ class DailyQuest extends HolocronComponent
 
     public function render(): View
     {
-        $quest = Quest::firstOrCreate(
+        $quest = Quest::query()->firstOrCreate(
             ['date' => $this->currentDate()->toDateString()],
-            ['name' => $this->currentDate()->toFormattedDateString()]
-        );
+            ['name' => $this->currentDate()->format('d. F Y')]
+        )->refresh();
 
         return view('holocron-quest::daily-quest', [
             'quest' => $quest,

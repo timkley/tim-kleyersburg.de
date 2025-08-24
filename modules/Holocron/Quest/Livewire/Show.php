@@ -129,8 +129,11 @@ class Show extends HolocronComponent
 
     public function render(): View
     {
-        $questChildren = $this->quest
-            ->children()
+        $query = $this->quest->date
+            ? Quest::dailyAgenda($this->quest->date)
+            : $this->quest->children();
+
+        $questChildren = $query
             ->when(! $this->showAllSubquests, function (Builder $query) {
                 $query->where(function (Builder $query) {
                     $query->where('status', '!=', QuestStatus::Complete)
