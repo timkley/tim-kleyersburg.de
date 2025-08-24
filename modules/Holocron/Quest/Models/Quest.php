@@ -170,6 +170,16 @@ class Quest extends Model
      * @return EloquentBuilder<Quest>
      */
     #[Scope]
+    protected function notDaily(EloquentBuilder $query): EloquentBuilder
+    {
+        return $query->whereNull('date');
+    }
+
+    /**
+     * @param  EloquentBuilder<Quest>  $query
+     * @return EloquentBuilder<Quest>
+     */
+    #[Scope]
     protected function accepted(EloquentBuilder $query): EloquentBuilder
     {
         return $query->where('accepted', true);
@@ -194,6 +204,7 @@ class Quest extends Model
             'status' => QuestStatus::class,
             'images' => AsCollection::class,
             'accepted' => 'boolean',
+            'date' => 'date:Y-m-d',
         ];
     }
 }

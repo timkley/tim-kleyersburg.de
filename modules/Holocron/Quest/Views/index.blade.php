@@ -1,7 +1,7 @@
 @use(Modules\Holocron\Quest\Models\Quest)
 @use(Modules\Holocron\Quest\Enums\QuestStatus)
 
-<div>
+<div class="space-y-4">
     <div class="space-y-4">
         <livewire:holocron.quest.components.accepted-quests/>
 

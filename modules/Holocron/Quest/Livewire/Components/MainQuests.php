@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Modules\Holocron\Quest\Livewire\Components;
 
+use Carbon\CarbonImmutable;
 use Flux\Flux;
 use Illuminate\View\View;
 use Livewire\Attributes\Url;
@@ -26,6 +27,8 @@ class MainQuests extends Component
 
     public ?string $parentQuestName = null;
 
+    public ?CarbonImmutable $currentDate = null;
+
     /**
      * @var string[]
      */
@@ -42,9 +45,10 @@ class MainQuests extends Component
             'quest_id' => $this->parentQuestId,
             'name' => $this->questDraft,
             'status' => QuestStatus::Open,
+            'date' => $this->currentDate?->toDateString(),
         ]);
 
-        $this->reset();
+        $this->questDraft = '';
 
         $this->dispatch('quest:created');
     }
@@ -59,12 +63,19 @@ class MainQuests extends Component
 
     public function render(): View
     {
-        [$tasks, $notes] = Quest::query()
-            ->whereNull('quest_id')
+        $quests = Quest::query()
+            ->where('quest_id', $this->parentQuestId)
+            ->orWhere(function ($query) {
+                $query->whereHas('parent', function ($query) {
+                    $query->where('date', '<', today()->toDateString());
+                })->where('status', '!=', 'completed');
+            })
             ->notCompleted()
+            ->notDaily()
             ->orderBy('name')
-            ->get()
-            ->partition(fn (Quest $quest) => $quest->status !== QuestStatus::Note);
+            ->get();
+
+        [$tasks, $notes] = $quests->partition(fn (Quest $quest) => $quest->status !== QuestStatus::Note);
 
         return view('holocron-quest::components.main-quests', [
             'tasks' => $tasks,

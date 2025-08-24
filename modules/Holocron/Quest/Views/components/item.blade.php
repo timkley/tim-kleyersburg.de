@@ -47,5 +47,14 @@
                      wire:click="deleteQuest({{ $quest->id }})"
                      wire:confirm="Willst du {{ $quest->name }} wirklich löschen?"
                      variant="subtle"></flux:button>
+        <flux:dropdown>
+            <flux:button variant="ghost" icon="calendar" />
+            <flux:menu>
+                <flux:date-picker wire:model="selectedDate" />
+                <flux:button wire:click="reschedule">
+                    Reschedule
+                </flux:button>
+            </flux:menu>
+        </flux:dropdown>
     </div>
 </div>
