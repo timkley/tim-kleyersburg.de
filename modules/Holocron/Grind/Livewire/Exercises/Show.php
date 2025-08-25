@@ -33,7 +33,7 @@ class Show extends HolocronComponent
         /** @var Collection<int, array{date: string, total_volume: float|int}> $data */
         $data = $this->exercise->volumePerWorkout()
             ->map(fn ($item): array => [
-                'date' => Carbon::parse($item->workout_completed_at)->format('Y-m-d'),
+                'date' => Carbon::parse($item->workout_finished_at)->format('Y-m-d'),
                 'total_volume' => (float) $item->total_volume,
             ])
             ->values();

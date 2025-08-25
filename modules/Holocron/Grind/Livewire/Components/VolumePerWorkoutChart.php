@@ -16,8 +16,8 @@ class VolumePerWorkoutChart extends HolocronComponent
 
     public function render(): View
     {
-        /** @var Collection<int, array{date: string, total_volume: float|int}> $data */
-        $data = Exercise::find($this->exerciseId)->volumePerWorkout()
+        /** @var Collection<int, array{date: Carbon, total_volume: float|int}> $data */
+        $data = Exercise::query()->find($this->exerciseId)->volumePerWorkout()
             ->map(fn ($item): array => [
                 'date' => Carbon::parse($item->workout_finished_at),
                 'total_volume' => (float) $item->total_volume,
@@ -38,6 +38,10 @@ class VolumePerWorkoutChart extends HolocronComponent
         ]);
     }
 
+    /**
+     * @param  Collection<int, array{date: Carbon, total_volume: float|int}>  $data
+     * @return array<int, float>
+     */
     private function calculateTrendline(Collection $data): array
     {
         $x = $data->map(fn ($item, $index) => $index)->toArray();

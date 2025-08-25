@@ -104,6 +104,8 @@ test('it updates the current reminder for recurring reminders', function () {
 });
 
 test('it uses cron expression for calculating next occurrence', function () {
+    $this->travelTo(Carbon::parse('2025-08-24 10:00:00'));
+
     // Create a quest
     $quest = Quest::factory()->create(['name' => 'Test Quest']);
 

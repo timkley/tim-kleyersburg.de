@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Modules\Holocron\Quest\Livewire\Components;
 
+use Carbon\CarbonImmutable;
 use Flux\Flux;
 use Illuminate\View\View;
 use Livewire\Attributes\Url;
@@ -62,6 +63,7 @@ class MainQuests extends Component
         [$tasks, $notes] = Quest::query()
             ->whereNull('quest_id')
             ->notCompleted()
+            ->notDaily()
             ->orderBy('name')
             ->get()
             ->partition(fn (Quest $quest) => $quest->status !== QuestStatus::Note);

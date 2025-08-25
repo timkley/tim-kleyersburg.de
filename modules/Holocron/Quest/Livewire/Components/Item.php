@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Modules\Holocron\Quest\Livewire\Components;
 
+use Carbon\CarbonImmutable;
 use Illuminate\View\View;
 use Livewire\Component;
 use Modules\Holocron\Quest\Enums\QuestStatus;
@@ -14,6 +15,8 @@ class Item extends Component
     public Quest $quest;
 
     public bool $showParent = true;
+
+    public ?string $selectedDate = null;
 
     public function setStatus(string $status): void
     {

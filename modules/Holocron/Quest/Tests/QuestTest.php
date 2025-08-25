@@ -155,3 +155,43 @@ it('does not accumulate streamed content across multiple ai requests', function 
     expect($secondNote->content)->toContain('Second AI response');
     expect($secondNote->content)->not->toContain('First AI response');
 });
+
+it('only shows past quests for future dates in daily agenda', function () {
+    // Arrange
+    $yesterdayQuest = Quest::factory()->create(['date' => now()->subDay()]);
+    $yesterdaySubQuest = Quest::factory()->create(['quest_id' => $yesterdayQuest->id]);
+
+    $todayQuest = Quest::factory()->create(['date' => now()]);
+    $todaySubQuest = Quest::factory()->create(['quest_id' => $todayQuest->id]);
+
+    $tomorrowQuest = Quest::factory()->create(['date' => now()->addDay()]);
+    $tomorrowSubQuest = Quest::factory()->create(['quest_id' => $tomorrowQuest->id]);
+
+    // Act & Assert
+    // Viewing yesterday's quest should only show yesterday's subquests
+    Livewire::test('holocron.quest.show', [$yesterdayQuest->id])
+        ->assertViewHas('questChildren', function ($questChildren) use ($yesterdaySubQuest) {
+            expect($questChildren)->toHaveCount(1)
+                ->and($questChildren->first()->id)->toBe($yesterdaySubQuest->id);
+
+            return true;
+        });
+
+    // Viewing today's quest should show yesterday's and today's subquests
+    Livewire::test('holocron.quest.show', [$todayQuest->id])
+        ->assertViewHas('questChildren', function ($questChildren) use ($yesterdaySubQuest, $todaySubQuest) {
+            expect($questChildren)->toHaveCount(2)
+                ->and($questChildren->pluck('id')->all())->toEqualCanonicalizing([$yesterdaySubQuest->id, $todaySubQuest->id]);
+
+            return true;
+        });
+
+    // Viewing tomorrow's quest should show all three
+    Livewire::test('holocron.quest.show', [$tomorrowQuest->id])
+        ->assertViewHas('questChildren', function ($questChildren) use ($yesterdaySubQuest, $todaySubQuest, $tomorrowSubQuest) {
+            expect($questChildren)->toHaveCount(3)
+                ->and($questChildren->pluck('id')->all())->toEqualCanonicalizing([$yesterdaySubQuest->id, $todaySubQuest->id, $tomorrowSubQuest->id]);
+
+            return true;
+        });
+});

@@ -23,11 +23,21 @@
 
         <flux:card>
             <flux:heading
-                class="flex items-center gap-2 font-semibold"
+                class="flex items-center justify-between font-semibold"
                 size="lg"
             >
-                <flux:icon.link/>
-                Quests
+                <div class="flex items-center gap-2">
+                    <flux:icon.link/>
+                    Quests
+                </div>
+                <flux:button
+                    variant="filled"
+                    href="{{ route('holocron.quests.daily') }}"
+                    icon="calendar"
+                    size="sm"
+                >
+                    Daily
+                </flux:button>
             </flux:heading>
             <flux:subheading class="space-y-2">
                 @foreach($accepted_quests as $quest)

@@ -28,6 +28,7 @@ class NextQuests extends Component
                 ->noChildren()
                 ->notAccepted()
                 ->notCompleted()
+                ->notDaily()
                 ->orderBy('status')
                 ->orderByDesc('created_at')
                 ->get(),

@@ -13,10 +13,10 @@ use Illuminate\Support\Facades\DB;
 use Modules\Holocron\Grind\Database\Factories\ExerciseFactory;
 
 /**
- * @property string $name
- * @property string $description
- * @property string $instructions
- * @property mixed $pivot
+ * @property-read string $name
+ * @property-read string $description
+ * @property-read string $instructions
+ * @property-read mixed $pivot
  */
 class Exercise extends Model
 {
