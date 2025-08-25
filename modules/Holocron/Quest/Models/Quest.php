@@ -104,9 +104,9 @@ class Quest extends Model
     }
 
     /**
-     * @return Collection<int, Quest>
+     * @return \Illuminate\Support\Collection<int, Quest>
      */
-    public function breadcrumb(): Collection
+    public function breadcrumb(): \Illuminate\Support\Collection
     {
         $breadcrumb = new Collection;
         $current = $this;
@@ -133,6 +133,8 @@ class Quest extends Model
     {
         return array_merge($this->toArray(), [
             'id' => (string) $this->id,
+            'date' => $this->date?->timestamp,
+            'breadcrumb' => $this->breadcrumb()->pluck('name')->join(' > '),
             'created_at' => $this->created_at->timestamp,
         ]);
     }

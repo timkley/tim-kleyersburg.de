@@ -194,6 +194,15 @@ return [
                             'type' => 'string',
                         ],
                         [
+                            'name' => 'date',
+                            'type' => 'int64',
+                            'optional' => true,
+                        ],
+                        [
+                            'name' => 'breadcrumb',
+                            'type' => 'string',
+                        ],
+                        [
                             'name' => 'name',
                             'type' => 'string',
                         ],
