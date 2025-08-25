@@ -27,8 +27,6 @@ class MainQuests extends Component
 
     public ?string $parentQuestName = null;
 
-    public ?CarbonImmutable $currentDate = null;
-
     /**
      * @var string[]
      */
@@ -45,10 +43,9 @@ class MainQuests extends Component
             'quest_id' => $this->parentQuestId,
             'name' => $this->questDraft,
             'status' => QuestStatus::Open,
-            'date' => $this->currentDate?->toDateString(),
         ]);
 
-        $this->questDraft = '';
+        $this->reset();
 
         $this->dispatch('quest:created');
     }
@@ -63,19 +60,13 @@ class MainQuests extends Component
 
     public function render(): View
     {
-        $quests = Quest::query()
-            ->where('quest_id', $this->parentQuestId)
-            ->orWhere(function ($query) {
-                $query->whereHas('parent', function ($query) {
-                    $query->where('date', '<', today()->toDateString());
-                })->where('status', '!=', 'completed');
-            })
+        [$tasks, $notes] = Quest::query()
+            ->whereNull('quest_id')
             ->notCompleted()
             ->notDaily()
             ->orderBy('name')
-            ->get();
-
-        [$tasks, $notes] = $quests->partition(fn (Quest $quest) => $quest->status !== QuestStatus::Note);
+            ->get()
+            ->partition(fn (Quest $quest) => $quest->status !== QuestStatus::Note);
 
         return view('holocron-quest::components.main-quests', [
             'tasks' => $tasks,
