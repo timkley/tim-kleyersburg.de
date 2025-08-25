@@ -18,8 +18,6 @@ class DailyQuest extends HolocronComponent
     #[Url(as: 'date')]
     public string $date = '';
 
-    public ?string $selectedDate = null;
-
     #[Computed]
     public function currentDate(): CarbonImmutable
     {
