@@ -35,18 +35,6 @@ class Item extends Component
         $this->dispatch('quest:deleted');
     }
 
-    public function reschedule(): void
-    {
-        $targetQuest = Quest::firstOrCreate(
-            ['date' => CarbonImmutable::parse($this->selectedDate)->toDateString()],
-            ['name' => CarbonImmutable::parse($this->selectedDate)->toFormattedDateString()]
-        );
-
-        $this->quest->update(['quest_id' => $targetQuest->id]);
-
-        $this->dispatch('quest:rescheduled');
-    }
-
     public function render(): View
     {
         return view('holocron-quest::components.item');
