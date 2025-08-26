@@ -72,8 +72,8 @@
 
         <div class="flex justify-center">
             @if(!$workout->finished_at)
-                <flux:button class="mx-auto" icon="check-badge" variant="primary" wire:click="finish">Workout
-                    abschließen
+                <flux:button class="mx-auto" icon="check-badge" variant="primary" wire:click="finish">
+                    Workout abschließen
                 </flux:button>
             @else
                 <flux:text class="text-base">
