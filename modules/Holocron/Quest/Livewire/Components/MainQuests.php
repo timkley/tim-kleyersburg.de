@@ -51,6 +51,10 @@ class MainQuests extends Component
 
     public function setParentQuest(?int $id): void
     {
+        if (is_null($id)) {
+            return;
+        }
+
         $this->parentQuestId = $id;
         $this->parentQuestName = Quest::find($id)->name;
 

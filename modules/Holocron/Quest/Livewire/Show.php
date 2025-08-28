@@ -93,6 +93,10 @@ class Show extends HolocronComponent
 
     public function move(?int $id): void
     {
+        if (is_null($id)) {
+            return;
+        }
+
         $this->quest->update([
             'quest_id' => $id,
         ]);

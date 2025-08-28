@@ -11,8 +11,7 @@
                     </flux:modal.trigger>
                 </div>
                 @if($parentQuestName)
-                    <flux:text>Wird abgelegt unter <span class="font-medium">{{ $parentQuestName }}</span>
-                    </flux:text>
+                    <flux:text class="mt-1">Wird abgelegt unter <span class="font-medium">{{ $parentQuestName }}</span></flux:text>
                 @endif
             </form>
 
