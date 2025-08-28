@@ -133,22 +133,23 @@ class Show extends HolocronComponent
 
     public function render(): View
     {
-        $query = $this->quest->date
-            ? Quest::dailyAgenda($this->quest->date)
-            : $this->quest->children();
+        $query = Quest::query();
+
+        if ($this->quest->daily) {
+            $query->where(function (Builder $query) {
+                $query->where('quest_id', $this->quest->id)
+                    ->orWhereDate('date', '<=', $this->quest->date);
+            })->where('daily', false);
+        } else {
+            $query->where('quest_id', $this->quest->id);
+        }
+
+        if (! $this->showAllSubquests) {
+            $query->where('status', '!=', QuestStatus::Complete);
+        }
 
         $questChildren = $query
-            ->when(! $this->showAllSubquests, function (Builder $query) {
-                $query->where(function (Builder $query) {
-                    $query->where('status', '!=', QuestStatus::Complete)
-                        ->orWhere(function (Builder $subQuery) {
-                            $subQuery->where('status', QuestStatus::Complete)
-                                ->where('updated_at', '>', now()->subWeeks(2));
-                        });
-                });
-            })
             ->orderByDesc('status')
-            ->orderByDesc('updated_at')
             ->get();
 
         return view('holocron-quest::show', [

@@ -2,56 +2,62 @@
 @use(Modules\Holocron\Quest\Enums\QuestStatus)
 
 <div class="space-y-4">
-    <div class="overflow-x-auto no-scrollbar">
-        <flux:breadcrumbs>
-            <flux:breadcrumbs.item href="{{ route('holocron.quests') }}" wire:navigate icon="home"/>
-            @foreach($quest->breadcrumb()->slice(0, -1) as $crumb)
-                <flux:breadcrumbs.item
-                    href="{{ route('holocron.quests.show', $crumb->id) }}"
-                    wire:navigate
-                    wire:key="crumb.{{ $crumb->id }}"
-                    class="whitespace-nowrap"
-                >
-                    {{ $crumb->name }}
-                </flux:breadcrumbs.item>
-            @endforeach
-        </flux:breadcrumbs>
-    </div>
+    @if(!$quest->daily)
+        <div class="overflow-x-auto no-scrollbar">
+            <flux:breadcrumbs>
+                <flux:breadcrumbs.item href="{{ route('holocron.quests') }}" wire:navigate icon="home"/>
+                @foreach($quest->breadcrumb()->slice(0, -1) as $crumb)
+                    <flux:breadcrumbs.item
+                        href="{{ route('holocron.quests.show', $crumb->id) }}"
+                        wire:navigate
+                        wire:key="crumb.{{ $crumb->id }}"
+                        class="whitespace-nowrap"
+                    >
+                        {{ $crumb->name }}
+                    </flux:breadcrumbs.item>
+                @endforeach
+            </flux:breadcrumbs>
+        </div>
+    @endif
 
     <flux:card size="sm">
         <div class="flex gap-x-2 md:[--height:calc(var(--spacing)*12)]">
-            <flux:dropdown class="flex items-center">
-                <flux:button :icon="$quest->status->icon()" variant="ghost"></flux:button>
+            @if(! $quest->daily)
+                <flux:dropdown class="flex items-center">
+                    <flux:button :icon="$quest->status->icon()" variant="ghost"></flux:button>
 
-                <flux:menu wire:replace>
-                    @foreach(QuestStatus::cases() as $status)
-                        <flux:menu.item
-                            :icon="$status->icon()"
-                            :disabled="$status->value === $quest->status->value"
-                            wire:click="setStatus('{{ $status->value }}')"
-                            wire:key="status.{{ $status->value }}"
-                        >
-                            {{ $status->label() }}
-                        </flux:menu.item>
-                    @endforeach
-                </flux:menu>
-            </flux:dropdown>
+                    <flux:menu wire:replace>
+                        @foreach(QuestStatus::cases() as $status)
+                            <flux:menu.item
+                                :icon="$status->icon()"
+                                :disabled="$status->value === $quest->status->value"
+                                wire:click="setStatus('{{ $status->value }}')"
+                                wire:key="status.{{ $status->value }}"
+                            >
+                                {{ $status->label() }}
+                            </flux:menu.item>
+                        @endforeach
+                    </flux:menu>
+                </flux:dropdown>
+            @endif
 
             <flux:input class:input="md:!text-lg !h-(--height)" wire:model.live.debounce="name"/>
 
-            <flux:modal.trigger name="parent-search">
-                <flux:button class="!h-(--height) px-4" icon="folder-arrow-down"></flux:button>
-            </flux:modal.trigger>
+            @if(! $quest->daily)
+                <flux:modal.trigger name="parent-search">
+                    <flux:button class="!h-(--height) px-4" icon="folder-arrow-down"></flux:button>
+                </flux:modal.trigger>
 
-            <flux:modal.trigger name="reminder-modal">
-                <flux:button
-                    @class([
-                        '!h-(--height) px-4 relative',
-                        'after:absolute after:size-2 after:box-content after:rounded-full after:bg-sky-500 after:border-2 after:border-white dark:after:border-zinc-600 after:-top-1 after:-right-1' => $this->activeReminders->isNotEmpty()
-                    ])
-                    icon="bell"
-                />
-            </flux:modal.trigger>
+                <flux:modal.trigger name="reminder-modal">
+                    <flux:button
+                        @class([
+                            '!h-(--height) px-4 relative',
+                            'after:absolute after:size-2 after:box-content after:rounded-full after:bg-sky-500 after:border-2 after:border-white dark:after:border-zinc-600 after:-top-1 after:-right-1' => $this->activeReminders->isNotEmpty()
+                        ])
+                        icon="bell"
+                    />
+                </flux:modal.trigger>
+            @endif
         </div>
 
         <flux:editor

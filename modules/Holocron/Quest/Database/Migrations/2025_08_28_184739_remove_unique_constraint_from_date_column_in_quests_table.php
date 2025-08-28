@@ -11,7 +11,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('quests', function (Blueprint $table) {
-            $table->date('date')->nullable()->unique()->after('id');
+            $table->dropUnique('quests_date_unique');
         });
     }
 };

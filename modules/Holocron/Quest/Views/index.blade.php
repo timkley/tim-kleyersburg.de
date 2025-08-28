@@ -3,7 +3,7 @@
 
 <div class="space-y-4">
     <div class="space-y-4">
-        <livewire:holocron.quest.components.accepted-quests/>
+        <livewire:holocron.quest.components.todays-quests/>
 
         <livewire:holocron.quest.components.next-quests/>
 

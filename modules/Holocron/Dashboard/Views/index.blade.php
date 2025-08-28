@@ -21,13 +21,13 @@
             <livewire:holocron.dashboard.components.goals/>
         @endif
 
-        <flux:card>
+        <flux:card class="space-y-4">
             <flux:heading
                 class="flex items-center justify-between font-semibold"
                 size="lg"
             >
                 <div class="flex items-center gap-2">
-                    <flux:icon.link/>
+                    <flux:icon.book-check/>
                     Quests
                 </div>
                 <flux:button
@@ -36,14 +36,14 @@
                     icon="calendar"
                     size="sm"
                 >
-                    Daily
+                    Daily Note
                 </flux:button>
             </flux:heading>
-            <flux:subheading class="space-y-2">
-                @foreach($accepted_quests as $quest)
+            <div class="space-y-2">
+                @foreach($todaysQuests as $quest)
                     <livewire:holocron.quest.components.item :$quest :key="$quest->id" :show-parent="false"/>
                 @endforeach
-            </flux:subheading>
+            </div>
         </flux:card>
 
         <flux:card class="space-y-4">

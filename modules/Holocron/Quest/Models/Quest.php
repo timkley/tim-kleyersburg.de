@@ -30,6 +30,7 @@ use Modules\Holocron\User\Models\User;
  * @property-read \Illuminate\Support\Collection<int,string> $images
  * @property-read QuestStatus $status
  * @property-read bool $accepted
+ * @property-read bool $daily
  * @property-read CarbonImmutable $created_at
  * @property-read CarbonImmutable $updated_at
  */
@@ -46,20 +47,9 @@ class Quest extends Model
 
         if ($status === QuestStatus::Complete) {
             defer(function () {
-                $this->update(['accepted' => false]);
                 User::tim()->addExperience(2, ExperienceType::QuestCompleted, $this->id);
             });
         }
-    }
-
-    public function accept(): void
-    {
-        $this->update(['accepted' => true]);
-    }
-
-    public function unaccept(): void
-    {
-        $this->update(['accepted' => false]);
     }
 
     /**
@@ -183,9 +173,9 @@ class Quest extends Model
      * @return EloquentBuilder<Quest>
      */
     #[Scope]
-    protected function accepted(EloquentBuilder $query): EloquentBuilder
+    protected function today(EloquentBuilder $query): EloquentBuilder
     {
-        return $query->where('accepted', true);
+        return $query->whereNotNull('date')->where('daily', false);
     }
 
     /**

@@ -24,7 +24,7 @@ class Item extends Component
 
     public function toggleAccept(): void
     {
-        $this->quest->update(['accepted' => ! $this->quest->accepted]);
+        $this->quest->update(['date' => ! $this->quest->date ? now() : null]);
         $this->dispatch('quest:accepted');
     }
 

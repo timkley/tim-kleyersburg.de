@@ -38,10 +38,12 @@
     </div>
 
     <div class="flex items-center h-[25px] ml-auto">
-        @if($quest->accepted)
-            <flux:button icon="shield-minus" wire:click="toggleAccept" variant="ghost"/>
-        @else
-            <flux:button icon="shield-plus" wire:click="toggleAccept" variant="ghost"/>
+        @if($quest->status !== QuestStatus::Note && $quest->status !== QuestStatus::Complete)
+            @if($quest->date)
+                <flux:button icon="shield-minus" wire:click="toggleAccept" variant="ghost"/>
+            @else
+                <flux:button icon="shield-plus" wire:click="toggleAccept" variant="ghost"/>
+            @endif
         @endif
         <flux:button icon="trash"
                      wire:click="deleteQuest({{ $quest->id }})"

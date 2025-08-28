@@ -15,12 +15,11 @@ class Index extends HolocronComponent
     public function render(): View
     {
         return view('holocron-dashboard::index', [
-            'accepted_quests' => Quest::query()
-                ->accepted()
+            'todaysQuests' => Quest::query()
+                ->today()
                 ->notCompleted()
                 ->orderBy('status')
                 ->orderByDesc('created_at')
-                ->limit(5)
                 ->get(),
         ]);
     }

@@ -8,7 +8,7 @@ use Illuminate\View\View;
 use Livewire\Component;
 use Modules\Holocron\Quest\Models\Quest;
 
-class AcceptedQuests extends Component
+class TodaysQuests extends Component
 {
     /**
      * @var string[]
@@ -20,9 +20,9 @@ class AcceptedQuests extends Component
 
     public function render(): View
     {
-        return view('holocron-quest::components.accepted-quests', [
-            'acceptedQuests' => Quest::query()
-                ->accepted()
+        return view('holocron-quest::components.todays-quests', [
+            'todaysQuests' => Quest::query()
+                ->today()
                 ->notCompleted()
                 ->orderBy('status')
                 ->orderByDesc('created_at')

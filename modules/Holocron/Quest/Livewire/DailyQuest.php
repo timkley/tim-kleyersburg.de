@@ -49,7 +49,10 @@ class DailyQuest extends HolocronComponent
     public function render(): View
     {
         $quest = Quest::query()->firstOrCreate(
-            ['date' => $this->currentDate()->toDateString()],
+            [
+                'date' => $this->currentDate()->toDateString(),
+                'daily' => true,
+            ],
             ['name' => $this->currentDate()->format('d. F Y')]
         )->refresh();
 
