@@ -6,6 +6,7 @@
 
                 <flux:button
                     variant="filled"
+                    inset
                     href="{{ route('holocron.quests.daily') }}"
                     icon="calendar"
                     size="sm"
