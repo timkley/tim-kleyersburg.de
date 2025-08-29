@@ -64,7 +64,7 @@ class NextQuests extends Component
             'nextQuests' => Quest::query()
                 ->whereNot('status', QuestStatus::Note)
                 ->noChildren()
-                ->notAccepted()
+                ->notToday()
                 ->notCompleted()
                 ->notDaily()
                 ->orderBy('status')

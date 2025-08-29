@@ -183,9 +183,9 @@ class Quest extends Model
      * @return EloquentBuilder<Quest>
      */
     #[Scope]
-    protected function notAccepted(EloquentBuilder $query): EloquentBuilder
+    protected function notToday(EloquentBuilder $query): EloquentBuilder
     {
-        return $query->where('accepted', false);
+        return $query->whereNull('date')->where('daily', false);
     }
 
     /**
