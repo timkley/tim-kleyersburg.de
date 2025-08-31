@@ -30,7 +30,6 @@
         <flux:input
             wire:model.lazy="quantity_per_day"
             wire:dirty.class="bg-yellow-50 dark:bg-yellow-900"
-            type="number"
             inputmode="decimal"
             :loading="false"
             x-on:input="$event.target.value = $event.target.value.replace(',', '.')"
