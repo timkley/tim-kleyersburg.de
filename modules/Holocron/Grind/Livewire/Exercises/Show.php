@@ -40,11 +40,6 @@ class Show extends HolocronComponent
 
         return view('holocron-grind::exercises.show', [
             'data' => $data->toArray(),
-        ]);
-    }
-
-    public function rendering(View $view): void
-    {
-        $view->title($this->exercise->name);
+        ])->title($this->exercise->name);
     }
 }

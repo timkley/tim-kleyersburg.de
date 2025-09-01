@@ -12,7 +12,6 @@ use Livewire\Attributes\Url;
 use Modules\Holocron\_Shared\Livewire\HolocronComponent;
 use Modules\Holocron\Quest\Models\Quest;
 
-#[Title('Daily Quest')]
 class DailyQuest extends HolocronComponent
 {
     #[Url(as: 'date')]
@@ -58,6 +57,6 @@ class DailyQuest extends HolocronComponent
 
         return view('holocron-quest::daily-quest', [
             'quest' => $quest,
-        ]);
+        ])->title($quest->name);
     }
 }

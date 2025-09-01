@@ -19,7 +19,7 @@ class Item extends HolocronComponent
     #[Validate('required')]
     public string $name = '';
 
-    #[Validate('required|exists:categories,id')]
+    #[Validate('required|exists:gear_categories,id')]
     public string|int $category_id = '';
 
     /**
