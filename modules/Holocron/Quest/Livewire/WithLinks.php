@@ -30,4 +30,9 @@ trait WithLinks
 
         $this->reset(['linkDraft']);
     }
+
+    public function deleteLink(int $pivotId): void
+    {
+        $this->quest->webpages()->wherePivot('id', $pivotId)->detach();
+    }
 }

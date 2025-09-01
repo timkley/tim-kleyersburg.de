@@ -11,6 +11,8 @@ use Modules\Holocron\Bookmarks\Models\Webpage;
 
 class Link extends Component
 {
+    public int $id = 0;
+
     public string $url = '';
 
     public string $title = '';
@@ -29,6 +31,7 @@ class Link extends Component
 
     public function mount(Webpage $webpage): void
     {
+        $this->id = $webpage->pivot->id;
         $this->url = $webpage->url;
         $this->title = $webpage->pivot->title ?? $webpage->title ?? $webpage->url;
         $this->questId = $webpage->pivot->quest_id;

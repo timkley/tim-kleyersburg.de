@@ -27,4 +27,9 @@
         icon="pencil"
         x-on:click="editing = !editing; $nextTick(() => $refs.editTitle.focus())"
     />
+    <flux:button
+        variant="filled"
+        icon="trash"
+        wire:click="$parent.deleteLink({{ $id }})"
+    />
 </div>

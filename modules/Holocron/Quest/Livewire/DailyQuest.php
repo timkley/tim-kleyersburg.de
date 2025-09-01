@@ -7,7 +7,6 @@ namespace Modules\Holocron\Quest\Livewire;
 use Carbon\CarbonImmutable;
 use Illuminate\View\View;
 use Livewire\Attributes\Computed;
-use Livewire\Attributes\Title;
 use Livewire\Attributes\Url;
 use Modules\Holocron\_Shared\Livewire\HolocronComponent;
 use Modules\Holocron\Quest\Models\Quest;
