@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Modules\Holocron\Quest\Models;
 
+use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -11,8 +12,10 @@ use Laravel\Scout\Searchable;
 use Modules\Holocron\Quest\Database\Factories\NoteFactory;
 
 /**
+ * @property-read int $quest_id
  * @property-read ?string $content
  * @property-read string $role
+ * @property-read CarbonImmutable $created_at
  */
 class Note extends Model
 {
@@ -31,6 +34,7 @@ class Note extends Model
     {
         return $this->belongsTo(Quest::class);
     }
+
     /**
      * @return string[]
      */

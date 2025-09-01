@@ -253,7 +253,7 @@ return [
                         [
                             'name' => 'quest_id',
                             'type' => 'string',
-                            'reference' => env('APP_ENV') . '_quests.id',
+                            'reference' => env('APP_ENV').'_quests.id',
                         ],
                         [
                             'name' => 'content',

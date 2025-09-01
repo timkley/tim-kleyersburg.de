@@ -6,6 +6,7 @@ namespace Modules\Holocron\_Shared\Livewire;
 
 use Illuminate\View\View;
 use Livewire\Attributes\Title;
+use Modules\Holocron\Quest\Models\Note;
 use Modules\Holocron\Quest\Models\Quest;
 use Prism\Prism\Enums\Provider;
 use Prism\Prism\Prism;
@@ -26,6 +27,15 @@ class Chopper extends HolocronComponent
         ])
             ->get()
             ->map(fn (Quest $quest) => $quest->name.': '.$quest->description)
+            ->implode(', ');
+
+        $context .= Note::search($this->question)->options([
+            'query_by' => 'content',
+            'prefix' => false,
+            'drop_tokens_treshold' => 0,
+        ])
+            ->get()
+            ->map(fn (Note $note) => $note->content)
             ->implode(', ');
 
         $response = Prism::text()
