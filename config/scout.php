@@ -218,6 +218,11 @@ return [
                             'facet' => true,
                         ],
                         [
+                            'name' => 'daily',
+                            'type' => 'bool',
+                            'facet' => true,
+                        ],
+                        [
                             'name' => 'created_at',
                             'type' => 'int64',
                         ],
