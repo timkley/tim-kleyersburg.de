@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Modules\Holocron\Bookmarks\Models\Bookmark;
+use Modules\Holocron\Quest\Models\Note;
 use Modules\Holocron\Quest\Models\Quest;
 
 return [
@@ -217,12 +218,6 @@ return [
                             'facet' => true,
                         ],
                         [
-                            'name' => 'accepted',
-                            'type' => 'bool',
-                            'facet' => true,
-                            'optional' => true,
-                        ],
-                        [
                             'name' => 'created_at',
                             'type' => 'int64',
                         ],
@@ -245,6 +240,47 @@ return [
                 ],
                 'search-parameters' => [
                     'query_by' => 'name,description',
+                    'exclude_fields' => 'embedding',
+                ],
+            ],
+            Note::class => [
+                'collection-schema' => [
+                    'fields' => [
+                        [
+                            'name' => 'id',
+                            'type' => 'string',
+                        ],
+                        [
+                            'name' => 'quest_id',
+                            'type' => 'string',
+                            'reference' => env('APP_ENV') . '_quests.id',
+                        ],
+                        [
+                            'name' => 'content',
+                            'type' => 'string',
+                        ],
+                        [
+                            'name' => 'created_at',
+                            'type' => 'int64',
+                        ],
+                        [
+                            'name' => 'embedding',
+                            'type' => 'float[]',
+                            'embed' => [
+                                'from' => [
+                                    'content',
+                                ],
+                                'model_config' => [
+                                    'model_name' => 'openai/text-embedding-3-small',
+                                    'api_key' => env('OPENAI_API_KEY'),
+                                ],
+                            ],
+                        ],
+                    ],
+                    'default_sorting_field' => 'created_at',
+                ],
+                'search-parameters' => [
+                    'query_by' => 'content',
                     'exclude_fields' => 'embedding',
                 ],
             ],
