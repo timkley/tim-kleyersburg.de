@@ -21,42 +21,48 @@
     @endif
 
     <flux:card size="sm">
-        <div class="flex gap-x-2 md:[--height:calc(var(--spacing)*12)]">
+        <div class="flex flex-col sm:flex-row gap-2">
+            <div class="flex gap-x-2 flex-1">
+                @if(! $quest->daily)
+                    <flux:dropdown class="flex items-center">
+                        <flux:button :icon="$quest->status->icon()" variant="ghost"></flux:button>
+
+                        <flux:menu wire:replace>
+                            @foreach(QuestStatus::cases() as $status)
+                                <flux:menu.item
+                                    :icon="$status->icon()"
+                                    :disabled="$status->value === $quest->status->value"
+                                    wire:click="setStatus('{{ $status->value }}')"
+                                    wire:key="status.{{ $status->value }}"
+                                >
+                                    {{ $status->label() }}
+                                </flux:menu.item>
+                            @endforeach
+                        </flux:menu>
+                    </flux:dropdown>
+                @endif
+
+                <flux:input class:input="md:!text-lg !h-(--height)" wire:model.live.debounce="name"/>
+            </div>
+
             @if(! $quest->daily)
-                <flux:dropdown class="flex items-center">
-                    <flux:button :icon="$quest->status->icon()" variant="ghost"></flux:button>
+                <div class="flex gap-x-2">
+                    <flux:modal.trigger name="parent-search">
+                        <flux:button class="!h-(--height) px-4" icon="folder-arrow-down"></flux:button>
+                    </flux:modal.trigger>
 
-                    <flux:menu wire:replace>
-                        @foreach(QuestStatus::cases() as $status)
-                            <flux:menu.item
-                                :icon="$status->icon()"
-                                :disabled="$status->value === $quest->status->value"
-                                wire:click="setStatus('{{ $status->value }}')"
-                                wire:key="status.{{ $status->value }}"
-                            >
-                                {{ $status->label() }}
-                            </flux:menu.item>
-                        @endforeach
-                    </flux:menu>
-                </flux:dropdown>
-            @endif
+                    <flux:modal.trigger name="reminder-modal">
+                        <flux:button
+                            @class([
+                                '!h-(--height) px-4 relative',
+                                'after:absolute after:size-2 after:box-content after:rounded-full after:bg-sky-500 after:border-2 after:border-white dark:after:border-zinc-600 after:-top-1 after:-right-1' => $this->activeReminders->isNotEmpty()
+                            ])
+                            icon="bell"
+                        />
+                    </flux:modal.trigger>
 
-            <flux:input class:input="md:!text-lg !h-(--height)" wire:model.live.debounce="name"/>
-
-            @if(! $quest->daily)
-                <flux:modal.trigger name="parent-search">
-                    <flux:button class="!h-(--height) px-4" icon="folder-arrow-down"></flux:button>
-                </flux:modal.trigger>
-
-                <flux:modal.trigger name="reminder-modal">
-                    <flux:button
-                        @class([
-                            '!h-(--height) px-4 relative',
-                            'after:absolute after:size-2 after:box-content after:rounded-full after:bg-sky-500 after:border-2 after:border-white dark:after:border-zinc-600 after:-top-1 after:-right-1' => $this->activeReminders->isNotEmpty()
-                        ])
-                        icon="bell"
-                    />
-                </flux:modal.trigger>
+                    <flux:date-picker class="flex-1" wire:model.live="date" locale="de-DE" clearable />
+                </div>
             @endif
         </div>
 

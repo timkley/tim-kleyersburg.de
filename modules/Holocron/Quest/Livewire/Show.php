@@ -33,6 +33,8 @@ class Show extends HolocronComponent
     #[Validate('max:255')]
     public string $name = '';
 
+    public ?string $date = '';
+
     public ?string $description = '';
 
     public QuestStatus $status;
@@ -54,7 +56,7 @@ class Show extends HolocronComponent
 
     public function updating(string $property, mixed $value): void
     {
-        if (! in_array($property, ['name', 'description', 'status'])) {
+        if (! in_array($property, ['name', 'description', 'status', 'date'])) {
             return;
         }
 
@@ -126,6 +128,7 @@ class Show extends HolocronComponent
     public function mount(Quest $quest): void
     {
         $this->quest = $quest;
+        $this->date = $quest->date?->format('Y-m-d') ?? null;
         $this->name = $quest->name;
         $this->description = $quest->description;
         $this->status = $quest->status;
