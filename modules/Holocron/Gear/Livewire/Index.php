@@ -17,7 +17,7 @@ class Index extends HolocronComponent
     public function render(): View
     {
         return view('holocron-gear::index', [
-            'journeys' => Journey::query()->whereAfterToday('ends_at')->get(),
+            'journeys' => Journey::query()->where('ends_at', '>=', today()->toDateString())->get(),
         ]);
     }
 }
