@@ -24,6 +24,7 @@
         {{ $slot }}
 
         <livewire:holocron.shared.bottom-navigation />
+        <livewire:holocron.shared.components.command-modal />
     </div>
 
     <x-slot:footer></x-slot>
