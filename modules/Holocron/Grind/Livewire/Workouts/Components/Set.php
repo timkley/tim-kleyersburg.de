@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Modules\Holocron\Grind\Livewire\Workouts\Components;
 
 use Illuminate\View\View;
+use Livewire\Attributes\On;
 use Livewire\Attributes\Title;
 use Livewire\Attributes\Validate;
 use Modules\Holocron\_Shared\Livewire\HolocronComponent;
@@ -26,13 +27,6 @@ class Set extends HolocronComponent
 
     #[Validate('required|int')]
     public int $reps;
-
-    /**
-     * @var string[]
-     */
-    protected $listeners = [
-        'set:started' => '$refresh',
-    ];
 
     public function updated(string $property, mixed $value): void
     {
@@ -69,6 +63,7 @@ class Set extends HolocronComponent
         $this->reps = $this->set->reps;
     }
 
+    #[On('set:started')]
     public function render(): View
     {
         return view('holocron-grind::workouts.components.set');
