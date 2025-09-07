@@ -12,6 +12,7 @@ class ParentQuest implements IntentInterface
     public static function results(string $query): Collection
     {
         return Quest::search($query)
+            ->take(10)
             ->get()
             ->map(fn (Quest $quest) => new Intent(
                 type: 'parent-quest',

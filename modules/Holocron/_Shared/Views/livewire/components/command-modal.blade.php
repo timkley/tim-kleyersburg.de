@@ -2,7 +2,7 @@
     <flux:modal name="command-modal"
                 variant="bare"
                 class="w-full max-w-[30rem] my-[12vh] max-h-screen overflow-y-hidden px-4">
-        <flux:command.no-clear>
+        <flux:command.no-clear :filter="false">
             <flux:command.input
                 icon="book-check"
                 placeholder="Neue Quest erstellen..."
