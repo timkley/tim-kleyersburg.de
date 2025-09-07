@@ -1,0 +1,23 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Modules\Holocron\_Shared\Livewire\CommandModal\Intents;
+
+use Illuminate\Support\Collection;
+use Modules\Holocron\Quest\Models\Quest;
+
+class ParentQuest implements IntentInterface
+{
+    public static function results(string $query): Collection
+    {
+        return Quest::search($query)
+            ->get()
+            ->map(fn (Quest $quest) => new Intent(
+                type: 'parent-quest',
+                label: $quest->breadcrumb()->pluck('name')->implode(' > '),
+                property: 'quest_id',
+                value: $quest->id
+            ));
+    }
+}
