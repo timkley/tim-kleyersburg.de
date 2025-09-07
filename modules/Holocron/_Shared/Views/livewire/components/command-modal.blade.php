@@ -52,7 +52,7 @@
             @if($results)
                 <flux:command.items>
                     @foreach($results as $result)
-                        <flux:command.item wire:click="processIntent({{ json_encode($result) }})" wire:key="{{ $result->id }}">
+                        <flux:command.item wire:click="processIntent({{ json_encode($result) }})" wire:key="{{ $result->type . '_' . $result->value }}">
                             {{ $result->label }}
                         </flux:command.item>
                     @endforeach
