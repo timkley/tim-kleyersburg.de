@@ -176,7 +176,7 @@ class Quest extends Model
     #[Scope]
     protected function today(EloquentBuilder $query): EloquentBuilder
     {
-        return $query->whereNotNull('date')->where('daily', false);
+        return $query->whereDate('date', '<=', today())->where('daily', false);
     }
 
     /**
@@ -187,27 +187,6 @@ class Quest extends Model
     protected function notToday(EloquentBuilder $query): EloquentBuilder
     {
         return $query->whereNull('date')->where('daily', false);
-    }
-
-    /**
-     * @param  EloquentBuilder<Quest>  $query
-     * @return EloquentBuilder<Quest>
-     */
-    #[Scope]
-    protected function dailyAgenda(EloquentBuilder $query, CarbonImmutable $date): EloquentBuilder
-    {
-        return $query->whereHas('parent', function (EloquentBuilder $query) {
-            $query->whereNotNull('date');
-        })
-            ->where(function (EloquentBuilder $query) use ($date) {
-                $query->where(function (EloquentBuilder $query) use ($date) {
-                    $query->whereHas('parent', function (EloquentBuilder $query) use ($date) {
-                        $query->whereDate('date', '<', $date);
-                    })->notCompleted();
-                })->orWhereHas('parent', function (EloquentBuilder $query) use ($date) {
-                    $query->whereDate('date', $date);
-                });
-            });
     }
 
     /**
