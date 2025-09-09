@@ -36,5 +36,5 @@
     
     <x-keyboard-shortcuts />
 
-    @vite('resources/js/longpress.js')
+    <script type="module" src="{{ asset('js/longpress.js') }}"></script>
 </x-layouts.app>
