@@ -41,7 +41,7 @@
                         }
                     @endphp
 
-                    <flux:icon :name="$icon" class="size-4" />>
+                    <flux:icon :name="$icon" class="size-4" />
 
                     {{ $label }}
                 </flux:text>
