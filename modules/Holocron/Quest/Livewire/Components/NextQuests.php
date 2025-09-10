@@ -13,15 +13,6 @@ use Modules\Holocron\Quest\Models\Quest;
 
 class NextQuests extends Component
 {
-    #[Validate('required')]
-    #[Validate('min:3')]
-    #[Validate('max:255')]
-    public string $questDraft = '';
-
-    public ?int $parentQuestId = null;
-
-    public ?string $parentQuestName = null;
-
     /**
      * @var string[]
      */
@@ -30,33 +21,6 @@ class NextQuests extends Component
         'quest:deleted' => '$refresh',
         'quest:created' => '$refresh',
     ];
-
-    public function addQuest(): void
-    {
-        $this->validate();
-
-        Quest::create([
-            'quest_id' => $this->parentQuestId,
-            'name' => $this->questDraft,
-            'status' => QuestStatus::Open,
-        ]);
-
-        $this->reset();
-
-        $this->dispatch('quest:created');
-    }
-
-    public function setParentQuest(?int $id): void
-    {
-        if (is_null($id)) {
-            return;
-        }
-
-        $this->parentQuestId = $id;
-        $this->parentQuestName = Quest::find($id)->name;
-
-        Flux::modal('parent-search')->close();
-    }
 
     public function render(): View
     {
