@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Modules\Holocron\School\Notifications;
 
-use App\Data\Untis\Homework;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
+use Modules\Holocron\School\Data\Homework;
 use NotificationChannels\Discord\DiscordChannel;
 use NotificationChannels\Discord\DiscordMessage;
 

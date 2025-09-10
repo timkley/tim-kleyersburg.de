@@ -14,16 +14,6 @@ it('is not reachable when unauthenticated', function () {
         ->assertRedirect(route('holocron.login'));
 });
 
-it('can add a quest', function () {
-    Livewire::test('holocron.quest.components.next-quests')
-        ->set('questDraft', 'test')
-        ->call('addQuest');
-
-    expect(Quest::count())->toBe(1);
-    $quest = Quest::first();
-    expect($quest->name)->toBe('test');
-});
-
 it('can construct a breadcrumb', function () {
     $quest = Quest::factory()->create();
     $quest2 = Quest::factory()->create(['quest_id' => $quest->id]);

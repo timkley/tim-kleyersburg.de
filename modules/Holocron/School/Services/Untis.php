@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace App\Services;
+namespace Modules\Holocron\School\Services;
 
-use App\Data\Untis\Exam;
-use App\Data\Untis\Homework;
-use App\Data\Untis\Lesson;
-use App\Data\Untis\News;
 use Carbon\CarbonImmutable;
 use Exception;
 use Illuminate\Http\Client\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Http;
+use Modules\Holocron\School\Data\Exam;
+use Modules\Holocron\School\Data\Homework;
+use Modules\Holocron\School\Data\Lesson;
+use Modules\Holocron\School\Data\News;
 use Throwable;
 
 class Untis

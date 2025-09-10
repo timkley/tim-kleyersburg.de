@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Modules\Holocron\School\Livewire;
 
-use App\Data\Untis\Exam;
-use App\Data\Untis\Homework;
-use App\Data\Untis\Lesson;
-use App\Data\Untis\News;
-use App\Services\Untis;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Collection;
 use Illuminate\View\View;
 use Modules\Holocron\_Shared\Livewire\HolocronComponent;
+use Modules\Holocron\School\Data\Exam;
+use Modules\Holocron\School\Data\Homework;
+use Modules\Holocron\School\Data\Lesson;
+use Modules\Holocron\School\Data\News;
+use Modules\Holocron\School\Services\Untis;
 
 class Information extends HolocronComponent
 {

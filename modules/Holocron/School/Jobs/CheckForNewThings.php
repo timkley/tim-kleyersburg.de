@@ -4,21 +4,21 @@ declare(strict_types=1);
 
 namespace Modules\Holocron\School\Jobs;
 
-use App\Data\Untis\Exam;
-use App\Data\Untis\Homework;
-use App\Data\Untis\Lesson;
-use App\Data\Untis\News;
 use App\Notifications\DiscordSchoolChannel;
-use App\Services\Untis;
 use Carbon\CarbonImmutable;
 use Illuminate\Contracts\Cache\Repository;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Support\Sleep;
+use Modules\Holocron\School\Data\Exam;
+use Modules\Holocron\School\Data\Homework;
+use Modules\Holocron\School\Data\Lesson;
+use Modules\Holocron\School\Data\News;
 use Modules\Holocron\School\Notifications\ClassCancelled;
 use Modules\Holocron\School\Notifications\NewExam;
 use Modules\Holocron\School\Notifications\NewHomework;
 use Modules\Holocron\School\Notifications\NewNews;
+use Modules\Holocron\School\Services\Untis;
 
 class CheckForNewThings implements ShouldQueue
 {

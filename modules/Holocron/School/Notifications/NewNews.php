@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Modules\Holocron\School\Notifications;
 
-use App\Data\Untis\News;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Stringable;
+use Modules\Holocron\School\Data\News;
 use NotificationChannels\Discord\DiscordChannel;
 use NotificationChannels\Discord\DiscordMessage;
 

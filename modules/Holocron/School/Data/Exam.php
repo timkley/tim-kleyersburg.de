@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Data\Untis;
+namespace Modules\Holocron\School\Data;
 
 use Carbon\CarbonImmutable;
 
