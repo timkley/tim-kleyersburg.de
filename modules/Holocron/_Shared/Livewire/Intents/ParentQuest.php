@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Modules\Holocron\_Shared\Livewire\CommandModal\Intents;
+namespace Modules\Holocron\_Shared\Livewire\Intents;
 
 use Illuminate\Support\Collection;
 use Modules\Holocron\Quest\Models\Quest;

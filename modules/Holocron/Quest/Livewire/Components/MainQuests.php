@@ -5,16 +5,12 @@ declare(strict_types=1);
 namespace Modules\Holocron\Quest\Livewire\Components;
 
 use Illuminate\View\View;
-use Livewire\Attributes\Url;
 use Livewire\Component;
 use Modules\Holocron\Quest\Enums\QuestStatus;
 use Modules\Holocron\Quest\Models\Quest;
 
 class MainQuests extends Component
 {
-    #[Url]
-    public ?string $query = null;
-
     /**
      * @var string[]
      */
@@ -34,7 +30,6 @@ class MainQuests extends Component
 
         return view('holocron-quest::components.main-quests', [
             'notes' => $notes,
-            'searchResults' => $this->query ? Quest::search($this->query)->get() : null,
         ]);
     }
 }

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Modules\Holocron\_Shared\Tests\Feature\Livewire\Components;
 
 use Livewire\Livewire;
-use Modules\Holocron\_Shared\Livewire\CommandModal\CommandModal;
+use Modules\Holocron\_Shared\Livewire\CommandModal;
 use Modules\Holocron\Quest\Models\Quest;
 
 use function Pest\Laravel\assertDatabaseHas;

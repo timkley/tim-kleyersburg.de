@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Modules\Holocron\_Shared\Livewire\CommandModal\Traits;
+namespace Modules\Holocron\_Shared\Livewire\Traits;
 
 use Modules\Holocron\Quest\Models\Quest;
 

@@ -24,7 +24,8 @@
         {{ $slot }}
 
         <livewire:holocron.shared.bottom-navigation />
-        <livewire:holocron.shared.command-modal.command-modal />
+        <livewire:holocron.shared.command-modal />
+        <livewire:holocron.shared.search-modal />
     </div>
 
     <x-slot:footer></x-slot>
@@ -33,7 +34,6 @@
         <flux:toast />
     @endpersist
 
-    
     <x-keyboard-shortcuts />
 
     <script type="module" src="{{ asset('js/longpress.js') }}"></script>

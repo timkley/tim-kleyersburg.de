@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Modules\Holocron\_Shared\Livewire\CommandModal\Traits;
+namespace Modules\Holocron\_Shared\Livewire\Traits;
 
 use Illuminate\Support\Collection;
-use Modules\Holocron\_Shared\Livewire\CommandModal\Intents\Intent;
-use Modules\Holocron\_Shared\Livewire\CommandModal\Intents\ParentQuest;
+use Modules\Holocron\_Shared\Livewire\Intents\Intent;
+use Modules\Holocron\_Shared\Livewire\Intents\ParentQuest;
 
 trait WithIntents
 {

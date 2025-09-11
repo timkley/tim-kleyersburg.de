@@ -21,14 +21,6 @@
                 Quests
             </a>
 
-            <a
-                href="{{ route('holocron.grind') }}"
-                wire:navigate
-                wire:current="font-semibold"
-            >
-                <flux:icon icon="dumbbell" class="mx-auto" variant="mini"/>
-                Grind
-            </a>
 
             <flux:separator vertical/>
 
@@ -39,10 +31,18 @@
                 </button>
 
                 <flux:navmenu>
+                    <flux:navmenu.item href="{{ route('holocron.grind') }}" icon="dumbbell">Grind</flux:navmenu.item>
                     <flux:navmenu.item href="{{ route('holocron.gear') }}" icon="shopping-bag">Gear</flux:navmenu.item>
                     <flux:navmenu.item href="{{ route('holocron.chopper') }}" icon="sparkles">Chopper</flux:navmenu.item>
                 </flux:navmenu>
             </flux:dropdown>
+
+            <flux:modal.trigger name="search-modal" shortcut="f">
+                <button>
+                    <flux:icon icon="magnifying-glass" class="mx-auto" variant="mini"/>
+                    Suche
+                </button>
+            </flux:modal.trigger>
 
             <flux:modal.trigger name="command-modal" shortcut="cmd.k">
                 <button>

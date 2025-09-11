@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Modules\Holocron\_Shared\Livewire\CommandModal;
+namespace Modules\Holocron\_Shared\Livewire;
 
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
-use Modules\Holocron\_Shared\Livewire\CommandModal\Traits\WithQuestCreation;
+use Modules\Holocron\_Shared\Livewire\Traits\WithQuestCreation;
 
 class CommandModal extends Component
 {
