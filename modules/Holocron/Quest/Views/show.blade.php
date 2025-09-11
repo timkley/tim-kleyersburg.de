@@ -61,7 +61,13 @@
                         />
                     </flux:modal.trigger>
 
-                    <flux:date-picker class="flex-1" wire:model.live="date" locale="de-DE" clearable />
+                    <flux:date-picker
+                        class="flex-1"
+                        wire:model.live="date"
+                        start-day="1"
+                        locale="de-DE"
+                        with-today
+                        clearable />
                 </div>
             @endif
         </div>
