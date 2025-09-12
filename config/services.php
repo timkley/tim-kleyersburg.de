@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 return [
     'lastfm' => [
+        'user' => 'timmotheus',
         'api_key' => env('LASTFM_API_KEY'),
     ],
 

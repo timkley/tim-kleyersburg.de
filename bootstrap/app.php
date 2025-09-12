@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Http\Middleware\BearerToken;
+use App\Jobs\ArchiveScrobbles;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -28,6 +29,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $schedule->job(CreateDailyGoals::class)->dailyAt('00:01');
         $schedule->job(CheckForNewThings::class)->hourly()->between('7:00', '18:00');
         $schedule->job(ProcessReminders::class)->everyMinute();
+        $schedule->job(new ArchiveScrobbles)->hourly();
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

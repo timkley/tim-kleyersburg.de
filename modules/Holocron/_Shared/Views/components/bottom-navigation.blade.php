@@ -37,7 +37,7 @@
                 </flux:navmenu>
             </flux:dropdown>
 
-            <flux:modal.trigger name="search-modal" shortcut="f">
+            <flux:modal.trigger name="search-modal" shortcut="cmd.slash">
                 <button>
                     <flux:icon icon="magnifying-glass" class="mx-auto" variant="mini"/>
                     Suche

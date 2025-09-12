@@ -9,7 +9,7 @@ parameters:
         - modules/
 
     # Level 9 is the highest level
-    level: 7
+    level: 5
 
     excludePaths:
         - modules/**/Tests/*/

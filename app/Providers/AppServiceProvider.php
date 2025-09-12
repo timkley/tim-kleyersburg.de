@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Providers;
 
 use App\Data\Articles\CustomFrontmatterData;
+use App\Services\LastFm;
 use Carbon\CarbonImmutable;
 use Illuminate\Auth\Access\Response;
 use Illuminate\Database\Eloquent\Model;
@@ -24,6 +25,14 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->bind(FrontmatterData::class, CustomFrontmatterData::class);
+
+        $this->app->singleton(
+            abstract: LastFm::class,
+            concrete: fn () => new LastFm(
+                apiKey: config('services.lastfm.api_key'),
+                username: config('services.lastfm.user'),
+            ),
+        );
     }
 
     /**
