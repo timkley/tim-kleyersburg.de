@@ -47,6 +47,9 @@
         @endif
 
         <flux:button
+            @class([
+                'relative after:absolute after:size-2 after:box-content after:rounded-full after:bg-sky-500 after:border-2 after:border-white dark:after:border-zinc-600 after:bottom-1 after:right-1' => $quest->should_be_printed
+            ])
             icon="printer"
             wire:click="print"
             variant="subtle"
