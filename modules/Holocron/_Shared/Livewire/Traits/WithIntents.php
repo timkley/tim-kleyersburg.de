@@ -7,6 +7,7 @@ namespace Modules\Holocron\_Shared\Livewire\Traits;
 use Illuminate\Support\Collection;
 use Modules\Holocron\_Shared\Livewire\Intents\Intent;
 use Modules\Holocron\_Shared\Livewire\Intents\ParentQuest;
+use Modules\Holocron\_Shared\Livewire\Intents\Printable;
 
 trait WithIntents
 {
@@ -21,16 +22,13 @@ trait WithIntents
 
     /** @var array<int, string> */
     protected array $intents = [
+        Printable::class,
         ParentQuest::class,
     ];
 
     public function loadIntents(): void
     {
         $query = str($this->name)->afterLast('/')->toString();
-
-        if (! $query) {
-            return;
-        }
 
         $results = collect();
 

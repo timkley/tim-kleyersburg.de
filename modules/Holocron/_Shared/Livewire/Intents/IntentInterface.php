@@ -11,5 +11,5 @@ interface IntentInterface
     /**
      * @return Collection<int, Intent>
      */
-    public static function results(string $query): Collection;
+    public static function results(?string $query = null): Collection;
 }

@@ -9,8 +9,12 @@ use Modules\Holocron\Quest\Models\Quest;
 
 class ParentQuest implements IntentInterface
 {
-    public static function results(string $query): Collection
+    public static function results(?string $query = null): Collection
     {
+        if (empty($query)) {
+            return collect();
+        }
+
         return Quest::search($query)
             ->take(10)
             ->get()

@@ -9,7 +9,7 @@
                 autofocus
                 wire:model="name"
                 x-bind:class="{ '!bg-sky-100 dark:!bg-sky-900': $wire.hasIntent }"
-                x-on:keyup.slash="$wire.hasIntent = true"
+                x-on:keydown.slash="$wire.hasIntent = true"
                 x-on:input="
                     if ($wire.hasIntent) $wire.loadIntents()
                 "
@@ -36,6 +36,7 @@
                 <flux:text class="px-4 py-2 bg-white dark:bg-zinc-700 flex items-center gap-x-2">
                     @php
                         $icon = match($type) {
+                            'printable' => 'printer',
                             'parent-quest' => 'book-check',
                             default => 'arrow-turn-down-right'
                         }
