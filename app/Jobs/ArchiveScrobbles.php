@@ -60,7 +60,7 @@ class ArchiveScrobbles implements ShouldQueue
         Scrobble::query()->upsert($data->toArray(), ['artist', 'track', 'played_at']);
 
         if ($scrobbles->count() <= self::LIMIT) {
-            self::dispatch(max($pageToFetch - 1, 1));
+//            self::dispatch(max($pageToFetch - 1, 1));
         }
     }
 }
