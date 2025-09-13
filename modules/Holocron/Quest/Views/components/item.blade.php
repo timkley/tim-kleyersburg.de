@@ -7,10 +7,10 @@
         <flux:menu wire:replace>
             @foreach(QuestStatus::cases() as $status)
                 <flux:menu.item
-                        :icon="$status->icon()"
-                        :disabled="$status->value === $quest->status->value"
-                        wire:click="setStatus('{{ $status->value }}')"
-                        wire:key="{{ $status->value }}"
+                    :icon="$status->icon()"
+                    :disabled="$status->value === $quest->status->value"
+                    wire:click="setStatus('{{ $status->value }}')"
+                    wire:key="{{ $status->value }}"
                 >
                     {{ $status->label() }}
                 </flux:menu.item>
@@ -20,8 +20,8 @@
 
     <div class="flex flex-col sm:flex-row sm:items-center ml-1 space-x-3">
         <a
-                href="{{ route('holocron.quests.show', $quest->id) }}"
-                wire:navigate
+            href="{{ route('holocron.quests.show', $quest->id) }}"
+            wire:navigate
         >
             <span>
                 {{ $quest->name }}
@@ -40,14 +40,25 @@
     <div class="flex items-center h-[25px] ml-auto">
         @if($quest->status !== QuestStatus::Note && $quest->status !== QuestStatus::Complete)
             @if($quest->date)
-                <flux:button icon="shield-minus" wire:click="toggleAccept" variant="ghost"/>
+                <flux:button icon="shield-minus" wire:click="toggleAccept" variant="subtle" size="sm" />
             @else
-                <flux:button icon="shield-plus" wire:click="toggleAccept" variant="ghost"/>
+                <flux:button icon="shield-plus" wire:click="toggleAccept" variant="subtle" size="sm" />
             @endif
         @endif
-        <flux:button icon="trash"
-                     wire:click="deleteQuest({{ $quest->id }})"
-                     wire:confirm="Willst du {{ $quest->name }} wirklich löschen?"
-                     variant="subtle"></flux:button>
+
+        <flux:button
+            icon="printer"
+            wire:click="print"
+            variant="subtle"
+            size="sm"
+        />
+
+        <flux:button
+            icon="trash"
+            wire:click="deleteQuest({{ $quest->id }})"
+            wire:confirm="Willst du {{ $quest->name }} wirklich löschen?"
+            variant="subtle"
+            size="sm"
+        />
     </div>
 </div>

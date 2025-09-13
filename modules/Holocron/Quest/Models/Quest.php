@@ -101,10 +101,6 @@ class Quest extends Model
         $breadcrumb = new Collection;
         $current = $this;
 
-        if ($current->exists) {
-            $breadcrumb->push($current);
-        }
-
         while ($current->quest_id !== null) {
             $current = self::find($current->quest_id);
             if ($current === null) {

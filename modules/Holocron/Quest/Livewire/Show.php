@@ -106,6 +106,14 @@ class Show extends HolocronComponent
         Flux::modal('parent-search')->close();
     }
 
+    public function print(): void
+    {
+        $this->quest->update([
+            'should_be_printed' => true,
+            'printed_at' => null,
+        ]);
+    }
+
     public function addQuest(?string $name = null): void
     {
         if (is_null($name)) {

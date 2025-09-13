@@ -6,7 +6,7 @@
         <div class="overflow-x-auto no-scrollbar">
             <flux:breadcrumbs>
                 <flux:breadcrumbs.item href="{{ route('holocron.quests') }}" wire:navigate icon="home"/>
-                @foreach($quest->breadcrumb()->slice(0, -1) as $crumb)
+                @foreach($quest->breadcrumb() as $crumb)
                     <flux:breadcrumbs.item
                         href="{{ route('holocron.quests.show', $crumb->id) }}"
                         wire:navigate
@@ -42,24 +42,30 @@
                     </flux:dropdown>
                 @endif
 
-                <flux:input class:input="md:!text-lg !h-(--height)" wire:model.live.debounce="name"/>
+                <flux:input class:input="md:!text-lg" wire:model.live.debounce="name"/>
             </div>
 
             @if(! $quest->daily)
                 <div class="flex gap-x-2">
                     <flux:modal.trigger name="parent-search">
-                        <flux:button class="!h-(--height) px-4" icon="folder-arrow-down"></flux:button>
+                        <flux:button class="px-4" icon="folder-arrow-down"></flux:button>
                     </flux:modal.trigger>
 
                     <flux:modal.trigger name="reminder-modal">
                         <flux:button
                             @class([
-                                '!h-(--height) px-4 relative',
+                                'px-4 relative',
                                 'after:absolute after:size-2 after:box-content after:rounded-full after:bg-sky-500 after:border-2 after:border-white dark:after:border-zinc-600 after:-top-1 after:-right-1' => $this->activeReminders->isNotEmpty()
                             ])
                             icon="bell"
                         />
                     </flux:modal.trigger>
+
+                    <flux:button
+                        class="px-4"
+                        icon="printer"
+                        wire:click="print"
+                    />
 
                     <flux:date-picker
                         class="flex-1"

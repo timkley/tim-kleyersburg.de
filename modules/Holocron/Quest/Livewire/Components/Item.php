@@ -28,6 +28,14 @@ class Item extends Component
         $this->dispatch('quest:accepted');
     }
 
+    public function print(): void
+    {
+        $this->quest->update([
+            'should_be_printed' => true,
+            'printed_at' => null,
+        ]);
+    }
+
     public function deleteQuest(int $id): void
     {
         Quest::destroy($id);
