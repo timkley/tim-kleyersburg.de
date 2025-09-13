@@ -8,7 +8,7 @@
 
         @foreach($quests as $quest)
             <flux:select.option value="{{ $quest->id }}" wire:key="{{ $quest->id }}">
-                {{ $quest->breadcrumb()->pluck('name')->join(' > ') }}
+                {{ $quest->breadcrumb(withCurrent: true)->pluck('name')->join(' > ') }}
             </flux:select.option>
         @endforeach
     </flux:select>

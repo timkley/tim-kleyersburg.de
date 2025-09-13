@@ -96,10 +96,14 @@ class Quest extends Model
     /**
      * @return \Illuminate\Support\Collection<int, Quest>
      */
-    public function breadcrumb(): \Illuminate\Support\Collection
+    public function breadcrumb(bool $withCurrent = false): \Illuminate\Support\Collection
     {
         $breadcrumb = new Collection;
         $current = $this;
+
+        if ($withCurrent && $current->exists) {
+            $breadcrumb->push($current);
+        }
 
         while ($current->quest_id !== null) {
             $current = self::find($current->quest_id);

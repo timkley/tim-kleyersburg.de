@@ -20,7 +20,7 @@ class ParentQuest implements IntentInterface
             ->get()
             ->map(fn (Quest $quest) => new Intent(
                 type: 'parent-quest',
-                label: $quest->breadcrumb()->pluck('name')->implode(' > '),
+                label: $quest->breadcrumb(withCurrent: true)->pluck('name')->implode(' > '),
                 property: 'quest_id',
                 value: $quest->id
             ));
