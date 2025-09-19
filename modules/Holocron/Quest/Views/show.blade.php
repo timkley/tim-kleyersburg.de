@@ -28,7 +28,7 @@
                             <flux:button icon="document-text" variant="ghost"></flux:button>
                         @else
                             <flux:button
-                                icon="{{ $quest->isCompleted() ? 'circle-dot' : 'circle-dashed' }}"
+                                icon="{{ $quest->isCompleted() ? 'square-check-big' : 'square' }}"
                                 variant="ghost"
                                 wire:click="toggleComplete"
                             />
