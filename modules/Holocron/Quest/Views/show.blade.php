@@ -208,12 +208,8 @@
             <flux:editor wire:model="noteDraft" placeholder="Neue Notiz"></flux:editor>
             <div class="flex justify-between items-center gap-2">
                 <div class="flex gap-x-2">
-    <flux:button type="submit" variant="primary">Save Recurrence</flux:button>
-
-    @if ($quest->recurrence)
-        <flux:button wire:click="deleteRecurrence" variant="danger">Delete</flux:button>
-    @endif
-</div>
+                    <flux:button type="submit" variant="primary">Speichern</flux:button>
+                </div>
 
                 <div>
                     <flux:switch wire:model.live="chat" label="Chat"/>
