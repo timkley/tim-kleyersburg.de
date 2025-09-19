@@ -18,21 +18,26 @@ class Chopper extends HolocronComponent
 
     public string $answer = '';
 
+    public string $context = '';
+
     public function ask(): void
     {
         $context = Quest::search($this->question)->options([
-            'query_by' => 'name,description,embedding',
+            'query_by' => 'embedding',
             'prefix' => false,
             'drop_tokens_threshold' => 0,
+            'per_page' => 5,
         ])
             ->get()
+            ->take(5)
             ->map(fn (Quest $quest) => $quest->name.': '.$quest->description)
             ->implode(', ');
 
         $context .= Note::search($this->question)->options([
-            'query_by' => 'content',
+            'query_by' => 'embedding',
             'prefix' => false,
             'drop_tokens_treshold' => 0,
+            'per_page' => 5,
         ])
             ->get()
             ->map(fn (Note $note) => $note->content)
@@ -67,6 +72,8 @@ EOT
                 replace: true
             );
         }
+
+        $this->context = $context;
     }
 
     public function render(): View
