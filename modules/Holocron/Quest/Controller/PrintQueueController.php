@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Modules\Holocron\Quest\Controller;
 
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\URL;
 use Modules\Holocron\Quest\Models\Quest;
 
 class PrintQueueController
@@ -30,6 +31,7 @@ class PrintQueueController
                     return [
                         'name' => $quest->name,
                         'breadcrumb' => $quest->breadcrumb()->pluck('name')->join(' > '),
+                        'scan_url' => URL::signedRoute('holocron.quests.complete', ['id' => $quest->id]),
                     ];
                 }));
             } finally {
