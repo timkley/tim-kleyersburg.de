@@ -30,7 +30,7 @@ class Chopper extends HolocronComponent
         ])
             ->get()
             ->take(5)
-            ->map(fn (Quest $quest) => $quest->name.': '.$quest->description)
+            ->map(fn (Quest $quest) => $quest->name.': '.str($quest->description)->stripTags())
             ->implode(', ');
 
         $context .= Note::search($this->question)->options([
@@ -40,7 +40,7 @@ class Chopper extends HolocronComponent
             'per_page' => 5,
         ])
             ->get()
-            ->map(fn (Note $note) => $note->content)
+            ->map(fn (Note $note) => str($note->content)->stripTags())
             ->implode(', ');
 
         $response = Prism::text()
