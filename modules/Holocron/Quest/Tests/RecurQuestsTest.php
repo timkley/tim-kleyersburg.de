@@ -52,7 +52,6 @@ it('does not recur if previous instance is not completed', function () {
     ]);
     Quest::factory()->create([
         'created_from_recurrence_id' => $recurrence->id,
-        'status' => 'open',
     ]);
 
     (new RecurQuests)->handle();

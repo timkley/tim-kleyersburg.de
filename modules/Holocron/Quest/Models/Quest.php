@@ -19,7 +19,6 @@ use Illuminate\Database\Query\Builder as QueryBuilder;
 use Laravel\Scout\Searchable;
 use Modules\Holocron\Bookmarks\Models\Webpage;
 use Modules\Holocron\Quest\Database\Factories\QuestFactory;
-use Modules\Holocron\Quest\Enums\QuestStatus;
 use Modules\Holocron\User\Enums\ExperienceType;
 use Modules\Holocron\User\Models\User;
 
@@ -29,7 +28,8 @@ use Modules\Holocron\User\Models\User;
  * @property-read string $name
  * @property-read string $description
  * @property-read \Illuminate\Support\Collection<int,string> $images
- * @property-read QuestStatus $status
+ * @property-read bool $is_note
+ * @property-read ?CarbonImmutable $completed_at
  * @property-read bool $accepted
  * @property-read bool $daily
  * @property-read bool $should_be_printed
@@ -43,20 +43,18 @@ class Quest extends Model
 
     use Searchable;
 
-    public function setStatus(QuestStatus $status): void
+    public function complete(): void
     {
-        $this->update(['status' => $status]);
+        $this->update(['completed_at' => now()]);
 
-        if ($status === QuestStatus::Complete) {
-            defer(function () {
-                User::tim()->addExperience(2, ExperienceType::QuestCompleted, $this->id);
-            });
-        }
+        defer(function () {
+            User::tim()->addExperience(2, ExperienceType::QuestCompleted, $this->id);
+        });
     }
 
     public function isCompleted(): bool
     {
-        return $this->status === QuestStatus::Complete;
+        return $this->completed_at !== null;
     }
 
     /**
@@ -165,7 +163,17 @@ class Quest extends Model
     #[Scope]
     protected function notCompleted(EloquentBuilder $query): EloquentBuilder
     {
-        return $query->whereNot('status', QuestStatus::Complete);
+        return $query->whereNull('completed_at');
+    }
+
+    /**
+     * @param  EloquentBuilder<Quest>  $query
+     * @return EloquentBuilder<Quest>
+     */
+    #[Scope]
+    protected function completed(EloquentBuilder $query): EloquentBuilder
+    {
+        return $query->whereNotNull('completed_at');
     }
 
     /**
@@ -178,7 +186,7 @@ class Quest extends Model
         return $query->whereNotExists(function (QueryBuilder $query): void {
             $query->from('quests as children')
                 ->whereColumn('children.quest_id', 'quests.id')
-                ->whereNot('children.status', QuestStatus::Complete);
+                ->whereNull('children.completed_at');
         });
     }
 
@@ -213,15 +221,36 @@ class Quest extends Model
     }
 
     /**
+     * @param  EloquentBuilder<Quest>  $query
+     * @return EloquentBuilder<Quest>
+     */
+    #[Scope]
+    protected function areNotNotes(EloquentBuilder $query): EloquentBuilder
+    {
+        return $query->where('is_note', false);
+    }
+
+    /**
+     * @param  EloquentBuilder<Quest>  $query
+     * @return EloquentBuilder<Quest>
+     */
+    #[Scope]
+    protected function areNotes(EloquentBuilder $query): EloquentBuilder
+    {
+        return $query->where('is_note', true);
+    }
+
+    /**
      * @return string[]
      */
     protected function casts(): array
     {
         return [
             'date' => 'date:Y-m-d',
-            'status' => QuestStatus::class,
             'daily' => 'boolean',
             'images' => AsCollection::class,
+            'completed_at' => 'datetime',
+            'is_note' => 'boolean',
         ];
     }
 }

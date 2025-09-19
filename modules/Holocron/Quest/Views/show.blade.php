@@ -1,5 +1,4 @@
 @use(Modules\Holocron\Quest\Models\Quest)
-@use(Modules\Holocron\Quest\Enums\QuestStatus)
 
 <div class="space-y-4">
     @if(!$quest->daily)
@@ -24,22 +23,17 @@
         <div class="flex flex-col sm:flex-row gap-2">
             <div class="flex gap-x-2 flex-1">
                 @if(! $quest->daily)
-                    <flux:dropdown class="flex items-center">
-                        <flux:button :icon="$quest->status->icon()" variant="ghost"></flux:button>
-
-                        <flux:menu wire:replace>
-                            @foreach(QuestStatus::cases() as $status)
-                                <flux:menu.item
-                                    :icon="$status->icon()"
-                                    :disabled="$status->value === $quest->status->value"
-                                    wire:click="setStatus('{{ $status->value }}')"
-                                    wire:key="status.{{ $status->value }}"
-                                >
-                                    {{ $status->label() }}
-                                </flux:menu.item>
-                            @endforeach
-                        </flux:menu>
-                    </flux:dropdown>
+                    <div class="flex items-center">
+                        @if($quest->is_note)
+                            <flux:button icon="document-text" variant="ghost"></flux:button>
+                        @else
+                            <flux:button
+                                icon="{{ $quest->isCompleted() ? 'circle-dot' : 'circle-dashed' }}"
+                                variant="ghost"
+                                wire:click="toggleComplete"
+                            />
+                        @endif
+                    </div>
                 @endif
 
                 <flux:input class:input="md:!text-lg" wire:model.live.debounce="name"/>
@@ -47,6 +41,15 @@
 
             @if(! $quest->daily)
                 <div class="flex gap-x-2">
+                    <flux:button
+                        @class([
+                            'px-4',
+                            'after:absolute after:size-2 after:box-content after:rounded-full after:bg-sky-500 after:border-2 after:border-white dark:after:border-zinc-600 after:-top-1 after:-right-1' => $quest->is_note
+                        ])
+                        icon="document-text"
+                        wire:click="toggleIsNote"
+                    ></flux:button>
+
                     <flux:modal.trigger name="parent-search">
                         <flux:button class="px-4" icon="folder-arrow-down"></flux:button>
                     </flux:modal.trigger>

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->foreignIdFor(Modules\Holocron\Quest\Models\Quest::class)->nullable();
             $table->string('name');
             $table->text('description')->nullable();
-            $table->string('status')->default(Modules\Holocron\Quest\Enums\QuestStatus::Open);
+            $table->string('status')->default('open');
             $table->timestamps();
         });
     }

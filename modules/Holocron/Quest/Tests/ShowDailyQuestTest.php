@@ -43,7 +43,7 @@ it('can navigate to today', function () {
 
 it('displays uncompleted sub-quests from the past', function () {
     $yesterdayQuest = Quest::factory()->create(['date' => today()->subDay()->toDateString()]);
-    $subQuest = Quest::factory()->create(['quest_id' => $yesterdayQuest->id, 'status' => 'open']);
+    $subQuest = Quest::factory()->create(['quest_id' => $yesterdayQuest->id]);
 
     Livewire::test(DailyQuest::class)
         ->assertSee($subQuest->name);

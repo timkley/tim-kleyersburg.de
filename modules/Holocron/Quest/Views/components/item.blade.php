@@ -1,27 +1,25 @@
-@use(Modules\Holocron\Quest\Enums\QuestStatus)
-
 <div class="flex">
-    <flux:dropdown class="h-[25px] flex items-center">
-        <flux:button class="mr-0" inset :icon="$quest->status->icon()" variant="ghost"></flux:button>
-
-        <flux:menu wire:replace>
-            @foreach(QuestStatus::cases() as $status)
-                <flux:menu.item
-                    :icon="$status->icon()"
-                    :disabled="$status->value === $quest->status->value"
-                    wire:click="setStatus('{{ $status->value }}')"
-                    wire:key="{{ $status->value }}"
-                >
-                    {{ $status->label() }}
-                </flux:menu.item>
-            @endforeach
-        </flux:menu>
-    </flux:dropdown>
+    <div class="h-[25px] flex items-center">
+        @if($quest->is_note)
+            <flux:button class="mr-0" inset icon="document-text" variant="ghost"></flux:button>
+        @else
+            <flux:button
+                class="mr-0"
+                inset
+                icon="{{ $quest->isCompleted() ? 'circle-dot' : 'circle-dashed' }}"
+                variant="ghost"
+                wire:click="toggleComplete"
+            />
+        @endif
+    </div>
 
     <div class="flex flex-col sm:flex-row sm:items-center ml-1 space-x-3">
         <a
             href="{{ route('holocron.quests.show', $quest->id) }}"
             wire:navigate
+            @class([
+                'line-through' => $quest->isCompleted(),
+            ])
         >
             <span>
                 {{ $quest->name }}
@@ -38,7 +36,7 @@
     </div>
 
     <div class="flex items-center h-[25px] ml-auto">
-        @if($quest->status !== QuestStatus::Note && $quest->status !== QuestStatus::Complete)
+        @if(! $quest->is_note && ! $quest->isCompleted())
             @if($quest->date)
                 <flux:button icon="shield-minus" wire:click="toggleAccept" variant="subtle" size="sm" />
             @else

@@ -6,7 +6,6 @@ namespace Modules\Holocron\Quest\Livewire\Components;
 
 use Illuminate\View\View;
 use Livewire\Component;
-use Modules\Holocron\Quest\Enums\QuestStatus;
 use Modules\Holocron\Quest\Models\Quest;
 
 class MainQuests extends Component
@@ -24,7 +23,7 @@ class MainQuests extends Component
     {
         $notes = Quest::query()
             ->whereNull('quest_id')
-            ->where('status', '=', QuestStatus::Note)
+            ->areNotes()
             ->orderBy('name')
             ->get();
 

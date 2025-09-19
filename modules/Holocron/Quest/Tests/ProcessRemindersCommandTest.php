@@ -5,7 +5,6 @@ declare(strict_types=1);
 use App\Notifications\DiscordTimChannel;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Notification;
-use Modules\Holocron\Quest\Enums\QuestStatus;
 use Modules\Holocron\Quest\Jobs\ProcessReminders;
 use Modules\Holocron\Quest\Models\Quest;
 use Modules\Holocron\Quest\Models\Reminder;
@@ -50,11 +49,10 @@ test('it does not process reminders for completed quests', function () {
 
     $completedQuest = Quest::factory()->create([
         'name' => 'Completed Quest',
-        'status' => QuestStatus::Complete,
+        'completed_at' => now(),
     ]);
     $openQuest = Quest::factory()->create([
         'name' => 'Open Quest',
-        'status' => QuestStatus::Open,
     ]);
 
     $completedQuestReminder = Reminder::factory()->once()->create([

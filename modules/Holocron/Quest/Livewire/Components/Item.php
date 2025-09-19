@@ -6,7 +6,6 @@ namespace Modules\Holocron\Quest\Livewire\Components;
 
 use Illuminate\View\View;
 use Livewire\Component;
-use Modules\Holocron\Quest\Enums\QuestStatus;
 use Modules\Holocron\Quest\Models\Quest;
 
 class Item extends Component
@@ -17,9 +16,13 @@ class Item extends Component
 
     public ?string $selectedDate = null;
 
-    public function setStatus(string $status): void
+    public function toggleComplete(): void
     {
-        $this->quest->setStatus(QuestStatus::from($status));
+        if ($this->quest->isCompleted()) {
+            $this->quest->update(['completed_at' => null]);
+        } else {
+            $this->quest->complete();
+        }
     }
 
     public function toggleAccept(): void
