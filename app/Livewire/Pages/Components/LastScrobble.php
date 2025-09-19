@@ -19,7 +19,7 @@ class LastScrobble extends Component
         });
 
         $topArtist = cache()->remember('lastfm:weekly-artist', now()->addWeek(), function () use ($lastfm) {
-            return data_get($lastfm->getTopArtists(), 'artist.0');
+            return $lastfm->getTopArtists()[0];
         });
 
         return view('pages.components.last-scrobble', ['track' => $track, 'topArtist' => $topArtist]);
