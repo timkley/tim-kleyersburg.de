@@ -6,7 +6,6 @@ namespace Modules\Holocron\Quest\Livewire\Components;
 
 use Illuminate\View\View;
 use Livewire\Component;
-use Modules\Holocron\Quest\Enums\QuestStatus;
 use Modules\Holocron\Quest\Models\Quest;
 
 class NextQuests extends Component
@@ -24,12 +23,11 @@ class NextQuests extends Component
     {
         return view('holocron-quest::components.next-quests', [
             'nextQuests' => Quest::query()
-                ->whereNot('status', QuestStatus::Note)
+                ->areNotNotes()
                 ->noChildren()
                 ->notToday()
                 ->notCompleted()
                 ->notDaily()
-                ->orderBy('status')
                 ->orderByDesc('created_at')
                 ->get(),
         ]);

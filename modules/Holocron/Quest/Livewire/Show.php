@@ -14,7 +14,6 @@ use Livewire\Attributes\Url;
 use Livewire\Attributes\Validate;
 use Livewire\WithFileUploads;
 use Modules\Holocron\_Shared\Livewire\HolocronComponent;
-use Modules\Holocron\Quest\Enums\QuestStatus;
 use Modules\Holocron\Quest\Models\Quest;
 
 #[Title('Quests')]
@@ -38,8 +37,6 @@ class Show extends HolocronComponent
 
     public ?string $description = '';
 
-    public QuestStatus $status;
-
     /** @var ?UploadedFile */
     #[Validate('image')]
     public $image;
@@ -57,7 +54,7 @@ class Show extends HolocronComponent
 
     public function updating(string $property, mixed $value): void
     {
-        if (! in_array($property, ['name', 'description', 'status', 'date'])) {
+        if (! in_array($property, ['name', 'description', 'date'])) {
             return;
         }
 
@@ -89,9 +86,20 @@ class Show extends HolocronComponent
         $this->reset('image');
     }
 
-    public function setStatus(string $status): void
+    public function toggleComplete(): void
     {
-        $this->quest->setStatus(QuestStatus::from($status));
+        if ($this->quest->isCompleted()) {
+            $this->quest->update(['completed_at' => null]);
+        } else {
+            $this->quest->complete();
+        }
+    }
+
+    public function toggleIsNote(): void
+    {
+        $this->quest->update([
+            'is_note' => ! $this->quest->is_note,
+        ]);
     }
 
     public function move(?int $id): void
@@ -140,7 +148,6 @@ class Show extends HolocronComponent
         $this->date = $quest->date?->format('Y-m-d') ?? null;
         $this->name = $quest->name;
         $this->description = $quest->description;
-        $this->status = $quest->status;
     }
 
     public function render(): View
@@ -157,11 +164,10 @@ class Show extends HolocronComponent
         }
 
         if (! $this->showAllSubquests) {
-            $query->where('status', '!=', QuestStatus::Complete);
+            $query->notCompleted();
         }
 
         $questChildren = $query
-            ->orderByDesc('status')
             ->get();
 
         return view('holocron-quest::show', [

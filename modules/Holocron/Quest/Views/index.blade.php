@@ -1,5 +1,4 @@
 @use(Modules\Holocron\Quest\Models\Quest)
-@use(Modules\Holocron\Quest\Enums\QuestStatus)
 
 <div class="space-y-4">
     <div class="space-y-4">
