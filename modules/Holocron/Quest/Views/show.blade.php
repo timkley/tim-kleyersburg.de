@@ -61,6 +61,27 @@
                         />
                     </flux:modal.trigger>
 
+                    @if(!$quest->instanceOf)
+                        <flux:modal.trigger name="recurrence-modal">
+                            <flux:button
+                                @class([
+                                    'px-4 relative',
+                                    'after:absolute after:size-2 after:box-content after:rounded-full after:bg-sky-500 after:border-2 after:border-white dark:after:border-zinc-600 after:-top-1 after:-right-1' => $quest->recurrence
+                                ])
+                                icon="history"
+                            />
+                        </flux:modal.trigger>
+                    @else
+                        <flux:button
+                            @class([
+                                'px-4 relative',
+                            ])
+                            icon="history"
+                            href="{{ route('holocron.quests.show', $quest->instanceOf->quest_id) }}"
+                            wire:navigate
+                        />
+                    @endif
+
                     <flux:button
                         @class([
                             'px-4',
@@ -186,7 +207,13 @@
         <form wire:submit="addNote" class="space-y-4">
             <flux:editor wire:model="noteDraft" placeholder="Neue Notiz"></flux:editor>
             <div class="flex justify-between items-center gap-2">
-                <flux:button type="submit" variant="primary">Notiz speichern</flux:button>
+                <div class="flex gap-x-2">
+    <flux:button type="submit" variant="primary">Save Recurrence</flux:button>
+
+    @if ($quest->recurrence)
+        <flux:button wire:click="deleteRecurrence" variant="danger">Delete</flux:button>
+    @endif
+</div>
 
                 <div>
                     <flux:switch wire:model.live="chat" label="Chat"/>
@@ -214,5 +241,8 @@
 
     <livewire:holocron.quest.components.parent-search @select="move($event.detail)"/>
 
+    @if(!$quest->instanceOf)
+        @include('holocron-quest::components.recurrence-modal')
+    @endif
     @include('holocron-quest::components.reminder-modal')
 </div>

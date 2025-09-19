@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 use Laravel\Scout\Searchable;
 use Modules\Holocron\Bookmarks\Models\Webpage;
@@ -31,6 +32,7 @@ use Modules\Holocron\User\Models\User;
  * @property-read QuestStatus $status
  * @property-read bool $accepted
  * @property-read bool $daily
+ * @property-read bool $should_be_printed
  * @property-read CarbonImmutable $created_at
  * @property-read CarbonImmutable $updated_at
  */
@@ -50,6 +52,11 @@ class Quest extends Model
                 User::tim()->addExperience(2, ExperienceType::QuestCompleted, $this->id);
             });
         }
+    }
+
+    public function isCompleted(): bool
+    {
+        return $this->status === QuestStatus::Complete;
     }
 
     /**
@@ -91,6 +98,22 @@ class Quest extends Model
     public function reminders(): HasMany
     {
         return $this->hasMany(Reminder::class);
+    }
+
+    /**
+     * @return HasOne<QuestRecurrence, $this>
+     */
+    public function recurrence(): HasOne
+    {
+        return $this->hasOne(QuestRecurrence::class);
+    }
+
+    /**
+     * @return BelongsTo<QuestRecurrence, $this>
+     */
+    public function instanceOf(): BelongsTo
+    {
+        return $this->belongsTo(QuestRecurrence::class, 'created_from_recurrence_id');
     }
 
     /**

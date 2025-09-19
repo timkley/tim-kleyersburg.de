@@ -24,6 +24,7 @@ class Show extends HolocronComponent
     use WithFileUploads;
     use WithLinks;
     use WithNotes;
+    use WithRecurrence;
     use WithReminders;
 
     public Quest $quest;

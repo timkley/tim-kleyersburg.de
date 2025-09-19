@@ -39,7 +39,6 @@ trait WithReminders
 
     public function mountWithReminders(): void
     {
-        // Set default values for the reminder form
         $this->reminderDate = now()->format('Y-m-d');
         $this->reminderTime = now()->addHour()->format('H:i');
     }
