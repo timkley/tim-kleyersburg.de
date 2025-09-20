@@ -14,6 +14,7 @@ use Modules\Holocron\Quest\Enums\QuestRecurrenceType;
 /**
  * @property-read Quest $quest
  * @property-read QuestRecurrenceType $type
+ * @property-read int $value
  * @property-read ?Carbon $last_recurred_at
  * @property-read ?Carbon $ends_at
  */

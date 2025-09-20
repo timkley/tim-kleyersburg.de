@@ -26,6 +26,7 @@ class PrintQueueController
                 }
 
                 Quest::query()->whereIn('id', $tasksToPrint->pluck('id'))->update(['printed_at' => now()]);
+                Quest::query()->whereIn('id', $tasksToPrint->pluck('id'))->where('delete_after_print', true)->delete();
 
                 return response()->json($tasksToPrint->map(function (Quest $quest) {
                     return [
