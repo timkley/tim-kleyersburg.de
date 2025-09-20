@@ -215,7 +215,6 @@ return [
                         [
                             'name' => 'completed_at',
                             'type' => 'int64',
-                            'optional' => true,
                         ],
                         [
                             'name' => 'daily',

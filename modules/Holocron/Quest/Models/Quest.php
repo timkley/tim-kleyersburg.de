@@ -146,7 +146,7 @@ class Quest extends Model
         return array_merge($this->toArray(), [
             'id' => (string) $this->id,
             'date' => $this->date?->timestamp,
-            'completed_at' => $this->completed_at?->timestamp,
+            'completed_at' => $this->completed_at?->timestamp ?? 0,
             'breadcrumb' => $this->breadcrumb()->pluck('name')->join(' > '),
             'created_at' => $this->created_at->timestamp,
         ]);
