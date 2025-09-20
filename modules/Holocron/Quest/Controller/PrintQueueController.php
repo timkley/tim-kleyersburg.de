@@ -32,7 +32,7 @@ class PrintQueueController
                     return [
                         'name' => $quest->name,
                         'breadcrumb' => $quest->breadcrumb()->pluck('name')->join(' > '),
-                        'scan_url' => URL::signedRoute('holocron.quests.complete', ['id' => $quest->id]),
+                        'scan_url' => $quest->delete_after_print ?: URL::signedRoute('holocron.quests.complete', ['id' => $quest->id]),
                     ];
                 }));
             } finally {
