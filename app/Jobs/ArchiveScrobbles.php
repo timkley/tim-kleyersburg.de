@@ -8,12 +8,13 @@ use App\Models\Scrobble;
 use App\Services\LastFm;
 use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldBeUniqueUntilProcessing;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
-class ArchiveScrobbles implements ShouldQueue
+class ArchiveScrobbles implements ShouldBeUniqueUntilProcessing, ShouldQueue
 {
     use Dispatchable;
     use InteractsWithQueue;
@@ -26,7 +27,7 @@ class ArchiveScrobbles implements ShouldQueue
 
     public function handle(LastFm $lastFm): void
     {
-        $localScrobbles = Scrobble::count();
+        $localScrobbles = Scrobble::query()->count();
 
         $latestScrobble = $lastFm->getRecentTracks(1);
 
@@ -38,16 +39,12 @@ class ArchiveScrobbles implements ShouldQueue
 
         $totalPages = (int) ceil($totalScrobbles / self::LIMIT);
 
-        $pageToFetch = $this->page ?? (int) ceil($totalPages - ($localScrobbles / self::LIMIT));
+        $pageToFetch = $this->page ?? (int) floor($totalPages - ($localScrobbles / self::LIMIT));
 
-        $scrobbles = collect(data_get($lastFm->getRecentTracks(limit: self::LIMIT, page: $pageToFetch), 'track'))
-            ->reject(fn ($scrobble) => ! data_get($scrobble, 'date.uts'));
+        $allScrobbles = collect(data_get($lastFm->getRecentTracks(limit: self::LIMIT, page: $pageToFetch), 'track'));
+        $scrobbles = $allScrobbles->reject(fn ($scrobble) => ! data_get($scrobble, 'date.uts'));
 
         $data = $scrobbles->map(function ($scrobble) {
-            if (! data_get($scrobble, 'date.uts')) {
-                return null;
-            }
-
             return [
                 'artist' => data_get($scrobble, 'artist.#text'),
                 'album' => data_get($scrobble, 'album.#text'),
@@ -59,8 +56,6 @@ class ArchiveScrobbles implements ShouldQueue
 
         Scrobble::query()->upsert($data->toArray(), ['artist', 'track', 'played_at']);
 
-        if ($scrobbles->count() <= self::LIMIT) {
-            //            self::dispatch(max($pageToFetch - 1, 1));
-        }
+        self::dispatch(($scrobbles->count() ? $pageToFetch - 1 : $pageToFetch));
     }
 }
