@@ -32,7 +32,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $schedule->job(ProcessReminders::class)->everyMinute();
         $schedule->job(RecurQuests::class)->weekdays()->dailyAt('8:00');
         $schedule->job(RecurQuests::class)->weekends()->dailyAt('10:00');
-        $schedule->job(new ArchiveScrobbles)->hourly();
+        $schedule->job(ArchiveScrobbles::class)->hourly();
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //
