@@ -58,3 +58,29 @@ it('does not recur if previous instance is not completed', function () {
 
     $this->assertDatabaseCount('quests', 2);
 });
+
+it('recurs daily quests regardless of time difference', function () {
+    $masterQuest = Quest::factory()->create();
+
+    // Simulate last recurrence at 10:00 AM yesterday
+    $lastRecurredAt = now()->subDay()->setHour(10)->setMinute(0)->setSecond(0);
+
+    $recurrence = QuestRecurrence::factory()->create([
+        'quest_id' => $masterQuest->id,
+        'type' => QuestRecurrenceType::Daily,
+        'value' => 1,
+        'last_recurred_at' => $lastRecurredAt,
+    ]);
+
+    // Travel to 8:00 AM today (2 hours earlier than last recurrence time)
+    $this->travel(now()->setHour(8)->setMinute(0)->setSecond(0));
+
+    (new RecurQuests)->handle();
+
+    // Should create a new quest instance despite the time difference
+    $this->assertDatabaseCount('quests', 2);
+    $this->assertDatabaseHas('quests', [
+        'name' => $masterQuest->name,
+        'created_from_recurrence_id' => $recurrence->id,
+    ]);
+});

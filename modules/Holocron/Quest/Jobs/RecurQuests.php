@@ -40,7 +40,7 @@ class RecurQuests implements ShouldQueue
         }
 
         return match ($recurrence->type) {
-            QuestRecurrenceType::Daily => $recurrence->last_recurred_at->addDays($recurrence->value)->isPast(),
+            QuestRecurrenceType::Daily => $recurrence->last_recurred_at->addDays($recurrence->value)->startOfDay()->isPast(),
             QuestRecurrenceType::Weekly => $recurrence->last_recurred_at->addWeeks($recurrence->value)->isPast(),
             QuestRecurrenceType::Monthly => $recurrence->last_recurred_at->addMonths($recurrence->value)->isPast(),
         };
