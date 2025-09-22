@@ -8,7 +8,7 @@ use App\Models\Scrobble;
 use Illuminate\View\View;
 use Livewire\Attributes\Title;
 
-#[Title('Chopper')]
+#[Title('Scrobbles')]
 class Scrobbles extends HolocronComponent
 {
     public function render(): View
