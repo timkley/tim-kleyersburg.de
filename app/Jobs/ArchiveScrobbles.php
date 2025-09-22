@@ -39,7 +39,7 @@ class ArchiveScrobbles implements ShouldBeUniqueUntilProcessing, ShouldQueue
 
         $totalPages = (int) ceil($totalScrobbles / self::LIMIT);
 
-        $pageToFetch = $this->page ?? (int) ceil($totalPages - ($localScrobbles / self::LIMIT));
+        $pageToFetch = max($this->page ?? (int) ceil($totalPages - ($localScrobbles / self::LIMIT)), 1);
 
         $allScrobbles = collect(data_get($lastFm->getRecentTracks(limit: self::LIMIT, page: $pageToFetch), 'track'));
         $scrobbles = $allScrobbles->reject(fn ($scrobble) => ! data_get($scrobble, 'date.uts'));
@@ -55,6 +55,10 @@ class ArchiveScrobbles implements ShouldBeUniqueUntilProcessing, ShouldQueue
         })->filter();
 
         Scrobble::query()->upsert($data->toArray(), ['artist', 'track', 'played_at']);
+
+        if ($pageToFetch === 1) {
+            return;
+        }
 
         self::dispatch(($scrobbles->count() ? $pageToFetch - 1 : $pageToFetch));
     }
