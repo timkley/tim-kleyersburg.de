@@ -32,6 +32,7 @@ trait WithRecurrence
         $this->quest->recurrence()->updateOrCreate([], [
             'type' => $this->recurrenceType,
             'value' => $this->recurrenceValue,
+            'last_recurred_at' => today(),
             'ends_at' => $this->recurrenceEndsAt,
         ]);
     }
