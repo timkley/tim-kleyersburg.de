@@ -54,20 +54,25 @@ trait WithNotes
         $this->streamedAnswer = '';
 
         $messages[] = new SystemMessage(view('prompts.solution')->render());
-        $prompt = <<<'EOT'
+        $prompt = <<<PROMPT
+Aktuelle Aufgabe:
+
+- Name: {$this->quest->name}
+  Beschreibung: {$this->quest->description}
+PROMPT;
+
+        $prompt .= <<<'PROMPT'
 Aufgabenstruktur:
 ---
-
-EOT;
+PROMPT;
 
         foreach ($this->quest->breadcrumb() as $index => $quest) {
             $indent = str_repeat('  ', $index);
 
-            $prompt .= <<<EOT
-{$indent}- Name: {$quest->name}
-{$indent}  Beschreibung: {$quest->description}
-
-EOT;
+            $prompt .= <<<PROMPT
+$indent- Name: {$quest->name}
+$indent  Beschreibung: {$quest->description}
+PROMPT;
         }
 
         $prompt .= '---';
