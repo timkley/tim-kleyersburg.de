@@ -1,4 +1,4 @@
-<?php
+ja<?php
 
 declare(strict_types=1);
 
@@ -30,7 +30,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $schedule->job(CreateDailyGoals::class)->dailyAt('00:01');
         $schedule->job(CheckForNewThings::class)->hourly()->between('7:00', '18:00');
         $schedule->job(ProcessReminders::class)->everyMinute();
-        $schedule->job(RecurQuests::class)->weekdays()->dailyAt('8:00');
+        $schedule->job(RecurQuests::class)->weekdays()->dailyAt('7:30');
         $schedule->job(RecurQuests::class)->weekends()->dailyAt('10:00');
         $schedule->job(ArchiveScrobbles::class)->hourly();
     })
