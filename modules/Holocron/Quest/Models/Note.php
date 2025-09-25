@@ -43,7 +43,7 @@ class Note extends Model
         return array_merge($this->toArray(), [
             'id' => (string) $this->id,
             'quest_id' => (string) $this->quest_id,
-            'content' => $this->content,
+            'content' => $this->content ?? '',
             'created_at' => $this->created_at->timestamp,
         ]);
     }
