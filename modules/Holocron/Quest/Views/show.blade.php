@@ -4,7 +4,11 @@
     @if(!$quest->daily)
         <div class="overflow-x-auto no-scrollbar">
             <flux:breadcrumbs>
-                <flux:breadcrumbs.item href="{{ route('holocron.quests') }}" wire:navigate icon="home"/>
+                <flux:breadcrumbs.item>
+                    <flux:modal.trigger name="parent-search">
+                        <flux:button icon="folder-arrow-down" variant="ghost"/>
+                    </flux:modal.trigger>
+                </flux:breadcrumbs.item>
                 @foreach($quest->breadcrumb() as $crumb)
                     <flux:breadcrumbs.item
                         href="{{ route('holocron.quests.show', $crumb->id) }}"
@@ -49,10 +53,6 @@
                         icon="document-text"
                         wire:click="toggleIsNote"
                     ></flux:button>
-
-                    <flux:modal.trigger name="parent-search">
-                        <flux:button class="px-4" icon="folder-arrow-down"></flux:button>
-                    </flux:modal.trigger>
 
                     <flux:modal.trigger name="reminder-modal">
                         <flux:button
