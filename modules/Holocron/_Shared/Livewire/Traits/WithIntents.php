@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Modules\Holocron\_Shared\Livewire\Traits;
 
 use Illuminate\Support\Collection;
+use Modules\Holocron\_Shared\Livewire\Intents\Date;
 use Modules\Holocron\_Shared\Livewire\Intents\Intent;
 use Modules\Holocron\_Shared\Livewire\Intents\ParentQuest;
 use Modules\Holocron\_Shared\Livewire\Intents\Printable;
@@ -23,6 +24,7 @@ trait WithIntents
     /** @var array<int, string> */
     protected array $intents = [
         Printable::class,
+        Date::class,
         ParentQuest::class,
     ];
 
