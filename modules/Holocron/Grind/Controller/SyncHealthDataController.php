@@ -44,7 +44,7 @@ class SyncHealthDataController
                         'qty' => (float) $dataPoint['qty'],
                         'date' => $date,
                         'source' => $dataPoint['source'] ?? null,
-                        'original_payload' => $dataPoint,
+                        'original_payload' => json_encode($dataPoint),
                         'created_at' => now(),
                         'updated_at' => now(),
                     ];
