@@ -13,4 +13,6 @@ Route::middleware(['web', 'auth'])->name('holocron.')->prefix('holocron/grind')-
     Route::get('/plans/{plan}', Livewire\Plans\Show::class)->name('grind.plans.show');
     Route::get('/workouts', Livewire\Workouts\Index::class)->name('grind.workouts.index');
     Route::get('/workouts/{workout}', Livewire\Workouts\Show::class)->name('grind.workouts.show');
+
+    Route::get('/health-data', Livewire\HealthData::class)->name('grind.health-data');
 });
