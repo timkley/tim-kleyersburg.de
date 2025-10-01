@@ -20,7 +20,7 @@ class QuestFactory extends Factory
             'name' => fake()->sentence,
             'date' => fake()->date(),
             'description' => fake()->paragraph,
-            'images' => [],
+            'attachments' => [],
         ];
     }
 }

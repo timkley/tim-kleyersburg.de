@@ -29,7 +29,7 @@ use Modules\Holocron\User\Models\User;
  * @property-read ?CarbonImmutable $date
  * @property-read string $name
  * @property-read string $description
- * @property-read \Illuminate\Support\Collection<int,string> $images
+ * @property-read \Illuminate\Support\Collection<int,string> $attachments
  * @property-read bool $is_note
  * @property-read ?CarbonImmutable $completed_at
  * @property-read bool $accepted
@@ -267,7 +267,7 @@ class Quest extends Model
         return [
             'date' => 'date:Y-m-d',
             'daily' => 'boolean',
-            'images' => AsCollection::class,
+            'attachments' => AsCollection::class,
             'completed_at' => 'datetime',
             'is_note' => 'boolean',
         ];

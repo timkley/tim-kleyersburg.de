@@ -62,7 +62,7 @@ class RecurQuests implements ShouldQueue
                 'description' => $masterQuest->description,
                 'date' => today(),
                 'quest_id' => $masterQuest->quest_id,
-                'images' => $masterQuest->images,
+                'attachments' => $masterQuest->attachments,
                 'should_be_printed' => $masterQuest->should_be_printed,
                 'created_from_recurrence_id' => $recurrence->id,
             ]);

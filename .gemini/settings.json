@@ -1,12 +1,14 @@
 {
-    "contextFileName": "guidelines.md",
-    "mcpServers": {
-        "laravel-boost": {
-            "command": "/Users/tk/Library/Application Support/Herd/bin/php84",
-            "args": [
-                "/Users/tk/Code/tim-kleyersburg.de/artisan",
-                "boost:mcp"
-            ]
-        }
+  "context": {
+    "fileName": "guidelines.md"
+  },
+  "mcpServers": {
+    "laravel-boost": {
+      "command": "/Users/tk/Library/Application Support/Herd/bin/php84",
+      "args": [
+        "/Users/tk/Code/tim-kleyersburg.de/artisan",
+        "boost:mcp"
+      ]
     }
+  }
 }

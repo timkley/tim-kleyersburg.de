@@ -129,31 +129,31 @@
             </div>
 
             <div
-                class="border-dashed rounded-lg border-2 border-gray-300 p-4 grid grid-cols-4 gap-4 grid-rows-2 hover:bg-black/5 dark:hover:bg-white/5"
-                x-bind:class="{ 'border-solid': dragged, 'border-dashed': !dragged }"
-                x-data="{ dragged: false }"
-                x-on:click="$refs.fileInput.click()"
-                x-on:dragover.prevent="dragged = true"
-                x-on:dragleave.prevent="dragged = false"
-                x-on:drop.prevent="$wire.upload('image', $event.dataTransfer.files[0]); dragged = false"
+                class="space-y-2"
+                x-data
             >
-                @forelse($quest->images as $image)
-                    <flux:modal.trigger :name="'image.' . $image" :key="'image.' . $image" x-on:click.stop="">
-                        <img class="object-cover size-full rounded-md" src="{{ asset('storage/'.$image) }}" alt="">
-                    </flux:modal.trigger>
-                @empty
-                    <flux:text class="col-span-4 row-span-2 flex items-center justify-center gap-x-2">
-                        <flux:icon icon="photo" class="text-gray-400"/>
-                        Keine Bilder
-                    </flux:text>
-                @endforelse
-                <input
-                    type="file"
-                    accept="image/*"
-                    class="hidden"
-                    x-ref="fileInput"
-                    x-on:change="$wire.upload('image', $event.target.files[0])"
-                >
+                <flux:file-upload wire:model="newAttachments" multiple>
+                    <flux:file-upload.dropzone
+                        icon="photo"
+                        heading="Anhänge hochladen"
+                        text="Ziehe deine Bilder hierher oder klicke, um sie auszuwählen."
+                    />
+                </flux:file-upload>
+
+                <div class="space-y-2 mt-4">
+                    @foreach($quest->attachments as $attachment)
+                        <a class="block" href="{{ asset('storage/' . $attachment) }}">
+                            <flux:file-item
+                                :key="$attachment"
+                                :image="asset('storage/' . $attachment)"
+                            >
+                                <x-slot:actions>
+                                    <flux:file-item.remove wire:click="removeAttachment('{{ $attachment }}')" />
+                                </x-slot:actions>
+                            </flux:file-item>
+                        </a>
+                    @endforeach
+                </div>
             </div>
         </div>
 
@@ -229,14 +229,7 @@
         @endif
     </flux:card>
 
-    @foreach($quest->images as $image)
-        <flux:modal
-            :name="'image.' . $image"
-            wire:key="image.{{ $image }}"
-        >
-            <img src="{{ asset('storage/' . $image) }}" alt="">
-        </flux:modal>
-    @endforeach
+
 
     <livewire:holocron.quest.components.parent-search @select="move($event.detail)"/>
 

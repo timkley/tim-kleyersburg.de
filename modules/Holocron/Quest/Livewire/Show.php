@@ -8,6 +8,7 @@ use Flux\Flux;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 use Livewire\Attributes\Title;
 use Livewire\Attributes\Url;
@@ -37,9 +38,9 @@ class Show extends HolocronComponent
 
     public ?string $description = '';
 
-    /** @var ?UploadedFile */
-    #[Validate('image')]
-    public $image;
+    /** @var UploadedFile[] */
+    #[Validate('nullable|array')]
+    public array $newAttachments = [];
 
     #[Url]
     public bool $showAllSubquests = false;
@@ -67,23 +68,37 @@ class Show extends HolocronComponent
         $this->reset($property);
     }
 
-    public function updatedImage(): void
+    public function updatedNewAttachments(): void
     {
-        /** @var Collection<int, string> $images */
-        $images = $this->quest->images;
-
-        $storedPath = $this->image->store('quests', 'public');
-        if (! $storedPath) {
+        if (! $this->newAttachments) {
             return;
         }
 
-        $images = $images->push($storedPath);
+        /** @var Collection<int, string> $attachments */
+        $attachments = $this->quest->attachments;
+
+        foreach ($this->newAttachments as $attachment) {
+            $storedPath = $attachment->store('quests', 'public');
+            if (! $storedPath) {
+                continue;
+            }
+            $attachments = $attachments->push($storedPath);
+        }
 
         $this->quest->update([
-            'images' => $images,
+            'attachments' => $attachments,
         ]);
 
-        $this->reset('image');
+        $this->reset('newAttachments');
+    }
+
+    public function removeAttachment(string $path): void
+    {
+        Storage::disk('public')->delete($path);
+
+        $this->quest->update([
+            'attachments' => $this->quest->attachments->filter(fn ($attachment) => $attachment !== $path)->values(),
+        ]);
     }
 
     public function toggleComplete(): void
