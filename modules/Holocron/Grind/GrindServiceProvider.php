@@ -16,6 +16,7 @@ class GrindServiceProvider extends ServiceProvider
 
         // Load routes
         $this->loadRoutesFrom(__DIR__.'/Routes/web.php');
+        $this->loadRoutesFrom(__DIR__.'/Routes/api.php');
 
         // Load views and assign namespace 'order'
         $this->loadViewsFrom(__DIR__.'/Views', 'holocron-grind');
