@@ -9,12 +9,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
 use Modules\Holocron\Quest\Database\Factories\QuestRecurrenceFactory;
-use Modules\Holocron\Quest\Enums\QuestRecurrenceType;
 
 /**
  * @property-read Quest $quest
- * @property-read QuestRecurrenceType $type
- * @property-read int $value
+ * @property-read int $every_x_days
  * @property-read ?Carbon $last_recurred_at
  * @property-read ?Carbon $ends_at
  */
@@ -37,7 +35,6 @@ class QuestRecurrence extends Model
     protected function casts(): array
     {
         return [
-            'type' => QuestRecurrenceType::class,
             'last_recurred_at' => 'datetime',
             'ends_at' => 'datetime',
         ];

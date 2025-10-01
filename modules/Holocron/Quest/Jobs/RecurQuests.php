@@ -9,7 +9,6 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Modules\Holocron\Quest\Enums\QuestRecurrenceType;
 use Modules\Holocron\Quest\Models\Quest;
 use Modules\Holocron\Quest\Models\QuestRecurrence;
 
@@ -39,11 +38,10 @@ class RecurQuests implements ShouldQueue
             return true;
         }
 
-        return match ($recurrence->type) {
-            QuestRecurrenceType::Daily => $recurrence->last_recurred_at->addDays($recurrence->value)->startOfDay()->isPast(),
-            QuestRecurrenceType::Weekly => $recurrence->last_recurred_at->addWeeks($recurrence->value)->isPast(),
-            QuestRecurrenceType::Monthly => $recurrence->last_recurred_at->addMonths($recurrence->value)->isPast(),
-        };
+        return $recurrence->last_recurred_at
+            ->addDays($recurrence->every_x_days)
+            ->startOfDay()
+            ->isPast();
     }
 
     private function recur(QuestRecurrence $recurrence): void

@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Modules\Holocron\Quest\Enums\QuestRecurrenceType;
 use Modules\Holocron\Quest\Jobs\RecurQuests;
 use Modules\Holocron\Quest\Models\Quest;
 use Modules\Holocron\Quest\Models\QuestRecurrence;
@@ -14,8 +13,7 @@ it('recurs daily quests', function () {
     $masterQuest = Quest::factory()->create();
     $recurrence = QuestRecurrence::factory()->create([
         'quest_id' => $masterQuest->id,
-        'type' => QuestRecurrenceType::Daily,
-        'value' => 1,
+        'every_x_days' => 1,
         'last_recurred_at' => now()->subDay(),
     ]);
 
@@ -32,8 +30,7 @@ it('does not recur if not due', function () {
     $masterQuest = Quest::factory()->create();
     QuestRecurrence::factory()->create([
         'quest_id' => $masterQuest->id,
-        'type' => QuestRecurrenceType::Daily,
-        'value' => 1,
+        'every_x_days' => 1,
         'last_recurred_at' => now(),
     ]);
 
@@ -46,8 +43,7 @@ it('does not recur if previous instance is not completed', function () {
     $masterQuest = Quest::factory()->create();
     $recurrence = QuestRecurrence::factory()->create([
         'quest_id' => $masterQuest->id,
-        'type' => QuestRecurrenceType::Daily,
-        'value' => 1,
+        'every_x_days' => 1,
         'last_recurred_at' => now()->subDay(),
     ]);
     Quest::factory()->create([
@@ -67,8 +63,7 @@ it('recurs daily quests regardless of time difference', function () {
 
     $recurrence = QuestRecurrence::factory()->create([
         'quest_id' => $masterQuest->id,
-        'type' => QuestRecurrenceType::Daily,
-        'value' => 1,
+        'every_x_days' => 1,
         'last_recurred_at' => $lastRecurredAt,
     ]);
 
@@ -83,4 +78,34 @@ it('recurs daily quests regardless of time difference', function () {
         'name' => $masterQuest->name,
         'created_from_recurrence_id' => $recurrence->id,
     ]);
+});
+
+it('recurs quests with custom intervals', function () {
+    $masterQuest = Quest::factory()->create();
+    $recurrence = QuestRecurrence::factory()->create([
+        'quest_id' => $masterQuest->id,
+        'every_x_days' => 7, // Every 7 days (weekly)
+        'last_recurred_at' => now()->subDays(7),
+    ]);
+
+    (new RecurQuests)->handle();
+
+    $this->assertDatabaseCount('quests', 2);
+    $this->assertDatabaseHas('quests', [
+        'name' => $masterQuest->name,
+        'created_from_recurrence_id' => $recurrence->id,
+    ]);
+});
+
+it('does not recur with custom intervals if not due', function () {
+    $masterQuest = Quest::factory()->create();
+    QuestRecurrence::factory()->create([
+        'quest_id' => $masterQuest->id,
+        'every_x_days' => 30, // Every 30 days (monthly-ish)
+        'last_recurred_at' => now()->subDays(15), // Only 15 days ago
+    ]);
+
+    (new RecurQuests)->handle();
+
+    $this->assertDatabaseCount('quests', 1); // No new quest created
 });
