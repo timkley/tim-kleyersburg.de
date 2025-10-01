@@ -54,7 +54,7 @@ class Set extends HolocronComponent
             'finished_at' => now(),
         ]);
 
-        $this->dispatch('set:stopped');
+        $this->dispatch('set:finished');
     }
 
     public function mount(): void

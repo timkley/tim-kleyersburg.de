@@ -7,6 +7,7 @@ namespace Modules\Holocron\Grind\Livewire\Components;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\View\View;
+use Livewire\Attributes\On;
 use Modules\Holocron\_Shared\Livewire\HolocronComponent;
 use Modules\Holocron\Grind\Models\Exercise;
 
@@ -14,6 +15,7 @@ class VolumePerWorkoutChart extends HolocronComponent
 {
     public int $exerciseId;
 
+    #[On('set:finished')]
     public function render(): View
     {
         /** @var Collection<int, array{date: Carbon, total_volume: float|int}> $data */

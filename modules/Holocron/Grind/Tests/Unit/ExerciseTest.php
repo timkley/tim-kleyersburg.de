@@ -179,6 +179,91 @@ test('volumePerWorkout only includes sets with finished_at not null', function (
     expect($volumePerWorkout[0]->total_volume)->toEqual(500);
 });
 
+test('volumePerWorkout includes finished sets from ongoing workouts', function () {
+    // Create an exercise
+    $exercise = Exercise::factory()->create();
+
+    // Create a finished workout
+    $finishedWorkout = Workout::factory()->create([
+        'started_at' => Carbon::now()->subDays(2),
+        'finished_at' => Carbon::now()->subDays(2)->addHour(),
+    ]);
+
+    // Create an ongoing workout (no finished_at)
+    $ongoingWorkout = Workout::factory()->create([
+        'started_at' => Carbon::now()->subHour(),
+        'finished_at' => null,
+    ]);
+
+    // Create workout exercises
+    $finishedWorkoutExercise = WorkoutExercise::factory()->create([
+        'workout_id' => $finishedWorkout->id,
+        'exercise_id' => $exercise->id,
+        'sets' => 1,
+        'min_reps' => 8,
+        'max_reps' => 12,
+        'order' => 1,
+    ]);
+
+    $ongoingWorkoutExercise = WorkoutExercise::factory()->create([
+        'workout_id' => $ongoingWorkout->id,
+        'exercise_id' => $exercise->id,
+        'sets' => 2,
+        'min_reps' => 8,
+        'max_reps' => 12,
+        'order' => 1,
+    ]);
+
+    // Create a finished set for the finished workout
+    $finishedWorkoutSet = new Set([
+        'reps' => 10,
+        'weight' => 50,
+        'started_at' => Carbon::now()->subDays(2)->addMinutes(5),
+        'finished_at' => Carbon::now()->subDays(2)->addMinutes(6),
+    ]);
+    $finishedWorkoutSet->workoutExercise()->associate($finishedWorkoutExercise);
+    $finishedWorkoutSet->save();
+
+    // Create a finished set for the ongoing workout
+    $ongoingWorkoutFinishedSet = new Set([
+        'reps' => 8,
+        'weight' => 60,
+        'started_at' => Carbon::now()->subMinutes(30),
+        'finished_at' => Carbon::now()->subMinutes(29),
+    ]);
+    $ongoingWorkoutFinishedSet->workoutExercise()->associate($ongoingWorkoutExercise);
+    $ongoingWorkoutFinishedSet->save();
+
+    // Create an unfinished set for the ongoing workout
+    $ongoingWorkoutUnfinishedSet = new Set([
+        'reps' => 12,
+        'weight' => 55,
+        'started_at' => Carbon::now()->subMinutes(10),
+        'finished_at' => null,
+    ]);
+    $ongoingWorkoutUnfinishedSet->workoutExercise()->associate($ongoingWorkoutExercise);
+    $ongoingWorkoutUnfinishedSet->save();
+
+    // Get the volumePerWorkout results
+    $volumePerWorkout = $exercise->volumePerWorkout();
+
+    // Assert the collection has 2 items (both workouts should be included)
+    expect($volumePerWorkout)->toHaveCount(2);
+
+    // Check that both workouts are included
+    $workoutIds = $volumePerWorkout->pluck('workout_id')->toArray();
+    expect($workoutIds)->toContain($finishedWorkout->id);
+    expect($workoutIds)->toContain($ongoingWorkout->id);
+
+    // Check volumes - ongoing workout should only include finished set: 8 * 60 = 480
+    $ongoingWorkoutResult = $volumePerWorkout->firstWhere('workout_id', $ongoingWorkout->id);
+    expect($ongoingWorkoutResult->total_volume)->toEqual(480);
+
+    // Check finished workout volume: 10 * 50 = 500
+    $finishedWorkoutResult = $volumePerWorkout->firstWhere('workout_id', $finishedWorkout->id);
+    expect($finishedWorkoutResult->total_volume)->toEqual(500);
+});
+
 test('volumePerWorkout limits results to 30 workouts', function () {
     // Create an exercise
     $exercise = Exercise::factory()->create();

@@ -15,7 +15,7 @@ class Timer extends HolocronComponent
     /** @var string[] */
     protected $listeners = [
         'set:started' => '$refresh',
-        'set:stopped' => '$refresh',
+        'set:finished' => '$refresh',
     ];
 
     public function render(): View
