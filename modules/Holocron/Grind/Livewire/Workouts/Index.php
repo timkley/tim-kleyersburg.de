@@ -42,31 +42,22 @@ class Index extends HolocronComponent
 
         $workout->exercises()->createMany($exercises);
 
-        $previousWorkout = Workout::query()->where('plan_id', $planId)->whereNotNull('finished_at')->has('sets')->limit(1)->latest()->first();
+        // Prepopulate sets based on latest performance for each exercise
+        foreach ($workout->exercises as $workoutExercise) {
+            $latestSets = Set::query()
+                ->latestForExercise($workoutExercise->exercise_id)
+                ->limit($workoutExercise->sets)
+                ->get(['weight', 'reps']);
 
-        if ($previousWorkout) {
-            $previousSets = $previousWorkout->sets->map(function (Set $set) {
-                return [
-                    'exercise_id' => $set->workoutExercise->exercise_id,
-                    'reps' => $set->reps,
-                    'weight' => $set->weight,
-                ];
-            })->groupBy('exercise_id');
+            if ($latestSets->isNotEmpty()) {
+                $setsData = $latestSets->map(function (Set $set) {
+                    return [
+                        'weight' => $set->weight,
+                        'reps' => $set->reps,
+                    ];
+                })->toArray();
 
-            // Create sets for each workout exercise
-            foreach ($workout->exercises as $workoutExercise) {
-                $exerciseId = $workoutExercise->exercise_id;
-
-                if (isset($previousSets[$exerciseId])) {
-                    $setsData = $previousSets[$exerciseId]->map(function ($set) {
-                        return [
-                            'weight' => $set['weight'],
-                            'reps' => $set['reps'],
-                        ];
-                    })->toArray();
-
-                    $workoutExercise->sets()->createMany($setsData);
-                }
+                $workoutExercise->sets()->createMany($setsData);
             }
         }
 

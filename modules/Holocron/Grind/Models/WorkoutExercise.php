@@ -12,6 +12,7 @@ use Modules\Holocron\Grind\Database\Factories\WorkoutExerciseFactory;
 
 /**
  * @property-read int $exercise_id
+ * @property int $sets
  */
 class WorkoutExercise extends Model
 {

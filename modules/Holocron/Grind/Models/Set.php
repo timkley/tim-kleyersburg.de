@@ -52,6 +52,21 @@ class Set extends Model
         return $query->where('workout_exercise_id', $this->workout_exercise_id);
     }
 
+    /**
+     * Scope to get the latest sets for a specific exercise from finished workouts
+     *
+     * @param  EloquentBuilder<Set>  $query
+     * @return EloquentBuilder<Set>
+     */
+    #[Scope]
+    protected function latestForExercise(EloquentBuilder $query, int $exerciseId): EloquentBuilder
+    {
+        return $query
+            ->whereHas('workoutExercise', fn ($q) => $q->where('exercise_id', $exerciseId))
+            ->whereHas('workoutExercise.workout', fn ($q) => $q->whereNotNull('finished_at'))
+            ->orderByDesc('created_at');
+    }
+
     protected function casts(): array
     {
         return [
