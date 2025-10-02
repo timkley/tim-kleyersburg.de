@@ -16,6 +16,7 @@ class TodaysQuests extends Component
     protected $listeners = [
         'quest:accepted' => '$refresh',
         'quest:deleted' => '$refresh',
+        'quest:created' => '$refresh',
     ];
 
     public function render(): View
