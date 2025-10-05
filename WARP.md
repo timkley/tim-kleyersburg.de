@@ -101,6 +101,7 @@ php artisan make:model       # Generate model with factory/seeder options
 - **Notifications**: Discord channel integrations (school, personal)
 
 ## Folder Structure Cheat Sheet
+- Stick to existing directory structure - don't create new base folders without approval.
 
 ```
 app/
@@ -174,6 +175,8 @@ it('displays articles index', function () {
 - Tests run in parallel by default
 - Network tests excluded in composer script
 - Use `--filter` for targeted testing after changes
+- Do not create verification scripts or tinker when tests cover that functionality and prove it works. Unit and feature tests are more important.
+- When creating tests to confirm functionality never remove them after confirming they work.
 
 ### Static Analysis Pipeline
 1. **Larastan**: Type analysis with Laravel-specific rules
@@ -185,37 +188,26 @@ Run `composer prepush` before pushing changes - executes PHPStan, tests, and Pin
 
 ## Environment & Configuration
 
-### Key Environment Variables
-```env
-APP_URL=https://tim-kleyersburg-de.test
-APP_NAME="Tim Kleyersburg"
-
-# Prezet Configuration
-PREZET_FILESYSTEM_DISK=blog
-PREZET_SITEMAP_ORIGIN=${APP_URL}
-
-# External Services
-BUGSNAG_API_KEY=
-```
-
 ### Database
 - Default: SQLite (`database/database.sqlite`)
 - Auto-created in post-install script
 - Use `php artisan migrate` to run migrations
-
-### File Storage
-- **blog** disk: Used for Prezet articles and images
-- Image routes cached for 1 year (`public, max-age=31536000`)
 
 ## Laravel Boost Integration
 
 This project uses Laravel Boost with several specialized tools:
 
 - `get-absolute-url`: Get correct URLs for Herd environment
-- `search-docs`: Search Laravel ecosystem documentation (pass package arrays for filtering)
+- ⚠️ `search-docs`: Search Laravel ecosystem documentation (pass package arrays for filtering)
+    - You must use this tool to search for Laravel-ecosystem documentation before falling back to other approaches.
+    - Search the documentation before making code changes to ensure we are taking the correct approach.
+    - Use multiple, broad, simple, topic based queries to start. For example: `['rate limiting', 'routing rate limiting', 'routing']`.
+    - Do not add package names to queries - package information is already shared. For example, use `test resource table`, not `filament 4 test resource table`.
 - `browser-logs`: Read browser console logs and errors
 - `tinker`: Execute PHP code for debugging
 - `database-query`: Query database directly
+- `browser-logs` You can read browser logs, errors, and exceptions using the `browser-logs` tool from Boost.
+    - Only recent browser logs will be useful - ignore old logs.
 
 ## Troubleshooting & FAQ
 
@@ -244,12 +236,33 @@ npm run build  # or ask user to run npm run dev
 2. **Livewire debugging**: Check browser logs with `browser-logs` tool
 3. **Database queries**: Use `database-query` tool for direct DB access
 4. **Code generation**: Prefer `php artisan make:*` commands with appropriate options
+5. **Context7**: Use `context7` tool for searching for documentation not covered by Laravel Boosts `search-docs` tool
 
-### Code Style Guidelines
+## Code Style Guidelines
 
-From `.junie/guidelines.md`:
+### General
+- You must follow all existing code conventions used in this application. When creating or editing a file, check sibling files for the correct structure, approach, naming.
+
+### PHP
+- Use descriptive names for variables and methods. For example, `isRegisteredForDiscounts`, not `discount()`.
+- Check for existing components to reuse before writing a new one.
 - Always use `declare(strict_types=1);` in PHP files
 - Use PHP 8 constructor property promotion
 - Follow existing Livewire v3 patterns (`wire:model.live`, `$this->dispatch()`)
 - Use Flux UI components when available
 - Strict return type declarations required
+- Add useful array shape type definitions for arrays when appropriate.
+
+### Comments
+- Prefer PHPDoc blocks over comments. Never use comments within the code itself unless there is something _very_ complex going on.
+
+### Database
+- Always use proper Eloquent relationship methods with return type hints. Prefer relationship methods over raw queries or manual joins.
+- Use Eloquent models and relationships before suggesting raw database queries
+- Avoid `DB::`; prefer `Model::query()`. Generate code that leverages Laravel's ORM capabilities rather than bypassing them.
+- Generate code that prevents N+1 query problems by using eager loading.
+- Use Laravel's query builder for very complex database operations.
+
+### Model Creation
+- When creating new models, create useful factories and seeders for them too. Ask the user if they need any other things, using `list-artisan-commands` to check the available options to `php artisan make:model`.
+- Never use `$fillable` or `$guarded` on models, everything is unguarded by design
