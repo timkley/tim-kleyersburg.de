@@ -14,6 +14,7 @@ use Livewire\Attributes\Url;
 use Livewire\Attributes\Validate;
 use Livewire\WithFileUploads;
 use Modules\Holocron\_Shared\Livewire\HolocronComponent;
+use Modules\Holocron\Printer\Services\Printer;
 use Modules\Holocron\Quest\Models\Quest;
 
 #[Title('Quests')]
@@ -119,8 +120,9 @@ class Show extends HolocronComponent
     {
         $this->quest->update([
             'should_be_printed' => true,
-            'printed_at' => null,
         ]);
+
+        Printer::print('holocron-quest::print-view', ['quest' => $this->quest]);
     }
 
     public function addQuest(?string $name = null): void

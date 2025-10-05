@@ -14,7 +14,6 @@ class QuestServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(__DIR__.'/Database/Migrations');
 
         // Load routes
-        $this->loadRoutesFrom(__DIR__.'/Routes/api.php');
         $this->loadRoutesFrom(__DIR__.'/Routes/web.php');
 
         // Load views and assign namespace 'order'

@@ -33,7 +33,6 @@ use Modules\Holocron\User\Models\User;
  * @property-read bool $accepted
  * @property-read bool $daily
  * @property-read bool $should_be_printed
- * @property-read bool $delete_after_print
  * @property-read CarbonImmutable $created_at
  * @property-read CarbonImmutable $updated_at
  */

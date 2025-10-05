@@ -9,6 +9,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Modules\Holocron\Printer\Services\Printer;
 use Modules\Holocron\Quest\Models\Quest;
 use Modules\Holocron\Quest\Models\QuestRecurrence;
 
@@ -56,7 +57,7 @@ class RecurQuests implements ShouldQueue
             return;
         }
 
-        Quest::create([
+        $quest = Quest::query()->create([
             'name' => $masterQuest->name,
             'description' => $masterQuest->description,
             'date' => today(),
@@ -67,5 +68,9 @@ class RecurQuests implements ShouldQueue
         ]);
 
         $recurrence->update(['last_recurred_at' => now()]);
+
+        if ($quest->should_be_printed) {
+            Printer::print('holocron-quest::print-view', ['quest' => $quest]);
+        }
     }
 }

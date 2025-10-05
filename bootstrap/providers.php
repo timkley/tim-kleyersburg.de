@@ -11,6 +11,7 @@ return [
     Modules\Holocron\Dashboard\DashboardServiceProvider::class,
     Modules\Holocron\Gear\GearServiceProvider::class,
     Modules\Holocron\Grind\GrindServiceProvider::class,
+    Modules\Holocron\Printer\PrinterServiceProvider::class,
     Modules\Holocron\Quest\QuestServiceProvider::class,
     Modules\Holocron\School\SchoolServiceProvider::class,
     Modules\Holocron\User\UserServiceProvider::class,

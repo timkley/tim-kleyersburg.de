@@ -1,0 +1,24 @@
+{
+  "name": "holocron-printer-scripts",
+  "version": "1.0.0",
+  "description": "Node.js scripts for HTML to image conversion in Holocron Printer module",
+  "main": "screenshot.js",
+  "scripts": {
+    "install-playwright": "npx playwright install chromium",
+    "test": "node screenshot.js --help || echo 'Usage: node screenshot.js <html-source> <output-path>'"
+  },
+  "dependencies": {
+    "playwright": "^1.40.0"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "keywords": [
+    "screenshot",
+    "html-to-image",
+    "printer",
+    "playwright"
+  ],
+  "author": "Tim Kleyersburg",
+  "license": "MIT"
+}
