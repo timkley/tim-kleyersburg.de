@@ -8,6 +8,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Http\Request;
+use Modules\Holocron\Dashboard\Jobs\PrintTodaysWeather;
 use Modules\Holocron\Quest\Jobs\ProcessReminders;
 use Modules\Holocron\Quest\Jobs\RecurQuests;
 use Modules\Holocron\School\Jobs\CheckForNewThings;
@@ -29,6 +30,8 @@ return Application::configure(basePath: dirname(__DIR__))
         $schedule->job(AwardExperience::class)->dailyAt('23:55');
         $schedule->job(CreateDailyGoals::class)->dailyAt('00:01');
         $schedule->job(CheckForNewThings::class)->hourly()->between('7:00', '18:00');
+        $schedule->job(PrintTodaysWeather::class)->weekdays()->dailyAt('7:30');
+        $schedule->job(PrintTodaysWeather::class)->weekends()->dailyAt('9:00');
         $schedule->job(ProcessReminders::class)->everyMinute();
         $schedule->job(RecurQuests::class)->weekdays()->dailyAt('7:30');
         $schedule->job(RecurQuests::class)->weekends()->dailyAt('10:00');
