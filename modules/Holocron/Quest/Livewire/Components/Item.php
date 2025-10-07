@@ -6,6 +6,7 @@ namespace Modules\Holocron\Quest\Livewire\Components;
 
 use Illuminate\View\View;
 use Livewire\Component;
+use Modules\Holocron\Printer\Services\Printer;
 use Modules\Holocron\Quest\Models\Quest;
 
 class Item extends Component
@@ -35,8 +36,9 @@ class Item extends Component
     {
         $this->quest->update([
             'should_be_printed' => true,
-            'printed_at' => null,
         ]);
+
+        Printer::print('holocron-quest::print-view', ['quest' => $this->quest]);
     }
 
     public function deleteQuest(int $id): void
