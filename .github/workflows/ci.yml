@@ -32,6 +32,10 @@ jobs:
         run: npm install
         working-directory: modules/Holocron/Printer/scripts
 
+      - name: Install Playwright Browsers
+        run: npx playwright install
+        working-directory: modules/Holocron/Printer/scripts
+
       - name: Copy .env
         run: php -r "file_exists('.env') || copy('.env.example', '.env');"
 
