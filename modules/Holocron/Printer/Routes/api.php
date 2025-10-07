@@ -9,5 +9,5 @@ use Modules\Holocron\Quest\Controller\CreateQuestController;
 
 Route::middleware(BearerToken::class)->name('holocron.')->prefix('api/holocron')->group(function () {
     Route::post('/quests/create', CreateQuestController::class)->name('quests.create');
-    Route::get('/quests/print-queue', PrintQueueController::class)->name('quests.print-queue');
+    Route::get('/printer/queue', PrintQueueController::class)->name('printer.queue');
 });

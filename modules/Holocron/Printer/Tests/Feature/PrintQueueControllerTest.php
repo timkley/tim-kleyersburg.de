@@ -12,7 +12,7 @@ beforeEach(function () {
 
 it('returns empty array when no print queue items exist', function () {
     $response = $this->withHeaders(['Authorization' => 'Bearer '.config('auth.bearer_token')])
-        ->getJson('/api/holocron/quests/print-queue');
+        ->getJson('/api/holocron/printer/queue');
 
     $response->assertOk()
         ->assertExactJson([]);
@@ -28,7 +28,7 @@ it('returns print queue items with image URLs', function () {
     ]);
 
     $response = $this->withHeaders(['Authorization' => 'Bearer '.config('auth.bearer_token')])
-        ->getJson('/api/holocron/quests/print-queue');
+        ->getJson('/api/holocron/printer/queue');
 
     $response->assertOk()
         ->assertJsonCount(1)
@@ -38,7 +38,7 @@ it('returns print queue items with image URLs', function () {
 
     $data = $response->json();
     expect($data[0]['id'])->toBe($printItem->id);
-    expect($data[0]['image'])->toStartWith('http://tim-kleyersburg.de.test/storage/printer/');
+    expect($data[0]['image'])->toStartWith(config('app.url').'/storage/printer/');
     expect($data[0]['actions'])->toBe(['action1' => 'value1']);
 });
 
@@ -56,7 +56,7 @@ it('skips items with missing image files', function () {
     ]);
 
     $response = $this->withHeaders(['Authorization' => 'Bearer '.config('auth.bearer_token')])
-        ->getJson('/api/holocron/quests/print-queue');
+        ->getJson('/api/holocron/printer/queue');
 
     $response->assertOk()
         ->assertJsonCount(1);
@@ -76,7 +76,7 @@ it('marks items as printed after successful retrieval', function () {
     expect($printItem->fresh()->printed_at)->toBeNull();
 
     $response = $this->withHeaders(['Authorization' => 'Bearer '.config('auth.bearer_token')])
-        ->getJson('/api/holocron/quests/print-queue');
+        ->getJson('/api/holocron/printer/queue');
 
     $response->assertOk();
 
@@ -100,7 +100,7 @@ it('does not return already printed items', function () {
     ]);
 
     $response = $this->withHeaders(['Authorization' => 'Bearer '.config('auth.bearer_token')])
-        ->getJson('/api/holocron/quests/print-queue');
+        ->getJson('/api/holocron/printer/queue');
 
     $response->assertOk()
         ->assertJsonCount(1); // Only the unprinted item
@@ -123,7 +123,7 @@ it('orders items by creation time', function () {
     ]);
 
     $response = $this->withHeaders(['Authorization' => 'Bearer '.config('auth.bearer_token')])
-        ->getJson('/api/holocron/quests/print-queue');
+        ->getJson('/api/holocron/printer/queue');
 
     $response->assertOk()
         ->assertJsonCount(2);
@@ -147,7 +147,7 @@ it('handles concurrent requests with cache lock', function () {
 
     try {
         $response = $this->withHeaders(['Authorization' => 'Bearer '.config('auth.bearer_token')])
-            ->getJson('/api/holocron/quests/print-queue');
+            ->getJson('/api/holocron/printer/queue');
 
         $response->assertOk()
             ->assertExactJson([]); // Should return empty when locked
@@ -165,24 +165,25 @@ it('returns absolute URLs for external printer access', function () {
     ]);
 
     $response = $this->withHeaders(['Authorization' => 'Bearer '.config('auth.bearer_token')])
-        ->getJson('/api/holocron/quests/print-queue');
+        ->getJson('/api/holocron/printer/queue');
 
     $response->assertOk();
 
     $data = $response->json();
     $imageUrl = $data[0]['image'];
+    $appUrl = parse_url(config('app.url'));
 
     // Should be absolute URL
-    expect($imageUrl)->toStartWith('http://');
-    // Should contain the full domain
-    expect($imageUrl)->toContain('tim-kleyersburg.de.test');
+    expect($imageUrl)->toStartWith($appUrl['scheme'].'://');
+    // Should contain the full domain from config
+    expect($imageUrl)->toContain($appUrl['host']);
     // Should be a complete URL, not relative
-    expect(parse_url($imageUrl, PHP_URL_HOST))->toBe('tim-kleyersburg.de.test');
-    expect(parse_url($imageUrl, PHP_URL_SCHEME))->toBe('http');
+    expect(parse_url($imageUrl, PHP_URL_HOST))->toBe($appUrl['host']);
+    expect(parse_url($imageUrl, PHP_URL_SCHEME))->toBe($appUrl['scheme']);
 });
 
 it('requires bearer token authentication', function () {
-    $response = $this->getJson('/api/holocron/quests/print-queue');
+    $response = $this->getJson('/api/holocron/printer/queue');
 
     $response->assertUnauthorized();
 });
