@@ -14,6 +14,7 @@ class PrinterServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(__DIR__.'/Database/Migrations');
 
         // Load routes
+        $this->loadRoutesFrom(__DIR__.'/Routes/web.php');
         $this->loadRoutesFrom(__DIR__.'/Routes/api.php');
 
         $this->loadViewsFrom(__DIR__.'/Views', 'holocron-printer');
