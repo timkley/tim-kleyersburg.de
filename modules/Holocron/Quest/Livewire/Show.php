@@ -122,7 +122,9 @@ class Show extends HolocronComponent
             'should_be_printed' => true,
         ]);
 
-        Printer::print('holocron-quest::print-view', ['quest' => $this->quest]);
+        Printer::print('holocron-quest::print-view', ['quest' => $this->quest], [
+            route('holocron.quests.complete', [$this->quest]),
+        ]);
     }
 
     public function addQuest(?string $name = null): void
