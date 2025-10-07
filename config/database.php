@@ -38,11 +38,9 @@ return [
             'database' => env('DB_DATABASE', database_path('database.sqlite')),
             'prefix' => '',
             'foreign_key_constraints' => env('DB_FOREIGN_KEYS', true),
-            'busy_timeout' => 30000, // Increase timeout to 30 seconds
-            'journal_mode' => 'WAL',   // Write-Ahead Logging (good for concurrency)
-            'synchronous' => 'NORMAL', // Balance between safety and performance
-            'cache_size' => 50000,     // Larger cache for better performance
-            'temp_store' => 'MEMORY',  // Store temporary tables in memory
+            'busy_timeout' => 30000,
+            'journal_mode' => 'WAL',
+            'synchronous' => 'NORMAL',
         ],
 
         'prezet' => [
