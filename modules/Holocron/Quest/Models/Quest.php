@@ -18,6 +18,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 use Laravel\Scout\Searchable;
 use Modules\Holocron\Bookmarks\Models\Webpage;
+use Modules\Holocron\Printer\Services\Printer;
 use Modules\Holocron\Quest\Database\Factories\QuestFactory;
 use Modules\Holocron\User\Enums\ExperienceType;
 use Modules\Holocron\User\Models\User;
@@ -238,6 +239,15 @@ class Quest extends Model
     protected function areNotes(EloquentBuilder $query): EloquentBuilder
     {
         return $query->where('is_note', true);
+    }
+
+    protected static function booted(): void
+    {
+        static::saved(function (Quest $quest) {
+            if ($quest->should_be_printed) {
+                Printer::print('holocron-quest::print-view', ['quest' => $quest], [route('holocron.quests.complete', [$quest])]);
+            }
+        });
     }
 
     /**
