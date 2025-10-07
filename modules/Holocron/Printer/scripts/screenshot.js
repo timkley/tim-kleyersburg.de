@@ -6,7 +6,7 @@ const path = require('path');
 
 // Configuration
 const PRINTER_WIDTH = 512;
-const DEFAULT_HEIGHT = 400;
+const DEFAULT_HEIGHT = 100;
 
 // Performance optimized browser launch args
 const BROWSER_ARGS = [
@@ -28,7 +28,7 @@ const BROWSER_ARGS = [
 
 async function takeScreenshot(htmlContent, outputPath) {
     const startTime = Date.now();
-    
+
     let browser;
     try {
         // Launch browser with optimized settings
@@ -39,15 +39,15 @@ async function takeScreenshot(htmlContent, outputPath) {
 
         // Create page with printer dimensions
         const page = await browser.newPage({
-            viewport: { 
-                width: PRINTER_WIDTH, 
-                height: DEFAULT_HEIGHT 
+            viewport: {
+                width: PRINTER_WIDTH,
+                height: DEFAULT_HEIGHT
             },
             deviceScaleFactor: 1
         });
 
         // Set content and wait for DOM (CSS is inline, no external resources)
-        await page.setContent(htmlContent, { 
+        await page.setContent(htmlContent, {
             waitUntil: 'domcontentloaded',
             timeout: 5000
         });
@@ -65,7 +65,7 @@ async function takeScreenshot(htmlContent, outputPath) {
         await fs.promises.writeFile(outputPath, screenshotBuffer);
 
         const duration = Date.now() - startTime;
-        
+
         // Return success result
         return {
             success: true,
@@ -89,7 +89,7 @@ async function takeScreenshot(htmlContent, outputPath) {
 
 async function main() {
     const args = process.argv.slice(2);
-    
+
     if (args.length < 2) {
         console.error('Usage: node screenshot.js <html-file-or-stdin> <output-path>');
         process.exit(1);
