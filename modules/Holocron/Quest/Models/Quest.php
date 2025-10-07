@@ -244,7 +244,11 @@ class Quest extends Model
     protected static function booted(): void
     {
         static::saved(function (Quest $quest) {
-            if ($quest->should_be_printed) {
+            $shouldPrint = (($quest->wasRecentlyCreated && $quest->should_be_printed) ||
+                           $quest->wasChanged('should_be_printed')) &&
+                           $quest->should_be_printed;
+
+            if ($shouldPrint) {
                 Printer::print('holocron-quest::print-view', ['quest' => $quest], [route('holocron.quests.complete', [$quest])]);
             }
         });
