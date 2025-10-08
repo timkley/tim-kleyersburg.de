@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Query\Builder as QueryBuilder;
+use Illuminate\Support\Facades\URL;
 use Laravel\Scout\Searchable;
 use Modules\Holocron\Bookmarks\Models\Webpage;
 use Modules\Holocron\Printer\Services\Printer;
@@ -165,7 +166,11 @@ class Quest extends Model
                            $quest->should_be_printed;
 
             if ($shouldPrint) {
-                defer(fn () => Printer::print('holocron-quest::print-view', ['quest' => $quest], [route('holocron.quests.complete', [$quest])]));
+                defer(fn () => Printer::print(
+                    'holocron-quest::print-view',
+                    ['quest' => $quest],
+                    [URL::signedRoute('holocron.quests.complete', ['id' => $quest->id])]
+                ));
             }
         });
     }
