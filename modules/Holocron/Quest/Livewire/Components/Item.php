@@ -6,7 +6,6 @@ namespace Modules\Holocron\Quest\Livewire\Components;
 
 use Illuminate\View\View;
 use Livewire\Component;
-use Modules\Holocron\Printer\Services\Printer;
 use Modules\Holocron\Quest\Models\Quest;
 
 class Item extends Component

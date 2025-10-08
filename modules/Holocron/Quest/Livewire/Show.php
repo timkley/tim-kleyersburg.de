@@ -14,7 +14,6 @@ use Livewire\Attributes\Url;
 use Livewire\Attributes\Validate;
 use Livewire\WithFileUploads;
 use Modules\Holocron\_Shared\Livewire\HolocronComponent;
-use Modules\Holocron\Printer\Services\Printer;
 use Modules\Holocron\Quest\Models\Quest;
 
 #[Title('Quests')]

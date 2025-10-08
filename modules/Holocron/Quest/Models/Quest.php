@@ -157,6 +157,19 @@ class Quest extends Model
         return QuestFactory::new();
     }
 
+    protected static function booted(): void
+    {
+        static::saved(function (Quest $quest) {
+            $shouldPrint = (($quest->wasRecentlyCreated && $quest->should_be_printed) ||
+                           $quest->wasChanged('should_be_printed')) &&
+                           $quest->should_be_printed;
+
+            if ($shouldPrint) {
+                defer(fn () => Printer::print('holocron-quest::print-view', ['quest' => $quest], [route('holocron.quests.complete', [$quest])]));
+            }
+        });
+    }
+
     /**
      * @param  EloquentBuilder<Quest>  $query
      * @return EloquentBuilder<Quest>
@@ -239,19 +252,6 @@ class Quest extends Model
     protected function areNotes(EloquentBuilder $query): EloquentBuilder
     {
         return $query->where('is_note', true);
-    }
-
-    protected static function booted(): void
-    {
-        static::saved(function (Quest $quest) {
-            $shouldPrint = (($quest->wasRecentlyCreated && $quest->should_be_printed) ||
-                           $quest->wasChanged('should_be_printed')) &&
-                           $quest->should_be_printed;
-
-            if ($shouldPrint) {
-                Printer::print('holocron-quest::print-view', ['quest' => $quest], [route('holocron.quests.complete', [$quest])]);
-            }
-        });
     }
 
     /**
