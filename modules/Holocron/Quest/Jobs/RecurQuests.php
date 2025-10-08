@@ -68,9 +68,5 @@ class RecurQuests implements ShouldQueue
         ]);
 
         $recurrence->update(['last_recurred_at' => now()]);
-
-        if ($quest->should_be_printed) {
-            Printer::print('holocron-quest::print-view', ['quest' => $quest]);
-        }
     }
 }
