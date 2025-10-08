@@ -2,14 +2,7 @@
 
 @section('style')
     <style>
-        .task {
-            text-align: center;
-            padding: 0;
-            margin: 0;
-        }
-
         .breadcrumb {
-            font-size: 24px;
             color: #333;
             margin-bottom: 10px;
             line-height: 1.2;
@@ -18,13 +11,11 @@
         .name {
             font-size: 36px;
             font-weight: 700;
-            color: #000;
             word-wrap: break-word;
             line-height: 1.1;
         }
 
         .stars {
-            font-size: 22px;
             line-height: 1;
         }
 
@@ -39,7 +30,7 @@
 @endsection
 
 @section('content')
-    <div class="task">
+    <div class="text-center">
         <div class="stars stars--top">* * * * * * * *</div>
         <div class="breadcrumb">{{ $quest->breadcrumb()->pluck('name')->join(' > ') }}</div>
         <div class="name">{{ $quest->name }}</div>
