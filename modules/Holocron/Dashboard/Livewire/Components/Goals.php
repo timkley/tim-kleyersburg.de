@@ -50,7 +50,7 @@ class Goals extends Component
         $this->selectedDate = CarbonImmutable::parse($date);
     }
 
-    public function trackGoal(string $type, int $amount): void
+    public function trackGoal(string $type, ?int $amount): void
     {
         Validator::make(
             ['amount' => $amount],
