@@ -56,6 +56,6 @@ trait WithPacklistGeneration
             return $item->quantity;
         }
 
-        return (int) max(ceil($item->quantity_per_day * $journey->days), 1);
+        return (int) max(ceil($item->quantity_per_day * $journey->days) - 1, 1);
     }
 }

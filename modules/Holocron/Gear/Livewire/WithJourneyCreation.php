@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Modules\Holocron\Gear\Livewire;
 
 use Livewire\Attributes\Validate;
+use Modules\Holocron\Gear\Enums\Property;
 use Modules\Holocron\Gear\Models\Journey;
 
 trait WithJourneyCreation
@@ -18,22 +19,30 @@ trait WithJourneyCreation
     #[Validate('required|date')]
     public ?string $ends_at = null;
 
-    /** @var array|string[] */
-    #[Validate('required|array')]
-    public array $participants = ['adult'];
+    /** @var array<Property> */
+    public array $selectedProperties = [];
 
-    public function toggleKid(): void
+    public function toggleProperty(string $propertyValue): void
     {
-        if (in_array('kid', $this->participants)) {
-            $this->participants = array_diff($this->participants, ['kid']);
+        $property = Property::from($propertyValue);
+        $key = array_search($property, $this->selectedProperties, true);
+
+        if ($key !== false) {
+            array_splice($this->selectedProperties, $key, 1);
         } else {
-            $this->participants[] = 'kid';
+            $this->selectedProperties[] = $property;
         }
+    }
+
+    public function isPropertySelected(Property $property): bool
+    {
+        return in_array($property, $this->selectedProperties, true);
     }
 
     public function submit(): void
     {
         $validated = $this->validate();
+        $validated['properties'] = collect($this->selectedProperties);
 
         $journey = Journey::create($validated);
 

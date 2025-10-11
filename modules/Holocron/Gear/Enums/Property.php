@@ -13,6 +13,14 @@ enum Property: string
     case RainExpected = 'rain-expected';
     case ChildOnBoard = 'child-on-board';
 
+    public function isJourneyApplicable(): bool
+    {
+        return match ($this) {
+            self::ChildOnBoard => true,
+            default => false,
+        };
+    }
+
     public function meetsCondition(Journey $journey): bool
     {
         $functionName = str('meets-'.$this->value)->camel()->toString();
@@ -43,6 +51,6 @@ enum Property: string
 
     private function meetsChildOnBoard(Journey $journey): bool
     {
-        return in_array('kid', $journey->participants);
+        return $journey->properties?->contains(self::ChildOnBoard) ?? false;
     }
 }

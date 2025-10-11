@@ -8,9 +8,15 @@
                 <flux:input type="date" wire:model.live="starts_at" placeholder="Ankunft"/>
                 <flux:input type="date" wire:model.live="ends_at" placeholder="Abfahrt"/>
 
-                <flux:button wire:click="toggleKid" :variant="in_array('kid', $participants) ? 'primary' : null" class="w-full">
-                    Mit Kind
-                </flux:button>
+                @if(\Modules\Holocron\Gear\Enums\Property::ChildOnBoard->isJourneyApplicable())
+                    <flux:button 
+                        wire:click="toggleProperty('child-on-board')"
+                        variant="{{ in_array('child-on-board', array_column($selectedProperties, 'value')) ? 'primary' : 'filled' }}"
+                        class="w-full"
+                    >
+                        Mit Kind
+                    </flux:button>
+                @endif
             </div>
 
             <flux:button variant="primary" type="submit">Reise anlegen</flux:button>
