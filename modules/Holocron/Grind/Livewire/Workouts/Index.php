@@ -50,7 +50,7 @@ class Index extends HolocronComponent
                 ->get(['weight', 'reps']);
 
             if ($latestSets->isNotEmpty()) {
-                $setsData = $latestSets->map(function (Set $set) {
+                $setsData = $latestSets->reverse()->map(function (Set $set) {
                     return [
                         'weight' => $set->weight,
                         'reps' => $set->reps,
