@@ -19,7 +19,7 @@
         </p>
         <p class="text-lg">
             @if($iconBase64)
-                <img class="wmo" src="data:image/png;base64,{{ $iconBase64 }}" alt="{{ $forecast->condition }}">
+                <img class="wmo" src="data:image/png;base64,{{ $iconBase64 }}" style="width: 200px" alt="{{ $forecast->condition }}">
             @else
                 <span>{{ $forecast->condition }}</span>
             @endif
