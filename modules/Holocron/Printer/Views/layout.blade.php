@@ -12,6 +12,10 @@
             padding: 0;
         }
 
+        .font-bold {
+            font-weight: 700;
+        }
+
         .text-lg {
             font-size: 36px;
         }
