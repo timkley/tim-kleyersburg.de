@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services;
 
+use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
@@ -11,9 +12,9 @@ use Illuminate\Support\Facades\Http;
 class Nasa
 {
     /**
-     * @return Collection<int, array<string, mixed>>
+     * @return Collection<int, array<string, mixed>>|null
      */
-    public static function apod(): Collection
+    public static function apod(): ?Collection
     {
         return Cache::remember('apod', now()->endOfDay(), function () {
             $defaults = collect([
@@ -22,12 +23,19 @@ class Nasa
                 'explanation' => null,
             ]);
 
-            $response = Http::get('https://api.nasa.gov/planetary/apod', [
-                'api_key' => config('services.nasa.api_key'),
-            ])
-                ->collect();
+            try {
+                $response = Http::timeout(3)
+                    ->get('https://api.nasa.gov/planetary/apod', [
+                        'api_key' => config('services.nasa.api_key'),
+                    ])
+                    ->collect();
 
-            return $defaults->merge($response);
+                return $defaults->merge($response);
+            } catch (ConnectionException $e) {
+                report($e);
+
+                return null;
+            }
         });
     }
 }
