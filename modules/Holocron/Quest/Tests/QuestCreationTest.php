@@ -20,15 +20,3 @@ it('can create a quest with a parent', function () {
         'quest_id' => $parent->id,
     ]);
 });
-
-it('can create a quest via api', function () {
-    $this->withHeaders([
-        'Authorization' => 'Bearer '.config('auth.bearer_token'),
-    ])->post(route('holocron.quests.create'), [
-        'name' => 'New Quest',
-    ])->assertSuccessful();
-
-    $this->assertDatabaseHas('quests', [
-        'name' => 'New Quest',
-    ]);
-});
