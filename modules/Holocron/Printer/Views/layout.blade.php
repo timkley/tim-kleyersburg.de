@@ -23,6 +23,10 @@
         .text-center {
             text-align: center;
         }
+
+        .text-left {
+            text-align: left;
+        }
     </style>
 
     @yield('style')

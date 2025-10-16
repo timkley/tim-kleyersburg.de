@@ -22,7 +22,7 @@
         <div class="breadcrumb">{{ $quest->breadcrumb()->pluck('name')->join(' > ') }}</div>
         <div class="name font-bold text-lg">{{ $quest->name }}</div>
         @if($quest->description)
-            <div class="description" style="margin-top: 32px">
+            <div class="text-left" style="margin-top: 32px">
                 {!! $quest->description !!}
             </div>
         @endif
