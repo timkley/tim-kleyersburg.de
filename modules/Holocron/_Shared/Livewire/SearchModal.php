@@ -12,10 +12,12 @@ class SearchModal extends Component
 {
     public string $query = '';
 
+    public bool $includeCompleted = false;
+
     public function render(): View
     {
         return view('holocron::livewire.components.search-modal', [
-            'results' => $this->query ? Quest::search($this->query)->get() : null,
+            'results' => $this->query ? Quest::search($this->query)->options(['filter_by' => $this->includeCompleted ? '' : 'completed_at:<=0'])->get() : null,
         ]);
     }
 }

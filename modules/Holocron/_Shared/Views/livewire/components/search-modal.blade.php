@@ -18,6 +18,11 @@
                     @endforeach
                 </flux:command.items>
             @endif
+
         </flux:command>
+
+        <div class="mx-auto w-fit mt-2 p-2 bg-white border-b-zinc-200 dark:bg-zinc-700 dark:border-zinc-600 rounded-md backdrop-blur-md shadow-xs">
+            <flux:checkbox wire:model="includeCompleted" label="Abgeschlossene Quests einbeziehen" />
+        </div>
     </flux:modal>
 </div>
