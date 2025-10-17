@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services;
 
-use Illuminate\Http\Client\ConnectionException;
+use GuzzleHttp\Exception\ConnectException;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
@@ -31,7 +31,7 @@ class Nasa
                     ->collect();
 
                 return $defaults->merge($response);
-            } catch (ConnectionException $e) {
+            } catch (ConnectException $e) {
                 report($e);
 
                 return null;
