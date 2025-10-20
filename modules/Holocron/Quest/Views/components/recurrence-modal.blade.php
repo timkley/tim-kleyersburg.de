@@ -1,5 +1,15 @@
 <flux:modal name="recurrence-modal">
     <form wire:submit="saveRecurrence" class="space-y-4">
+        <flux:radio.group 
+            wire:model.live="recurrenceType" 
+            label="Wiederholungstyp" 
+            variant="segmented"
+            description="Wähle, ob neue Aufgaben basierend auf der letzten Wiederholung oder der letzten Fertigstellung erstellt werden"
+        >
+            <flux:radio value="recurrence_based" label="Seit letzter Wiederholung" />
+            <flux:radio value="completion_based" label="Nach letzter Fertigstellung" />
+        </flux:radio.group>
+
         <div class="space-y-2">
             <flux:label>Häufige Intervalle</flux:label>
             <flux:button.group>
