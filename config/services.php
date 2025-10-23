@@ -34,4 +34,9 @@ return [
     'nasa' => [
         'api_key' => env('NASA_API_KEY'),
     ],
+
+    'cloudflare' => [
+        'token' => env('CLOUDFLARE_TOKEN'),
+        'zone_id' => env('CLOUDFLARE_ZONE_ID'),
+    ],
 ];
