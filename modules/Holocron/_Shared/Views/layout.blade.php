@@ -32,9 +32,8 @@
 
     @persist('toast')
         <flux:toast />
+        <x-keyboard-shortcuts />
     @endpersist
-
-    <x-keyboard-shortcuts />
 
     <script type="module" src="{{ asset('js/longpress.js') }}"></script>
 </x-layouts.app>
