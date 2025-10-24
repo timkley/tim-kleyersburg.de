@@ -13,12 +13,19 @@ use Modules\Holocron\Quest\Database\Factories\QuestRecurrenceFactory;
 /**
  * @property-read Quest $quest
  * @property-read int $every_x_days
+ * @property-read string $recurrence_type
  * @property-read ?Carbon $last_recurred_at
  * @property-read ?Carbon $ends_at
+ * @property-read Carbon $created_at
+ * @property-read Carbon $updated_at
  */
 class QuestRecurrence extends Model
 {
     use HasFactory;
+
+    public const TYPE_RECURRENCE_BASED = 'recurrence_based';
+
+    public const TYPE_COMPLETION_BASED = 'completion_based';
 
     protected $table = 'quest_recurrences';
 

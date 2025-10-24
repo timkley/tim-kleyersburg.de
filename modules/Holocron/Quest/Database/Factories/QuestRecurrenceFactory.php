@@ -17,8 +17,23 @@ class QuestRecurrenceFactory extends Factory
         return [
             'quest_id' => Quest::factory(),
             'every_x_days' => 1,
+            'recurrence_type' => QuestRecurrence::TYPE_RECURRENCE_BASED,
             'last_recurred_at' => $this->faker->dateTime(),
             'ends_at' => null,
         ];
+    }
+
+    public function completionBased(): static
+    {
+        return $this->state([
+            'recurrence_type' => QuestRecurrence::TYPE_COMPLETION_BASED,
+        ]);
+    }
+
+    public function everyDays(int $days): static
+    {
+        return $this->state([
+            'every_x_days' => $days,
+        ]);
     }
 }
