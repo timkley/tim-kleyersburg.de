@@ -92,6 +92,6 @@
             </div>
         </flux:card>
 
-        <livewire:holocron.dashboard.components.apod />
+{{--        <livewire:holocron.dashboard.components.apod />--}}
     </div>
 </div>
