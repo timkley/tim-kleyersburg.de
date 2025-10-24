@@ -15,8 +15,5 @@ return new class extends Migration
             $table->string('recurrence_type')->default('recurrence_based')->after('every_x_days');
         });
 
-        DB::table('quest_recurrences')
-            ->whereNull('recurrence_type')
-            ->update(['recurrence_type' => 'recurrence_based']);
     }
 };
