@@ -10,9 +10,8 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::table('quest_recurrences', function (Blueprint $table) {
-            $table->string('recurrence_type')->default('recurrence_based')->after('every_x_days');
+        Schema::table('user_settings', function (Blueprint $table) {
+            $table->boolean('printer_silenced')->default(false);
         });
-
     }
 };

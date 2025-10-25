@@ -7,6 +7,7 @@ namespace Modules\Holocron\Printer\Controller;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Storage;
 use Modules\Holocron\Printer\Model\PrintQueue;
+use Modules\Holocron\User\Models\User;
 
 class PrintQueueController
 {
@@ -15,6 +16,10 @@ class PrintQueueController
         $lock = cache()->lock('print-queue', 60);
 
         if ($lock->get()) {
+            if (User::tim()->settings->printer_silenced) {
+                return response()->json();
+            }
+
             try {
                 $itemsToPrint = PrintQueue::query()
                     ->whereNull('printed_at')

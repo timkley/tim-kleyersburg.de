@@ -11,6 +11,7 @@ use Modules\Holocron\User\Database\Factories\UserSettingFactory;
 
 /**
  * @property-read float $weight
+ * @property-read bool $printer_silenced
  */
 class UserSetting extends Model
 {

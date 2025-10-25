@@ -11,12 +11,7 @@
                 <span> Holocron </span>
             </a>
 
-            <div class="flex items-center gap-x-4">
-                <a href="{{ route('holocron.experience') }}" wire:navigate>
-                    <flux:badge as="button">{{ Number::format(number: auth()->user()->experience ?? 0, locale: 'de') }} XP: Level {{ auth()->user()->level }}</flux:badge>
-                </a>
-                <flux:button icon="cog" href="{{ route('holocron.settings') }}" variant="ghost" inset />
-            </div>
+            <livewire:holocron.shared.printer-status />
         </div>
     </x-slot>
 

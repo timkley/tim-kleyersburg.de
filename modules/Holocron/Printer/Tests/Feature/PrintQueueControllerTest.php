@@ -5,9 +5,13 @@ declare(strict_types=1);
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 use Modules\Holocron\Printer\Model\PrintQueue;
+use Modules\Holocron\User\Models\User;
+use Modules\Holocron\User\Models\UserSetting;
 
 beforeEach(function () {
     Storage::fake('public');
+    $user = User::factory(['email' => 'timkley@gmail.com'])->create();
+    UserSetting::factory()->create(['user_id' => $user->id]);
 });
 
 it('returns empty array when no print queue items exist', function () {
