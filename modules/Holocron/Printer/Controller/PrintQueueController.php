@@ -16,11 +16,11 @@ class PrintQueueController
         $lock = cache()->lock('print-queue', 60);
 
         if ($lock->get()) {
-            if (User::tim()->settings->printer_silenced) {
-                return response()->json();
-            }
-
             try {
+                if (User::tim()->settings->printer_silenced) {
+                    return response()->json();
+                }
+
                 $itemsToPrint = PrintQueue::query()
                     ->whereNull('printed_at')
                     ->orderBy('created_at')
