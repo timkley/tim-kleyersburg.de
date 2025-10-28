@@ -13,7 +13,7 @@ I started using GitHub for my own projects in August 2021 with GitHubs announcem
 Just hitting `.` in the browser and having a full-blown VS Code instance at my fingertips had a real wow-effect for me. I really dig GitHubs interface, but if you just want to navigate a project to get a feel for it, I nearly always cloned the repo to my machine so I could use my IDE.  
 Not anymore.
 
-For work I could see the use of Codespaces as a development environment on demand, so I started playing around with GitHub a lot more. Spoiler alert: it wasn't Codespaces or the full-blown VS Code instance that kept me their.
+For work I could see the use of Codespaces as a development environment on demand, so I started playing around with GitHub a lot more. Spoiler alert: it wasn't Codespaces or the full-blown VS Code instance that kept me there.
 
 Although I knew my way around GitHub's interface, I never used it to maintain a repository. Moving my repos to the same place where I explorer other people's code was something I wanted to do for some time.
 
