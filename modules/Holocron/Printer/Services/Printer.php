@@ -26,7 +26,7 @@ class Printer
     {
         try {
             if (! self::isAvailable()) {
-                throw new Exception('Printer service is not available');
+                throw new Exception('Node service not available.');
             }
 
             $html = view($template, $data)->render();
@@ -53,26 +53,12 @@ class Printer
      */
     public static function isAvailable(): bool
     {
-        try {
-            // Check Node.js
-            $nodeCheck = Process::timeout(5)->run('node --version');
-            if (! $nodeCheck->successful()) {
-                return false;
-            }
-
-            // Check script exists
-            $scriptPath = base_path('modules/Holocron/Printer/scripts/screenshot.js');
-            if (! file_exists($scriptPath)) {
-                return false;
-            }
-
-            // TODO: Could also check if playwright is installed
-            // But that might be too expensive for a quick check
-
-            return true;
-        } catch (Exception) {
+        $nodeCheck = Process::timeout(5)->run('node --version');
+        if (! $nodeCheck->successful()) {
             return false;
         }
+
+        return true;
     }
 
     /**

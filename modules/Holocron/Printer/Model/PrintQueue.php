@@ -7,6 +7,7 @@ namespace Modules\Holocron\Printer\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Storage;
 use Modules\Holocron\Printer\Database\Factories\PrintQueueFactory;
 
 /**
@@ -21,6 +22,30 @@ class PrintQueue extends Model
 {
     /** @use HasFactory<PrintQueueFactory> */
     use HasFactory;
+
+    /**
+     * Returns the length in mm
+     */
+    public function length(): int
+    {
+        $topFeed = 16;
+
+        $image = Storage::disk('public')->get($this->image);
+
+        if (is_null($image)) {
+            return 0;
+        }
+
+        $imageResource = imagecreatefromstring($image);
+        $imageHeightInPixels = imagesy($imageResource);
+        $imageHeightInMm = (int) round($imageHeightInPixels / 7.25);
+
+        $actionsInMm = count($this->actions) * 41;
+
+        $bottomFeed = 10;
+
+        return $topFeed + $imageHeightInMm + $actionsInMm + $bottomFeed;
+    }
 
     protected static function newFactory(): PrintQueueFactory
     {

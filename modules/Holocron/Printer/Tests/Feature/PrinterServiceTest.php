@@ -87,31 +87,9 @@ it('handles node.js unavailable gracefully', function () {
     ]);
 
     expect(fn () => Printer::print('holocron-printer::layout', []))
-        ->toThrow(Exception::class, 'Printer service is not available');
+        ->toThrow(Exception::class, 'Node service not available');
 
     assertDatabaseCount('print_queues', 0);
-});
-
-it('handles missing screenshot script gracefully', function () {
-    // Temporarily rename the script to simulate it being missing
-    $scriptPath = base_path('modules/Holocron/Printer/scripts/screenshot.js');
-    $tempPath = $scriptPath.'.backup';
-
-    if (file_exists($scriptPath)) {
-        rename($scriptPath, $tempPath);
-    }
-
-    try {
-        expect(fn () => Printer::print('holocron-printer::layout', []))
-            ->toThrow(Exception::class, 'Printer service is not available');
-
-        assertDatabaseCount('print_queues', 0);
-    } finally {
-        // Restore the script
-        if (file_exists($tempPath)) {
-            rename($tempPath, $scriptPath);
-        }
-    }
 });
 
 it('handles service errors gracefully', function () {

@@ -3,7 +3,7 @@
 
 <div class="space-y-6">
     <flux:heading size="xl">
-        {{ Number::format(number: $printQueue->total(), locale: 'de-DE') }} Print Queue Items
+        {{ Number::format(number: $printQueue->total(), locale: 'de-DE') }} Druck-Aufträge
     </flux:heading>
 
     @if($printQueue->count() > 0)
@@ -76,7 +76,7 @@
                         </div>
 
                         @if($item->printed_at)
-                            <div class="flex items-center space-x-2">
+                            <div class="flex items-center space-x-1">
                                 <flux:icon.check class="w-4 h-4 text-green-500"/>
                                 <span class="text-sm text-green-600 dark:text-green-400">
                                     Printed: {{ $item->printed_at->setTimezone(config('app.timezone'))->format('d.m.Y H:i') }}
@@ -94,6 +94,8 @@
                                 {{ count($item->actions) }} action(s) available
                             </div>
                         @endif
+
+                        <p class="mt-2">{{ $item->length() }} mm</p>
                     </div>
                 </div>
             @endforeach
