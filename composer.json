@@ -24,6 +24,8 @@
         "prezet/prezet": "^1.2",
         "prism-php/prism": "^0.86.0",
         "spatie/laravel-feed": "^4.4",
+        "torchlight/torchlight-commonmark": "^0.6.0",
+        "torchlight/torchlight-laravel": "^0.6.1",
         "typesense/typesense-php": "^5.1"
     },
     "require-dev": {

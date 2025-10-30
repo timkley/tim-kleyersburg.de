@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use Torchlight\Commonmark\V2\TorchlightExtension;
+
 return [
     /*
     |--------------------------------------------------------------------------
@@ -55,6 +57,7 @@ return [
             League\CommonMark\Extension\SmartPunct\SmartPunctExtension::class,
             Prezet\Prezet\Extensions\MarkdownBladeExtension::class,
             Prezet\Prezet\Extensions\MarkdownImageExtension::class,
+            TorchlightExtension::class,
         ],
 
         'config' => [

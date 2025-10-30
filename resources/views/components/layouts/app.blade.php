@@ -60,8 +60,8 @@
                         <flux:icon.rss class="size-4"/>
                         RSS Feed
                     </a>
-                    <span class="hidden">•</span>
-                    <div class="hidden">Code highlighting provided by <a href="https://torchlight.dev">torchlight.dev</a></div>
+                    <span>•</span>
+                    <div>Code highlighting provided by <a class="text-slate-600 dark:text-slate-300" href="https://torchlight.dev" target="_blank">torchlight.dev</a></div>
                 </div>
             </footer>
         @endisset
