@@ -8,7 +8,7 @@
             box-sizing: border-box;
             font-family: "Courier New", "Monaco", "Menlo", "Consolas", monospace;
             font-size: 24px;
-            background-color: #ddd;
+            background-color: #fff;
             padding: 0;
         }
 
