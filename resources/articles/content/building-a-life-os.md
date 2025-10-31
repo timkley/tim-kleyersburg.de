@@ -3,6 +3,7 @@ date: 2025-02-07
 title: Building A Life OS
 excerpt: A Life OS is a system that helps you manage your life. Learn how I used Laravel to built a system that helps me manage my life.
 image: /articles/img/ogimages/building-a-life-os.webp
+tags: [life-os]
 ---
 
 
