@@ -3,7 +3,7 @@
 
 <div class="space-y-6">
     <flux:heading size="xl">
-        {{ Number::format(number: $printQueue->total(), locale: 'de-DE') }} Druck-Aufträge
+        {{ Number::format(number: $printQueue->total(), locale: 'de-DE') }} Druckaufträge
     </flux:heading>
 
     @if($printQueue->count() > 0)

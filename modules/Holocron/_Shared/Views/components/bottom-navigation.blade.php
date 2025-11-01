@@ -35,7 +35,7 @@
                     <flux:navmenu.item href="{{ route('holocron.gear') }}" icon="shopping-bag">Gear</flux:navmenu.item>
                     <flux:navmenu.item href="{{ route('holocron.chopper') }}" icon="sparkles">Chopper</flux:navmenu.item>
                     <flux:navmenu.item href="{{ route('holocron.scrobbles') }}" icon="musical-note">Scrobbles</flux:navmenu.item>
-                    <flux:navmenu.item href="{{ route('holocron.printer.queue') }}" icon="printer">Printer Queue</flux:navmenu.item>
+                    <flux:navmenu.item href="{{ route('holocron.printer.queue') }}" icon="printer">Druckaufträge</flux:navmenu.item>
                 </flux:navmenu>
             </flux:dropdown>
 
