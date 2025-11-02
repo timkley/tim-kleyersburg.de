@@ -7,13 +7,13 @@
     </flux:heading>
 
     @if($printQueue->count() > 0)
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div class="space-y-6">
             @foreach($printQueue as $item)
                 @php
                     $imageExists = Storage::disk('public')->exists($item->image);
                     $imageUrl = $imageExists ? Storage::url($item->image) : null;
                 @endphp
-                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden max-w-sm mx-auto">
                     <flux:modal name="image-{{ $item->id }}" class="max-w-none">
                         <div class="bg-white">
                             @if($imageExists)
@@ -54,11 +54,11 @@
                     </flux:modal>
 
                     <flux:modal.trigger name="image-{{ $item->id }}">
-                        <div class="cursor-pointer aspect-video bg-white overflow-hidden">
+                        <div class="cursor-pointer bg-white relative py-4">
                             @if($imageExists)
                                 <img src="{{ $imageUrl }}"
                                      alt="Print Queue Item #{{ $item->id }}"
-                                     class="hover:scale-105 transition-transform duration-200 py-4">
+                                     class="p-4">
                             @else
                                 <div class="w-full h-full flex items-center justify-center bg-gray-100 dark:bg-gray-700">
                                     <div class="text-center text-gray-500 dark:text-gray-400">
@@ -67,36 +67,19 @@
                                     </div>
                                 </div>
                             @endif
+
+                            <div class="px-4 space-y-2">
+                                <div>
+                                    <flux:badge :icon="$item->printed_at ? 'printer' : 'clock'" :color="$item->printed_at ? 'lime' : 'orange'">
+                                        {{ $item->printed_at?->format('d.m.Y H:i') ?? 'Pending' }}
+                                    </flux:badge>
+                                </div>
+                                <div>
+                                    <flux:badge color="sky">{{ $item->length() }} mm</flux:badge>
+                                </div>
+                            </div>
                         </div>
                     </flux:modal.trigger>
-
-                    <div class="p-4 space-y-2">
-                        <div class="text-sm text-gray-600 dark:text-gray-400">
-                            <strong>Created:</strong> {{ $item->created_at->setTimezone(config('app.timezone'))->format('d.m.Y H:i') }}
-                        </div>
-
-                        @if($item->printed_at)
-                            <div class="flex items-center space-x-1">
-                                <flux:icon.check class="w-4 h-4 text-green-500"/>
-                                <span class="text-sm text-green-600 dark:text-green-400">
-                                    Printed: {{ $item->printed_at->setTimezone(config('app.timezone'))->format('d.m.Y H:i') }}
-                                </span>
-                            </div>
-                        @else
-                            <div class="flex items-center space-x-2">
-                                <flux:icon.clock class="w-4 h-4 text-yellow-500"/>
-                                <span class="text-sm text-yellow-600 dark:text-yellow-400">Pending</span>
-                            </div>
-                        @endif
-
-                        @if(!empty($item->actions))
-                            <div class="text-xs text-gray-500 dark:text-gray-400">
-                                {{ count($item->actions) }} action(s) available
-                            </div>
-                        @endif
-
-                        <p class="mt-2">{{ $item->length() }} mm</p>
-                    </div>
                 </div>
             @endforeach
         </div>
