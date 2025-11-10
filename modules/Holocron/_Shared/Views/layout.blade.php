@@ -11,16 +11,20 @@
                 <span> Holocron </span>
             </a>
 
-            <livewire:holocron.shared.printer-status />
+            @if (auth()->user()->isTim())
+                <livewire:holocron.shared.printer-status />
+            @endif
         </div>
     </x-slot>
 
     <div class="mx-auto mt-6 max-w-5xl mb-24">
         {{ $slot }}
 
-        <livewire:holocron.shared.bottom-navigation />
-        <livewire:holocron.shared.command-modal />
-        <livewire:holocron.shared.search-modal />
+        @if (auth()->user()->isTim())
+            <livewire:holocron.shared.bottom-navigation />
+            <livewire:holocron.shared.command-modal />
+            <livewire:holocron.shared.search-modal />
+        @endif
     </div>
 
     <x-slot:footer></x-slot>
