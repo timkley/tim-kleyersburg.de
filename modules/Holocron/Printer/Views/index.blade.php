@@ -14,29 +14,28 @@
                     $imageUrl = $imageExists ? Storage::url($item->image) : null;
                 @endphp
                 <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden max-w-sm mx-auto">
-                    <div class="cursor-pointer relative">
-                        @if($imageExists)
-                            <img src="{{ $imageUrl }}"
-                                 alt="Print Queue Item #{{ $item->id }}"
-                                 class="p-4 bg-white rounded-lg">
-                        @else
-                            <div class="w-full h-full flex items-center justify-center bg-gray-100 dark:bg-gray-700">
-                                <div class="text-center text-gray-500 dark:text-gray-400">
-                                    <flux:icon.photo class="w-8 h-8 mx-auto mb-1"/>
-                                    <p class="text-xs">Missing</p>
-                                </div>
+                    @if($imageExists)
+                        <img src="{{ $imageUrl }}"
+                             alt="Print Queue Item #{{ $item->id }}"
+                             class="p-4 bg-white rounded-lg">
+                    @else
+                        <div class="w-full h-full flex items-center justify-center bg-gray-100 dark:bg-gray-700">
+                            <div class="text-center text-gray-500 dark:text-gray-400">
+                                <flux:icon.photo class="w-8 h-8 mx-auto mb-1"/>
+                                <p class="text-xs">Missing</p>
                             </div>
-                        @endif
+                        </div>
+                    @endif
 
-                        <div class="px-4 space-y-2 my-4">
-                            <div>
-                                <flux:badge :icon="$item->printed_at ? 'printer' : 'clock'" :color="$item->printed_at ? 'lime' : 'orange'">
-                                    {{ $item->printed_at?->format('d.m.Y H:i') ?? 'Pending' }}
-                                </flux:badge>
-                            </div>
-                            <div>
-                                <flux:badge color="sky">{{ $item->length() }} mm</flux:badge>
-                            </div>
+                    <div class="px-4 space-y-2 my-4">
+                        <div>
+                            <flux:badge :icon="$item->printed_at ? 'printer' : 'clock'"
+                                        :color="$item->printed_at ? 'lime' : 'orange'">
+                                {{ $item->printed_at?->format('d.m.Y H:i') ?? 'Pending' }}
+                            </flux:badge>
+                        </div>
+                        <div>
+                            <flux:badge color="sky">{{ $item->length() }} mm</flux:badge>
                         </div>
                     </div>
                 </div>

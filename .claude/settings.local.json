@@ -2,7 +2,9 @@
   "permissions": {
     "allow": [
       "Bash(php artisan test:*)",
-      "Bash(vendor/bin/pint:*)"
+      "Bash(vendor/bin/pint:*)",
+      "mcp__laravel-boost__database-schema",
+      "Bash(php artisan:*)"
     ]
   },
   "enableAllProjectMcpServers": true,

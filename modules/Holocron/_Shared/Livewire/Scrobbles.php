@@ -17,7 +17,10 @@ class Scrobbles extends HolocronComponent
     public function render(): View
     {
         return view('holocron-dashboard::scrobbles', [
-            'scrobbles' => Scrobble::query()->latest('played_at')->paginate(100),
+            'scrobbles' => Scrobble::query()
+                ->select(['id', 'artist', 'track', 'album', 'played_at'])
+                ->latest('played_at')
+                ->paginate(100),
             'count' => Scrobble::query()->count(),
         ]);
     }
