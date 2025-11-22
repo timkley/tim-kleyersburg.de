@@ -22,7 +22,7 @@
 
         @if (auth()->user()->isTim())
             <livewire:holocron.shared.bottom-navigation />
-            <livewire:holocron.shared.command-modal />
+            <livewire:holocron.shared.task-modal />
             <livewire:holocron.shared.search-modal />
         @endif
     </div>

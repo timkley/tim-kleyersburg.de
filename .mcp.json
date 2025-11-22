@@ -1,7 +1,4 @@
 {
-    "context": {
-        "fileName": "guidelines.md"
-    },
     "mcpServers": {
         "laravel-boost": {
             "command": "php",
