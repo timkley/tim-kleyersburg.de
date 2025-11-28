@@ -14,18 +14,27 @@ class Show extends HolocronComponent
 {
     public Exercise $exercise;
 
-    public ?string $description;
-
-    public function updated(string $property, mixed $value): void
-    {
-        $this->exercise->update([
-            $property => $value,
-        ]);
-    }
+    public ExerciseForm $form;
 
     public function mount(Exercise $exercise): void
     {
-        $this->fill($exercise);
+        $this->exercise = $exercise;
+        $this->form->setExercise($exercise);
+    }
+
+    public function updated(string $property, mixed $value): void
+    {
+        if (! str_starts_with($property, 'form.')) {
+            return;
+        }
+
+        $formProperty = str_replace('form.', '', $property);
+
+        if (! in_array($formProperty, ['name', 'description', 'instructions'])) {
+            return;
+        }
+
+        $this->form->save($formProperty, $value);
     }
 
     public function render(): View

@@ -1,9 +1,11 @@
 <div class="space-y-8">
     @include('holocron-grind::navigation')
 
-    <flux:heading size="xl">{{ $exercise->name }}</flux:heading>
+    <flux:input label="Name" wire:model.live.debounce.500ms="form.name" />
 
-    <flux:textarea label="Beschreibung" wire:model.live.debounce="description"></flux:textarea>
+    <flux:textarea label="Beschreibung" wire:model.live.debounce.500ms="form.description"></flux:textarea>
+
+    <flux:textarea label="Instruktionen" wire:model.live.debounce.500ms="form.instructions"></flux:textarea>
 
     @if($exercise->personalRecord())
         <flux:text class="text-base">

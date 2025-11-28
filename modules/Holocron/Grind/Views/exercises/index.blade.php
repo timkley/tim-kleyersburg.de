@@ -15,19 +15,11 @@
                     </flux:card>
                 </a>
             @endforeach
-            <flux:modal.trigger name="new">
+            <flux:modal.trigger name="new-exercise">
                 <flux:button class="h-full min-h-10" variant="primary">Neue Übung</flux:button>
             </flux:modal.trigger>
         </div>
 
-        <flux:modal name="new" variant="flyout">
-            <form wire:submit="submit" class="space-y-2">
-                <flux:input label="Name" wire:model="name" />
-                <flux:input label="Beschreibung" wire:model="description" />
-                <flux:input label="Instruktionen" wire:model="instructions" />
-
-                <flux:button variant="primary" type="submit">Speichern</flux:button>
-            </form>
-        </flux:modal>
+        <livewire:holocron.grind.exercises.create-modal />
     </div>
 </div>
