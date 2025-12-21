@@ -18,8 +18,8 @@ class TaskModal extends Component
     #[Validate('required')]
     public bool $should_be_printed = false;
 
-    #[Validate('date')]
-    public string $date = '';
+    #[Validate('nullable|date')]
+    public ?string $date = null;
 
     public bool $hasIntent = false;
 
