@@ -122,3 +122,10 @@ it('creates quest with all fields correctly', function () {
         ->and($quest->should_be_printed)->toBe(1)
         ->and($quest->date->toDateString())->toBe($date);
 });
+
+it('renders both submit buttons', function () {
+    Livewire::test(TaskModal::class)
+        ->assertSee('Quest anlegen')
+        ->assertSee('Anlegen')
+        ->assertSee('neu');
+});

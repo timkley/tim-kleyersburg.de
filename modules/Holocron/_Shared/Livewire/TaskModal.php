@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Modules\Holocron\_Shared\Livewire;
 
+use Flux\Flux;
 use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
@@ -30,6 +31,8 @@ class TaskModal extends Component
             'name' => $this->name,
             ...$validated,
         ]);
+
+        Flux::toast(text: 'Quest erfolgreich erstellt.', variant: 'success');
 
         $this->reset();
 
