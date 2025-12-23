@@ -5,6 +5,7 @@ declare(strict_types=1);
 use Livewire\Livewire;
 use Modules\Holocron\Gear\Enums\Property;
 use Modules\Holocron\Gear\Models\Journey;
+use Modules\Holocron\Gear\Models\JourneyItem;
 use Modules\Holocron\User\Models\User;
 
 use function Pest\Laravel\actingAs;
@@ -88,4 +89,33 @@ it('child on board property meets condition correctly', function () {
 
     expect(Property::ChildOnBoard->meetsCondition($journeyWithChild))->toBeTrue();
     expect(Property::ChildOnBoard->meetsCondition($journeyWithoutChild))->toBeFalse();
+});
+
+it('can delete a journey', function () {
+    $user = User::factory()->create();
+    actingAs($user);
+
+    $journey = Journey::factory()->create();
+
+    Livewire::test('holocron.gear.index')
+        ->call('delete', $journey->id);
+
+    expect(Journey::where('id', $journey->id)->exists())->toBeFalse();
+});
+
+it('deletes all related journey items when deleting a journey', function () {
+    $user = User::factory()->create();
+    actingAs($user);
+
+    $journey = Journey::factory()->create();
+    $journeyItem1 = JourneyItem::factory()->create(['journey_id' => $journey->id]);
+    $journeyItem2 = JourneyItem::factory()->create(['journey_id' => $journey->id]);
+
+    expect(JourneyItem::where('journey_id', $journey->id)->count())->toBe(2);
+
+    Livewire::test('holocron.gear.index')
+        ->call('delete', $journey->id);
+
+    expect(Journey::where('id', $journey->id)->exists())->toBeFalse();
+    expect(JourneyItem::where('journey_id', $journey->id)->count())->toBe(0);
 });

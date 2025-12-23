@@ -44,9 +44,19 @@
                         {{ $journey->ends_at->format('d.m.Y') }}
                     </flux:table.cell>
                     <flux:table.cell>
-                        <a href="{{ route('holocron.gear.journeys.show', $journey->id) }}" wire:navigate>
-                            <flux:button>Ansehen</flux:button>
-                        </a>
+                        <div class="flex gap-2">
+                            <a href="{{ route('holocron.gear.journeys.show', $journey->id) }}" wire:navigate>
+                                <flux:button>Ansehen</flux:button>
+                            </a>
+                            <flux:button
+                                wire:click="delete({{ $journey->id }})"
+                                wire:confirm="Willst du die Reise wirklich löschen?"
+                                icon="trash"
+                                variant="danger"
+                                size="sm"
+                            >
+                            </flux:button>
+                        </div>
                     </flux:table.cell>
                 </flux:table.row>
             @endforeach
