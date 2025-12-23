@@ -11,7 +11,7 @@
 
     <div class="grid grid-cols-3 sm:grid-cols-7 gap-4">
         @foreach($journey->forecast()->days as $day)
-            <div class="bg-white rounded p-3 text-sm">
+            <div class="bg-white dark:bg-white/10 rounded p-3 text-sm">
                 <p>
                     {{ $day->date->translatedFormat('D d.m.') }}
                 </p>
