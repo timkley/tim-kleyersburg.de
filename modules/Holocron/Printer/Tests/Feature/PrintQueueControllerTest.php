@@ -12,6 +12,12 @@ beforeEach(function () {
     Storage::fake('public');
     $user = User::factory(['email' => 'timkley@gmail.com'])->create();
     UserSetting::factory()->create(['user_id' => $user->id]);
+
+    // Set short timeouts for tests to avoid long waits
+    config([
+        'printer.long_poll.timeout' => 0,
+        'printer.long_poll.check_interval' => 0,
+    ]);
 });
 
 it('returns empty array when no print queue items exist', function () {
@@ -190,4 +196,80 @@ it('requires bearer token authentication', function () {
     $response = $this->getJson('/api/holocron/printer/queue');
 
     $response->assertUnauthorized();
+});
+
+it('returns empty after timeout when no items appear', function () {
+    config([
+        'printer.long_poll.timeout' => 1,
+        'printer.long_poll.check_interval' => 0,
+    ]);
+
+    $startTime = time();
+
+    $response = $this->withHeaders(['Authorization' => 'Bearer '.config('auth.bearer_token')])
+        ->getJson('/api/holocron/printer/queue');
+
+    $elapsed = time() - $startTime;
+
+    $response->assertOk()
+        ->assertExactJson([]);
+
+    expect($elapsed)->toBeGreaterThanOrEqual(1)
+        ->toBeLessThan(2);
+});
+
+it('returns immediately when items already exist', function () {
+    Storage::disk('public')->put('printer/test.png', 'content');
+
+    PrintQueue::create([
+        'image' => 'printer/test.png',
+        'actions' => [],
+    ]);
+
+    $startTime = time();
+
+    $response = $this->withHeaders(['Authorization' => 'Bearer '.config('auth.bearer_token')])
+        ->getJson('/api/holocron/printer/queue');
+
+    $elapsed = time() - $startTime;
+
+    $response->assertOk()
+        ->assertJsonCount(1);
+
+    expect($elapsed)->toBeLessThan(2);
+});
+
+it('releases lock after long poll timeout', function () {
+    config([
+        'printer.long_poll.timeout' => 1,
+        'printer.long_poll.check_interval' => 0,
+    ]);
+
+    $this->withHeaders(['Authorization' => 'Bearer '.config('auth.bearer_token')])
+        ->getJson('/api/holocron/printer/queue');
+
+    $lock = Cache::lock(config('printer.cache_lock.key'), 60);
+    expect($lock->get())->toBeTrue();
+    $lock->release();
+});
+
+it('handles multiple concurrent long polls correctly', function () {
+    $lock = Cache::lock(config('printer.cache_lock.key'), 60);
+    $lock->get();
+
+    try {
+        $startTime = time();
+
+        $response = $this->withHeaders(['Authorization' => 'Bearer '.config('auth.bearer_token')])
+            ->getJson('/api/holocron/printer/queue');
+
+        $elapsed = time() - $startTime;
+
+        $response->assertOk()
+            ->assertExactJson([]);
+
+        expect($elapsed)->toBeLessThan(1);
+    } finally {
+        $lock->release();
+    }
 });

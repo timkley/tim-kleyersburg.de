@@ -6,7 +6,8 @@
       "mcp__laravel-boost__database-schema",
       "Bash(php artisan:*)",
       "mcp__laravel-boost__search-docs",
-      "Bash(find:*)"
+      "Bash(find:*)",
+      "Bash(php:*)"
     ]
   },
   "enableAllProjectMcpServers": true,
