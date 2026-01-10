@@ -8,7 +8,6 @@ use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Casts\AsCollection;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -121,22 +120,49 @@ class Quest extends Model
      */
     public function breadcrumb(bool $withCurrent = false): \Illuminate\Support\Collection
     {
-        $breadcrumb = new Collection;
-        $current = $this;
-
-        if ($withCurrent && $current->exists) {
-            $breadcrumb->push($current);
+        if ($this->quest_id === null) {
+            return $withCurrent && $this->exists ? collect([$this]) : collect();
         }
 
-        while ($current->quest_id !== null) {
-            $current = self::find($current->quest_id);
-            if ($current === null) {
+        // Walk up the tree collecting IDs using lightweight value() queries
+        $ancestorIds = [];
+        $currentId = $this->quest_id;
+        $visited = [$this->id];
+        $maxDepth = 20;
+
+        while ($currentId !== null && count($ancestorIds) < $maxDepth) {
+            if (in_array($currentId, $visited)) {
                 break;
             }
-            $breadcrumb->push($current);
+            $ancestorIds[] = $currentId;
+            $visited[] = $currentId;
+            // Use select() with value() for minimal data transfer
+            $currentId = self::query()->where('id', $currentId)->value('quest_id');
         }
 
-        return $breadcrumb->reverse()->values();
+        if (empty($ancestorIds)) {
+            return $withCurrent && $this->exists ? collect([$this]) : collect();
+        }
+
+        // Fetch all ancestors in a single query
+        $ancestors = self::query()
+            ->whereIn('id', $ancestorIds)
+            ->get()
+            ->keyBy('id');
+
+        // Build ordered breadcrumb from root to current
+        $breadcrumb = collect();
+        foreach (array_reverse($ancestorIds) as $id) {
+            if ($ancestors->has($id)) {
+                $breadcrumb->push($ancestors->get($id));
+            }
+        }
+
+        if ($withCurrent && $this->exists) {
+            $breadcrumb->push($this);
+        }
+
+        return $breadcrumb->values();
     }
 
     /**

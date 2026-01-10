@@ -23,6 +23,7 @@ class TodaysQuests extends Component
     {
         return view('holocron-quest::components.todays-quests', [
             'todaysQuests' => Quest::query()
+                ->with(['children:id,quest_id,completed_at', 'parent:id,name'])
                 ->today()
                 ->notCompleted()
                 ->orderBy('status')

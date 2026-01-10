@@ -23,6 +23,7 @@ class NextQuests extends Component
     {
         return view('holocron-quest::components.next-quests', [
             'nextQuests' => Quest::query()
+                ->with(['children:id,quest_id,completed_at', 'parent:id,name'])
                 ->areNotNotes()
                 ->noChildren()
                 ->notToday()

@@ -22,6 +22,7 @@ class MainQuests extends Component
     public function render(): View
     {
         $notes = Quest::query()
+            ->with(['children:id,quest_id,completed_at', 'parent:id,name'])
             ->whereNull('quest_id')
             ->areNotes()
             ->orderBy('name')
