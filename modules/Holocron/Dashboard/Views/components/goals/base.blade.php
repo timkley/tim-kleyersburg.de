@@ -1,15 +1,14 @@
-@use(Modules\Holocron\User\Models\DailyGoal)
-@props(['goal'])
+@props(['goal', 'streaks'])
 
 <div>
     <flux:subheading class="flex gap-x-2 items-center">
         <flux:icon.medal class="size-4"/>
         <span>
-            ×&nbsp;{{ DailyGoal::currentStreakFor($goal->type) }}
+            ×&nbsp;{{ $streaks['current'] }}
         </span>
         •
         <span>
-            Top ×&nbsp;{{ DailyGoal::highestStreakFor($goal->type) }}
+            Top ×&nbsp;{{ $streaks['highest'] }}
         </span>
     </flux:subheading>
 

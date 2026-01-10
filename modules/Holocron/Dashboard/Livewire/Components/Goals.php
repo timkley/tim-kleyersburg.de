@@ -35,8 +35,16 @@ class Goals extends Component
             CreateDailyGoals::dispatchSync();
         }
 
+        $streaksByType = $todaysGoals->pluck('type')->unique()->mapWithKeys(fn (GoalType $type) => [
+            $type->value => [
+                'current' => DailyGoal::currentStreakFor($type),
+                'highest' => DailyGoal::highestStreakFor($type),
+            ],
+        ]);
+
         return view('holocron-dashboard::components.goals', [
             'todaysGoals' => $todaysGoals,
+            'streaksByType' => $streaksByType,
             'goalsPast20DaysByDay' => $goals->groupBy('date'),
             'goalsPast20DaysCount' => $goals->count(),
             'goalsPast20DaysReachedCount' => $goals->sum('reached'),

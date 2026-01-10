@@ -17,6 +17,7 @@
             <x-dynamic-component
                 :component="'holocron-dashboard::goals.'.$goal->type->value"
                 :goal="$goal"
+                :streaks="$streaksByType[$goal->type->value]"
             />
             @if(!$loop->last)
                 <flux:separator class="sm:hidden"/>
