@@ -7,7 +7,11 @@
       "Bash(php artisan:*)",
       "mcp__laravel-boost__search-docs",
       "Bash(find:*)",
-      "Bash(php:*)"
+      "Bash(php:*)",
+      "WebSearch",
+      "WebFetch(domain:github.com)",
+      "mcp__plugin_context7_context7__resolve-library-id",
+      "mcp__plugin_context7_context7__query-docs"
     ]
   },
   "enableAllProjectMcpServers": true,
