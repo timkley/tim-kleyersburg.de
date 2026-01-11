@@ -11,12 +11,15 @@ class SchoolServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
-        $this->app->bind(Untis::class, fn (): Untis => new Untis(
-            server: 'hektor',
-            school: 'JoergR',
-            username: config('services.untis.user'),
-            password: config('services.untis.password')
-        ));
+        $this->app->bind(
+            Untis::class,
+            fn (): Untis => new Untis(
+                server: 'jrsn',
+                school: 'jrsn',
+                username: config('services.untis.user'),
+                password: config('services.untis.password'),
+            ),
+        );
     }
 
     public function boot(): void

@@ -25,6 +25,8 @@ class Untis
 
     public int $klasseId;
 
+    private bool $isAuthenticating = false;
+
     public function __construct(public string $server, public string $school, public string $username, public string $password)
     {
         $this->login();
@@ -149,10 +151,11 @@ class Untis
         $response = Http::beforeSending(fn (Request $request) => logger()->channel('untis')->debug('Request', ['url' => $request->url(), 'data' => $request->data(), 'method' => $request->method()]))
             ->withoutRedirecting()
             ->asJson()
+            ->withUserAgent('WebUntis PHP Client')
             ->baseUrl("https://$this->server.webuntis.com/WebUntis")
             ->withQueryParameters(array_merge($parameters, ['school' => $this->school]))
             ->withCookies([
-                'schoolname' => $this->school,
+                'schoolname' => '_'.base64_encode($this->school),
                 'JSESSIONID' => $this->sessionId ?? '',
             ], "$this->server.webuntis.com")
             ->{$method}(
@@ -164,7 +167,7 @@ class Untis
 
         $unauthenticated = data_get($response, 'error.code') === -8520;
 
-        if ($unauthenticated) {
+        if ($unauthenticated && ! $this->isAuthenticating) {
             $this->login();
 
             return $this->request($method, $url, $data, $parameters);
@@ -175,33 +178,39 @@ class Untis
 
     private function login(): void
     {
-        $loginData = cache()->remember('untis.sessionid', now()->addMinutes(10), function (): array {
-            $response = retry(3, function () {
-                $response = $this->request(method: 'post', data: [
-                    'id' => '1',
-                    'method' => 'authenticate',
-                    'params' => [
-                        'user' => $this->username,
-                        'password' => $this->password,
-                        'client' => 'WebUntis Test',
-                    ],
-                ]);
+        $this->isAuthenticating = true;
 
-                if (data_get($response, 'error.code') === -8520 || ! data_get($response, 'result.sessionId')) {
-                    throw new Exception('Login failed');
-                }
+        try {
+            $loginData = cache()->remember('untis.sessionid', now()->addMinutes(10), function (): array {
+                $response = retry(3, function () {
+                    $response = $this->request(method: 'post', data: [
+                        'id' => '1',
+                        'method' => 'authenticate',
+                        'params' => [
+                            'user' => $this->username,
+                            'password' => $this->password,
+                            'client' => 'WebUntis Test',
+                        ],
+                    ]);
 
-                return $response;
-            }, fn (int $attempt, Throwable $exception): int => $attempt * 10000);
+                    if (data_get($response, 'error.code') === -8520 || ! data_get($response, 'result.sessionId')) {
+                        throw new Exception('Login failed');
+                    }
 
-            return [
-                data_get($response, 'result.sessionId'),
-                data_get($response, 'result.personType'),
-                data_get($response, 'result.personId'),
-                data_get($response, 'result.klasseId'),
-            ];
-        });
+                    return $response;
+                }, fn (int $attempt, Throwable $exception): int => $attempt * 10000);
 
-        [$this->sessionId, $this->personType, $this->personId, $this->klasseId] = $loginData;
+                return [
+                    data_get($response, 'result.sessionId'),
+                    data_get($response, 'result.personType'),
+                    data_get($response, 'result.personId'),
+                    data_get($response, 'result.klasseId'),
+                ];
+            });
+
+            [$this->sessionId, $this->personType, $this->personId, $this->klasseId] = $loginData;
+        } finally {
+            $this->isAuthenticating = false;
+        }
     }
 }
