@@ -18,6 +18,7 @@ use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Support\Facades\URL;
 use Laravel\Scout\Searchable;
 use Modules\Holocron\Bookmarks\Models\Webpage;
+use Modules\Holocron\Printer\Model\PrintQueue;
 use Modules\Holocron\Printer\Services\Printer;
 use Modules\Holocron\Quest\Database\Factories\QuestFactory;
 use Modules\Holocron\User\Enums\ExperienceType;
@@ -121,6 +122,7 @@ class Quest extends Model
     public function breadcrumb(bool $withCurrent = false): \Illuminate\Support\Collection
     {
         if ($this->quest_id === null) {
+            /** @var \Illuminate\Support\Collection<int, Quest> */
             return $withCurrent && $this->exists ? collect([$this]) : collect();
         }
 
@@ -141,6 +143,7 @@ class Quest extends Model
         }
 
         if (empty($ancestorIds)) {
+            /** @var \Illuminate\Support\Collection<int, Quest> */
             return $withCurrent && $this->exists ? collect([$this]) : collect();
         }
 
@@ -195,8 +198,19 @@ class Quest extends Model
                 defer(fn () => Printer::print(
                     'holocron-quest::print-view',
                     ['quest' => $quest],
-                    [URL::signedRoute('holocron.quests.complete', ['id' => $quest->id])]
+                    [URL::signedRoute('holocron.quests.complete', ['id' => $quest->id])],
+                    $quest
                 ));
+            }
+        });
+
+        static::updated(function (Quest $quest) {
+            if ($quest->wasChanged('completed_at') && $quest->isCompleted()) {
+                PrintQueue::query()
+                    ->where('printable_type', Quest::class)
+                    ->where('printable_id', $quest->id)
+                    ->whereNull('printed_at')
+                    ->delete();
             }
         });
     }

@@ -6,6 +6,7 @@ namespace Modules\Holocron\Printer\Model;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Storage;
 use Modules\Holocron\Printer\Database\Factories\PrintQueueFactory;
@@ -14,6 +15,8 @@ use Modules\Holocron\Printer\Database\Factories\PrintQueueFactory;
  * @property int $id
  * @property string $image
  * @property array $actions
+ * @property string|null $printable_type
+ * @property int|null $printable_id
  * @property Carbon|null $printed_at
  * @property Carbon $created_at
  * @property Carbon $updated_at
@@ -22,6 +25,14 @@ class PrintQueue extends Model
 {
     /** @use HasFactory<PrintQueueFactory> */
     use HasFactory;
+
+    /**
+     * @return MorphTo<Model, $this>
+     */
+    public function printable(): MorphTo
+    {
+        return $this->morphTo();
+    }
 
     /**
      * Returns the length in mm

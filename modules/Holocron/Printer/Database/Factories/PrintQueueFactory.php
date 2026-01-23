@@ -12,6 +12,8 @@ use Modules\Holocron\Printer\Model\PrintQueue;
  */
 class PrintQueueFactory extends Factory
 {
+    protected $model = PrintQueue::class;
+
     /**
      * Define the model's default state.
      *

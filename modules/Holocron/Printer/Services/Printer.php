@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Modules\Holocron\Printer\Services;
 
 use Exception;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Process;
 use Modules\Holocron\Printer\Model\PrintQueue;
@@ -19,10 +20,11 @@ class Printer
      * @param  string  $template  Laravel view template name
      * @param  array  $data  Data to pass to the view
      * @param  array  $actions  QR code actions or other metadata
+     * @param  Model|null  $printable  Optional model to associate with this print queue entry
      *
      * @throws Exception
      */
-    public static function print(string $template, array $data = [], array $actions = []): PrintQueue
+    public static function print(string $template, array $data = [], array $actions = [], ?Model $printable = null): PrintQueue
     {
         try {
             if (! self::isAvailable()) {
@@ -33,10 +35,17 @@ class Printer
 
             $imagePath = self::generateImage($html);
 
-            return PrintQueue::create([
+            $attributes = [
                 'image' => $imagePath,
                 'actions' => $actions,
-            ]);
+            ];
+
+            if ($printable !== null) {
+                $attributes['printable_type'] = $printable->getMorphClass();
+                $attributes['printable_id'] = $printable->getKey();
+            }
+
+            return PrintQueue::create($attributes);
         } catch (Exception $e) {
             Log::error('Printer service error', [
                 'template' => $template,
