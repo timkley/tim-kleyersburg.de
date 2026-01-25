@@ -197,3 +197,11 @@ on reconnect.)
 ### Telegram
 
 After the gateway has started (the onboarding setup should have shown you a success message) you can message your bot if you created one with `/start` to pair your Telegram chat sessions to your Clawdbot gateway. Everything is explained in the chat.
+
+## 5. Use cases and configuration
+
+You might be tempted to configure workflows, automations, or other features via the Dashboard UI. While this works for some things, I highly recommend using the chat interface instead.
+
+Simply describe what you want to achieve. Clawdbot is remarkably good at understanding intent and will guide you through the setup process. For example, I've long wanted a summary of my bookmarked tweets. I tend to hit the bookmark icon and then forget to review them later. I asked Clawdbot to send me a daily digest, and it walked me through the entire process: setting up `bird` (the CLI for interacting with X), configuring the skill, and even sending a test message to confirm everything worked.
+
+If there's something you want to accomplish, just ask. It genuinely feels like having a personal assistant. Rather than responding with "I'm sorry, I can't do that," it proposes a plan to achieve your desired outcome.
