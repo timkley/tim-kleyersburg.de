@@ -167,7 +167,17 @@
             </url>
     <url>
         <loc>http://tim-kleyersburg.de.test/articles/building-a-life-os-part-2</loc>
-        <lastmod>2025-10-31T05:49:38+01:00</lastmod>
+        <lastmod>2025-11-22T11:37:11+01:00</lastmod>
+
+            </url>
+    <url>
+        <loc>http://tim-kleyersburg.de.test/articles/painless-clawdbot-setup</loc>
+        <lastmod>2026-01-25T07:09:55+01:00</lastmod>
+
+            </url>
+    <url>
+        <loc>http://tim-kleyersburg.de.test/articles/kindle-automation</loc>
+        <lastmod>2025-11-22T18:15:34+01:00</lastmod>
 
             </url>
 </urlset>
