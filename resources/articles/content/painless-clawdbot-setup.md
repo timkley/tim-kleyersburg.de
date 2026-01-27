@@ -33,7 +33,114 @@ usermod -aG sudo clawdbot # add the user to the sudoers group so we can use `sud
 su - clawdbot # change to the new user
 ```
 
-## 3. Installing prerequisites
+## 3. Securing your VPS
+
+Before installing Clawdbot, we should secure the server with some basic security measures. These steps will protect your VPS from common attacks.
+
+### Setup SSH key authentication
+
+First, let's set up SSH key authentication so you can log in without a password. Run this on your **local machine**:
+
+```bash
+# Generate SSH key if you don't have one already
+ssh-keygen -t ed25519 -C "your_email@example.com"
+
+# Copy your public key to the server
+ssh-copy-id clawdbot@your-server-ip
+```
+
+Test the SSH key login by opening a new terminal and connecting:
+
+```bash
+ssh clawdbot@your-server-ip
+```
+
+If you can log in without entering a password, the key authentication is working.
+
+### Disable password authentication
+
+Now that key-based authentication is working, let's disable password login. This prevents brute force attacks.
+
+```bash
+# Edit SSH configuration
+sudo vim /etc/ssh/sshd_config
+```
+
+Find and update these lines (uncomment if needed):
+
+```
+PasswordAuthentication no
+PubkeyAuthentication yes
+PermitRootLogin no
+```
+
+Save the file (`:wq`) and restart SSH:
+
+```bash
+sudo systemctl restart ssh
+```
+
+### Install fail2ban
+
+Fail2ban monitors login attempts and automatically blocks IP addresses that show malicious behavior.
+
+```bash
+sudo apt install fail2ban -y
+
+# Create a local configuration file
+sudo cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local
+
+# Edit the configuration
+sudo vim /etc/fail2ban/jail.local
+```
+
+Find the `[sshd]` section and ensure it looks like this:
+
+```
+[sshd]
+enabled = true
+port = ssh
+logpath = /var/log/auth.log
+maxretry = 5
+bantime = 3600
+```
+
+Start and enable fail2ban:
+
+```bash
+sudo systemctl start fail2ban
+sudo systemctl enable fail2ban
+
+# Check status
+sudo fail2ban-client status sshd
+```
+
+### Setup UFW firewall
+
+Configure a basic firewall to only allow necessary connections:
+
+```bash
+# Install UFW
+sudo apt install ufw -y
+
+# Allow SSH (important - do this first!)
+sudo ufw allow ssh
+
+# Enable the firewall
+sudo ufw enable
+
+# Check status
+sudo ufw status
+```
+
+If you plan to expose Clawdbot through a web interface later, you can allow HTTP/HTTPS:
+
+```bash
+sudo ufw allow http
+sudo ufw allow https
+```
+
+## 4. Installing prerequisites
 
 We need some packages for Clawdbot to work properly. Verify that you are logged in as the `clawdbot` user or you might run into permission problems.
 
@@ -77,7 +184,7 @@ curl -fsSL https://tailscale.com/install.sh | sh
 sudo tailscale up
 ```
 
-## 4. Clawdbot
+## 5. Clawdbot
 
 Now the fun begins 🦞. Let's install Clawdbot and onboard you.
 
@@ -198,7 +305,7 @@ on reconnect.)
 
 After the gateway has started (the onboarding setup should have shown you a success message) you can message your bot if you created one with `/start` to pair your Telegram chat sessions to your Clawdbot gateway. Everything is explained in the chat.
 
-## 5. Use cases and configuration
+## 6. Use cases and configuration
 
 You might be tempted to configure workflows, automations, or other features via the Dashboard UI. While this works for some things, I highly recommend using the chat interface instead.
 
