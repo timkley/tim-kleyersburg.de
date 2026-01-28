@@ -46,6 +46,9 @@ class CrawlWebpageInformation implements ShouldQueue
 
     protected function createSummary(string $content): string
     {
+        // Truncate content to avoid exceeding token limits (~4 chars per token, limit to ~100k tokens)
+        $content = mb_substr($content, 0, 400_000);
+
         $response = Prism::text()
             ->using(Provider::OpenRouter, 'google/gemini-2.0-flash-001')
             ->withPrompt(<<<EOT
