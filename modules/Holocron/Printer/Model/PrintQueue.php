@@ -42,6 +42,14 @@ class PrintQueue extends Model
     {
         $topFeed = 16;
 
+        if ($this->text !== null) {
+            $lines = substr_count($this->text, "\n") + 1;
+            $lineHeightMm = 4;
+            $bottomFeed = 10;
+
+            return $topFeed + ($lines * $lineHeightMm) + $bottomFeed;
+        }
+
         $image = Storage::disk('public')->get($this->image);
 
         if (is_null($image)) {

@@ -10,11 +10,13 @@
         <div class="space-y-6">
             @foreach($printQueue as $item)
                 @php
-                    $imageExists = Storage::disk('public')->exists($item->image);
+                    $imageExists = $item->image && Storage::disk('public')->exists($item->image);
                     $imageUrl = $imageExists ? Storage::url($item->image) : null;
                 @endphp
                 <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden max-w-sm mx-auto">
-                    @if($imageExists)
+                    @if($item->text)
+                        <div class="p-4 bg-white font-mono text-sm whitespace-pre-wrap">{{ $item->text }}</div>
+                    @elseif($imageExists)
                         <img src="{{ $imageUrl }}"
                              alt="Print Queue Item #{{ $item->id }}"
                              class="p-4 bg-white rounded-lg">
