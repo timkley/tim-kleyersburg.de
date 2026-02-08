@@ -72,6 +72,19 @@ class PrintQueueController
         $items = [];
 
         foreach ($itemsToPrint as $item) {
+            // Text-only print job
+            if ($item->text !== null) {
+                $items[] = [
+                    'id' => $item->id,
+                    'text' => $item->text,
+                    'actions' => $item->actions,
+                    'created_at' => $item->created_at->toISOString(),
+                ];
+
+                continue;
+            }
+
+            // Image-based print job
             $imageUrl = $this->getImageUrl($item->image);
 
             if ($imageUrl !== null) {
