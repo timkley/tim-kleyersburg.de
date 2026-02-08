@@ -13,7 +13,8 @@ use Modules\Holocron\Printer\Database\Factories\PrintQueueFactory;
 
 /**
  * @property int $id
- * @property string $image
+ * @property string|null $image
+ * @property string|null $text
  * @property array $actions
  * @property string|null $printable_type
  * @property int|null $printable_id
