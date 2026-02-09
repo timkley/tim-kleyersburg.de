@@ -46,6 +46,8 @@ Route::get('/articles/ogimage/{slug}', function ($slug) {
     ->name('prezet.ogimage')
     ->where('slug', '.*');
 
+Route::permanentRedirect('/articles/painless-clawdbot-setup', '/articles/painless-openclaw-setup');
+
 Route::get('/articles/{slug}', Show::class)
     ->where('slug', '.*')
     ->name('prezet.show');

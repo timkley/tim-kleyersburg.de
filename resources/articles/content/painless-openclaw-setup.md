@@ -1,15 +1,17 @@
 ---
 date: 2026-01-25
-title: Setup Clawdbot on a Hetzner VPS for 24/7 access
-excerpt: Painless guide on how to correctly set up Clawdbot to get your personal 24/7 assistant
+title: Setup OpenClaw on a Hetzner VPS for 24/7 access
+excerpt: Painless guide on how to correctly set up OpenClaw (formerly Clawdbot / Moltbot) to get your personal 24/7 assistant
 tags: [ai]
 ---
 
-Clawdbot seems to be the biggest hype in January 2026. Many people talk about it, the amount of development poured into it and the speed it's developing is crazy.
+> **Note:** This project was originally released as **Clawdbot**, then renamed to **Moltbot**, and is now called **OpenClaw**. If you followed this guide under one of the previous names, the steps are the same — only the package and command names have changed. This guide has been updated to reflect the current name.
+
+OpenClaw seems to be the biggest hype in January 2026. Many people talk about it, the amount of development poured into it and the speed it's developing is crazy.
 
 The documentation is thorough, but even with Claude Code I didn't come to a working solution without manually intervening.
 
-So what follows is a quick walkthrough on how to get Clawdbot working on a fresh Ubuntu 24.04 VPS from Hetzner.
+So what follows is a quick walkthrough on how to get OpenClaw working on a fresh Ubuntu 24.04 VPS from Hetzner.
 
 ## 1. Create VPS
 
@@ -19,7 +21,7 @@ Log into your cloud provider and create a simple VPS. 2 vCPUs and 4GB of RAM is 
 
 ## 2. Basic VPS setup
 
-We'll start with logging into the server, updating, and creating a dedicated user to use with Clawdbot.
+We'll start with logging into the server, updating, and creating a dedicated user to use with OpenClaw.
 
 ```bash
 ssh root@your-server-ip # enter the password you received via email
@@ -27,15 +29,15 @@ ssh root@your-server-ip # enter the password you received via email
 apt update && apt upgrade -y # update packages
 # if prompted to reboot, do it.
 
-adduser clawdbot # create the new user. You can leave all details empty, but don't forget to set a strong password
-usermod -aG sudo clawdbot # add the user to the sudoers group so we can use `sudo`
+adduser openclaw # create the new user. You can leave all details empty, but don't forget to set a strong password
+usermod -aG sudo openclaw # add the user to the sudoers group so we can use `sudo`
 
-su - clawdbot # change to the new user
+su - openclaw # change to the new user
 ```
 
 ## 3. Securing your VPS
 
-Before installing Clawdbot, we should secure the server with some basic security measures. These steps will protect your VPS from common attacks.
+Before installing OpenClaw, we should secure the server with some basic security measures. These steps will protect your VPS from common attacks.
 
 ### Setup SSH key authentication
 
@@ -46,13 +48,13 @@ First, let's set up SSH key authentication so you can log in without a password.
 ssh-keygen -t ed25519 -C "your_email@example.com"
 
 # Copy your public key to the server
-ssh-copy-id clawdbot@your-server-ip
+ssh-copy-id openclaw@your-server-ip
 ```
 
 Test the SSH key login by opening a new terminal and connecting:
 
 ```bash
-ssh clawdbot@your-server-ip
+ssh openclaw@your-server-ip
 ```
 
 If you can log in without entering a password, the key authentication is working.
@@ -133,7 +135,7 @@ sudo ufw enable
 sudo ufw status
 ```
 
-If you plan to expose Clawdbot through a web interface later, you can allow HTTP/HTTPS:
+If you plan to expose OpenClaw through a web interface later, you can allow HTTP/HTTPS:
 
 ```bash
 sudo ufw allow http
@@ -142,7 +144,7 @@ sudo ufw allow https
 
 ## 4. Installing prerequisites
 
-We need some packages for Clawdbot to work properly. Verify that you are logged in as the `clawdbot` user or you might run into permission problems.
+We need some packages for OpenClaw to work properly. Verify that you are logged in as the `openclaw` user or you might run into permission problems.
 
 ### Node
 
@@ -168,7 +170,7 @@ npm -v # Should print "11.6.2".
 
 ### Homebrew
 
-[Homebrew](https://brew.sh/) is a package manager. It is needed by some skills (instructions used by Clawdbot to enhance its abilities).
+[Homebrew](https://brew.sh/) is a package manager. It is needed by some skills (instructions used by OpenClaw to enhance its abilities).
 
 ```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -176,7 +178,7 @@ npm -v # Should print "11.6.2".
 
 ### Tailscale (optional)
 
-[Tailscale](http://tailscale.com/) is a Zero Trust identity-based connectivity platform. It can be used to securely connect your local computer with your Clawdbot gateway making it possible for the gateway to do things on your local computer.  
+[Tailscale](http://tailscale.com/) is a Zero Trust identity-based connectivity platform. It can be used to securely connect your local computer with your OpenClaw gateway making it possible for the gateway to do things on your local computer.
 I currently don't have a use case for this, so you might also skip it.
 
 ```bash
@@ -184,20 +186,20 @@ curl -fsSL https://tailscale.com/install.sh | sh
 sudo tailscale up
 ```
 
-## 5. Clawdbot
+## 5. OpenClaw
 
-Now the fun begins 🦞. Let's install Clawdbot and onboard you.
+Now the fun begins 🦞. Let's install OpenClaw and onboard you.
 
 ### Installation
 ```bash
-npm i -g clawdbot
+npm i -g openclaw
 ```
 
-This might take a while, but that's it. You've installed Clawdbot and are ready to onboard.
+This might take a while, but that's it. You've installed OpenClaw and are ready to onboard.
 
 ### Onboarding
 
-Run `clawdbot onboard`. It will take you through its interactive onboarding guide. Below are the settings I used but be aware that Clawdbot is very actively developed, so settings might change quickly. I've left some comments.
+Run `openclaw onboard`. It will take you through its interactive onboarding guide. Below are the settings I used but be aware that OpenClaw is very actively developed, so settings might change quickly. I've left some comments.
 
 ```
 ◆  I understand this is powerful and inherently risky. Continue?
@@ -214,7 +216,7 @@ Run `clawdbot onboard`. It will take you through its interactive onboarding guid
 |  # It might seem counterintuitive at first, but you want the Gateway to run locally on the VPS
 |
 ◆  Workspace directory
-│  /home/clawdbot/clawd
+│  /home/openclaw/clawd
 |
 ◆  Model/auth provider
 │  ● OpenAI (Codex OAuth + API key)
@@ -303,12 +305,12 @@ on reconnect.)
 
 ### Telegram
 
-After the gateway has started (the onboarding setup should have shown you a success message) you can message your bot if you created one with `/start` to pair your Telegram chat sessions to your Clawdbot gateway. Everything is explained in the chat.
+After the gateway has started (the onboarding setup should have shown you a success message) you can message your bot if you created one with `/start` to pair your Telegram chat sessions to your OpenClaw gateway. Everything is explained in the chat.
 
 ## 6. Use cases and configuration
 
 You might be tempted to configure workflows, automations, or other features via the Dashboard UI. While this works for some things, I highly recommend using the chat interface instead.
 
-Simply describe what you want to achieve. Clawdbot is remarkably good at understanding intent and will guide you through the setup process. For example, I've long wanted a summary of my bookmarked tweets. I tend to hit the bookmark icon and then forget to review them later. I asked Clawdbot to send me a daily digest, and it walked me through the entire process: setting up `bird` (the CLI for interacting with X), configuring the skill, and even sending a test message to confirm everything worked.
+Simply describe what you want to achieve. OpenClaw is remarkably good at understanding intent and will guide you through the setup process. For example, I've long wanted a summary of my bookmarked tweets. I tend to hit the bookmark icon and then forget to review them later. I asked OpenClaw to send me a daily digest, and it walked me through the entire process: setting up `bird` (the CLI for interacting with X), configuring the skill, and even sending a test message to confirm everything worked.
 
 If there's something you want to accomplish, just ask. It genuinely feels like having a personal assistant. Rather than responding with "I'm sorry, I can't do that," it proposes a plan to achieve your desired outcome.
