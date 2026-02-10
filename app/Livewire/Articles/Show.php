@@ -56,7 +56,7 @@ class Show extends Component
     {
         return cache()->store('file_persistent')->rememberForever('ramble.'.$this->article->id, function () use ($original) {
             $response = Prism::text()
-                ->using(Provider::OpenRouter, 'google/gmeini-2.5-flash')
+                ->using(Provider::OpenRouter, 'google/gemini-2.5-flash')
                 ->withSystemPrompt(<<<'EOT'
 - only return markdown
 - don't include any code highlighting backticks
