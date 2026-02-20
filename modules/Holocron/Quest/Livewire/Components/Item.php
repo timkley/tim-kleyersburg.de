@@ -42,6 +42,7 @@ class Item extends Component
     {
         Quest::destroy($id);
         $this->dispatch('quest:deleted');
+        $this->skipRender();
     }
 
     public function render(): View
