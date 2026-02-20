@@ -60,6 +60,6 @@ trait CalculatesGoals
         $user = User::tim();
         $weight = $user->settings?->weight;
 
-        return (int) round($weight * 1.2);
+        return (int) round($weight * 2);
     }
 }

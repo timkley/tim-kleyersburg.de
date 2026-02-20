@@ -1,0 +1,1210 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Quest API",
+    "description": "API for managing quests, notes, links, attachments, reminders, and recurrence.",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://tim-kleyersburg.de.test/api/holocron",
+      "description": "Local development"
+    }
+  ],
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "paths": {
+    "/quests": {
+      "get": {
+        "operationId": "listQuests",
+        "summary": "List all quests",
+        "tags": ["Quests"],
+        "responses": {
+          "200": {
+            "description": "List of quests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Quest"
+                      }
+                    }
+                  },
+                  "required": ["data"]
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "createQuest",
+        "summary": "Create a new quest",
+        "tags": ["Quests"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateQuestRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Quest created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuestResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationError"
+          }
+        }
+      }
+    },
+    "/quests/{quest}": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/QuestId"
+        }
+      ],
+      "get": {
+        "operationId": "showQuest",
+        "summary": "Show a single quest",
+        "tags": ["Quests"],
+        "parameters": [
+          {
+            "name": "include",
+            "in": "query",
+            "description": "Comma-separated list of relations to include.",
+            "schema": {
+              "type": "string",
+              "example": "children,notes,webpages,reminders,recurrence"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Quest details",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuestResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      },
+      "patch": {
+        "operationId": "updateQuest",
+        "summary": "Update a quest",
+        "tags": ["Quests"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateQuestRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Quest updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuestResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationError"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "deleteQuest",
+        "summary": "Delete a quest",
+        "tags": ["Quests"],
+        "responses": {
+          "204": {
+            "description": "Quest deleted"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      }
+    },
+    "/quests/{quest}/complete": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/QuestId"
+        }
+      ],
+      "post": {
+        "operationId": "toggleQuestComplete",
+        "summary": "Toggle quest completion",
+        "tags": ["Quests"],
+        "responses": {
+          "200": {
+            "description": "Quest completion toggled",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuestResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      }
+    },
+    "/quests/{quest}/move": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/QuestId"
+        }
+      ],
+      "post": {
+        "operationId": "moveQuest",
+        "summary": "Move quest to a different parent",
+        "tags": ["Quests"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "quest_id": {
+                    "type": ["integer", "null"],
+                    "description": "ID of the new parent quest. Null to make it a root quest."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Quest moved",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuestResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationError"
+          }
+        }
+      }
+    },
+    "/quests/{quest}/print": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/QuestId"
+        }
+      ],
+      "post": {
+        "operationId": "printQuest",
+        "summary": "Print a quest",
+        "tags": ["Quests"],
+        "responses": {
+          "200": {
+            "description": "Quest sent to printer",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuestResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      }
+    },
+    "/quests/{quest}/accept": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/QuestId"
+        }
+      ],
+      "post": {
+        "operationId": "toggleAcceptQuest",
+        "summary": "Toggle quest acceptance",
+        "tags": ["Quests"],
+        "responses": {
+          "200": {
+            "description": "Quest acceptance toggled",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuestResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      }
+    },
+    "/quests/{quest}/attachments": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/QuestId"
+        }
+      ],
+      "post": {
+        "operationId": "addQuestAttachment",
+        "summary": "Upload an attachment to a quest",
+        "tags": ["Attachments"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "The file to upload."
+                  }
+                },
+                "required": ["file"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Attachment added",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuestResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationError"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "removeQuestAttachment",
+        "summary": "Remove an attachment from a quest",
+        "tags": ["Attachments"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "path": {
+                    "type": "string",
+                    "description": "The storage path of the attachment to remove."
+                  }
+                },
+                "required": ["path"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Attachment removed"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationError"
+          }
+        }
+      }
+    },
+    "/quests/{quest}/notes": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/QuestId"
+        }
+      ],
+      "get": {
+        "operationId": "listQuestNotes",
+        "summary": "List notes for a quest",
+        "tags": ["Notes"],
+        "responses": {
+          "200": {
+            "description": "List of notes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Note"
+                      }
+                    }
+                  },
+                  "required": ["data"]
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      },
+      "post": {
+        "operationId": "createQuestNote",
+        "summary": "Create a note for a quest",
+        "tags": ["Notes"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateNoteRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Note created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NoteResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationError"
+          }
+        }
+      }
+    },
+    "/quests/{quest}/notes/{note}": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/QuestId"
+        },
+        {
+          "name": "note",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer"
+          },
+          "description": "The note ID."
+        }
+      ],
+      "delete": {
+        "operationId": "deleteQuestNote",
+        "summary": "Delete a note",
+        "tags": ["Notes"],
+        "responses": {
+          "204": {
+            "description": "Note deleted"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      }
+    },
+    "/quests/{quest}/links": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/QuestId"
+        }
+      ],
+      "get": {
+        "operationId": "listQuestLinks",
+        "summary": "List links for a quest",
+        "tags": ["Links"],
+        "responses": {
+          "200": {
+            "description": "List of linked webpages",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Webpage"
+                      }
+                    }
+                  },
+                  "required": ["data"]
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      },
+      "post": {
+        "operationId": "addQuestLink",
+        "summary": "Add a link to a quest",
+        "tags": ["Links"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddLinkRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Link added",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuestResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationError"
+          }
+        }
+      }
+    },
+    "/quests/{quest}/links/{pivotId}": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/QuestId"
+        },
+        {
+          "name": "pivotId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer"
+          },
+          "description": "The pivot table ID of the link to remove."
+        }
+      ],
+      "delete": {
+        "operationId": "removeQuestLink",
+        "summary": "Remove a link from a quest",
+        "tags": ["Links"],
+        "responses": {
+          "204": {
+            "description": "Link removed"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      }
+    },
+    "/quests/{quest}/reminders": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/QuestId"
+        }
+      ],
+      "get": {
+        "operationId": "listQuestReminders",
+        "summary": "List reminders for a quest",
+        "tags": ["Reminders"],
+        "responses": {
+          "200": {
+            "description": "List of reminders",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Reminder"
+                      }
+                    }
+                  },
+                  "required": ["data"]
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      },
+      "post": {
+        "operationId": "saveQuestReminder",
+        "summary": "Create or update a reminder for a quest",
+        "tags": ["Reminders"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SaveReminderRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Reminder created or updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReminderResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationError"
+          }
+        }
+      }
+    },
+    "/quests/{quest}/reminders/{reminder}": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/QuestId"
+        },
+        {
+          "name": "reminder",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer"
+          },
+          "description": "The reminder ID."
+        }
+      ],
+      "delete": {
+        "operationId": "deleteQuestReminder",
+        "summary": "Delete a reminder",
+        "tags": ["Reminders"],
+        "responses": {
+          "204": {
+            "description": "Reminder deleted"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      }
+    },
+    "/quests/{quest}/recurrence": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/QuestId"
+        }
+      ],
+      "get": {
+        "operationId": "showQuestRecurrence",
+        "summary": "Show recurrence settings for a quest",
+        "tags": ["Recurrence"],
+        "responses": {
+          "200": {
+            "description": "Recurrence details (data may be null if no recurrence is set)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "oneOf": [
+                        {
+                          "$ref": "#/components/schemas/QuestRecurrence"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    }
+                  },
+                  "required": ["data"]
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      },
+      "post": {
+        "operationId": "saveQuestRecurrence",
+        "summary": "Create or update recurrence for a quest",
+        "tags": ["Recurrence"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SaveRecurrenceRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Recurrence created or updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuestRecurrenceResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationError"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "deleteQuestRecurrence",
+        "summary": "Delete recurrence from a quest",
+        "tags": ["Recurrence"],
+        "responses": {
+          "204": {
+            "description": "Recurrence deleted"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    },
+    "parameters": {
+      "QuestId": {
+        "name": "quest",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "integer"
+        },
+        "description": "The quest ID."
+      }
+    },
+    "schemas": {
+      "Quest": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "quest_id": {
+            "type": ["integer", "null"],
+            "description": "Parent quest ID."
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": ["string", "null"]
+          },
+          "date": {
+            "type": ["string", "null"],
+            "format": "date",
+            "description": "Scheduled date (YYYY-MM-DD)."
+          },
+          "daily": {
+            "type": "boolean"
+          },
+          "is_note": {
+            "type": "boolean"
+          },
+          "accepted": {
+            "type": "boolean"
+          },
+          "completed_at": {
+            "type": ["string", "null"],
+            "format": "date-time",
+            "description": "ISO 8601 timestamp when completed."
+          },
+          "should_be_printed": {
+            "type": "boolean"
+          },
+          "attachments": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of attachment storage paths."
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "children": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Quest"
+            },
+            "description": "Included when requested via ?include=children."
+          },
+          "notes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Note"
+            },
+            "description": "Included when requested via ?include=notes."
+          },
+          "webpages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Webpage"
+            },
+            "description": "Included when requested via ?include=webpages."
+          },
+          "reminders": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Reminder"
+            },
+            "description": "Included when requested via ?include=reminders."
+          },
+          "recurrence": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/QuestRecurrence"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Included when requested via ?include=recurrence."
+          }
+        },
+        "required": ["id", "name", "daily", "is_note", "accepted", "should_be_printed", "attachments", "created_at", "updated_at"]
+      },
+      "Note": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "quest_id": {
+            "type": "integer"
+          },
+          "content": {
+            "type": ["string", "null"]
+          },
+          "role": {
+            "type": "string",
+            "enum": ["user", "assistant"]
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": ["id", "quest_id", "role", "created_at", "updated_at"]
+      },
+      "Webpage": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "title": {
+            "type": ["string", "null"]
+          },
+          "pivot_id": {
+            "type": "integer",
+            "description": "The pivot table ID, used for unlinking."
+          }
+        },
+        "required": ["id", "url"]
+      },
+      "Reminder": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "quest_id": {
+            "type": "integer"
+          },
+          "type": {
+            "type": "string",
+            "enum": ["once", "cron"]
+          },
+          "remind_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "recurrence_pattern": {
+            "type": ["string", "null"],
+            "description": "Cron expression for recurring reminders."
+          },
+          "last_processed_at": {
+            "type": ["string", "null"],
+            "format": "date-time"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": ["id", "quest_id", "type", "remind_at", "created_at", "updated_at"]
+      },
+      "QuestRecurrence": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "quest_id": {
+            "type": "integer"
+          },
+          "every_x_days": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "recurrence_type": {
+            "type": "string",
+            "enum": ["recurrence_based", "completion_based"]
+          },
+          "last_recurred_at": {
+            "type": ["string", "null"],
+            "format": "date-time"
+          },
+          "ends_at": {
+            "type": ["string", "null"],
+            "format": "date-time"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": ["id", "quest_id", "every_x_days", "recurrence_type", "created_at", "updated_at"]
+      },
+      "CreateQuestRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "quest_id": {
+            "type": ["integer", "null"],
+            "description": "Parent quest ID."
+          },
+          "date": {
+            "type": ["string", "null"],
+            "format": "date"
+          },
+          "daily": {
+            "type": "boolean"
+          },
+          "is_note": {
+            "type": "boolean"
+          },
+          "description": {
+            "type": ["string", "null"]
+          }
+        },
+        "required": ["name"]
+      },
+      "UpdateQuestRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "description": {
+            "type": ["string", "null"]
+          },
+          "date": {
+            "type": ["string", "null"],
+            "format": "date"
+          },
+          "daily": {
+            "type": "boolean"
+          },
+          "is_note": {
+            "type": "boolean"
+          }
+        }
+      },
+      "CreateNoteRequest": {
+        "type": "object",
+        "properties": {
+          "content": {
+            "type": "string"
+          },
+          "role": {
+            "type": "string",
+            "enum": ["user", "assistant"],
+            "default": "user"
+          }
+        },
+        "required": ["content"]
+      },
+      "AddLinkRequest": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "title": {
+            "type": ["string", "null"]
+          }
+        },
+        "required": ["url"]
+      },
+      "SaveReminderRequest": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": ["integer", "null"],
+            "description": "Existing reminder ID to update. Omit to create new."
+          },
+          "remind_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "type": {
+            "type": "string",
+            "enum": ["once", "cron"]
+          },
+          "recurrence_pattern": {
+            "type": ["string", "null"],
+            "description": "Cron expression. Required when type is 'cron'."
+          }
+        },
+        "required": ["remind_at", "type"]
+      },
+      "SaveRecurrenceRequest": {
+        "type": "object",
+        "properties": {
+          "every_x_days": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "recurrence_type": {
+            "type": "string",
+            "enum": ["recurrence_based", "completion_based"]
+          },
+          "ends_at": {
+            "type": ["string", "null"],
+            "format": "date"
+          }
+        },
+        "required": ["every_x_days", "recurrence_type"]
+      },
+      "QuestResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/Quest"
+          }
+        },
+        "required": ["data"]
+      },
+      "NoteResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/Note"
+          }
+        },
+        "required": ["data"]
+      },
+      "ReminderResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/Reminder"
+          }
+        },
+        "required": ["data"]
+      },
+      "QuestRecurrenceResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/QuestRecurrence"
+          }
+        },
+        "required": ["data"]
+      },
+      "ValidationError": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          },
+          "errors": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "required": ["message", "errors"]
+      }
+    },
+    "responses": {
+      "NotFound": {
+        "description": "Resource not found",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "No query results for model."
+                }
+              }
+            }
+          }
+        }
+      },
+      "ValidationError": {
+        "description": "Validation failed",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ValidationError"
+            }
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Quests",
+      "description": "CRUD operations and actions on quests."
+    },
+    {
+      "name": "Attachments",
+      "description": "File attachments on quests."
+    },
+    {
+      "name": "Notes",
+      "description": "Notes attached to quests."
+    },
+    {
+      "name": "Links",
+      "description": "Webpage links attached to quests."
+    },
+    {
+      "name": "Reminders",
+      "description": "Reminders for quests."
+    },
+    {
+      "name": "Recurrence",
+      "description": "Recurrence settings for quests."
+    }
+  ]
+}
