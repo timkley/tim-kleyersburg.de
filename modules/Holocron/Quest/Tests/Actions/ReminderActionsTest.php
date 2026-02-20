@@ -49,6 +49,14 @@ it('validates that type is required', function () {
     (new SaveReminder)->handle($quest, ['remind_at' => '2025-06-01 09:00:00']);
 })->throws(Illuminate\Validation\ValidationException::class);
 
+it('validates that type must be once or cron', function () {
+    $quest = Quest::factory()->create();
+    (new SaveReminder)->handle($quest, [
+        'remind_at' => '2026-03-01 09:00',
+        'type' => 'invalid',
+    ]);
+})->throws(Illuminate\Validation\ValidationException::class);
+
 it('deletes a reminder', function () {
     $reminder = Reminder::factory()->create();
 

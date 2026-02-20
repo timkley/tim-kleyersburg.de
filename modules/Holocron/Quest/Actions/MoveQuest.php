@@ -15,7 +15,7 @@ final readonly class MoveQuest
             'quest_id' => ['nullable', 'integer', 'exists:quests,id'],
         ])->validate();
 
-        $quest->update(['quest_id' => $validated['quest_id'] ?? null]);
+        $quest->update(['quest_id' => $validated['quest_id']]);
 
         return $quest->refresh();
     }
