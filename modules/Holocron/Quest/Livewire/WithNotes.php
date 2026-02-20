@@ -102,9 +102,9 @@ PROMPT;
             $this->streamedAnswer .= $content;
 
             $this->stream(
-                to: 'streamedAnswer',
-                content: str($this->streamedAnswer)->markdown(),
-                replace: true
+                str($this->streamedAnswer)->markdown(),
+                el: 'streamedAnswer',
+                replace: true,
             );
         }
 
