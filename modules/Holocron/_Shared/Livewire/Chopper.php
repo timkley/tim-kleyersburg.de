@@ -67,9 +67,9 @@ EOT
             $this->answer .= $content;
 
             $this->stream(
-                to: 'answer',
-                content: str($this->answer)->markdown(),
-                replace: true
+                str($this->answer)->markdown(),
+                el: 'answer',
+                replace: true,
             );
         }
 

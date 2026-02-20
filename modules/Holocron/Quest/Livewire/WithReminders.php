@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Modules\Holocron\Quest\Livewire;
 
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Validate;
-use Modules\Holocron\Quest\Enums\ReminderType;
+use Modules\Holocron\Quest\Actions\DeleteReminder as DeleteReminderAction;
+use Modules\Holocron\Quest\Actions\SaveReminder;
 use Modules\Holocron\Quest\Models\Reminder;
 
 trait WithReminders
@@ -48,18 +48,11 @@ trait WithReminders
         $this->validateOnly('reminderDate');
         $this->validateOnly('reminderTime');
 
-        $remindAt = Carbon::parse("{$this->reminderDate} {$this->reminderTime}");
-
-        Reminder::query()->updateOrCreate(
-            [
-                'id' => $this->editingReminderId,
-            ],
-            [
-                'quest_id' => $this->quest->id,
-                'remind_at' => $remindAt,
-                'type' => ReminderType::Once,
-                'last_processed_at' => null,
-            ]);
+        (new SaveReminder)->handle($this->quest, [
+            'id' => $this->editingReminderId,
+            'remind_at' => "{$this->reminderDate} {$this->reminderTime}",
+            'type' => 'once',
+        ]);
 
         $this->reset(['reminderDate', 'reminderTime', 'editingReminderId']);
     }
@@ -75,7 +68,7 @@ trait WithReminders
 
     public function deleteReminder(int $id): void
     {
-        Reminder::destroy($id);
+        (new DeleteReminderAction)->handle(Reminder::findOrFail($id));
 
         if ($this->editingReminderId === $id) {
             $this->reset(['reminderDate', 'reminderTime', 'editingReminderId']);

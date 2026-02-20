@@ -29,7 +29,7 @@
         @endif
         <flux:input
             class:input="text-center font-bold"
-            wire:model.lazy="weight"
+            wire:model="weight"
             wire:dirty.class="bg-yellow-50 dark:bg-yellow-900"
             inputmode="decimal"
             :loading="false"
@@ -45,7 +45,7 @@
         <flux:input.group.prefix x-on:click="$wire.reps--; $wire.commit()">-</flux:input.group.prefix>
         <flux:input
             class:input="text-center font-bold"
-            wire:model.lazy="reps"
+            wire:model="reps"
             wire:dirty.class="bg-yellow-50 dark:bg-yellow-900"
             :loading="false"
             inputmode="numeric"

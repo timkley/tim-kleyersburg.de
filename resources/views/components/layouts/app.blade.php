@@ -12,7 +12,6 @@
         <title>{{ $title ?? config('app.name') }}</title>
     @endif
 
-    @livewireStyles
     @fluxAppearance
     @vite('resources/css/app.css')
 
@@ -79,8 +78,8 @@
 
         <script>
             document.addEventListener('livewire:init', () => {
-                Livewire.hook('request', ({ fail }) => {
-                    fail(({ status, preventDefault }) => {
+                Livewire.interceptRequest(({ onError }) => {
+                    onError(({ status, preventDefault }) => {
                         if (status === 419) {
                             window.location.reload()
                             preventDefault()

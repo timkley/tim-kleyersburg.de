@@ -6,6 +6,10 @@ namespace Modules\Holocron\Quest\Livewire\Components;
 
 use Illuminate\View\View;
 use Livewire\Component;
+use Modules\Holocron\Quest\Actions\DeleteQuest;
+use Modules\Holocron\Quest\Actions\PrintQuest;
+use Modules\Holocron\Quest\Actions\ToggleAcceptQuest;
+use Modules\Holocron\Quest\Actions\ToggleQuestComplete;
 use Modules\Holocron\Quest\Models\Quest;
 
 class Item extends Component
@@ -18,30 +22,25 @@ class Item extends Component
 
     public function toggleComplete(): void
     {
-        if ($this->quest->isCompleted()) {
-            $this->quest->update(['completed_at' => null]);
-        } else {
-            $this->quest->complete();
-        }
+        (new ToggleQuestComplete)->handle($this->quest);
     }
 
     public function toggleAccept(): void
     {
-        $this->quest->update(['date' => ! $this->quest->date ? now() : null]);
+        (new ToggleAcceptQuest)->handle($this->quest);
         $this->dispatch('quest:accepted');
     }
 
     public function print(): void
     {
-        $this->quest->update([
-            'should_be_printed' => true,
-        ]);
+        (new PrintQuest)->handle($this->quest);
     }
 
     public function deleteQuest(int $id): void
     {
-        Quest::destroy($id);
+        (new DeleteQuest)->handle(Quest::findOrFail($id));
         $this->dispatch('quest:deleted');
+        $this->skipRender();
     }
 
     public function render(): View

@@ -11,8 +11,8 @@ Route::get('/holocron/quests/complete', CompleteController::class)
     ->middleware('signed');
 
 Route::middleware(['web', 'auth'])->name('holocron.')->prefix('holocron')->group(function () {
-    Route::get('/quests', Livewire\Index::class)->name('quests');
-    Route::get('/quests/daily', Livewire\DailyQuest::class)->name('quests.daily');
-    Route::get('/quests/recurring', Livewire\RecurringQuests::class)->name('quests.recurring');
-    Route::get('/quests/{quest}', Livewire\Show::class)->name('quests.show');
+    Route::livewire('/quests', Livewire\Index::class)->name('quests');
+    Route::livewire('/quests/daily', Livewire\DailyQuest::class)->name('quests.daily');
+    Route::livewire('/quests/recurring', Livewire\RecurringQuests::class)->name('quests.recurring');
+    Route::livewire('/quests/{quest}', Livewire\Show::class)->name('quests.show');
 });

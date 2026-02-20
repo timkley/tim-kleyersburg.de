@@ -6,6 +6,8 @@ namespace Modules\Holocron\Quest\Livewire;
 
 use Livewire\Attributes\Url;
 use Livewire\Attributes\Validate;
+use Modules\Holocron\Quest\Actions\CreateNote;
+use Modules\Holocron\Quest\Actions\DeleteNote;
 use Modules\Holocron\Quest\Models\Note;
 use Prism\Prism\Enums\Provider;
 use Prism\Prism\Prism;
@@ -28,9 +30,7 @@ trait WithNotes
     {
         $this->validateOnly('noteDraft');
 
-        $this->quest->notes()->create([
-            'content' => $this->noteDraft,
-        ]);
+        (new CreateNote)->handle($this->quest, ['content' => $this->noteDraft]);
 
         $this->reset(['noteDraft']);
 
@@ -46,7 +46,7 @@ trait WithNotes
 
     public function deleteNote(int $id): void
     {
-        Note::destroy($id);
+        (new DeleteNote)->handle(Note::findOrFail($id));
     }
 
     public function ask(int $noteId): void
@@ -102,9 +102,9 @@ PROMPT;
             $this->streamedAnswer .= $content;
 
             $this->stream(
-                to: 'streamedAnswer',
-                content: str($this->streamedAnswer)->markdown(),
-                replace: true
+                str($this->streamedAnswer)->markdown(),
+                el: 'streamedAnswer',
+                replace: true,
             );
         }
 

@@ -20,7 +20,7 @@
         "laravel/tinker": "^2.10.1",
         "livewire/flux": "^2.0",
         "livewire/flux-pro": "^2.0",
-        "livewire/livewire": "^3.5.18",
+        "livewire/livewire": "^4.0",
         "prezet/prezet": "^1.2",
         "prism-php/prism": "^0.86.0",
         "spatie/laravel-feed": "^4.4",

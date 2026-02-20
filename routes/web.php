@@ -9,9 +9,9 @@ use App\Livewire\Pages\Home;
 use Illuminate\Support\Facades\Route;
 use Prezet\Prezet\Models\Document;
 
-Route::get('/', Home::class)->name('pages.home');
+Route::livewire('/', Home::class)->name('pages.home');
 
-Route::get('/articles', Index::class)->name('articles.index');
+Route::livewire('/articles', Index::class)->name('articles.index');
 
 Route::get('/articles/img/{path}', function ($path) {
     $file = Prezet\Prezet\Prezet::getImage($path);
@@ -48,10 +48,10 @@ Route::get('/articles/ogimage/{slug}', function ($slug) {
 
 Route::permanentRedirect('/articles/painless-clawdbot-setup', '/articles/painless-openclaw-setup');
 
-Route::get('/articles/{slug}', Show::class)
+Route::livewire('/articles/{slug}', Show::class)
     ->where('slug', '.*')
     ->name('prezet.show');
 
-Route::get('/einmaleins', Einmaleins::class)->name('pages.einmaleins');
+Route::livewire('/einmaleins', Einmaleins::class)->name('pages.einmaleins');
 
 Route::feeds();
