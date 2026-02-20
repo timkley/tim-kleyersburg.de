@@ -4,7 +4,7 @@
         <flux:input.group>
             <flux:input
                 class="min-w-12"
-                wire:model.lazy="sets"
+                wire:model="sets"
                 wire:dirty.class="bg-yellow-50 dark:bg-yellow-900"
                 inputmode="numeric"
             ></flux:input>
@@ -15,7 +15,7 @@
         <flux:input.group>
             <flux:input
                 class="min-w-12"
-                wire:model.lazy="min_reps"
+                wire:model="min_reps"
                 wire:dirty.class="bg-yellow-50 dark:bg-yellow-900"
                 inputmode="numeric"
             ></flux:input>
@@ -26,7 +26,7 @@
         <flux:input.group>
             <flux:input
                 class="min-w-12"
-                wire:model.lazy="max_reps"
+                wire:model="max_reps"
                 wire:dirty.class="bg-yellow-50 dark:bg-yellow-900"
                 inputmode="numeric"
             ></flux:input>
@@ -36,7 +36,7 @@
     <flux:table.cell>
         <flux:input.group>
             <flux:input
-                wire:model.lazy="order"
+                wire:model="order"
                 wire:dirty.class="bg-yellow-50 dark:bg-yellow-900"
                 inputmode="numeric"
             ></flux:input>

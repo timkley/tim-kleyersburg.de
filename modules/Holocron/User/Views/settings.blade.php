@@ -3,7 +3,7 @@
         <flux:label>Gewicht</flux:label>
 
         <flux:input.group>
-            <flux:input wire:model.blur="weight" />
+            <flux:input wire:model.live.blur="weight" />
             <flux:input.group.suffix>kg</flux:input.group.suffix>
         </flux:input.group>
 

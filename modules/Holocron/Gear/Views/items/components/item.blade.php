@@ -19,7 +19,7 @@
     </flux:table.cell>
     <flux:table.cell>
         <flux:input
-            wire:model.lazy="quantity"
+            wire:model="quantity"
             wire:dirty.class="bg-yellow-50 dark:bg-yellow-900"
             inputmode="decimal"
             :loading="false"
@@ -28,7 +28,7 @@
     </flux:table.cell>
     <flux:table.cell>
         <flux:input
-            wire:model.lazy="quantity_per_day"
+            wire:model="quantity_per_day"
             wire:dirty.class="bg-yellow-50 dark:bg-yellow-900"
             inputmode="decimal"
             :loading="false"
