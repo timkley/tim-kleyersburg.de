@@ -5,14 +5,12 @@ declare(strict_types=1);
 namespace Modules\Holocron\User\Livewire;
 
 use Illuminate\View\View;
-use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
-use Livewire\Component;
+use Modules\Holocron\_Shared\Livewire\HolocronComponent;
 use Modules\Holocron\User\Models\User;
 
-#[Layout('components.layouts.holocron')]
 #[Title('Einstellungen')]
-class Settings extends Component
+class Settings extends HolocronComponent
 {
     public float $weight;
 
