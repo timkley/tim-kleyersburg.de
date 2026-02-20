@@ -7,14 +7,20 @@ namespace Modules\Holocron\Quest\Livewire;
 use Flux\Flux;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 use Livewire\Attributes\Title;
 use Livewire\Attributes\Url;
 use Livewire\Attributes\Validate;
 use Livewire\WithFileUploads;
 use Modules\Holocron\_Shared\Livewire\HolocronComponent;
+use Modules\Holocron\Quest\Actions\AddQuestAttachment;
+use Modules\Holocron\Quest\Actions\CreateQuest as CreateQuestAction;
+use Modules\Holocron\Quest\Actions\DeleteQuest as DeleteQuestAction;
+use Modules\Holocron\Quest\Actions\MoveQuest;
+use Modules\Holocron\Quest\Actions\PrintQuest;
+use Modules\Holocron\Quest\Actions\RemoveQuestAttachment;
+use Modules\Holocron\Quest\Actions\ToggleQuestComplete;
+use Modules\Holocron\Quest\Actions\UpdateQuest;
 use Modules\Holocron\Quest\Models\Quest;
 
 #[Title('Quests')]
@@ -61,9 +67,7 @@ class Show extends HolocronComponent
 
         $this->validateOnly($property);
 
-        $this->quest->update([
-            $property => $value,
-        ]);
+        (new UpdateQuest)->handle($this->quest, [$property => $value]);
 
         $this->reset($property);
     }
@@ -74,47 +78,27 @@ class Show extends HolocronComponent
             return;
         }
 
-        /** @var Collection<int, string> $attachments */
-        $attachments = $this->quest->attachments;
-
         foreach ($this->newAttachments as $attachment) {
-            $storedPath = $attachment->store('quests', 'public');
-            if (! $storedPath) {
-                continue;
-            }
-            $attachments = $attachments->push($storedPath);
+            (new AddQuestAttachment)->handle($this->quest, $attachment);
         }
 
-        $this->quest->update([
-            'attachments' => $attachments,
-        ]);
-
+        $this->quest->refresh();
         $this->reset('newAttachments');
     }
 
     public function removeAttachment(string $path): void
     {
-        Storage::disk('public')->delete($path);
-
-        $this->quest->update([
-            'attachments' => $this->quest->attachments->filter(fn ($attachment) => $attachment !== $path)->values(),
-        ]);
+        (new RemoveQuestAttachment)->handle($this->quest, $path);
     }
 
     public function toggleComplete(): void
     {
-        if ($this->quest->isCompleted()) {
-            $this->quest->update(['completed_at' => null]);
-        } else {
-            $this->quest->complete();
-        }
+        (new ToggleQuestComplete)->handle($this->quest);
     }
 
     public function toggleIsNote(): void
     {
-        $this->quest->update([
-            'is_note' => ! $this->quest->is_note,
-        ]);
+        (new UpdateQuest)->handle($this->quest, ['is_note' => ! $this->quest->is_note]);
     }
 
     public function move(?int $id): void
@@ -123,18 +107,14 @@ class Show extends HolocronComponent
             return;
         }
 
-        $this->quest->update([
-            'quest_id' => $id,
-        ]);
+        (new MoveQuest)->handle($this->quest, ['quest_id' => $id]);
 
         Flux::modal('parent-search')->close();
     }
 
     public function print(): void
     {
-        $this->quest->update([
-            'should_be_printed' => true,
-        ]);
+        (new PrintQuest)->handle($this->quest);
     }
 
     public function addQuest(?string $name = null): void
@@ -143,7 +123,7 @@ class Show extends HolocronComponent
             $this->validateOnly('questDraft');
         }
 
-        Quest::create([
+        (new CreateQuestAction)->handle([
             'quest_id' => $this->quest->id,
             'name' => $name ?? $this->questDraft,
         ]);
@@ -153,7 +133,7 @@ class Show extends HolocronComponent
 
     public function deleteQuest(int $id): void
     {
-        Quest::destroy($id);
+        (new DeleteQuestAction)->handle(Quest::findOrFail($id));
     }
 
     public function mount(Quest $quest): void
