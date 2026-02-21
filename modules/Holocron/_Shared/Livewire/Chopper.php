@@ -26,6 +26,23 @@ class Chopper extends HolocronComponent
     /** @var array<int, array{role: string, content: string}> */
     public array $messages = [];
 
+    public function mount(?string $conversationId = null): void
+    {
+        if ($conversationId) {
+            $exists = DB::table('agent_conversations')
+                ->where('id', $conversationId)
+                ->where('user_id', auth()->id())
+                ->exists();
+
+            if (! $exists) {
+                abort(404);
+            }
+
+            $this->conversationId = $conversationId;
+            $this->loadMessages();
+        }
+    }
+
     public function send(): void
     {
         if (empty(mb_trim($this->message))) {
