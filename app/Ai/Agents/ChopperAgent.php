@@ -9,6 +9,7 @@ use App\Ai\Tools\CompleteQuest;
 use App\Ai\Tools\CreateQuest;
 use App\Ai\Tools\GetQuest;
 use App\Ai\Tools\ListQuests;
+use App\Ai\Tools\LogMeal;
 use App\Ai\Tools\SearchNotes;
 use App\Ai\Tools\SearchQuests;
 use Laravel\Ai\Attributes\MaxSteps;
@@ -70,6 +71,7 @@ class ChopperAgent implements Agent, Conversational, HasTools
             new CreateQuest,
             new CompleteQuest,
             new AddNoteToQuest,
+            new LogMeal,
         ];
     }
 }
