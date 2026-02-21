@@ -12,6 +12,7 @@ use Modules\Holocron\User\Database\Factories\UserSettingFactory;
 /**
  * @property-read float $weight
  * @property-read bool $printer_silenced
+ * @property-read ?array $nutrition_daily_targets
  */
 class UserSetting extends Model
 {
@@ -29,5 +30,15 @@ class UserSetting extends Model
     protected static function newFactory(): UserSettingFactory
     {
         return UserSettingFactory::new();
+    }
+
+    /**
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'nutrition_daily_targets' => 'array',
+        ];
     }
 }
