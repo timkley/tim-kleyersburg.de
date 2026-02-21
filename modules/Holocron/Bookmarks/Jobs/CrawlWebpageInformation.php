@@ -9,8 +9,8 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Support\Facades\Http;
 use Modules\Holocron\Bookmarks\Models\Webpage;
-use Prism\Prism\Enums\Provider;
-use Prism\Prism\Prism;
+
+use function Laravel\Ai\agent;
 
 class CrawlWebpageInformation implements ShouldQueue
 {
@@ -49,9 +49,7 @@ class CrawlWebpageInformation implements ShouldQueue
         // Truncate content to avoid exceeding token limits (~4 chars per token, limit to ~100k tokens)
         $content = mb_substr($content, 0, 400_000);
 
-        $response = Prism::text()
-            ->using(Provider::OpenRouter, 'google/gemini-2.0-flash-001')
-            ->withPrompt(<<<EOT
+        $response = agent(instructions: <<<'EOT'
 Summarize the given webpage content in 1-2 sentences, focus on the purpose only. Exclude information like:
 - login elements
 - contact information
@@ -62,12 +60,8 @@ Summarize the given webpage content in 1-2 sentences, focus on the purpose only.
 If no content was provided answer with "The summary could not be generated."
 
 You will answer ONLY with the summary, no quotes, delimiters.
-
-"""
-$content
-"""
-EOT)
-            ->asText();
+EOT
+        )->prompt($content);
 
         return $response->text;
     }
