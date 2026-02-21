@@ -9,8 +9,8 @@ use Illuminate\View\View;
 use Livewire\Component;
 use Prezet\Prezet\Models\Document;
 use Prezet\Prezet\Prezet;
-use Prism\Prism\Enums\Provider;
-use Prism\Prism\Prism;
+
+use function Laravel\Ai\agent;
 
 class Show extends Component
 {
@@ -54,27 +54,32 @@ class Show extends Component
 
     private function rambleIt(string $original): string
     {
-        return cache()->store('file_persistent')->rememberForever('ramble.'.$this->article->id, function () use ($original) {
-            $response = Prism::text()
-                ->using(Provider::OpenRouter, 'google/gemini-2.5-flash')
-                ->withSystemPrompt(<<<'EOT'
-- only return markdown
-- don't include any code highlighting backticks
-- keep the heading structure of the article
-- make sure that frontmatter is valid, values must be enclosed in double quotes if they are of type string
-EOT
-                )
-                ->withPrompt(
-                    <<<EOT
-Rewrite the following blog post from the perspective of a frustrated, 35-year-old who’s fed up with the cluelessness around them. This person’s got no patience left for people who just can’t get a handle on the simplest things, keep burning up everyone’s time, and never make a single change to improve their sloppy workflows. Instead, they endlessly complain about how overwhelmed they are. As they type, they get progressively angrier, using more intense language, slurs, and visceral imagery—basically writing themselves into a bottomless rage. Expect the f-word to make increasingly frequent appearances as they rant. The core message should be:  _“Stop wasting my and your fucking time.”_
+        return cache()->store('file_persistent')->rememberForever(
+            'ramble.'.$this->article->id,
+            fn () => (string) agent(
+                instructions: $this->rambleInstructions()
+            )->prompt($this->ramblePrompt($original))
+        );
+    }
 
-```
-$original
-```
-EOT
-                )->asText();
+    private function rambleInstructions(): string
+    {
+        return <<<'EOT'
+        - only return markdown
+        - don't include any code highlighting backticks
+        - keep the heading structure of the article
+        - make sure that frontmatter is valid, values must be enclosed in double quotes if they are of type string
+        EOT;
+    }
 
-            return $response->text;
-        });
+    private function ramblePrompt(string $original): string
+    {
+        return <<<EOT
+        Rewrite the following blog post from the perspective of a frustrated, 35-year-old who's fed up with the cluelessness around them. This person's got no patience left for people who just can't get a handle on the simplest things, keep burning up everyone's time, and never make a single change to improve their sloppy workflows. Instead, they endlessly complain about how overwhelmed they are. As they type, they get progressively angrier, using more intense language, slurs, and visceral imagery--basically writing themselves into a bottomless rage. Expect the f-word to make increasingly frequent appearances as they rant. The core message should be: _"Stop wasting my and your fucking time."_
+
+        ```
+        $original
+        ```
+        EOT;
     }
 }
