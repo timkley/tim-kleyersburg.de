@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "aaeda393a2d0bfcea97002a563135673",
+    "content-hash": "24ebdc613c1d15a6721a7c344a4de2aa",
     "packages": [
         {
             "name": "benbjurstrom/laravel-sitemap-lite",
