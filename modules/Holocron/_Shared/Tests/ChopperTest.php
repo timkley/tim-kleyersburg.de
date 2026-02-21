@@ -64,19 +64,6 @@ it('does not send empty messages', function () {
     ChopperAgent::assertNeverPrompted();
 });
 
-it('can start a new conversation', function () {
-    $user = User::factory()->create(['email' => 'timkley@gmail.com']);
-
-    Livewire::actingAs($user)
-        ->test(Chopper::class)
-        ->set('message', 'Test')
-        ->call('send')
-        ->call('newConversation')
-        ->assertSet('conversationId', null)
-        ->assertSet('messages', [])
-        ->assertSet('isStreaming', false);
-});
-
 it('dispatches message-sent event when sending a message', function () {
     $user = User::factory()->create(['email' => 'timkley@gmail.com']);
 

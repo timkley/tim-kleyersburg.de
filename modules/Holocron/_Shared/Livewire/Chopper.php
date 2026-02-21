@@ -97,21 +97,6 @@ class Chopper extends HolocronComponent
         $this->streamedResponse = '';
     }
 
-    public function selectConversation(string $id): void
-    {
-        $this->conversationId = $id;
-        $this->messages = [];
-        $this->loadMessages();
-    }
-
-    public function newConversation(): void
-    {
-        $this->conversationId = null;
-        $this->messages = [];
-        $this->streamedResponse = '';
-        $this->isStreaming = false;
-    }
-
     public function render(): View
     {
         return view('holocron::chopper', [

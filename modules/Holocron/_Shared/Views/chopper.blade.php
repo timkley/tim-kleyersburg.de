@@ -1,23 +1,24 @@
 <div class="flex h-[calc(100vh-12rem)] gap-6">
     {{-- Sidebar: Conversation List (Desktop) --}}
     <div class="hidden w-64 shrink-0 flex-col gap-2 overflow-y-auto md:flex">
-        <flux:button wire:click="newConversation" variant="primary" class="w-full">
+        <flux:button :href="route('holocron.chopper')" variant="primary" class="w-full" wire:navigate>
             Neues Gespräch
         </flux:button>
 
         <div class="mt-2 flex flex-col gap-1">
             @foreach ($conversations as $conv)
-                <button
-                    wire:click="selectConversation('{{ $conv->id }}')"
+                <a
+                    href="{{ route('holocron.chopper', $conv->id) }}"
+                    wire:navigate
                     wire:key="conv-{{ $conv->id }}"
                     @class([
-                        'w-full truncate rounded-lg px-3 py-2 text-left text-sm transition',
+                        'block w-full truncate rounded-lg px-3 py-2 text-left text-sm transition',
                         'bg-zinc-100 dark:bg-zinc-800' => $conversationId === $conv->id,
                         'hover:bg-zinc-50 dark:hover:bg-zinc-900' => $conversationId !== $conv->id,
                     ])
                 >
                     {{ str($conv->title ?? $conv->updated_at)->limit(40) }}
-                </button>
+                </a>
             @endforeach
         </div>
     </div>
@@ -29,14 +30,15 @@
                 Gespräche
             </flux:button>
             <flux:menu>
-                <flux:menu.item wire:click="newConversation" icon="plus">
+                <flux:menu.item :href="route('holocron.chopper')" icon="plus" wire:navigate>
                     Neues Gespräch
                 </flux:menu.item>
                 <flux:separator />
                 @foreach ($conversations as $conv)
                     <flux:menu.item
-                        wire:click="selectConversation('{{ $conv->id }}')"
+                        :href="route('holocron.chopper', $conv->id)"
                         wire:key="conv-mobile-{{ $conv->id }}"
+                        wire:navigate
                     >
                         {{ str($conv->title ?? $conv->updated_at)->limit(40) }}
                     </flux:menu.item>
