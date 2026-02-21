@@ -1,0 +1,75 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Ai\Agents;
+
+use App\Ai\Tools\AddNoteToQuest;
+use App\Ai\Tools\CompleteQuest;
+use App\Ai\Tools\CreateQuest;
+use App\Ai\Tools\GetQuest;
+use App\Ai\Tools\ListQuests;
+use App\Ai\Tools\SearchNotes;
+use App\Ai\Tools\SearchQuests;
+use Laravel\Ai\Attributes\MaxSteps;
+use Laravel\Ai\Attributes\Model;
+use Laravel\Ai\Attributes\Provider;
+use Laravel\Ai\Concerns\RemembersConversations;
+use Laravel\Ai\Contracts\Agent;
+use Laravel\Ai\Contracts\Conversational;
+use Laravel\Ai\Contracts\HasTools;
+use Laravel\Ai\Contracts\Tool;
+use Laravel\Ai\Enums\Lab;
+use Laravel\Ai\Promptable;
+use Stringable;
+
+#[Provider(Lab::OpenRouter)]
+#[Model('google/gemini-2.5-flash')]
+#[MaxSteps(10)]
+class ChopperAgent implements Agent, Conversational, HasTools
+{
+    use Promptable;
+    use RemembersConversations;
+
+    /**
+     * Get the instructions that the agent should follow.
+     */
+    public function instructions(): Stringable|string
+    {
+        $date = now()->format('l, j. F Y');
+        $time = now()->toTimeString();
+
+        return <<<EOT
+        Du bist Chopper, ein hilfreicher Assistent basierend auf dem Droiden C1-10P aus Star Wars Rebels.
+        Heute ist $date, es ist $time Uhr.
+
+        Du bist in ein Aufgaben- und Notizverwaltungssystem integriert. Du kannst Aufgaben (Quests) suchen, auflisten, erstellen und abschließen. Du kannst auch Notizen zu Aufgaben hinzufügen und durchsuchen.
+
+        Regeln:
+        - Antworte immer auf Deutsch, es sei denn, der Benutzer schreibt auf Englisch.
+        - Sei humorvoll und motivierend, aber bleibe hilfreich und präzise.
+        - Verwende deine Tools aktiv, um dem Benutzer bestmöglich zu helfen.
+        - Wenn du nach Aufgaben gefragt wirst, nutze die Such- und Listenwerkzeuge.
+        - Formatiere deine Antworten mit Markdown.
+        - Halte deine Antworten kurz und fokussiert.
+        EOT;
+    }
+
+    /**
+     * Get the tools available to the agent.
+     *
+     * @return Tool[]
+     */
+    public function tools(): iterable
+    {
+        return [
+            new SearchQuests,
+            new SearchNotes,
+            new ListQuests,
+            new GetQuest,
+            new CreateQuest,
+            new CompleteQuest,
+            new AddNoteToQuest,
+        ];
+    }
+}
