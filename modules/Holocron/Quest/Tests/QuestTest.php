@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
+use Laravel\Ai\AnonymousAgent;
 use Modules\Holocron\Bookmarks\Jobs\CrawlWebpageInformation;
 use Modules\Holocron\Quest\Models\Note;
 use Modules\Holocron\Quest\Models\Quest;
-use Prism\Prism\Prism;
 
 use function Pest\Laravel\get;
 
@@ -94,7 +94,7 @@ it('can find quests without children', function () {
 });
 
 it('can add links', function () {
-    Prism::fake();
+    AnonymousAgent::fake();
     Illuminate\Support\Facades\Bus::fake();
     $quest = Quest::factory()->create();
     Note::factory()->for($quest)->create();
@@ -107,11 +107,9 @@ it('can add links', function () {
 });
 
 it('does not accumulate streamed content across multiple ai requests', function () {
-    Prism::fake([
-        \Prism\Prism\Testing\TextResponseFake::make()
-            ->withText('First AI response'),
-        \Prism\Prism\Testing\TextResponseFake::make()
-            ->withText('Second AI response'),
+    AnonymousAgent::fake([
+        'First AI response',
+        'Second AI response',
     ]);
 
     $quest = Quest::factory()->create();

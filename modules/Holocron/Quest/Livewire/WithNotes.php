@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace Modules\Holocron\Quest\Livewire;
 
+use Laravel\Ai\Messages\AssistantMessage;
+use Laravel\Ai\Messages\UserMessage;
+use Laravel\Ai\Streaming\Events\TextDelta;
 use Livewire\Attributes\Url;
 use Livewire\Attributes\Validate;
 use Modules\Holocron\Quest\Actions\CreateNote;
 use Modules\Holocron\Quest\Actions\DeleteNote;
 use Modules\Holocron\Quest\Models\Note;
-use Prism\Prism\Enums\Provider;
-use Prism\Prism\Prism;
-use Prism\Prism\ValueObjects\Messages\AssistantMessage;
-use Prism\Prism\ValueObjects\Messages\SystemMessage;
-use Prism\Prism\ValueObjects\Messages\UserMessage;
+
+use function Laravel\Ai\agent;
 
 trait WithNotes
 {
@@ -53,7 +53,9 @@ trait WithNotes
     {
         $this->streamedAnswer = '';
 
-        $messages[] = new SystemMessage(view('prompts.solution')->render());
+        $instructions = view('prompts.solution')->render();
+        $messages = [];
+
         $prompt = <<<PROMPT
 Aktuelle Aufgabe:
 
@@ -88,18 +90,17 @@ PROMPT;
                 new AssistantMessage($note->content);
         });
 
-        $answer = Prism::text()
-            ->using(Provider::OpenRouter, 'google/gemini-2.5-flash:online')
-            ->withMessages([...$messages])
-            ->asStream();
+        $lastUserMessage = array_pop($messages);
 
-        foreach ($answer as $chunk) {
-            $content = $chunk->text;
+        $answer = agent(instructions: $instructions, messages: $messages)
+            ->stream($lastUserMessage->content);
 
-            if (empty($content)) {
-                continue; // Skip empty chunks
+        foreach ($answer as $event) {
+            if (! $event instanceof TextDelta) {
+                continue;
             }
-            $this->streamedAnswer .= $content;
+
+            $this->streamedAnswer .= $event->delta;
 
             $this->stream(
                 str($this->streamedAnswer)->markdown(),
