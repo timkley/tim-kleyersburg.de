@@ -51,8 +51,29 @@
         <div
             class="flex-1 space-y-4 overflow-y-auto pb-4"
             id="chat-messages"
-            x-data
-            x-effect="$nextTick(() => $el.scrollTop = $el.scrollHeight)"
+            x-data="{
+                shouldAutoScroll: true,
+                observer: null,
+                scrollToBottom() {
+                    this.$el.scrollTop = this.$el.scrollHeight
+                },
+                isNearBottom() {
+                    return this.$el.scrollHeight - this.$el.scrollTop - this.$el.clientHeight < 50
+                },
+                init() {
+                    this.observer = new MutationObserver(() => {
+                        if (this.shouldAutoScroll) {
+                            this.scrollToBottom()
+                        }
+                    })
+                    this.observer.observe(this.$el, { childList: true, subtree: true, characterData: true })
+                },
+                destroy() {
+                    this.observer?.disconnect()
+                }
+            }"
+            @scroll="shouldAutoScroll = isNearBottom()"
+            @message-sent.window="shouldAutoScroll = true; scrollToBottom()"
         >
             @if (empty($messages) && ! $isStreaming)
                 <div class="flex h-full items-center justify-center text-zinc-400">
