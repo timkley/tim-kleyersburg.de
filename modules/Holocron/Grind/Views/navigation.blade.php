@@ -3,5 +3,6 @@
     <flux:navbar.item href="{{ route('holocron.grind.exercises.index') }}" wire:navigate>Übungen</flux:navbar.item>
     <flux:navbar.item href="{{ route('holocron.grind.plans.index') }}" wire:navigate>Pläne</flux:navbar.item>
     <flux:navbar.item href="{{ route('holocron.grind.nutrition.index') }}" wire:navigate>Ernährung</flux:navbar.item>
+    <flux:navbar.item href="{{ route('holocron.grind.body-measurements') }}" wire:navigate>Körper</flux:navbar.item>
     <flux:navbar.item href="{{ route('holocron.grind.health-data') }}" wire:navigate>Health Data</flux:navbar.item>
 </flux:navbar>
