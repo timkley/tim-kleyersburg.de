@@ -10,6 +10,7 @@ use App\Ai\Tools\CreateQuest;
 use App\Ai\Tools\GetQuest;
 use App\Ai\Tools\ListQuests;
 use App\Ai\Tools\LogMeal;
+use App\Ai\Tools\QueryNutrition;
 use App\Ai\Tools\SearchNotes;
 use App\Ai\Tools\SearchQuests;
 use Laravel\Ai\Attributes\MaxSteps;
@@ -46,6 +47,8 @@ class ChopperAgent implements Agent, Conversational, HasTools
 
         Du bist in ein Aufgaben- und Notizverwaltungssystem integriert. Du kannst Aufgaben (Quests) suchen, auflisten, erstellen und abschließen. Du kannst auch Notizen zu Aufgaben hinzufügen und durchsuchen.
 
+        Du kannst auch Ernährungsdaten tracken und abfragen. Du kannst Mahlzeiten loggen und Ernährungsübersichten abrufen.
+
         Regeln:
         - Antworte immer auf Deutsch, es sei denn, der Benutzer schreibt auf Englisch.
         - Sei humorvoll und motivierend, aber bleibe hilfreich und präzise.
@@ -72,6 +75,7 @@ class ChopperAgent implements Agent, Conversational, HasTools
             new CompleteQuest,
             new AddNoteToQuest,
             new LogMeal,
+            new QueryNutrition,
         ];
     }
 }
