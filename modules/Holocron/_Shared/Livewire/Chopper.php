@@ -8,6 +8,7 @@ use App\Ai\Agents\ChopperAgent;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
+use Laravel\Ai\Responses\StreamedAgentResponse;
 use Laravel\Ai\Streaming\Events\TextDelta;
 use Livewire\Attributes\Title;
 
@@ -19,6 +20,8 @@ class Chopper extends HolocronComponent
     public ?string $conversationId = null;
 
     public string $streamedResponse = '';
+
+    public bool $isStreaming = false;
 
     /** @var array<int, array{role: string, content: string}> */
     public array $messages = [];
@@ -32,9 +35,15 @@ class Chopper extends HolocronComponent
         $userMessage = $this->message;
         $this->message = '';
         $this->streamedResponse = '';
+        $this->isStreaming = true;
 
         $this->messages[] = ['role' => 'user', 'content' => $userMessage];
 
+        $this->js('$wire.ask('.json_encode($userMessage, JSON_THROW_ON_ERROR).')');
+    }
+
+    public function ask(string $userMessage): void
+    {
         $agent = new ChopperAgent;
 
         if ($this->conversationId) {
@@ -51,18 +60,21 @@ class Chopper extends HolocronComponent
             $this->streamedResponse .= $event->delta;
 
             $this->stream(
-                str($this->streamedResponse)->markdown(),
-                el: 'assistant-response',
+                to: 'assistant-response',
+                content: str($this->streamedResponse)->markdown(),
                 replace: true,
             );
         }
 
         $this->messages[] = ['role' => 'assistant', 'content' => $this->streamedResponse];
 
-        if (! $this->conversationId && $stream->conversationId) {
-            $this->conversationId = $stream->conversationId;
-        }
+        $stream->then(function (StreamedAgentResponse $response): void {
+            if (! $this->conversationId && $response->conversationId) {
+                $this->conversationId = $response->conversationId;
+            }
+        });
 
+        $this->isStreaming = false;
         $this->streamedResponse = '';
     }
 
@@ -78,6 +90,7 @@ class Chopper extends HolocronComponent
         $this->conversationId = null;
         $this->messages = [];
         $this->streamedResponse = '';
+        $this->isStreaming = false;
     }
 
     public function render(): View

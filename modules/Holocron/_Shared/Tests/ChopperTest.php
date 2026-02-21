@@ -24,16 +24,27 @@ it('renders the chopper page', function () {
         ->assertSeeLivewire(Chopper::class);
 });
 
-it('can send a message and receive a response', function () {
-    ChopperAgent::fake(['Hallo! Wie kann ich dir helfen?']);
-
+it('can send a message and trigger streaming', function () {
     $user = User::factory()->create(['email' => 'timkley@gmail.com']);
 
     Livewire::actingAs($user)
         ->test(Chopper::class)
         ->set('message', 'Hallo Chopper!')
         ->call('send')
-        ->assertSet('message', '');
+        ->assertSet('message', '')
+        ->assertSet('isStreaming', true)
+        ->assertCount('messages', 1);
+});
+
+it('can ask the agent and receive a response', function () {
+    ChopperAgent::fake(['Hallo! Wie kann ich dir helfen?']);
+
+    $user = User::factory()->create(['email' => 'timkley@gmail.com']);
+
+    Livewire::actingAs($user)
+        ->test(Chopper::class)
+        ->call('ask', 'Hallo Chopper!')
+        ->assertSet('isStreaming', false);
 
     ChopperAgent::assertPrompted('Hallo Chopper!');
 });
@@ -52,8 +63,6 @@ it('does not send empty messages', function () {
 });
 
 it('can start a new conversation', function () {
-    ChopperAgent::fake(['Response']);
-
     $user = User::factory()->create(['email' => 'timkley@gmail.com']);
 
     Livewire::actingAs($user)
@@ -62,5 +71,6 @@ it('can start a new conversation', function () {
         ->call('send')
         ->call('newConversation')
         ->assertSet('conversationId', null)
-        ->assertSet('messages', []);
+        ->assertSet('messages', [])
+        ->assertSet('isStreaming', false);
 });

@@ -54,7 +54,7 @@
             x-data
             x-effect="$nextTick(() => $el.scrollTop = $el.scrollHeight)"
         >
-            @if (empty($messages) && ! $streamedResponse)
+            @if (empty($messages) && ! $isStreaming)
                 <div class="flex h-full items-center justify-center text-zinc-400">
                     <div class="text-center">
                         <flux:icon.sparkles class="mx-auto size-12" />
@@ -91,7 +91,7 @@
             @endforeach
 
             {{-- Streaming response --}}
-            @if ($streamedResponse)
+            @if ($isStreaming)
                 <div class="flex justify-start">
                     <div class="max-w-[80%] rounded-2xl bg-zinc-100 px-4 py-2 dark:bg-zinc-800">
                         <div class="prose prose-sm dark:prose-invert" wire:stream="assistant-response">
