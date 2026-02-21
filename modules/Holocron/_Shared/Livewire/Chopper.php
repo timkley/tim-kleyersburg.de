@@ -39,6 +39,8 @@ class Chopper extends HolocronComponent
 
         $this->messages[] = ['role' => 'user', 'content' => $userMessage];
 
+        $this->dispatch('message-sent');
+
         $this->js('$wire.ask('.json_encode($userMessage, JSON_THROW_ON_ERROR).')');
     }
 
