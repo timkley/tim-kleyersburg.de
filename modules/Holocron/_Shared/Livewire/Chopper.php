@@ -4,80 +4,119 @@ declare(strict_types=1);
 
 namespace Modules\Holocron\_Shared\Livewire;
 
+use App\Ai\Agents\ChopperAgent;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
+use Laravel\Ai\Streaming\Events\TextDelta;
 use Livewire\Attributes\Title;
-use Modules\Holocron\Quest\Models\Note;
-use Modules\Holocron\Quest\Models\Quest;
-use Prism\Prism\Enums\Provider;
-use Prism\Prism\Prism;
 
 #[Title('Chopper')]
 class Chopper extends HolocronComponent
 {
-    public string $question = '';
+    public string $message = '';
 
-    public string $answer = '';
+    public ?string $conversationId = null;
 
-    public string $context = '';
+    public string $streamedResponse = '';
 
-    public function ask(): void
+    /** @var array<int, array{role: string, content: string}> */
+    public array $messages = [];
+
+    public function send(): void
     {
-        $context = Quest::search($this->question)->options([
-            'query_by' => 'embedding',
-            'prefix' => false,
-            'drop_tokens_threshold' => 0,
-            'per_page' => 5,
-        ])
-            ->get()
-            ->take(5)
-            ->map(fn (Quest $quest) => $quest->name.': '.str($quest->description)->stripTags())
-            ->implode(', ');
+        if (empty(mb_trim($this->message))) {
+            return;
+        }
 
-        $context .= Note::search($this->question)->options([
-            'query_by' => 'embedding',
-            'prefix' => false,
-            'drop_tokens_treshold' => 0,
-            'per_page' => 5,
-        ])
-            ->get()
-            ->map(fn (Note $note) => str($note->content)->stripTags())
-            ->implode(', ');
+        $userMessage = $this->message;
+        $this->message = '';
+        $this->streamedResponse = '';
 
-        $response = Prism::text()
-            ->using(Provider::OpenRouter, 'google/gemini-2.5-flash')
-            ->withSystemPrompt("You are an assistant for question-answering. You can only make conversations based on the provided context. If a response cannot be formed strictly using the context, politely say you don't have knowledge about that topic.")
-            ->withPrompt(<<<EOT
-<Context>
-    $context
-</Context>
+        $this->messages[] = ['role' => 'user', 'content' => $userMessage];
 
-<Question>
-    $this->question
-</Question>
-EOT
-            )
-            ->asStream();
+        $agent = new ChopperAgent;
 
-        foreach ($response as $chunk) {
-            $content = $chunk->text;
+        if ($this->conversationId) {
+            $stream = $agent->continue($this->conversationId, auth()->user())->stream($userMessage);
+        } else {
+            $stream = $agent->forUser(auth()->user())->stream($userMessage);
+        }
 
-            if (empty($content)) {
-                continue; // Skip empty chunks
+        foreach ($stream as $event) {
+            if (! $event instanceof TextDelta) {
+                continue;
             }
-            $this->answer .= $content;
+
+            $this->streamedResponse .= $event->delta;
 
             $this->stream(
-                str($this->answer)->markdown(),
-                el: 'answer',
+                str($this->streamedResponse)->markdown(),
+                el: 'assistant-response',
                 replace: true,
             );
         }
 
-        $this->context = $context;
+        $this->messages[] = ['role' => 'assistant', 'content' => $this->streamedResponse];
+
+        if (! $this->conversationId && $stream->conversationId) {
+            $this->conversationId = $stream->conversationId;
+        }
+
+        $this->streamedResponse = '';
+    }
+
+    public function selectConversation(string $id): void
+    {
+        $this->conversationId = $id;
+        $this->messages = [];
+        $this->loadMessages();
+    }
+
+    public function newConversation(): void
+    {
+        $this->conversationId = null;
+        $this->messages = [];
+        $this->streamedResponse = '';
     }
 
     public function render(): View
     {
-        return view('holocron::chopper');
+        return view('holocron::chopper', [
+            'conversations' => $this->getConversations(),
+        ]);
+    }
+
+    /**
+     * @return Collection<int, object>
+     */
+    protected function getConversations(): Collection
+    {
+        return DB::table('agent_conversations')
+            ->where('user_id', auth()->id())
+            ->orderByDesc('updated_at')
+            ->limit(50)
+            ->get();
+    }
+
+    protected function loadMessages(): void
+    {
+        if (! $this->conversationId) {
+            return;
+        }
+
+        $messages = DB::table('agent_conversation_messages')
+            ->where('conversation_id', $this->conversationId)
+            ->orderBy('created_at')
+            ->get();
+
+        $this->messages = $messages
+            ->filter(fn (object $msg) => in_array($msg->role, ['user', 'assistant']))
+            ->map(fn (object $msg) => [
+                'role' => $msg->role,
+                'content' => $msg->content,
+            ])
+            ->values()
+            ->all();
     }
 }
