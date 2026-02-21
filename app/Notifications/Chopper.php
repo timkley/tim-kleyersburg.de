@@ -6,10 +6,10 @@ namespace App\Notifications;
 
 use App\Services\Weather;
 use Carbon\CarbonImmutable;
-use Prism\Prism\Enums\Provider;
-use Prism\Prism\Prism;
-use Prism\Prism\ValueObjects\Messages\AssistantMessage;
-use Prism\Prism\ValueObjects\Messages\UserMessage;
+use Laravel\Ai\Messages\AssistantMessage;
+use Laravel\Ai\Messages\UserMessage;
+
+use function Laravel\Ai\agent;
 
 class Chopper
 {
@@ -18,11 +18,7 @@ class Chopper
         $history = cache("chopper.$topic", []);
         $history[] = new UserMessage($message);
 
-        $response = Prism::text()
-            ->using(Provider::OpenRouter, 'google/gemini-2.5-flash')
-            ->withSystemPrompt(self::personality())
-            ->withMessages(...$history)
-            ->asText();
+        $response = agent(instructions: self::personality(), messages: $history)->prompt($message);
 
         $answer = $response->text;
 
