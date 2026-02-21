@@ -90,6 +90,10 @@ class Chopper extends HolocronComponent
         $stream->then(function (StreamedAgentResponse $response): void {
             if (! $this->conversationId && $response->conversationId) {
                 $this->conversationId = $response->conversationId;
+
+                $this->js(
+                    "history.replaceState({}, '', '".route('holocron.chopper', $response->conversationId)."')"
+                );
             }
         });
 
