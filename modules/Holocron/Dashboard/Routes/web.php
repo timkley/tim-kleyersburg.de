@@ -10,6 +10,6 @@ use Modules\Holocron\Dashboard\Livewire\Index;
 Route::middleware(['web', 'auth'])->name('holocron.')->prefix('holocron')->group(function () {
     Route::get('/', fn () => redirect()->route('holocron.dashboard'));
     Route::livewire('/dashboard', Index::class)->name('dashboard');
-    Route::livewire('/chopper', Chopper::class)->name('chopper');
+    Route::livewire('/chopper/{conversationId?}', Chopper::class)->name('chopper');
     Route::livewire('/scrobbles', Scrobbles::class)->name('scrobbles');
 });
