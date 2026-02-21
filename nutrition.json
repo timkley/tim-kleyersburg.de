@@ -1,0 +1,1054 @@
+{
+  "profile": {
+    "startDate": "2026-01-19",
+    "startWeight": 77.55,
+    "startBodyFat": 22.2,
+    "visceralFat": 6,
+    "muscleMass": 57.3,
+    "basalMetabolicRate": 1673,
+    "measurements": [
+      {
+        "date": "2026-01-19",
+        "weight": 77.55,
+        "bodyFat": 22.2,
+        "muscleMass": 57.3,
+        "visceralFat": 6
+      },
+      {
+        "date": "2026-02-13",
+        "weight": 76.7,
+        "bodyFat": 21.7,
+        "muscleMass": 57.1,
+        "visceralFat": 6,
+        "bmi": 22.9,
+        "fatFreeWeight": 60.0,
+        "subcutaneousFat": 19.6,
+        "skeletalMuscle": 50.5,
+        "bodyWater": 56.5
+      },
+      {
+        "date": "2026-02-21",
+        "weight": 76.05,
+        "bodyFat": 21.4,
+        "muscleMass": 56.8,
+        "visceralFat": 6,
+        "bmi": 22.7,
+        "fatFreeWeight": 59.8,
+        "subcutaneousFat": 19.3,
+        "skeletalMuscle": 50.8,
+        "bodyWater": 56.8
+      }
+    ],
+    "targetWeight": [
+      72,
+      74
+    ],
+    "targetBodyFat": [
+      15,
+      17
+    ],
+    "dailyTargets": {
+      "training": {
+        "kcal": 2200,
+        "protein": 155,
+        "fat": 65,
+        "carbs": 230
+      },
+      "rest": {
+        "kcal": 2000,
+        "protein": 155,
+        "fat": 60,
+        "carbs": 185
+      },
+      "sick": {
+        "kcal": 2500,
+        "protein": 155,
+        "fat": 75,
+        "carbs": 250
+      }
+    }
+  },
+  "days": {
+    "2026-02-01": {
+      "type": "training",
+      "training": "lower",
+      "meals": [
+        {
+          "time": "11:29",
+          "name": "2 Kaffee (Milch, \u00bd TL Zucker)",
+          "kcal": 40,
+          "protein": 1,
+          "fat": 1,
+          "carbs": 6
+        },
+        {
+          "time": "11:29",
+          "name": "\u00bd Pfefferseele mit Frischk\u00e4se, H\u00e4hnchenbrust, 7 Chips",
+          "kcal": 350,
+          "protein": 18,
+          "fat": 14,
+          "carbs": 38
+        },
+        {
+          "time": "13:11",
+          "name": "Clear Whey Shake (1 Scoop)",
+          "kcal": 110,
+          "protein": 23,
+          "fat": 0,
+          "carbs": 3
+        },
+        {
+          "time": "14:17",
+          "name": "3 St\u00fcck Pizza Prosciutto/Oliven (DND-Reste)",
+          "kcal": 650,
+          "protein": 28,
+          "fat": 24,
+          "carbs": 75
+        },
+        {
+          "time": "14:17",
+          "name": "2 St\u00fcck Pizza Prosciutto/Pilze (DND-Reste)",
+          "kcal": 430,
+          "protein": 18,
+          "fat": 16,
+          "carbs": 50
+        },
+        {
+          "time": "18:10",
+          "name": "Lachsnudeln",
+          "kcal": 800,
+          "protein": 42,
+          "fat": 30,
+          "carbs": 70
+        }
+      ],
+      "totals": {
+        "kcal": 2380,
+        "protein": 130,
+        "fat": 85,
+        "carbs": 242
+      },
+      "notes": "Tag 1 Tracking. Pizza proteinschwach, Lachsnudeln zum Ausgleich."
+    },
+    "2026-02-03": {
+      "type": "sick",
+      "meals": [
+        {
+          "name": "2 K\u00e4selaugenstangen (1\u00d7 Frischk\u00e4se + H\u00e4hnchenbrust)",
+          "kcal": 800,
+          "protein": 45,
+          "fat": 30,
+          "carbs": 80
+        },
+        {
+          "name": "Kleine Sch\u00fcssel Erdn\u00fcsse (~60g)",
+          "kcal": 350,
+          "protein": 15,
+          "fat": 28,
+          "carbs": 8
+        },
+        {
+          "name": "Quesadillas mit Hackfleisch, schwarzen Bohnen, Tomatensalsa",
+          "kcal": 800,
+          "protein": 45,
+          "fat": 35,
+          "carbs": 65
+        }
+      ],
+      "totals": {
+        "kcal": 1950,
+        "protein": 105,
+        "fat": 93,
+        "carbs": 153
+      },
+      "notes": "Krankheitstag, kein Training."
+    },
+    "2026-02-04": {
+      "type": "sick",
+      "meals": [
+        {
+          "time": "10:26",
+          "name": "Breakfast Burritos (Cheddar, R\u00fchrei, Hackfleisch, schwarze Bohnen) + 2 Kaffee",
+          "kcal": 790,
+          "protein": 43,
+          "fat": 32,
+          "carbs": 60
+        },
+        {
+          "time": "16:58",
+          "name": "Berliner",
+          "kcal": 280,
+          "protein": 4,
+          "fat": 12,
+          "carbs": 38
+        },
+        {
+          "time": "17:02",
+          "name": "Linsen-Spinat-Daal",
+          "kcal": 450,
+          "protein": 28,
+          "fat": 10,
+          "carbs": 55
+        }
+      ],
+      "totals": {
+        "kcal": 1520,
+        "protein": 75,
+        "fat": 54,
+        "carbs": 153
+      },
+      "notes": "Krank, kein Training. Protein unter Ziel."
+    },
+    "2026-02-05": {
+      "type": "sick",
+      "meals": [
+        {
+          "name": "K\u00e4sebrezel mit Butter und Wurst + eine Brezel",
+          "kcal": 550,
+          "protein": 18,
+          "fat": 22,
+          "carbs": 65
+        },
+        {
+          "name": "Linsendaal mit Reis",
+          "kcal": 650,
+          "protein": 32,
+          "fat": 10,
+          "carbs": 90
+        },
+        {
+          "name": "Clear Whey Shake (1 Scoop)",
+          "kcal": 110,
+          "protein": 23,
+          "fat": 0,
+          "carbs": 3
+        },
+        {
+          "name": "Kein Mittagessen",
+          "kcal": 0,
+          "protein": 0,
+          "fat": 0,
+          "carbs": 0
+        }
+      ],
+      "totals": {
+        "kcal": 1310,
+        "protein": 73,
+        "fat": 32,
+        "carbs": 158
+      },
+      "notes": "Krank, Schnupfen schlimmer. Kein Mittagessen, Protein sehr niedrig."
+    },
+    "2026-02-06": {
+      "type": "sick",
+      "meals": [
+        {
+          "name": "Brot, Wurst, R\u00fchrei",
+          "kcal": 650,
+          "protein": 30,
+          "fat": 28,
+          "carbs": 50
+        },
+        {
+          "name": "Gem\u00fcse-Couscous-Pfanne mit ~100g H\u00e4hnchen",
+          "kcal": 550,
+          "protein": 32,
+          "fat": 12,
+          "carbs": 65
+        },
+        {
+          "name": "Berliner",
+          "kcal": 280,
+          "protein": 4,
+          "fat": 12,
+          "carbs": 38
+        },
+        {
+          "name": "3 Hefeweizen",
+          "kcal": 645,
+          "protein": 6,
+          "fat": 0,
+          "carbs": 60
+        }
+      ],
+      "totals": {
+        "kcal": 2125,
+        "protein": 72,
+        "fat": 52,
+        "carbs": 213
+      },
+      "notes": "Krank. 3 Bier = 645 leere Kalorien. Protein sehr niedrig."
+    },
+    "2026-02-07": {
+      "type": "sick",
+      "meals": [
+        {
+          "time": "11:03",
+          "name": "Brot, Frischk\u00e4se, Mortadella, R\u00fchrei (2 Eier), 2 Kaffee",
+          "kcal": 650,
+          "protein": 30,
+          "fat": 28,
+          "carbs": 50
+        },
+        {
+          "time": "11:17",
+          "name": "Clear Whey Shake (1 Scoop)",
+          "kcal": 110,
+          "protein": 23,
+          "fat": 0,
+          "carbs": 3
+        },
+        {
+          "time": "13:11",
+          "name": "Proteinriegel",
+          "kcal": 190,
+          "protein": 14,
+          "fat": 8,
+          "carbs": 17
+        },
+        {
+          "time": "15:52",
+          "name": "Clear Whey Shake (2. Scoop)",
+          "kcal": 110,
+          "protein": 23,
+          "fat": 0,
+          "carbs": 3
+        },
+        {
+          "time": "18:26",
+          "name": "5 Fleischk\u00fcchle (aus 500g Hack/15 St\u00fcck) + Sp\u00e4tzle",
+          "kcal": 1050,
+          "protein": 55,
+          "fat": 45,
+          "carbs": 70
+        }
+      ],
+      "totals": {
+        "kcal": 2110,
+        "protein": 145,
+        "fat": 81,
+        "carbs": 143
+      },
+      "notes": "Krank, kein Gym. Bester Proteintag bisher dank 2 Shakes + Fleischk\u00fcchle. Korrektur: erst 157g gesch\u00e4tzt, nach Korrektur 145g."
+    },
+    "2026-02-08": {
+      "type": "rest",
+      "meals": [
+        {
+          "time": "09:22",
+          "name": "Eiwei\u00df-Drink (Clear Whey) + K\u00e4sebr\u00f6tchen mit Wurst + K\u00f6rnerbr\u00f6tchen mit Wurst/Frischk\u00e4se",
+          "kcal": 840,
+          "protein": 57,
+          "fat": 30,
+          "carbs": 70
+        },
+        {
+          "time": "11:50",
+          "name": "Clear Whey Shake",
+          "kcal": 110,
+          "protein": 23,
+          "fat": 0,
+          "carbs": 3
+        },
+        {
+          "time": "14:51",
+          "name": "Proteinriegel",
+          "kcal": 190,
+          "protein": 14,
+          "fat": 8,
+          "carbs": 17
+        },
+        {
+          "time": "18:07",
+          "name": "5 Pfannkuchen (3\u00d7 Schinken+K\u00e4se, 2\u00d7 s\u00fc\u00df)",
+          "kcal": 860,
+          "protein": 43,
+          "fat": 25,
+          "carbs": 95
+        }
+      ],
+      "totals": {
+        "kcal": 2000,
+        "protein": 137,
+        "fat": 63,
+        "carbs": 185
+      },
+      "notes": "Noch krank, kein Training. Pfannkuchen-Protein nach Korrektur niedriger als gesch\u00e4tzt."
+    },
+    "2026-02-09": {
+      "type": "rest",
+      "meals": [
+        {
+          "time": "08:18",
+          "name": "R\u00fchrei (2 Eier), K\u00f6rnerbrot, Schinken (~12g), Frischk\u00e4se",
+          "kcal": 480,
+          "protein": 24,
+          "fat": 22,
+          "carbs": 42
+        },
+        {
+          "time": "09:38",
+          "name": "Clear Whey Shake (1. Scoop)",
+          "kcal": 110,
+          "protein": 23,
+          "fat": 0,
+          "carbs": 3
+        },
+        {
+          "time": "11:37",
+          "name": "H\u00e4hnchenschlegel + Beilage",
+          "kcal": 500,
+          "protein": 40,
+          "fat": 20,
+          "carbs": 25
+        },
+        {
+          "time": "17:01",
+          "name": "Clear Whey Shake (2. Scoop)",
+          "kcal": 110,
+          "protein": 23,
+          "fat": 0,
+          "carbs": 3
+        },
+        {
+          "time": "18:17",
+          "name": "Bauerntopf (2 Portionen)",
+          "kcal": 860,
+          "protein": 46,
+          "fat": 30,
+          "carbs": 55
+        }
+      ],
+      "totals": {
+        "kcal": 2060,
+        "protein": 156,
+        "fat": 72,
+        "carbs": 128
+      },
+      "notes": "Ruhetag. Protein-Ziel erreicht! Bauerntopf als Protein-Booster abends."
+    },
+    "2026-02-10": {
+      "type": "rest",
+      "meals": [
+        {
+          "time": "11:35",
+          "name": "Clear Whey Shake (1. Scoop)",
+          "kcal": 110,
+          "protein": 23,
+          "fat": 0,
+          "carbs": 3
+        },
+        {
+          "time": "11:35",
+          "name": "5 Fleischk\u00fcchle (Rest, ~167g Hack)",
+          "kcal": 400,
+          "protein": 30,
+          "fat": 20,
+          "carbs": 10
+        },
+        {
+          "time": "15:11",
+          "name": "Clear Whey Shake (2. Scoop)",
+          "kcal": 110,
+          "protein": 23,
+          "fat": 0,
+          "carbs": 3
+        },
+        {
+          "time": "15:49",
+          "name": "Proteinriegel (14g Protein)",
+          "kcal": 190,
+          "protein": 14,
+          "fat": 8,
+          "carbs": 17
+        },
+        {
+          "time": "18:12",
+          "name": "Bauerntopf-Reste (~1.5 Portionen) + Naanbrot",
+          "kcal": 750,
+          "protein": 40,
+          "fat": 25,
+          "carbs": 60
+        }
+      ],
+      "totals": {
+        "kcal": 1560,
+        "protein": 130,
+        "fat": 53,
+        "carbs": 93
+      },
+      "notes": "Ruhetag. Protein knapp unter Ziel, Kalorien niedrig."
+    },
+    "2026-02-11": {
+      "type": "rest",
+      "meals": [
+        {
+          "time": "08:31",
+          "name": "250g Quark + Whey Scoop (22g P) + Handvoll M\u00fcsli",
+          "kcal": 440,
+          "protein": 56,
+          "fat": 12,
+          "carbs": 35
+        },
+        {
+          "time": "10:28",
+          "name": "Clear Whey Shake (1. Scoop)",
+          "kcal": 110,
+          "protein": 23,
+          "fat": 0,
+          "carbs": 3
+        },
+        {
+          "time": "12:00",
+          "name": "Fertiggericht (420g Packung)",
+          "kcal": 605,
+          "protein": 22,
+          "fat": 20,
+          "carbs": 75
+        },
+        {
+          "time": "16:21",
+          "name": "Clear Whey Shake (2. Scoop)",
+          "kcal": 110,
+          "protein": 23,
+          "fat": 0,
+          "carbs": 3
+        },
+        {
+          "time": "18:19",
+          "name": "2 Cheeseburger + Pommes + 8-9 Chicken Nuggets",
+          "kcal": 1000,
+          "protein": 56,
+          "fat": 45,
+          "carbs": 80
+        },
+        {
+          "time": "22:00",
+          "name": "3 Hefeweizen",
+          "kcal": 645,
+          "protein": 6,
+          "fat": 0,
+          "carbs": 60
+        }
+      ],
+      "totals": {
+        "kcal": 2910,
+        "protein": 186,
+        "fat": 77,
+        "carbs": 256
+      },
+      "notes": "Kalorien deutlich dr\u00fcber (3 Hefe = 645 kcal). Protein-Rekord dank Quark-Whey-Fr\u00fchst\u00fcck + Burger/Nuggets."
+    },
+    "2026-02-12": {
+      "type": "training",
+      "training": "upper",
+      "meals": [
+        {
+          "time": "08:38",
+          "name": "250g Quark (20%) + Whey Scoop + Handvoll M\u00fcsli",
+          "kcal": 440,
+          "protein": 52,
+          "fat": 14,
+          "carbs": 35
+        },
+        {
+          "time": "09:06",
+          "name": "Clear Whey Shake (1. Scoop)",
+          "kcal": 110,
+          "protein": 23,
+          "fat": 0,
+          "carbs": 3
+        },
+        {
+          "time": "13:24",
+          "name": "Omelett (4 Eier) mit Tomaten + Champignons",
+          "kcal": 350,
+          "protein": 28,
+          "fat": 24,
+          "carbs": 5
+        },
+        {
+          "time": "15:45",
+          "name": "M\u00fcsliriegel",
+          "kcal": 150,
+          "protein": 3,
+          "fat": 5,
+          "carbs": 22
+        },
+        {
+          "time": "19:09",
+          "name": "Clear Whey Shake (2. Scoop)",
+          "kcal": 110,
+          "protein": 23,
+          "fat": 0,
+          "carbs": 3
+        },
+        {
+          "time": "20:24",
+          "name": "Quinoa-Bowl mit Gem\u00fcse und ~200g H\u00e4hnchen",
+          "kcal": 700,
+          "protein": 52,
+          "fat": 18,
+          "carbs": 65
+        }
+      ],
+      "totals": {
+        "kcal": 1860,
+        "protein": 181,
+        "fat": 61,
+        "carbs": 133
+      },
+      "notes": "Erstes Training nach 2 Wochen Pause (Upper). Protein-Ziel demoliert. Leichtes Defizit."
+    },
+    "2026-02-13": {
+      "type": "rest",
+      "meals": [
+        {
+          "time": "08:28",
+          "name": "R\u00fchrei (2 Eier)",
+          "kcal": 155,
+          "protein": 12,
+          "fat": 11,
+          "carbs": 1
+        },
+        {
+          "time": "08:37",
+          "name": "250g Magerquark + Whey Scoop + Handvoll M\u00fcsli",
+          "kcal": 310,
+          "protein": 45,
+          "fat": 2,
+          "carbs": 30
+        },
+        {
+          "name": "Brezel",
+          "kcal": 250,
+          "protein": 6,
+          "fat": 3,
+          "carbs": 48
+        },
+        {
+          "name": "St\u00fcck Kuchen",
+          "kcal": 350,
+          "protein": 5,
+          "fat": 16,
+          "carbs": 45
+        },
+        {
+          "name": "2 Bier",
+          "kcal": 430,
+          "protein": 4,
+          "fat": 0,
+          "carbs": 40
+        },
+        {
+          "name": "0,75 Flasche Wein",
+          "kcal": 570,
+          "protein": 0,
+          "fat": 0,
+          "carbs": 15
+        },
+        {
+          "name": "Asia Low Carb Suppe (Kokosmilch + H\u00fchnchen, 1 Portion)",
+          "kcal": 316,
+          "protein": 25,
+          "fat": 18,
+          "carbs": 12
+        },
+        {
+          "name": "Clear Whey Shake (1 Scoop)",
+          "kcal": 110,
+          "protein": 23,
+          "fat": 0,
+          "carbs": 3
+        }
+      ],
+      "totals": {
+        "kcal": 2491,
+        "protein": 120,
+        "fat": 52,
+        "carbs": 224
+      },
+      "notes": "Ruhetag. Abend mit Freunden \u2014 Bier + Wein + Kuchen. Shake noch reingepasst."
+    },
+    "2026-02-14": {
+      "type": "training",
+      "training": "lower",
+      "meals": [
+        {
+          "time": "09:30",
+          "name": "R\u00fchrei (2 Eier) + 3 Scheiben Bacon + ~35g Wurst + 2 Scheiben Brot",
+          "kcal": 580,
+          "protein": 33,
+          "fat": 30,
+          "carbs": 38
+        },
+        {
+          "time": "13:13",
+          "name": "Schnitzel (170g) + 225g Quinoa-Gem\u00fcsemix",
+          "kcal": 620,
+          "protein": 42,
+          "fat": 20,
+          "carbs": 50
+        },
+        {
+          "time": "16:12",
+          "name": "Proteinriegel",
+          "kcal": 190,
+          "protein": 14,
+          "fat": 8,
+          "carbs": 17
+        },
+        {
+          "time": "18:33",
+          "name": "Tortellini mit Bolognese (\u00fcbergro\u00dfe Portion)",
+          "kcal": 900,
+          "protein": 40,
+          "fat": 30,
+          "carbs": 95
+        },
+        {
+          "name": "2 Sekt + 0,3l Wein",
+          "kcal": 390,
+          "protein": 0,
+          "fat": 0,
+          "carbs": 18
+        }
+      ],
+      "totals": {
+        "kcal": 2680,
+        "protein": 129,
+        "fat": 88,
+        "carbs": 218
+      },
+      "notes": "Trainingstag (Lower). Abends 30. Geburtstag Feier."
+    },
+    "2026-02-15": {
+      "type": "rest",
+      "meals": [
+        {
+          "time": "13:11",
+          "name": "Laugenbr\u00f6tchen mit Wurst + R\u00fchrei (1,5 Eier)",
+          "kcal": 420,
+          "protein": 22,
+          "fat": 20,
+          "carbs": 35
+        },
+        {
+          "name": "Wildreis-Suppe mit S\u00fc\u00dfkartoffel und Pilzen (1 Portion)",
+          "kcal": 491,
+          "protein": 10,
+          "fat": 30,
+          "carbs": 46
+        },
+        {
+          "name": "4 Bier",
+          "kcal": 860,
+          "protein": 8,
+          "fat": 0,
+          "carbs": 80
+        }
+      ],
+      "totals": {
+        "kcal": 1771,
+        "protein": 40,
+        "fat": 50,
+        "carbs": 161
+      },
+      "notes": "Ruhetag. Kein Whey/Quark vorr\u00e4tig. Vegane Suppe + Bier mit Kumpel. Protein-Tiefpunkt."
+    },
+    "2026-02-16": {
+      "type": "training",
+      "training": "upper",
+      "meals": [
+        {
+          "name": "Fr\u00fchst\u00fccksburrito (Hack, Ei, Bohnen, Cheddar)",
+          "kcal": 450,
+          "protein": 36,
+          "fat": 22,
+          "carbs": 35
+        },
+        {
+          "name": "Wildreis-Suppe kleine Portion (Reste)",
+          "kcal": 245,
+          "protein": 5,
+          "fat": 15,
+          "carbs": 23
+        },
+        {
+          "name": "Proteinriegel",
+          "kcal": 190,
+          "protein": 14,
+          "fat": 8,
+          "carbs": 17
+        },
+        {
+          "name": "200g Gnocchi in Salbeibutter + Salat",
+          "kcal": 550,
+          "protein": 10,
+          "fat": 22,
+          "carbs": 75
+        }
+      ],
+      "totals": {
+        "kcal": 1435,
+        "protein": 65,
+        "fat": 67,
+        "carbs": 150
+      },
+      "notes": "Trainingstag (Upper). Mealprep-Burritos. Kein Whey vorr\u00e4tig."
+    },
+    "2026-02-17": {
+      "type": "rest",
+      "meals": [
+        {
+          "name": "Fr\u00fchst\u00fccksburrito",
+          "kcal": 450,
+          "protein": 36,
+          "fat": 22,
+          "carbs": 35
+        },
+        {
+          "name": "Fr\u00fchst\u00fccksburrito (Mittag)",
+          "kcal": 450,
+          "protein": 36,
+          "fat": 22,
+          "carbs": 35
+        },
+        {
+          "name": "Clear Whey Shake (1. Scoop)",
+          "kcal": 110,
+          "protein": 23,
+          "fat": 0,
+          "carbs": 3
+        },
+        {
+          "name": "H\u00fchnchen mit Ofengem\u00fcse + Kr\u00e4uterquark",
+          "kcal": 450,
+          "protein": 40,
+          "fat": 18,
+          "carbs": 15
+        },
+        {
+          "name": "5 Bier",
+          "kcal": 1075,
+          "protein": 10,
+          "fat": 0,
+          "carbs": 100
+        }
+      ],
+      "totals": {
+        "kcal": 2535,
+        "protein": 145,
+        "fat": 62,
+        "carbs": 188
+      },
+      "notes": "Ruhetag. 2\u00d7 Burrito + Steak/H\u00fchnchen abends geplant."
+    },
+    "2026-02-18": {
+      "type": "training",
+      "training": "lower",
+      "meals": [
+        {
+          "time": "08:50",
+          "name": "Fr\u00fchst\u00fccksburrito",
+          "kcal": 450,
+          "protein": 36,
+          "fat": 22,
+          "carbs": 35
+        },
+        {
+          "time": "10:30",
+          "name": "Clear Whey Shake (1 Scoop)",
+          "kcal": 110,
+          "protein": 23,
+          "fat": 0,
+          "carbs": 3
+        },
+        {
+          "time": "13:00",
+          "name": "H\u00e4hnchen (125g) + Ofengem\u00fcse (235g) + Magerquark-Dip",
+          "kcal": 375,
+          "protein": 46,
+          "fat": 13,
+          "carbs": 16
+        },
+        {
+          "time": "15:30",
+          "name": "Clear Whey Shake (2. Scoop)",
+          "kcal": 110,
+          "protein": 23,
+          "fat": 0,
+          "carbs": 3
+        },
+        {
+          "time": "19:41",
+          "name": "Rigatoni al forno (~1,25 Portionen)",
+          "kcal": 925,
+          "protein": 44,
+          "fat": 55,
+          "carbs": 100
+        }
+      ],
+      "totals": {
+        "kcal": 1970,
+        "protein": 172,
+        "fat": 90,
+        "carbs": 157
+      }
+    }
+  },
+  "2026-02-19": {
+    "meals": [
+      {
+        "time": "09:00",
+        "name": "250g Magerquark + Whey + M\u00fcsli",
+        "kcal": 310,
+        "protein": 45,
+        "fat": 2,
+        "carbs": 30
+      },
+      {
+        "time": "11:00",
+        "name": "Clear Whey Shake",
+        "kcal": 91,
+        "protein": 23,
+        "fat": 0,
+        "carbs": 0
+      },
+      {
+        "time": "13:00",
+        "name": "Rigatoni al forno Reste (~1,25 Portionen)",
+        "kcal": 925,
+        "protein": 44,
+        "fat": 55,
+        "carbs": 100
+      },
+      {
+        "time": "15:00",
+        "name": "Clear Whey Shake (2. Scoop)",
+        "kcal": 91,
+        "protein": 23,
+        "fat": 0,
+        "carbs": 0
+      },
+      {
+        "time": "20:30",
+        "name": "Reis-Gem\u00fcse-Gratin (1 Portion)",
+        "kcal": 661,
+        "protein": 18,
+        "fat": 22,
+        "carbs": 90
+      }
+    ],
+    "totals": {
+      "kcal": 2078,
+      "protein": 153,
+      "fat": 79,
+      "carbs": 220
+    },
+    "type": "rest"
+  },
+  "2026-02-20": {
+    "meals": [
+      {
+        "time": "09:30",
+        "name": "Fr\u00fchst\u00fccksburrito (Hack, Ei, Bohnen, Cheddar)",
+        "kcal": 450,
+        "protein": 36,
+        "fat": 22,
+        "carbs": 35
+      },
+      {
+        "time": "09:30",
+        "name": "Clear Whey Shake",
+        "kcal": 91,
+        "protein": 23,
+        "fat": 0,
+        "carbs": 0
+      },
+      {
+        "time": "13:00",
+        "name": "Reis-Gem\u00fcse-Gratin (1 Portion)",
+        "kcal": 661,
+        "protein": 18,
+        "fat": 22,
+        "carbs": 90
+      },
+      {
+        "time": "13:00",
+        "name": "Clear Whey Shake (2. Scoop)",
+        "kcal": 91,
+        "protein": 23,
+        "fat": 0,
+        "carbs": 0
+      },
+      {
+        "time": "19:30",
+        "name": "6 Fleischk\u00fcchle (aus 1kg Hack/18 Stk) + Kartoffelp\u00fcree + Rosenkohl",
+        "kcal": 1050,
+        "protein": 72,
+        "fat": 54,
+        "carbs": 63
+      }
+    ],
+    "totals": {
+      "kcal": 2343,
+      "protein": 172,
+      "fat": 98,
+      "carbs": 188
+    },
+    "type": "training",
+    "training": "upper"
+  },
+  "2026-02-21": {
+    "meals": [
+      {
+        "time": "09:00",
+        "name": "250g Magerquark + Whey + M\u00fcsli",
+        "kcal": 310,
+        "protein": 45,
+        "fat": 2,
+        "carbs": 30
+      },
+      {
+        "time": "09:00",
+        "name": "K\u00e4selaugenbr\u00f6tchen mit Wurst",
+        "kcal": 380,
+        "protein": 18,
+        "fat": 16,
+        "carbs": 38
+      },
+      {
+        "time": "14:00",
+        "name": "Proteinriegel",
+        "kcal": 190,
+        "protein": 14,
+        "fat": 8,
+        "carbs": 17
+      },
+      {
+        "time": "15:00",
+        "name": "Clear Whey Shake (2. Scoop)",
+        "kcal": 91,
+        "protein": 23,
+        "fat": 0,
+        "carbs": 0
+      },
+      {
+        "time": "19:00",
+        "name": "Spaghetti Bolognese (1,5 Portionen)",
+        "kcal": 900,
+        "protein": 45,
+        "fat": 30,
+        "carbs": 90
+      }
+    ],
+    "totals": {
+      "kcal": 1871,
+      "protein": 145,
+      "fat": 56,
+      "carbs": 175
+    },
+    "type": "rest"
+  }
+}
