@@ -1,4 +1,4 @@
-<div class="flex flex-col md:flex-row h-[calc(100vh-12rem)] gap-2 md:gap-6">
+<div class="flex flex-col md:flex-row h-[calc(100vh-12rem)] gap-2 md:gap-6 pb-24 md:pb-0">
     {{-- Sidebar: Conversation List (Desktop) --}}
     <div class="hidden w-64 shrink-0 flex-col gap-2 overflow-y-auto md:flex">
         <flux:button :href="route('holocron.chopper')" variant="primary" class="w-full" wire:navigate>
