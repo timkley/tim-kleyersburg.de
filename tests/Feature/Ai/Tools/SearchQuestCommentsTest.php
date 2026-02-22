@@ -15,6 +15,8 @@ it('returns no-results message when no notes match', function () {
 });
 
 it('formats matching notes with quest context', function () {
+    config(['scout.driver' => 'collection']);
+
     $quest = Quest::factory()->create(['name' => 'Test Quest']);
     Note::factory()->for($quest)->create(['content' => 'Important finding', 'role' => 'user']);
 

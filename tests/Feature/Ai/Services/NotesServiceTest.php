@@ -128,7 +128,7 @@ it('rejects path traversal via write', function () {
 
 it('pulls latest changes', function () {
     Process::fake([
-        'git pull*' => new FakeProcessResult(exitCode: 0, output: 'Already up to date.'),
+        '*git*pull*' => new FakeProcessResult(exitCode: 0, output: 'Already up to date.'),
     ]);
 
     $result = $this->service->pull();
@@ -136,12 +136,12 @@ it('pulls latest changes', function () {
     expect($result['success'])->toBeTrue()
         ->and($result['output'])->toBe('Already up to date.');
 
-    Process::assertRan('git pull --rebase');
+    Process::assertRan(fn ($process) => $process->command === ['git', 'pull', '--rebase']);
 });
 
 it('skips pull when debounced', function () {
     Process::fake([
-        'git pull*' => new FakeProcessResult(exitCode: 0, output: 'Already up to date.'),
+        '*git*pull*' => new FakeProcessResult(exitCode: 0, output: 'Already up to date.'),
     ]);
 
     $this->service->pull();
@@ -150,13 +150,13 @@ it('skips pull when debounced', function () {
     expect($result['success'])->toBeTrue()
         ->and($result['output'])->toBe('Debounced — pulled less than 60s ago.');
 
-    Process::assertRanTimes('git pull --rebase', 1);
+    Process::assertRanTimes(fn ($process) => $process->command === ['git', 'pull', '--rebase'], 1);
 });
 
 it('aborts rebase on pull failure', function () {
     Process::fake([
-        'git pull*' => new FakeProcessResult(exitCode: 1, errorOutput: 'CONFLICT'),
-        'git rebase*' => new FakeProcessResult(exitCode: 0),
+        '*git*pull*' => new FakeProcessResult(exitCode: 1, errorOutput: 'CONFLICT'),
+        '*git*rebase*' => new FakeProcessResult(exitCode: 0),
     ]);
 
     $result = $this->service->pull();
@@ -164,7 +164,7 @@ it('aborts rebase on pull failure', function () {
     expect($result['success'])->toBeFalse()
         ->and($result['output'])->toBe('CONFLICT');
 
-    Process::assertRan('git rebase --abort');
+    Process::assertRan(fn ($process) => $process->command === ['git', 'rebase', '--abort']);
 });
 
 it('commits and pushes a file', function () {
@@ -176,7 +176,7 @@ it('commits and pushes a file', function () {
 
     Process::assertRan(fn ($process) => $process->command === ['git', 'add', 'README.md']);
     Process::assertRan(fn ($process) => $process->command === ['git', 'commit', '-m', 'Update README.md']);
-    Process::assertRan('git push');
+    Process::assertRan(fn ($process) => $process->command === ['git', 'push']);
 });
 
 it('returns error when commit fails', function () {
