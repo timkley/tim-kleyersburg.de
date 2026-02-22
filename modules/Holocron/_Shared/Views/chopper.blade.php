@@ -129,7 +129,11 @@
                 <div class="flex justify-start">
                     <div class="max-w-[80%] rounded-2xl bg-zinc-100 px-4 py-2 dark:bg-zinc-800">
                         <div class="prose prose-sm dark:prose-invert" wire:stream="assistant-response">
-                            {!! str($streamedResponse)->markdown() !!}
+                            @if ($streamedResponse === '')
+                                <flux:icon.loading class="size-5 text-zinc-400" />
+                            @else
+                                {!! str($streamedResponse)->markdown() !!}
+                            @endif
                         </div>
                     </div>
                 </div>
