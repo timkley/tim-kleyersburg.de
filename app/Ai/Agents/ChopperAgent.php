@@ -11,7 +11,7 @@ use App\Ai\Tools\GetQuest;
 use App\Ai\Tools\ListQuests;
 use App\Ai\Tools\LogMeal;
 use App\Ai\Tools\QueryNutrition;
-use App\Ai\Tools\SearchNotes;
+use App\Ai\Tools\SearchQuestComments;
 use App\Ai\Tools\SearchQuests;
 use Laravel\Ai\Attributes\MaxSteps;
 use Laravel\Ai\Attributes\Model;
@@ -68,7 +68,7 @@ class ChopperAgent implements Agent, Conversational, HasTools
     {
         return [
             new SearchQuests,
-            new SearchNotes,
+            new SearchQuestComments,
             new ListQuests,
             new GetQuest,
             new CreateQuest,

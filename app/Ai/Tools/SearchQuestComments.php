@@ -10,7 +10,7 @@ use Laravel\Ai\Tools\Request;
 use Modules\Holocron\Quest\Models\Note;
 use Stringable;
 
-class SearchNotes implements Tool
+class SearchQuestComments implements Tool
 {
     /**
      * Get the description of the tool's purpose.
