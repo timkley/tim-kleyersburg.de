@@ -140,6 +140,7 @@
         <form
             wire:submit="send"
             class="mt-4"
+            x-bind:class="dragOver ? 'ring-2 ring-accent rounded-xl' : ''"
             x-data="{
                 dragOver: false,
                 handleDrop(e) {
@@ -170,18 +171,23 @@
                 wire:model="message"
                 submit="enter"
                 placeholder="Nachricht an Chopper..."
-                :class="dragOver ? 'ring-2 ring-accent!' : ''"
             >
                 <x-slot:header>
                     @if ($attachments)
                         <div class="flex flex-wrap gap-2 pb-1">
                             @foreach ($attachments as $index => $attachment)
                                 <div wire:key="preview-{{ $index }}" class="group relative">
-                                    <img
-                                        src="{{ $attachment->temporaryUrl() }}"
-                                        class="size-16 rounded-lg object-cover"
-                                        alt="Anhang {{ $index + 1 }}"
-                                    />
+                                    @if (method_exists($attachment, 'isPreviewable') && $attachment->isPreviewable())
+                                        <img
+                                            src="{{ $attachment->temporaryUrl() }}"
+                                            class="size-16 rounded-lg object-cover"
+                                            alt="Anhang {{ $index + 1 }}"
+                                        />
+                                    @else
+                                        <div class="flex size-16 items-center justify-center rounded-lg bg-zinc-200 dark:bg-zinc-700">
+                                            <flux:icon.document class="size-6" />
+                                        </div>
+                                    @endif
                                     <button
                                         type="button"
                                         wire:click="removeAttachment({{ $index }})"
