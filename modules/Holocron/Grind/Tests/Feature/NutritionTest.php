@@ -109,7 +109,7 @@ it('can update day type', function () {
     ]);
 
     Livewire::test('holocron.grind.nutrition.index')
-        ->call('setDayType', 'training')
+        ->set('dayType', 'training')
         ->assertHasNoErrors();
 
     $day = NutritionDay::query()->whereDate('date', now()->format('Y-m-d'))->first();

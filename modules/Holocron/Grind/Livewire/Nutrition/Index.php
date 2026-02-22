@@ -16,6 +16,8 @@ class Index extends HolocronComponent
 {
     public string $date;
 
+    public string $dayType = 'rest';
+
     public string $mealName = '';
 
     public ?string $mealTime = null;
@@ -39,28 +41,32 @@ class Index extends HolocronComponent
     public function mount(): void
     {
         $this->date = now()->format('Y-m-d');
+        $this->loadDayType();
         $this->calculateAverages();
     }
 
     public function previousDay(): void
     {
         $this->date = Carbon::parse($this->date)->subDay()->format('Y-m-d');
+        $this->loadDayType();
         $this->calculateAverages();
     }
 
     public function nextDay(): void
     {
         $this->date = Carbon::parse($this->date)->addDay()->format('Y-m-d');
+        $this->loadDayType();
         $this->calculateAverages();
     }
 
     public function goToDate(string $date): void
     {
         $this->date = $date;
+        $this->loadDayType();
         $this->calculateAverages();
     }
 
-    public function setDayType(string $type): void
+    public function updatedDayType(string $type): void
     {
         $day = $this->getOrCreateDay();
         $day->update(['type' => $type]);
@@ -135,6 +141,12 @@ class Index extends HolocronComponent
             'day' => $day,
             'targets' => $targets,
         ]);
+    }
+
+    private function loadDayType(): void
+    {
+        $day = NutritionDay::query()->whereDate('date', $this->date)->first();
+        $this->dayType = $day !== null ? $day->type : 'rest';
     }
 
     private function getOrCreateDay(): NutritionDay

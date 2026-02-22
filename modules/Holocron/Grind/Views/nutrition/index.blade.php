@@ -13,13 +13,13 @@
 
     {{-- Day Type & Training Label --}}
     <div class="flex flex-wrap items-center gap-4">
-        <flux:radio.group wire:model="dayType" variant="segmented">
-            <flux:radio value="training" label="Training" wire:click="setDayType('training')" :checked="($day?->type ?? 'rest') === 'training'" />
-            <flux:radio value="rest" label="Ruhe" wire:click="setDayType('rest')" :checked="($day?->type ?? 'rest') === 'rest'" />
-            <flux:radio value="sick" label="Krank" wire:click="setDayType('sick')" :checked="($day?->type ?? 'rest') === 'sick'" />
+        <flux:radio.group wire:model.live="dayType" variant="segmented">
+            <flux:radio value="training" label="Training" />
+            <flux:radio value="rest" label="Ruhe" />
+            <flux:radio value="sick" label="Krank" />
         </flux:radio.group>
 
-        @if(($day?->type ?? 'rest') === 'training')
+        @if($dayType === 'training')
             <flux:input
                 size="sm"
                 placeholder="Training Label (z.B. Upper, Lower)"
