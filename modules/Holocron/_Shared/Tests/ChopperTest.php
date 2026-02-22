@@ -3,7 +3,9 @@
 declare(strict_types=1);
 
 use App\Ai\Agents\ChopperAgent;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Livewire\Livewire;
 use Modules\Holocron\_Shared\Livewire\Chopper;
@@ -131,4 +133,136 @@ it('returns 404 for nonexistent conversation', function () {
     actingAs($user)
         ->get(route('holocron.chopper', 'nonexistent-id'))
         ->assertNotFound();
+});
+
+it('can send a message with image attachments', function () {
+    Storage::fake('local');
+    ChopperAgent::fake(['Ich sehe das Bild!']);
+
+    $user = User::factory()->create(['email' => 'timkley@gmail.com']);
+    $file = UploadedFile::fake()->image('photo.jpg');
+
+    Livewire::actingAs($user)
+        ->test(Chopper::class)
+        ->set('message', 'Was siehst du?')
+        ->set('attachments', [$file])
+        ->call('send')
+        ->assertSet('message', '')
+        ->assertSet('attachments', [])
+        ->assertSet('isStreaming', true);
+
+    $storedFiles = Storage::disk('local')->allFiles('chopper-attachments');
+    expect($storedFiles)->not->toBeEmpty();
+});
+
+it('validates attachments are images', function () {
+    $user = User::factory()->create(['email' => 'timkley@gmail.com']);
+    $file = UploadedFile::fake()->create('document.pdf', 100, 'application/pdf');
+
+    Livewire::actingAs($user)
+        ->test(Chopper::class)
+        ->set('message', 'Check this')
+        ->set('attachments', [$file])
+        ->call('send')
+        ->assertHasErrors('attachments.0');
+});
+
+it('validates max 5 attachments', function () {
+    $user = User::factory()->create(['email' => 'timkley@gmail.com']);
+    $files = array_map(fn () => UploadedFile::fake()->image('photo.jpg'), range(1, 6));
+
+    Livewire::actingAs($user)
+        ->test(Chopper::class)
+        ->set('message', 'Too many')
+        ->set('attachments', $files)
+        ->call('send')
+        ->assertHasErrors('attachments');
+});
+
+it('passes attachments to the agent when asking', function () {
+    Storage::fake('local');
+    ChopperAgent::fake(['Ich sehe ein Bild!']);
+
+    $user = User::factory()->create(['email' => 'timkley@gmail.com']);
+    $file = UploadedFile::fake()->image('photo.jpg');
+
+    $component = Livewire::actingAs($user)
+        ->test(Chopper::class)
+        ->set('message', 'Beschreibe das Bild')
+        ->set('attachments', [$file])
+        ->call('send');
+
+    $storedFiles = Storage::disk('local')->allFiles('chopper-attachments');
+    expect($storedFiles)->toHaveCount(1);
+
+    $component->call('ask', 'Beschreibe das Bild', $storedFiles);
+
+    ChopperAgent::assertPrompted('Beschreibe das Bild');
+});
+
+it('sends without attachments still works', function () {
+    ChopperAgent::fake(['Hallo!']);
+
+    $user = User::factory()->create(['email' => 'timkley@gmail.com']);
+
+    Livewire::actingAs($user)
+        ->test(Chopper::class)
+        ->set('message', 'Hallo Chopper!')
+        ->call('send')
+        ->assertSet('message', '')
+        ->assertSet('isStreaming', true)
+        ->assertCount('messages', 1);
+});
+
+it('loads attachments from conversation history', function () {
+    $user = User::factory()->create(['email' => 'timkley@gmail.com']);
+
+    $conversationId = (string) Str::uuid();
+    DB::table('agent_conversations')->insert([
+        'id' => $conversationId,
+        'user_id' => $user->id,
+        'title' => 'Test Conversation',
+        'created_at' => now(),
+        'updated_at' => now(),
+    ]);
+    DB::table('agent_conversation_messages')->insert([
+        'id' => (string) Str::uuid(),
+        'conversation_id' => $conversationId,
+        'user_id' => $user->id,
+        'agent' => 'chopper',
+        'role' => 'user',
+        'content' => 'Look at this image',
+        'attachments' => json_encode([
+            ['type' => 'stored-image', 'path' => 'chopper-attachments/test-photo.jpg', 'disk' => 'local'],
+        ]),
+        'tool_calls' => '[]',
+        'tool_results' => '[]',
+        'usage' => '{}',
+        'meta' => '{}',
+        'created_at' => now(),
+        'updated_at' => now(),
+    ]);
+    DB::table('agent_conversation_messages')->insert([
+        'id' => (string) Str::uuid(),
+        'conversation_id' => $conversationId,
+        'user_id' => $user->id,
+        'agent' => 'chopper',
+        'role' => 'assistant',
+        'content' => 'I see a photo!',
+        'attachments' => '[]',
+        'tool_calls' => '[]',
+        'tool_results' => '[]',
+        'usage' => '{}',
+        'meta' => '{}',
+        'created_at' => now(),
+        'updated_at' => now(),
+    ]);
+
+    $component = Livewire::actingAs($user)
+        ->test(Chopper::class, ['conversationId' => $conversationId]);
+
+    $messages = $component->get('messages');
+    expect($messages[0])->toHaveKey('attachments')
+        ->and($messages[0]['attachments'])->toBe(['chopper-attachments/test-photo.jpg'])
+        ->and($messages[1]['attachments'])->toBe([]);
 });
