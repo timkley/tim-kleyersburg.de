@@ -5,14 +5,18 @@ declare(strict_types=1);
 namespace App\Ai\Agents;
 
 use App\Ai\Tools\AddNoteToQuest;
+use App\Ai\Tools\BrowseNotes;
 use App\Ai\Tools\CompleteQuest;
 use App\Ai\Tools\CreateQuest;
 use App\Ai\Tools\GetQuest;
 use App\Ai\Tools\ListQuests;
 use App\Ai\Tools\LogMeal;
 use App\Ai\Tools\QueryNutrition;
+use App\Ai\Tools\ReadNote;
 use App\Ai\Tools\SearchNotes;
+use App\Ai\Tools\SearchQuestComments;
 use App\Ai\Tools\SearchQuests;
+use App\Ai\Tools\WriteNote;
 use Laravel\Ai\Attributes\MaxSteps;
 use Laravel\Ai\Attributes\Model;
 use Laravel\Ai\Attributes\Provider;
@@ -47,6 +51,8 @@ class ChopperAgent implements Agent, Conversational, HasTools
 
         Du bist in ein Aufgaben- und Notizverwaltungssystem integriert. Du kannst Aufgaben (Quests) suchen, auflisten, erstellen und abschließen. Du kannst auch Notizen zu Aufgaben hinzufügen und durchsuchen.
 
+        Du hast Zugriff auf eine Wissensdatenbank (Knowledge Base) mit Markdown-Notizen, organisiert nach dem PARA-Prinzip (Projects, Areas, Resources, Archive). Du kannst Notizen durchsuchen, lesen, erstellen und bearbeiten.
+
         Du kannst auch Ernährungsdaten tracken und abfragen. Du kannst Mahlzeiten loggen und Ernährungsübersichten abrufen.
 
         Regeln:
@@ -68,12 +74,16 @@ class ChopperAgent implements Agent, Conversational, HasTools
     {
         return [
             new SearchQuests,
-            new SearchNotes,
+            new SearchQuestComments,
             new ListQuests,
             new GetQuest,
             new CreateQuest,
             new CompleteQuest,
             new AddNoteToQuest,
+            new BrowseNotes,
+            new ReadNote,
+            new WriteNote,
+            new SearchNotes,
             new LogMeal,
             new QueryNutrition,
         ];

@@ -8,16 +8,17 @@ use App\Ai\Services\NotesService;
 use Illuminate\Contracts\JsonSchema\JsonSchema;
 use Laravel\Ai\Contracts\Tool;
 use Laravel\Ai\Tools\Request;
+use RuntimeException;
 use Stringable;
 
-class SearchNotes implements Tool
+class WriteNote implements Tool
 {
     /**
      * Get the description of the tool's purpose.
      */
     public function description(): Stringable|string
     {
-        return 'Full-text search across all markdown notes in the knowledge base. Returns matching files with context lines.';
+        return 'Create or update a markdown note in the knowledge base. Provide the file path and full content. Auto-commits and pushes the change.';
     }
 
     /**
@@ -26,20 +27,20 @@ class SearchNotes implements Tool
     public function handle(Request $request): Stringable|string
     {
         $service = app(NotesService::class);
-        $service->pull();
 
-        $results = $service->search($request['query'], $request['limit'] ?? 10);
-
-        if ($results === []) {
-            return 'No notes found matching the query.';
+        try {
+            $service->write($request['path'], $request['content']);
+        } catch (RuntimeException $e) {
+            return "Write failed: {$e->getMessage()}";
         }
 
-        $lines = [];
-        foreach ($results as $match) {
-            $lines[] = sprintf('%s:%d — %s', $match['file'], $match['line'], $match['text']);
+        $result = $service->commitAndPush($request['path']);
+
+        if (! $result['success']) {
+            return "Written to {$request['path']}, but sync failed: {$result['output']}";
         }
 
-        return implode("\n", $lines);
+        return "Written and synced: {$request['path']}";
     }
 
     /**
@@ -50,8 +51,8 @@ class SearchNotes implements Tool
     public function schema(JsonSchema $schema): array
     {
         return [
-            'query' => $schema->string()->required(),
-            'limit' => $schema->integer()->min(1)->max(20),
+            'path' => $schema->string()->required(),
+            'content' => $schema->string()->required(),
         ];
     }
 }

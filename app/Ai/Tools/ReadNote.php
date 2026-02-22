@@ -8,16 +8,17 @@ use App\Ai\Services\NotesService;
 use Illuminate\Contracts\JsonSchema\JsonSchema;
 use Laravel\Ai\Contracts\Tool;
 use Laravel\Ai\Tools\Request;
+use RuntimeException;
 use Stringable;
 
-class SearchNotes implements Tool
+class ReadNote implements Tool
 {
     /**
      * Get the description of the tool's purpose.
      */
     public function description(): Stringable|string
     {
-        return 'Full-text search across all markdown notes in the knowledge base. Returns matching files with context lines.';
+        return 'Read the content of a markdown note from the knowledge base. Provide the file path relative to the notes root (e.g. "Areas/Health/sleep.md").';
     }
 
     /**
@@ -28,18 +29,11 @@ class SearchNotes implements Tool
         $service = app(NotesService::class);
         $service->pull();
 
-        $results = $service->search($request['query'], $request['limit'] ?? 10);
-
-        if ($results === []) {
-            return 'No notes found matching the query.';
+        try {
+            return $service->read($request['path']);
+        } catch (RuntimeException $e) {
+            return $e->getMessage();
         }
-
-        $lines = [];
-        foreach ($results as $match) {
-            $lines[] = sprintf('%s:%d — %s', $match['file'], $match['line'], $match['text']);
-        }
-
-        return implode("\n", $lines);
     }
 
     /**
@@ -50,8 +44,7 @@ class SearchNotes implements Tool
     public function schema(JsonSchema $schema): array
     {
         return [
-            'query' => $schema->string()->required(),
-            'limit' => $schema->integer()->min(1)->max(20),
+            'path' => $schema->string()->required(),
         ];
     }
 }

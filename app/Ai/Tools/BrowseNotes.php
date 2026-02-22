@@ -8,16 +8,17 @@ use App\Ai\Services\NotesService;
 use Illuminate\Contracts\JsonSchema\JsonSchema;
 use Laravel\Ai\Contracts\Tool;
 use Laravel\Ai\Tools\Request;
+use RuntimeException;
 use Stringable;
 
-class SearchNotes implements Tool
+class BrowseNotes implements Tool
 {
     /**
      * Get the description of the tool's purpose.
      */
     public function description(): Stringable|string
     {
-        return 'Full-text search across all markdown notes in the knowledge base. Returns matching files with context lines.';
+        return 'Browse the knowledge base directory structure. Lists folders and markdown files at a given path. Use "/" for the root.';
     }
 
     /**
@@ -28,18 +29,21 @@ class SearchNotes implements Tool
         $service = app(NotesService::class);
         $service->pull();
 
-        $results = $service->search($request['query'], $request['limit'] ?? 10);
-
-        if ($results === []) {
-            return 'No notes found matching the query.';
+        try {
+            $result = $service->list($request['path'] ?? '/');
+        } catch (RuntimeException $e) {
+            return $e->getMessage();
         }
 
-        $lines = [];
-        foreach ($results as $match) {
-            $lines[] = sprintf('%s:%d — %s', $match['file'], $match['line'], $match['text']);
+        $output = [];
+        foreach ($result['dirs'] as $dir) {
+            $output[] = "\u{1F4C1} {$dir}/";
+        }
+        foreach ($result['files'] as $file) {
+            $output[] = "\u{1F4C4} {$file}";
         }
 
-        return implode("\n", $lines);
+        return implode("\n", $output) ?: 'Empty directory.';
     }
 
     /**
@@ -50,8 +54,7 @@ class SearchNotes implements Tool
     public function schema(JsonSchema $schema): array
     {
         return [
-            'query' => $schema->string()->required(),
-            'limit' => $schema->integer()->min(1)->max(20),
+            'path' => $schema->string(),
         ];
     }
 }

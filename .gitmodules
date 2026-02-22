@@ -1,0 +1,3 @@
+[submodule "storage/notes"]
+	path = storage/notes
+	url = git@github.com:timkley/brain.git
