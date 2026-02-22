@@ -335,7 +335,6 @@ Route::livewire('/plans', Livewire\Plans\Index::class)->name('grind.plans.index'
 Route::livewire('/plans/{plan}', Livewire\Plans\Show::class)->name('grind.plans.show');
 Route::livewire('/workouts', Livewire\Workouts\Index::class)->name('grind.workouts.index');
 Route::livewire('/workouts/{workout}', Livewire\Workouts\Show::class)->name('grind.workouts.show');
-Route::livewire('/health-data', Livewire\HealthData::class)->name('grind.health-data');
 ```
 
 **Step 5: Convert Printer routes**

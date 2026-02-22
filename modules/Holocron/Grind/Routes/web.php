@@ -16,5 +16,4 @@ Route::middleware(['web', 'auth'])->name('holocron.')->prefix('holocron/grind')-
 
     Route::livewire('/nutrition', Livewire\Nutrition\Index::class)->name('grind.nutrition.index');
     Route::livewire('/body-measurements', Livewire\Nutrition\BodyMeasurements::class)->name('grind.body-measurements');
-    Route::livewire('/health-data', Livewire\HealthData::class)->name('grind.health-data');
 });
