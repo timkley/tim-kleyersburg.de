@@ -26,7 +26,7 @@ use Laravel\Ai\Promptable;
 use Stringable;
 
 #[Provider(Lab::OpenRouter)]
-#[Model('google/gemini-2.5-flash')]
+#[Model('minimax/minimax-m2.5')]
 #[MaxSteps(10)]
 class ChopperAgent implements Agent, Conversational, HasTools
 {
