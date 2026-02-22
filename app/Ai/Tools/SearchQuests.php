@@ -17,7 +17,7 @@ class SearchQuests implements Tool
      */
     public function description(): Stringable|string
     {
-        return 'Search quests using semantic/vector search. Returns matching quests with their name, description, completion status, and date.';
+        return 'Primary intent: find quests by name or keyword. Invoke when user says: "Finde die Quest ...", "Suche Aufgabe ...", or references a quest name that needs resolution. Do not invoke when: the user asks to browse or read markdown knowledge-base notes.';
     }
 
     /**

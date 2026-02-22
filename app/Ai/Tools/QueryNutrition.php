@@ -18,7 +18,7 @@ class QueryNutrition implements Tool
      */
     public function description(): Stringable|string
     {
-        return 'Query nutrition data. Use query_type: "today" for today\'s meals and totals, "date" for a specific date, "week" for last 7 days overview, "average" for 7-day rolling averages vs targets.';
+        return 'Primary intent: report nutrition totals, trends, and comparisons. Invoke when user says: "Zeig heute", "Wochenuebersicht", "7-Tage-Durchschnitt", or asks for nutrition status by date. Do not invoke when: the user is giving a new meal that should be recorded.';
     }
 
     /**

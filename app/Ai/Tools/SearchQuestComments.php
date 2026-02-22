@@ -17,7 +17,7 @@ class SearchQuestComments implements Tool
      */
     public function description(): Stringable|string
     {
-        return 'Search notes/comments on quests using semantic/vector search. Returns matching notes with their content and associated quest.';
+        return 'Primary intent: find quest comments by their text content. Invoke when user says: "Suche in Quest-Kommentaren ...", "Finde Kommentare zu ...", or asks for comment matches on tasks. Do not invoke when: the user asks to search markdown notes in the knowledge base.';
     }
 
     /**

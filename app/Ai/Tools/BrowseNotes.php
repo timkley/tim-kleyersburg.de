@@ -18,7 +18,7 @@ class BrowseNotes implements Tool
      */
     public function description(): Stringable|string
     {
-        return 'Browse the knowledge base directory structure. Lists folders and markdown files at a given path. Use "/" for the root.';
+        return 'Primary intent: browse knowledge-base folders and file names. Invoke when user says: "Zeig die Ordner", "Was liegt unter /Areas?", or asks for directory listings. Do not invoke when: the user asks for full-text search results or full file content.';
     }
 
     /**

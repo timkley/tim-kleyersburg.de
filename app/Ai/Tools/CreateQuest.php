@@ -17,7 +17,7 @@ class CreateQuest implements Tool
      */
     public function description(): Stringable|string
     {
-        return 'Create a new quest (task) or note. Provide a name and optional description, date, parent quest ID, and whether it is a note instead of a task.';
+        return 'Primary intent: create a new quest or quest-note item. Invoke when user says: "Erstelle eine neue Quest ...", "Lege Aufgabe an ...", or asks to create a note task entry. Do not invoke when: the user wants to update, complete, or comment on an existing quest.';
     }
 
     /**

@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Illuminate\Support\Facades\Process;
 use Modules\Holocron\Printer\Model\PrintQueue;
 use Modules\Holocron\Printer\Services\Printer;
 use Modules\Holocron\Quest\Models\Quest;
@@ -30,8 +31,8 @@ it('can have null printable', function () {
 });
 
 it('associates printable when passed to Printer::print()', function () {
-    if (! Printer::isAvailable()) {
-        $this->markTestSkipped('Node.js not available for testing');
+    if (! printQueuePrinterRuntimeAvailable()) {
+        $this->markTestSkipped('Playwright runtime is not available for testing');
     }
 
     $quest = Quest::factory()->create();
@@ -54,8 +55,8 @@ it('associates printable when passed to Printer::print()', function () {
 });
 
 it('does not set printable when not provided to Printer::print()', function () {
-    if (! Printer::isAvailable()) {
-        $this->markTestSkipped('Node.js not available for testing');
+    if (! printQueuePrinterRuntimeAvailable()) {
+        $this->markTestSkipped('Playwright runtime is not available for testing');
     }
 
     $printItem = Printer::print(
@@ -133,3 +134,33 @@ it('does not delete queue entries without printable when quest is completed', fu
 
     assertDatabaseHas('print_queues', ['id' => $printQueueWithoutPrintable->id]);
 });
+
+function printQueuePrinterRuntimeAvailable(): bool
+{
+    static $available;
+
+    if ($available !== null) {
+        return $available;
+    }
+
+    if (! Printer::isAvailable()) {
+        $available = false;
+
+        return $available;
+    }
+
+    $scriptPath = base_path('modules/Holocron/Printer/scripts/screenshot.js');
+    $probePath = storage_path('app/public/printer/probe-'.uniqid('', true).'.png');
+
+    $result = Process::timeout(5)
+        ->input('<html><body>probe</body></html>')
+        ->run("node $scriptPath stdin $probePath");
+
+    if (file_exists($probePath)) {
+        unlink($probePath);
+    }
+
+    $available = $result->successful();
+
+    return $available;
+}

@@ -18,7 +18,7 @@ class WriteNote implements Tool
      */
     public function description(): Stringable|string
     {
-        return 'Create or update a markdown note in the knowledge base. Provide the file path and full content. Auto-commits and pushes the change.';
+        return 'Primary intent: create or replace markdown note content at a file path. Invoke when user says: "Schreibe diese Notiz nach ...", "Aktualisiere die Datei ...", or requests full markdown content update. Do not invoke when: the user asks to edit quests, quest comments, or nutrition entries.';
     }
 
     /**

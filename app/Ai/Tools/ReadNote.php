@@ -18,7 +18,7 @@ class ReadNote implements Tool
      */
     public function description(): Stringable|string
     {
-        return 'Read the content of a markdown note from the knowledge base. Provide the file path relative to the notes root (e.g. "Areas/Health/sleep.md").';
+        return 'Primary intent: read one markdown note by explicit path. Invoke when user says: "Lies Areas/Health/sleep.md", "Oeffne ...", or asks for a specific file content. Do not invoke when: the user first needs a search across notes or a folder listing.';
     }
 
     /**

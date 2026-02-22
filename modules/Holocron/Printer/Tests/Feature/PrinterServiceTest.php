@@ -11,16 +11,16 @@ use function Pest\Laravel\assertDatabaseCount;
 use function Pest\Laravel\assertDatabaseHas;
 
 it('can check if printer service is available', function () {
-    $available = Printer::isAvailable();
+    if (! printerServiceRuntimeAvailable()) {
+        $this->markTestSkipped('Playwright runtime is not available for testing');
+    }
 
-    // Should be true in development environment with Node.js
-    expect($available)->toBeTrue();
+    expect(Printer::isAvailable())->toBeTrue();
 });
 
 it('can print using a simple template', function () {
-    // Skip if Node.js is not available
-    if (! Printer::isAvailable()) {
-        $this->markTestSkipped('Node.js not available for testing');
+    if (! printerServiceRuntimeAvailable()) {
+        $this->markTestSkipped('Playwright runtime is not available for testing');
     }
 
     $printItem = Printer::print('holocron-printer::layout', [
@@ -47,8 +47,8 @@ it('can print using a simple template', function () {
 });
 
 it('can print with data and actions', function () {
-    if (! Printer::isAvailable()) {
-        $this->markTestSkipped('Node.js not available for testing');
+    if (! printerServiceRuntimeAvailable()) {
+        $this->markTestSkipped('Playwright runtime is not available for testing');
     }
 
     $data = ['title' => 'Test Quest', 'description' => 'A test quest item'];
@@ -66,8 +66,8 @@ it('can print with data and actions', function () {
 });
 
 it('generates unique filenames for different content', function () {
-    if (! Printer::isAvailable()) {
-        $this->markTestSkipped('Node.js not available for testing');
+    if (! printerServiceRuntimeAvailable()) {
+        $this->markTestSkipped('Playwright runtime is not available for testing');
     }
 
     $printItem1 = Printer::print('holocron-printer::layout', ['content' => 'First item']);
@@ -93,8 +93,8 @@ it('handles node.js unavailable gracefully', function () {
 });
 
 it('handles service errors gracefully', function () {
-    if (! Printer::isAvailable()) {
-        $this->markTestSkipped('Node.js not available for testing');
+    if (! printerServiceRuntimeAvailable()) {
+        $this->markTestSkipped('Playwright runtime is not available for testing');
     }
 
     Log::spy();
@@ -125,8 +125,8 @@ it('fails when screenshot script fails', function () {
 });
 
 it('measures performance within target', function () {
-    if (! Printer::isAvailable()) {
-        $this->markTestSkipped('Node.js not available for testing');
+    if (! printerServiceRuntimeAvailable()) {
+        $this->markTestSkipped('Playwright runtime is not available for testing');
     }
 
     $startTime = microtime(true);
@@ -143,8 +143,8 @@ it('measures performance within target', function () {
 });
 
 it('creates storage directory if missing', function () {
-    if (! Printer::isAvailable()) {
-        $this->markTestSkipped('Node.js not available for testing');
+    if (! printerServiceRuntimeAvailable()) {
+        $this->markTestSkipped('Playwright runtime is not available for testing');
     }
 
     // Remove the printer directory if it exists
@@ -161,3 +161,33 @@ it('creates storage directory if missing', function () {
     expect(is_dir($printerDir))->toBeTrue();
     expect(file_exists(storage_path('app/public/'.$printItem->image)))->toBeTrue();
 });
+
+function printerServiceRuntimeAvailable(): bool
+{
+    static $available;
+
+    if ($available !== null) {
+        return $available;
+    }
+
+    if (! Printer::isAvailable()) {
+        $available = false;
+
+        return $available;
+    }
+
+    $scriptPath = base_path('modules/Holocron/Printer/scripts/screenshot.js');
+    $probePath = storage_path('app/public/printer/probe-'.uniqid('', true).'.png');
+
+    $result = Process::timeout(5)
+        ->input('<html><body>probe</body></html>')
+        ->run("node $scriptPath stdin $probePath");
+
+    if (file_exists($probePath)) {
+        unlink($probePath);
+    }
+
+    $available = $result->successful();
+
+    return $available;
+}

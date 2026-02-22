@@ -17,7 +17,7 @@ class SearchNotes implements Tool
      */
     public function description(): Stringable|string
     {
-        return 'Full-text search across all markdown notes in the knowledge base. Returns matching files with context lines.';
+        return 'Primary intent: run full-text search across markdown knowledge-base notes. Invoke when user says: "Suche in Notizen nach ...", "Finde Notes mit ...", or asks for matching files by term. Do not invoke when: the user asks for quest records, quest comments, or nutrition data.';
     }
 
     /**

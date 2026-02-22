@@ -17,7 +17,7 @@ class GetQuest implements Tool
      */
     public function description(): Stringable|string
     {
-        return 'Get detailed information about a specific quest by ID, including its children (sub-quests) and notes/comments.';
+        return 'Primary intent: load full details for one resolved quest. Invoke when user says: "Zeig Details zu Quest 42" or after resolving by name with SearchQuests or ListQuests. Do not invoke when: the user only provides a quest name and multiple quest matches are still possible.';
     }
 
     /**

@@ -18,7 +18,7 @@ class AddNoteToQuest implements Tool
      */
     public function description(): Stringable|string
     {
-        return 'Add a note/comment to an existing quest. Useful for adding context, updates, or information to a task.';
+        return 'Primary intent: add a comment to an existing resolved quest. Invoke when user says: "Fuege Notiz zu Quest ... hinzu" or after resolving by name with SearchQuests or ListQuests. Do not invoke when: the user wants to create or edit a markdown knowledge-base note.';
     }
 
     /**

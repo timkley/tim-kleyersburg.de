@@ -18,7 +18,7 @@ class LogMeal implements Tool
      */
     public function description(): Stringable|string
     {
-        return 'Log a meal to a nutrition day. Creates the day if it does not exist. Returns confirmation with updated daily totals.';
+        return 'Primary intent: log a newly consumed meal with macros for a day. Invoke when user says: "Logge Mahlzeit ...", "Trage Fruehstueck ein ...", or provides kcal/protein/fat/carbs to store. Do not invoke when: the user asks for reports, trends, or nutrition summaries without adding a meal.';
     }
 
     /**

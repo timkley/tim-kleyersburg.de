@@ -17,7 +17,7 @@ class CompleteQuest implements Tool
      */
     public function description(): Stringable|string
     {
-        return 'Mark a quest as completed by its ID. This awards XP to the user.';
+        return 'Primary intent: mark a resolved quest as completed. Invoke when user says: "Schliesse Quest 12 ab" or after resolving by name with SearchQuests or ListQuests. Do not invoke when: the user only gives a quest name and no unique quest has been selected yet.';
     }
 
     /**

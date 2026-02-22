@@ -17,7 +17,7 @@ class ListQuests implements Tool
      */
     public function description(): Stringable|string
     {
-        return 'List quests with optional filters. Can filter by: open (not completed), today (scheduled for today or earlier), daily, notes-only. Returns quest name, description, date, and completion status.';
+        return 'Primary intent: list quests by status or schedule filters. Invoke when user says: "Zeig offene Aufgaben", "Was ist heute faellig?", "Liste erledigte Quests", or asks for daily/all quest overviews. Do not invoke when: the user asks about one specific quest by name that must be resolved first.';
     }
 
     /**
