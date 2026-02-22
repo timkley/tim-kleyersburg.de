@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 use Livewire\Livewire;
 use Modules\Holocron\Grind\Models\NutritionDay;
+use Modules\Holocron\User\Enums\GoalType;
+use Modules\Holocron\User\Models\DailyGoal;
 use Modules\Holocron\User\Models\User;
 use Modules\Holocron\User\Models\UserSetting;
 
@@ -115,6 +117,33 @@ it('can update day type', function () {
     $day = NutritionDay::query()->whereDate('date', now()->format('Y-m-d'))->first();
 
     expect($day->type)->toBe('training');
+});
+
+it('updates projected protein goal target when day type changes', function () {
+    NutritionDay::factory()->create([
+        'date' => now()->format('Y-m-d'),
+        'type' => 'rest',
+        'meals' => [
+            ['name' => 'Meal', 'kcal' => 500, 'protein' => 100, 'fat' => 20, 'carbs' => 50],
+        ],
+        'total_kcal' => 500,
+        'total_protein' => 100,
+        'total_fat' => 20,
+        'total_carbs' => 50,
+    ]);
+
+    Livewire::test('holocron.grind.nutrition.index')
+        ->set('dayType', 'training')
+        ->assertHasNoErrors();
+
+    $goal = DailyGoal::query()
+        ->where('type', GoalType::Protein)
+        ->whereDate('date', now()->format('Y-m-d'))
+        ->first();
+
+    expect($goal)->not->toBeNull()
+        ->and($goal->amount)->toBe(100)
+        ->and($goal->goal)->toBe(155);
 });
 
 it('calculates 7-day rolling average', function () {

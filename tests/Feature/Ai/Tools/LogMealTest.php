@@ -5,10 +5,22 @@ declare(strict_types=1);
 use App\Ai\Tools\LogMeal;
 use Laravel\Ai\Tools\Request;
 use Modules\Holocron\Grind\Models\NutritionDay;
+use Modules\Holocron\User\Enums\GoalType;
+use Modules\Holocron\User\Models\DailyGoal;
+use Modules\Holocron\User\Models\User;
 
 // Use a far-future date to avoid collisions with data imported by the migration seeder.
 beforeEach(function () {
     $this->testDate = today()->addYear()->toDateString();
+
+    $tim = User::factory()->create(['email' => 'timkley@gmail.com']);
+    $tim->settings()->create([
+        'weight' => 80,
+        'nutrition_daily_targets' => [
+            'training' => ['kcal' => 2200, 'protein' => 155, 'fat' => 65, 'carbs' => 230],
+            'rest' => ['kcal' => 2000, 'protein' => 140, 'fat' => 60, 'carbs' => 185],
+        ],
+    ]);
 });
 
 it('logs a meal to a new day', function () {
@@ -136,4 +148,27 @@ it('returns a confirmation string with daily totals', function () {
         ->toContain('8g fat')
         ->toContain('55g carbs')
         ->toContain('1 meals total');
+});
+
+it('syncs protein daily goal projection when logging a meal', function () {
+    $tool = new LogMeal;
+
+    $tool->handle(new Request([
+        'date' => $this->testDate,
+        'name' => 'Protein Shake',
+        'kcal' => 110,
+        'protein' => 23,
+        'fat' => 0,
+        'carbs' => 3,
+        'day_type' => 'training',
+    ]));
+
+    $goal = DailyGoal::query()
+        ->where('type', GoalType::Protein)
+        ->whereDate('date', $this->testDate)
+        ->first();
+
+    expect($goal)->not->toBeNull()
+        ->and($goal->amount)->toBe(23)
+        ->and($goal->goal)->toBe(155);
 });

@@ -70,6 +70,7 @@ class Index extends HolocronComponent
     {
         $day = $this->getOrCreateDay();
         $day->update(['type' => $type]);
+        $day->recalculateTotals();
     }
 
     public function setTrainingLabel(string $label): void

@@ -94,3 +94,20 @@ it('tracks goals without experience logs table', function () {
     expect($goal->fresh()->amount)->toBe(0);
     expect($goal->fresh()->reached)->toBeFalse();
 });
+
+it('renders protein goal without manual tracking form', function () {
+    $user = User::factory()->create(['email' => 'timkley@gmail.com']);
+    $user->settings()->create([
+        'weight' => 80,
+        'nutrition_daily_targets' => [
+            'rest' => ['kcal' => 2000, 'protein' => 140, 'fat' => 60, 'carbs' => 185],
+        ],
+    ]);
+
+    actingAs($user);
+    DailyGoal::for(GoalType::Protein);
+
+    Livewire::test('holocron.dashboard.components.goals')
+        ->assertSee('Deine Ziele')
+        ->assertDontSee('eingenommen');
+});

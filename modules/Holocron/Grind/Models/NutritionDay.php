@@ -7,6 +7,9 @@ namespace Modules\Holocron\Grind\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Modules\Holocron\Grind\Database\Factories\NutritionDayFactory;
+use Modules\Holocron\User\Enums\GoalType;
+use Modules\Holocron\User\Models\DailyGoal;
+use Modules\Holocron\User\Models\User;
 
 /**
  * @property-read \Carbon\CarbonImmutable $date
@@ -33,6 +36,8 @@ class NutritionDay extends Model
         $this->total_fat = (int) collect($this->meals)->sum('fat');
         $this->total_carbs = (int) collect($this->meals)->sum('carbs');
         $this->save();
+
+        $this->syncProteinGoalProjection();
     }
 
     protected static function newFactory(): NutritionDayFactory
@@ -46,5 +51,62 @@ class NutritionDay extends Model
             'date' => 'date',
             'meals' => 'array',
         ];
+    }
+
+    private function syncProteinGoalProjection(): void
+    {
+        $user = $this->resolveGoalUser();
+
+        if ($user === null) {
+            return;
+        }
+
+        $goal = DailyGoal::query()->firstOrNew(
+            [
+                'date' => $this->date->toDateString(),
+                'type' => GoalType::Protein->value,
+            ],
+            [
+                'unit' => GoalType::Protein->unit()->value,
+            ],
+        );
+
+        $goal->fill([
+            'unit' => GoalType::Protein->unit()->value,
+            'goal' => $this->proteinTargetFor($user),
+            'amount' => $this->total_protein,
+        ]);
+
+        $goal->save();
+    }
+
+    private function proteinTargetFor(User $user): int
+    {
+        $target = $user->settings?->nutrition_daily_targets[$this->type]['protein'] ?? null;
+
+        if (is_numeric($target)) {
+            return (int) $target;
+        }
+
+        $weight = $user->settings?->weight;
+
+        if ($weight === null) {
+            return 0;
+        }
+
+        return (int) round($weight * 2);
+    }
+
+    private function resolveGoalUser(): ?User
+    {
+        $authenticatedUser = auth()->user();
+
+        if ($authenticatedUser instanceof User) {
+            return $authenticatedUser;
+        }
+
+        return User::query()
+            ->where('email', 'timkley@gmail.com')
+            ->first();
     }
 }
