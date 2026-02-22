@@ -15,8 +15,14 @@ use InvalidArgumentException;
 use Modules\Holocron\Quest\Database\Factories\ReminderFactory;
 
 /**
+ * @property-read int $quest_id
  * @property-read Quest $quest
+ * @property-read string $type
  * @property-read CarbonImmutable $remind_at
+ * @property-read ?string $recurrence_pattern
+ * @property-read ?CarbonImmutable $last_processed_at
+ * @property-read CarbonImmutable $created_at
+ * @property-read CarbonImmutable $updated_at
  */
 class Reminder extends Model
 {

@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Http;
 class Nasa
 {
     /**
-     * @return Collection<int, array<string, mixed>>|null
+     * @return Collection<string, mixed>|null
      */
     public static function apod(): ?Collection
     {

@@ -12,7 +12,7 @@ use Modules\Holocron\Grind\Database\Factories\NutritionDayFactory;
  * @property-read \Carbon\CarbonImmutable $date
  * @property-read string $type
  * @property-read ?string $training_label
- * @property-read array<int, array{name: string, time?: string, kcal: int, protein: int, fat: int, carbs: int}> $meals
+ * @property array<int, array{name: string, time?: string, kcal: int, protein: int, fat: int, carbs: int}> $meals
  * @property-read ?string $notes
  * @property int $total_kcal
  * @property int $total_protein

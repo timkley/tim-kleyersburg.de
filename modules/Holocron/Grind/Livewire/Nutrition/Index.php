@@ -128,7 +128,8 @@ class Index extends HolocronComponent
         /** @var User $user */
         $user = auth()->user();
         $allTargets = $user->settings?->nutrition_daily_targets;
-        $targets = $allTargets[$day?->type ?? 'rest'] ?? null;
+        $dayType = $day !== null ? $day->type : 'rest';
+        $targets = $allTargets[$dayType] ?? null;
 
         return view('holocron-grind::nutrition.index', [
             'day' => $day,

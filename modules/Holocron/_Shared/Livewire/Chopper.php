@@ -13,6 +13,7 @@ use Laravel\Ai\Responses\StreamedAgentResponse;
 use Laravel\Ai\Streaming\Events\TextDelta;
 use Livewire\Attributes\Title;
 use Livewire\WithFileUploads;
+use stdClass;
 
 #[Title('Chopper')]
 class Chopper extends HolocronComponent
@@ -143,7 +144,7 @@ class Chopper extends HolocronComponent
     }
 
     /**
-     * @return Collection<int, object>
+     * @return Collection<int, stdClass>
      */
     protected function getConversations(): Collection
     {

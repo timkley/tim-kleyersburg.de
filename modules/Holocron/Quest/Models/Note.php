@@ -16,6 +16,7 @@ use Modules\Holocron\Quest\Database\Factories\NoteFactory;
  * @property-read ?string $content
  * @property-read string $role
  * @property-read CarbonImmutable $created_at
+ * @property-read CarbonImmutable $updated_at
  */
 class Note extends Model
 {

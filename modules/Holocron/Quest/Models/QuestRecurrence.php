@@ -11,6 +11,7 @@ use Illuminate\Support\Carbon;
 use Modules\Holocron\Quest\Database\Factories\QuestRecurrenceFactory;
 
 /**
+ * @property-read int $quest_id
  * @property-read Quest $quest
  * @property-read int $every_x_days
  * @property-read string $recurrence_type
