@@ -5,9 +5,7 @@ declare(strict_types=1);
 namespace Modules\Holocron\User\Concerns;
 
 use Illuminate\Support\Carbon;
-use Modules\Holocron\User\Enums\ExperienceType;
 use Modules\Holocron\User\Enums\GoalType;
-use Modules\Holocron\User\Models\User;
 
 trait HasStreaks
 {
@@ -67,42 +65,5 @@ trait HasStreaks
             ->orderBy('date', $order)
             ->pluck('date')
             ->toArray();
-    }
-
-    private function awardExperience(): void
-    {
-        $currentStreak = self::currentStreakFor($this->type);
-        $baseXp = 2;
-        $scaledXp = (int) round($baseXp + $currentStreak * 0.1);
-
-        User::tim()->addExperience($scaledXp, ExperienceType::GoalReached, $this->id);
-
-        $this->checkAndAwardStreakGoal($currentStreak);
-    }
-
-    private function checkAndAwardStreakGoal(int $currentStreak): void
-    {
-        $streakGoals = $this->getStreakGoals();
-
-        if (in_array($currentStreak, $streakGoals)) {
-            $xp = (int) (5 + ($currentStreak / 2));
-            $identifier = crc32($this->type->value.'_streak_'.$currentStreak);
-            User::tim()->addExperience($xp, ExperienceType::StreakGoalReached, $identifier);
-        }
-    }
-
-    private function retractExperience(): void
-    {
-        User::tim()->addExperience(-2, ExperienceType::GoalUnreached, $this->id);
-    }
-
-    /**
-     * @return array<int, int>
-     */
-    private function getStreakGoals(): array
-    {
-        return collect(range(1, 40))->flatMap(fn ($i) => [
-            $i * 5,
-        ])->all();
     }
 }

@@ -11,8 +11,6 @@ use Livewire\Attributes\Validate;
 use Modules\Holocron\_Shared\Livewire\HolocronComponent;
 use Modules\Holocron\Grind\Models\Exercise;
 use Modules\Holocron\Grind\Models\Workout;
-use Modules\Holocron\User\Enums\ExperienceType;
-use Modules\Holocron\User\Models\User;
 
 #[Title('Workouts')]
 class Show extends HolocronComponent
@@ -66,8 +64,6 @@ class Show extends HolocronComponent
         $this->workout->update([
             'finished_at' => now(),
         ]);
-
-        User::tim()->addExperience(10, ExperienceType::WorkoutFinished, $this->workout->id);
 
         $this->dispatch('workout:finished');
     }

@@ -53,15 +53,7 @@ class DailyGoal extends Model
             return;
         }
 
-        $wasPreviouslyReached = $this->reached;
-
         $this->update(['amount' => $this->amount + $amount]);
-
-        if ($this->reached) {
-            $this->awardExperience();
-        } elseif ($wasPreviouslyReached) {
-            $this->retractExperience();
-        }
     }
 
     protected static function newFactory(): DailyGoalFactory

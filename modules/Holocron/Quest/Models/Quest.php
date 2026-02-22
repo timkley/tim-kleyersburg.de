@@ -21,8 +21,6 @@ use Modules\Holocron\Bookmarks\Models\Webpage;
 use Modules\Holocron\Printer\Model\PrintQueue;
 use Modules\Holocron\Printer\Services\Printer;
 use Modules\Holocron\Quest\Database\Factories\QuestFactory;
-use Modules\Holocron\User\Enums\ExperienceType;
-use Modules\Holocron\User\Models\User;
 
 /**
  * @property-read ?int $quest_id
@@ -48,10 +46,6 @@ class Quest extends Model
     public function complete(): void
     {
         $this->update(['completed_at' => now()]);
-
-        defer(function () {
-            User::tim()->addExperience(2, ExperienceType::QuestCompleted, $this->id);
-        });
     }
 
     public function isCompleted(): bool

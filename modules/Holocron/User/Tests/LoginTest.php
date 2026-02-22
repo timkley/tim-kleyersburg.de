@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use Modules\Holocron\User\Models\User;
 
+use function Pest\Laravel\actingAs;
 use function Pest\Laravel\get;
 
 it('shows the login page', function () {
@@ -35,4 +36,11 @@ it('is not possible to login without correct credentials', function () {
         ->assertHasErrors();
 
     expect(auth()->check())->toBeFalse();
+});
+
+it('does not expose the experience page', function () {
+    $user = User::factory()->create();
+    actingAs($user);
+
+    get('/holocron/experience')->assertNotFound();
 });

@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Illuminate\Support\Facades\Schema;
 use Modules\Holocron\User\Enums\GoalType;
 use Modules\Holocron\User\Models\DailyGoal;
 use Modules\Holocron\User\Models\User;
@@ -81,21 +82,15 @@ it('can track a goal', function () {
     expect(DailyGoal::for(GoalType::NoSmoking)->amount)->toBe(0);
 });
 
-it('adds experience for reached and unreached goals', function () {
+it('tracks goals without experience logs table', function () {
     $user = User::factory(['email' => 'timkley@gmail.com'])->create();
     actingAs($user);
-    // creating a water goal awards no xp
-    // creating a smoking goal awards xp
 
-    $water = DailyGoal::for(GoalType::Water);
-    expect($user->fresh()->experienceLogs->count())->toBe(0);
+    Schema::dropIfExists('experience_logs');
 
-    $smoke = DailyGoal::for(GoalType::NoSmoking);
-    expect($user->fresh()->experienceLogs->count())->toBe(1);
+    $goal = DailyGoal::for(GoalType::NoSmoking);
+    $goal->track(-1);
 
-    $water->track(3000);
-    expect($user->fresh()->experienceLogs->count())->toBe(2);
-
-    $smoke->track(-1);
-    expect($user->fresh()->experienceLogs->count())->toBe(3);
+    expect($goal->fresh()->amount)->toBe(0);
+    expect($goal->fresh()->reached)->toBeFalse();
 });

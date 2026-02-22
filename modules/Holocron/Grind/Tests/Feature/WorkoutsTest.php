@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Illuminate\Support\Facades\Schema;
 use Modules\Holocron\Grind\Models\Exercise;
 use Modules\Holocron\Grind\Models\Plan;
 use Modules\Holocron\Grind\Models\Workout;
@@ -39,6 +40,35 @@ it('can start a workout', function () {
 
     expect($workout)->toBeInstanceOf(Workout::class);
     expect($workout->started_at)->not()->toBeNull();
+});
+
+it('can finish a workout without experience logs table', function () {
+    actingAs(User::factory()->create(['email' => 'timkley@gmail.com']));
+
+    $exercise = Exercise::factory()->create();
+
+    $plan = Plan::factory()->hasAttached(
+        $exercise,
+        [
+            'sets' => 3,
+            'min_reps' => 3,
+            'max_reps' => 3,
+            'order' => 1,
+        ]
+    )->create();
+
+    Livewire::test('holocron.grind.workouts.index')
+        ->call('start', $plan->id)
+        ->assertRedirect(route('holocron.grind.workouts.show', [1]));
+
+    Schema::dropIfExists('experience_logs');
+
+    $workout = Workout::query()->firstOrFail();
+
+    Livewire::test('holocron.grind.workouts.show', ['workout' => $workout])
+        ->call('finish');
+
+    expect($workout->fresh()->finished_at)->not()->toBeNull();
 });
 
 it('prefills the workout with sets based on latest exercise performance', function () {
