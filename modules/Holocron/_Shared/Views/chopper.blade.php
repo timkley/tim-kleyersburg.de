@@ -1,4 +1,4 @@
-<div class="flex h-[calc(100vh-12rem)] gap-6">
+<div class="flex flex-col md:flex-row h-[calc(100vh-12rem)] gap-2 md:gap-6">
     {{-- Sidebar: Conversation List (Desktop) --}}
     <div class="hidden w-64 shrink-0 flex-col gap-2 overflow-y-auto md:flex">
         <flux:button :href="route('holocron.chopper')" variant="primary" class="w-full" wire:navigate>
@@ -24,7 +24,7 @@
     </div>
 
     {{-- Mobile: Conversation Dropdown --}}
-    <div class="mb-4 md:hidden">
+    <div class="md:hidden">
         <flux:dropdown>
             <flux:button variant="ghost" icon="chat-bubble-left-right">
                 Gespräche
