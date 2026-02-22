@@ -280,16 +280,4 @@ protected function isAccessible(User $user, ?string $path = null): bool
 - IMPORTANT: Always use `search-docs` tool for version-specific Tailwind CSS documentation and updated code examples. Never rely on training data.
 - IMPORTANT: Activate `tailwindcss-development` every time you're working with a Tailwind CSS or styling-related task.
 
-=== verification rules ===
-
-# Mandatory Verification After Code Changes
-
-After every code change, run all three verification steps in order. Fix any failures before considering the task complete — even if the failures were not introduced by the latest changes.
-
-1. **Tests** — `php artisan test --compact`
-2. **Static analysis** — `composer phpstan`
-3. **Code style** — `vendor/bin/pint --dirty --format agent`
-
-If any step fails, fix the issue and re-run all three steps. Do not skip regressions.
-
 </laravel-boost-guidelines>
