@@ -111,7 +111,7 @@
                                 <div class="mb-2 flex flex-wrap gap-1">
                                     @foreach ($msg['attachments'] as $path)
                                         <img
-                                            src="{{ Storage::disk('local')->url($path) }}"
+                                            src="{{ Storage::disk('local')->temporaryUrl($path, now()->addDay()) }}"
                                             class="max-h-32 rounded-lg"
                                             alt="Anhang"
                                         />
@@ -173,8 +173,13 @@
                 placeholder="Nachricht an Chopper..."
             >
                 <x-slot:header>
+                    <div wire:loading wire:target="attachments" class="flex items-center gap-2 pb-1 text-sm text-zinc-500">
+                        <flux:icon.arrow-path class="size-4 animate-spin" />
+                        Bilder werden hochgeladen...
+                    </div>
+
                     @if ($attachments)
-                        <div class="flex flex-wrap gap-2 pb-1">
+                        <div wire:loading.remove wire:target="attachments" class="flex flex-wrap gap-2 pb-1">
                             @foreach ($attachments as $index => $attachment)
                                 <div wire:key="preview-{{ $index }}" class="group relative">
                                     @if (method_exists($attachment, 'isPreviewable') && $attachment->isPreviewable())
@@ -220,6 +225,7 @@
                         size="sm"
                         variant="primary"
                         wire:loading.attr="disabled"
+                        wire:target="attachments,send"
                     />
                 </x-slot:actionsTrailing>
             </flux:composer>
