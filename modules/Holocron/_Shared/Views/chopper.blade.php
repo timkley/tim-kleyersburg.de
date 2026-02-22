@@ -107,6 +107,17 @@
                                 {!! str($msg['content'])->markdown() !!}
                             </div>
                         @else
+                            @if (! empty($msg['attachments']))
+                                <div class="mb-2 flex flex-wrap gap-1">
+                                    @foreach ($msg['attachments'] as $path)
+                                        <img
+                                            src="{{ Storage::disk('local')->url($path) }}"
+                                            class="max-h-32 rounded-lg"
+                                            alt="Anhang"
+                                        />
+                                    @endforeach
+                                </div>
+                            @endif
                             {{ $msg['content'] }}
                         @endif
                     </div>
@@ -126,13 +137,86 @@
         </div>
 
         {{-- Input --}}
-        <form wire:submit="send" class="mt-4 flex gap-2">
-            <flux:input
+        <form
+            wire:submit="send"
+            class="mt-4"
+            x-data="{
+                dragOver: false,
+                handleDrop(e) {
+                    this.dragOver = false;
+                    const files = [...e.dataTransfer.files].filter(f => f.type.startsWith('image/'));
+                    if (files.length) {
+                        $wire.uploadMultiple('attachments', files);
+                    }
+                },
+                handlePaste(e) {
+                    const items = [...(e.clipboardData?.items || [])];
+                    const imageFiles = items
+                        .filter(item => item.type.startsWith('image/'))
+                        .map(item => item.getAsFile())
+                        .filter(Boolean);
+                    if (imageFiles.length) {
+                        e.preventDefault();
+                        $wire.uploadMultiple('attachments', imageFiles);
+                    }
+                },
+            }"
+            @dragover.prevent="dragOver = true"
+            @dragleave.prevent="dragOver = false"
+            @drop.prevent="handleDrop($event)"
+            @paste="handlePaste($event)"
+        >
+            <flux:composer
                 wire:model="message"
+                submit="enter"
                 placeholder="Nachricht an Chopper..."
-                autofocus
-            />
-            <flux:button type="submit" variant="primary" icon="paper-airplane" wire:loading.attr="disabled" />
+                :class="dragOver ? 'ring-2 ring-accent!' : ''"
+            >
+                <x-slot:header>
+                    @if ($attachments)
+                        <div class="flex flex-wrap gap-2 pb-1">
+                            @foreach ($attachments as $index => $attachment)
+                                <div wire:key="preview-{{ $index }}" class="group relative">
+                                    <img
+                                        src="{{ $attachment->temporaryUrl() }}"
+                                        class="size-16 rounded-lg object-cover"
+                                        alt="Anhang {{ $index + 1 }}"
+                                    />
+                                    <button
+                                        type="button"
+                                        wire:click="removeAttachment({{ $index }})"
+                                        class="absolute -right-1 -top-1 hidden size-5 items-center justify-center rounded-full bg-zinc-800 text-white group-hover:flex dark:bg-zinc-200 dark:text-zinc-900"
+                                    >
+                                        <flux:icon.x-mark class="size-3" />
+                                    </button>
+                                </div>
+                            @endforeach
+                        </div>
+                    @endif
+                </x-slot:header>
+
+                <x-slot:actionsLeading>
+                    <flux:button icon="photo" size="sm" variant="subtle" x-on:click="$refs.fileInput.click()" />
+                    <input
+                        x-ref="fileInput"
+                        type="file"
+                        wire:model="attachments"
+                        multiple
+                        accept="image/*"
+                        class="hidden"
+                    />
+                </x-slot:actionsLeading>
+
+                <x-slot:actionsTrailing>
+                    <flux:button
+                        type="submit"
+                        icon="paper-airplane"
+                        size="sm"
+                        variant="primary"
+                        wire:loading.attr="disabled"
+                    />
+                </x-slot:actionsTrailing>
+            </flux:composer>
         </form>
     </div>
 </div>
