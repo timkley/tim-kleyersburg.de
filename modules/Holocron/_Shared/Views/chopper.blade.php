@@ -1,4 +1,4 @@
-<div class="flex flex-col md:flex-row h-[calc(100vh-12rem)] gap-2 md:gap-6">
+<div class="flex h-[calc(100dvh-12rem)] min-h-0 flex-col gap-2 md:h-[calc(100vh-12rem)] md:flex-row md:gap-6">
     {{-- Sidebar: Conversation List (Desktop) --}}
     <div class="hidden w-64 shrink-0 flex-col gap-2 overflow-y-auto md:flex">
         <flux:button :href="route('holocron.chopper')" variant="primary" class="w-full" wire:navigate>
@@ -48,10 +48,10 @@
     </div>
 
     {{-- Main Chat Area --}}
-    <div class="flex min-w-0 flex-1 flex-col">
+    <div class="flex min-h-0 min-w-0 flex-1 flex-col">
         {{-- Messages --}}
         <div
-            class="flex-1 space-y-4 overflow-y-auto pb-4"
+            class="min-h-0 flex-1 space-y-4 overflow-y-auto pb-4"
             id="chat-messages"
             x-data="{
                 shouldAutoScroll: true,

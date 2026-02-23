@@ -114,5 +114,10 @@ return [
 
     'password_timeout' => env('AUTH_PASSWORD_TIMEOUT', 10800),
 
+    'local_auto_login' => [
+        'enabled' => env('HOLOCRON_LOCAL_AUTO_LOGIN', false) && env('APP_ENV') === 'local',
+        'email' => env('HOLOCRON_LOCAL_AUTO_LOGIN_EMAIL', 'test@example.com'),
+    ],
+
     'bearer_token' => env('BEARER_TOKEN'),
 ];

@@ -28,6 +28,16 @@ it('renders the chopper page', function () {
         ->assertSeeLivewire(Chopper::class);
 });
 
+it('uses mobile-safe layout classes so the chat pane can scroll', function () {
+    $user = User::factory()->create(['email' => 'timkley@gmail.com']);
+
+    actingAs($user)
+        ->get(route('holocron.chopper'))
+        ->assertSuccessful()
+        ->assertSee('h-[calc(100dvh-12rem)]', false)
+        ->assertSee('min-h-0 min-w-0 flex-1 flex-col', false);
+});
+
 it('can send a message and trigger streaming', function () {
     $user = User::factory()->create(['email' => 'timkley@gmail.com']);
 

@@ -13,6 +13,18 @@ it('shows the login page', function () {
     expect($response->status())->toBe(200);
 });
 
+it('can auto login locally when enabled by configuration', function () {
+    $user = User::factory()->create(['email' => 'test@example.com']);
+
+    config()->set('auth.local_auto_login.enabled', true);
+    config()->set('auth.local_auto_login.email', $user->email);
+
+    get(route('holocron.login'))
+        ->assertRedirect(route('holocron.dashboard'));
+
+    expect(auth()->id())->toBe($user->id);
+});
+
 it('is possible to login', function () {
     $user = User::factory()->create();
 
