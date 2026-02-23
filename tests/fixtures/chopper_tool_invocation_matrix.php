@@ -99,6 +99,14 @@ $primaryUtterances = [
         'Erfasse Mittagessen 13:00, 560 kcal, 40 protein, 16 fett, 58 carbs.',
         'Bitte log meal Burger 900 kcal 45 protein 50 fett 70 carbs.',
     ],
+    'EditMeal' => [
+        'Bearbeite meine erste Mahlzeit heute auf 650 kcal und 45 protein.',
+        'Aendere bei der Mahlzeit an Index 0 die Makros auf 500 kcal, 35 protein, 15 fett, 55 carbs.',
+        'Korrigiere mein Fruehstueck von heute: jetzt 07:30 Uhr und 520 kcal.',
+        'Bitte passe die zweite Mahlzeit fuer 2026-02-22 auf 700 kcal an.',
+        'Update meal index 1 for today to 40 protein and 18 fat.',
+        'Entferne die Uhrzeit bei Mahlzeit 0 fuer heute.',
+    ],
     'QueryNutrition' => [
         'Zeig meine Ernaehrung von heute.',
         'Gib mir die Makros fuer 2026-02-20.',
@@ -122,6 +130,7 @@ $mustNotCall = [
     'WriteNote' => ['SearchQuests', 'GetQuest', 'CompleteQuest', 'LogMeal', 'QueryNutrition'],
     'SearchNotes' => ['SearchQuests', 'GetQuest', 'CompleteQuest', 'LogMeal', 'QueryNutrition'],
     'LogMeal' => ['BrowseNotes', 'ReadNote', 'SearchNotes', 'SearchQuests', 'ListQuests'],
+    'EditMeal' => ['BrowseNotes', 'ReadNote', 'SearchNotes', 'SearchQuests', 'ListQuests'],
     'QueryNutrition' => ['BrowseNotes', 'ReadNote', 'SearchNotes', 'SearchQuests', 'ListQuests'],
 ];
 

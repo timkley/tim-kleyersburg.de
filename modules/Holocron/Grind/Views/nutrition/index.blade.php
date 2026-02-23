@@ -106,7 +106,10 @@
                                     <flux:text size="sm">{{ $meal['time'] }} Uhr</flux:text>
                                 @endif
                             </div>
-                            <flux:button variant="subtle" size="xs" icon="trash" wire:click="deleteMeal({{ $index }})" wire:confirm="Mahlzeit wirklich löschen?" />
+                            <div class="flex items-center gap-1">
+                                <flux:button variant="subtle" size="xs" icon="pencil" wire:click="editMeal({{ $index }})" />
+                                <flux:button variant="subtle" size="xs" icon="trash" wire:click="deleteMeal({{ $index }})" wire:confirm="Mahlzeit wirklich löschen?" />
+                            </div>
                         </div>
                         <div class="flex gap-3 text-sm">
                             <flux:text>{{ $meal['kcal'] }} kcal</flux:text>
@@ -126,8 +129,8 @@
 
     {{-- Add Meal Form --}}
     <div class="space-y-4">
-        <flux:heading size="base">Mahlzeit hinzufügen</flux:heading>
-        <form wire:submit="addMeal" class="space-y-4">
+        <flux:heading size="base">{{ $editingMealIndex !== null ? 'Mahlzeit bearbeiten' : 'Mahlzeit hinzufügen' }}</flux:heading>
+        <form wire:submit="{{ $editingMealIndex !== null ? 'updateMeal' : 'addMeal' }}" class="space-y-4">
             <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
                 <flux:input label="Name" wire:model="mealName" placeholder="z.B. Frühstück" required />
                 <flux:input label="Uhrzeit" type="time" wire:model="mealTime" />
@@ -136,7 +139,14 @@
                 <flux:input label="Fett (g)" type="number" wire:model="mealFat" min="0" required />
                 <flux:input label="Kohlenhydrate (g)" type="number" wire:model="mealCarbs" min="0" required />
             </div>
-            <flux:button type="submit" variant="primary">Mahlzeit speichern</flux:button>
+            <div class="flex items-center gap-2">
+                <flux:button type="submit" variant="primary">
+                    {{ $editingMealIndex !== null ? 'Mahlzeit aktualisieren' : 'Mahlzeit speichern' }}
+                </flux:button>
+                @if($editingMealIndex !== null)
+                    <flux:button type="button" variant="subtle" wire:click="cancelMealEdit">Abbrechen</flux:button>
+                @endif
+            </div>
         </form>
     </div>
 

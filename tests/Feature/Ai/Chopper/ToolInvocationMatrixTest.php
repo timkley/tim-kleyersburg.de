@@ -140,6 +140,7 @@ function knownTools(): array
         'WriteNote',
         'SearchNotes',
         'LogMeal',
+        'EditMeal',
         'QueryNutrition',
     ];
 }

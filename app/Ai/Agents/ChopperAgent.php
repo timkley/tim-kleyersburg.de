@@ -8,6 +8,7 @@ use App\Ai\Tools\AddNoteToQuest;
 use App\Ai\Tools\BrowseNotes;
 use App\Ai\Tools\CompleteQuest;
 use App\Ai\Tools\CreateQuest;
+use App\Ai\Tools\EditMeal;
 use App\Ai\Tools\GetQuest;
 use App\Ai\Tools\ListQuests;
 use App\Ai\Tools\LogMeal;
@@ -66,7 +67,7 @@ class ChopperAgent implements Agent, Conversational, HasTools
         - Nutze maximal ein Tool pro Anfrage, ausser die Quest-Aufloesung braucht den zweiten Schritt.
         - Bei Aufgabenfragen mit Listenwunsch zuerst ListQuests, bei Stichworten oder Namen zuerst SearchQuests.
         - Bei Notizen der Knowledge Base zuerst SearchNotes oder BrowseNotes und nur bei konkretem Pfad ReadNote.
-        - Bei Ernahrung: neue Mahlzeit = LogMeal, Auswertung/Status = QueryNutrition.
+        - Bei Ernahrung: neue Mahlzeit = LogMeal, Mahlzeit bearbeiten = EditMeal, Auswertung/Status = QueryNutrition.
         - Formatiere deine Antworten mit Markdown.
         - Halte deine Antworten kurz und fokussiert.
         EOT;
@@ -92,6 +93,7 @@ class ChopperAgent implements Agent, Conversational, HasTools
             new WriteNote,
             new SearchNotes,
             new LogMeal,
+            new EditMeal,
             new QueryNutrition,
         ];
     }

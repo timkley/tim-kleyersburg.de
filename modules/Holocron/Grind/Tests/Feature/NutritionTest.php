@@ -105,6 +105,45 @@ it('can delete a meal', function () {
         ->and($day->total_protein)->toBe(40);
 });
 
+it('can edit a meal', function () {
+    $day = NutritionDay::factory()->create([
+        'date' => now()->format('Y-m-d'),
+        'meals' => [
+            ['name' => 'Frühstück', 'time' => '08:00', 'kcal' => 500, 'protein' => 30, 'fat' => 20, 'carbs' => 50],
+            ['name' => 'Mittagessen', 'kcal' => 700, 'protein' => 40, 'fat' => 25, 'carbs' => 70],
+        ],
+        'total_kcal' => 1200,
+        'total_protein' => 70,
+        'total_fat' => 45,
+        'total_carbs' => 120,
+    ]);
+
+    Livewire::test('holocron.grind.nutrition.index')
+        ->call('editMeal', 0)
+        ->assertSet('editingMealIndex', 0)
+        ->assertSet('mealName', 'Frühstück')
+        ->set('mealName', 'Pre-Workout')
+        ->set('mealTime', '07:30')
+        ->set('mealKcal', 550)
+        ->set('mealProtein', 35)
+        ->set('mealFat', 18)
+        ->set('mealCarbs', 60)
+        ->call('updateMeal')
+        ->assertSet('editingMealIndex', null)
+        ->assertHasNoErrors();
+
+    $day->refresh();
+
+    expect($day->meals)->toHaveCount(2)
+        ->and($day->meals[0]['name'])->toBe('Pre-Workout')
+        ->and($day->meals[0]['time'])->toBe('07:30')
+        ->and($day->meals[1]['name'])->toBe('Mittagessen')
+        ->and($day->total_kcal)->toBe(1250)
+        ->and($day->total_protein)->toBe(75)
+        ->and($day->total_fat)->toBe(43)
+        ->and($day->total_carbs)->toBe(130);
+});
+
 it('can update day type', function () {
     NutritionDay::factory()->rest()->create([
         'date' => now()->format('Y-m-d'),

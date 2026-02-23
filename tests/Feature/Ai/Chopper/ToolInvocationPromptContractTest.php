@@ -7,6 +7,7 @@ use App\Ai\Tools\AddNoteToQuest;
 use App\Ai\Tools\BrowseNotes;
 use App\Ai\Tools\CompleteQuest;
 use App\Ai\Tools\CreateQuest;
+use App\Ai\Tools\EditMeal;
 use App\Ai\Tools\GetQuest;
 use App\Ai\Tools\ListQuests;
 use App\Ai\Tools\LogMeal;
@@ -80,6 +81,7 @@ function chopperTools(): array
         new WriteNote,
         new SearchNotes,
         new LogMeal,
+        new EditMeal,
         new QueryNutrition,
     ];
 }
