@@ -29,6 +29,28 @@ class NutritionDay extends Model
 
     protected $table = 'grind_nutrition_days';
 
+    public static function markAsDayType(string $type, ?string $trainingLabel = null): void
+    {
+        $day = static::query()->firstOrCreate(
+            ['date' => today()],
+            [
+                'type' => 'rest',
+                'meals' => [],
+                'total_kcal' => 0,
+                'total_protein' => 0,
+                'total_fat' => 0,
+                'total_carbs' => 0,
+            ],
+        );
+
+        $day->update([
+            'type' => $type,
+            'training_label' => $trainingLabel,
+        ]);
+
+        $day->recalculateTotals();
+    }
+
     public function recalculateTotals(): void
     {
         $this->total_kcal = (int) collect($this->meals)->sum('kcal');
