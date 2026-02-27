@@ -29,11 +29,12 @@
         @endif
         <flux:input
             class:input="text-center font-bold"
-            wire:model="weight"
+            wire:model.blur="weight"
             wire:dirty.class="bg-yellow-50 dark:bg-yellow-900"
             inputmode="decimal"
             :loading="false"
             x-on:input="$event.target.value = $event.target.value.replace(',', '.')"
+            x-on:focus="$el.select()"
         />
             @if($set->reps >= $maxReps)
                 <flux:input.group.suffix class="!px-2">
@@ -45,10 +46,11 @@
         <flux:input.group.prefix x-on:click="$wire.reps--; $wire.commit()">-</flux:input.group.prefix>
         <flux:input
             class:input="text-center font-bold"
-            wire:model="reps"
+            wire:model.blur="reps"
             wire:dirty.class="bg-yellow-50 dark:bg-yellow-900"
             :loading="false"
             inputmode="numeric"
+            x-on:focus="$el.select()"
         />
         <flux:input.group.suffix x-on:click="$wire.reps++; $wire.commit()">+</flux:input.group.suffix>
     </flux:input.group>
