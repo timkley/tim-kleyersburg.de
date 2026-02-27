@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use App\Http\Middleware\BearerToken;
 use App\Jobs\ArchiveScrobbles;
+use App\Jobs\SummarizeConversations;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -34,6 +35,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $schedule->job(RecurQuests::class)->weekdays()->dailyAt('7:30');
         $schedule->job(RecurQuests::class)->weekends()->dailyAt('10:00');
         $schedule->job(ArchiveScrobbles::class)->hourly();
+        $schedule->job(SummarizeConversations::class)->everyFifteenMinutes();
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //
