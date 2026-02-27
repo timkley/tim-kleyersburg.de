@@ -30,13 +30,9 @@ public function up(): void
     });
 }
 
-public function down(): void
-{
-    Schema::table('agent_conversations', function (Blueprint $table) {
-        $table->dropColumn(['summary', 'summary_generated_at']);
-    });
-}
 ```
+
+No `down()` method — migrations are forward-only.
 
 **Step 3: Run migration**
 
