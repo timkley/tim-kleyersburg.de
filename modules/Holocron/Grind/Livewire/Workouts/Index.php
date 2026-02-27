@@ -9,6 +9,7 @@ use Livewire\Attributes\Title;
 use Livewire\WithPagination;
 use Modules\Holocron\_Shared\Livewire\HolocronComponent;
 use Modules\Holocron\Grind\Models\Exercise;
+use Modules\Holocron\Grind\Models\NutritionDay;
 use Modules\Holocron\Grind\Models\Plan;
 use Modules\Holocron\Grind\Models\Set;
 use Modules\Holocron\Grind\Models\Workout;
@@ -26,6 +27,8 @@ class Index extends HolocronComponent
             'plan_id' => $planId,
             'started_at' => now(),
         ]);
+
+        NutritionDay::markAsDayType('training', $plan->name);
 
         $exercises = $plan->exercises()
             ->with('sets')
