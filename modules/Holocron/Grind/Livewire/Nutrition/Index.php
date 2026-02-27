@@ -73,9 +73,7 @@ class Index extends HolocronComponent
 
     public function updatedDayType(string $type): void
     {
-        $day = $this->getOrCreateDay();
-        $day->update(['type' => $type]);
-        $day->recalculateTotals();
+        NutritionDay::markAsDayType($type, date: Carbon::parse($this->date));
     }
 
     public function setTrainingLabel(string $label): void
