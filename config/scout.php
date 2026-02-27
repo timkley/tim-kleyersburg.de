@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Models\AgentConversationMessage;
 use Modules\Holocron\Bookmarks\Models\Bookmark;
 use Modules\Holocron\Quest\Models\Note;
 use Modules\Holocron\Quest\Models\Quest;
@@ -323,6 +324,50 @@ return [
                 ],
                 'search-parameters' => [
                     'query_by' => 'title,url,description,summary',
+                ],
+            ],
+            AgentConversationMessage::class => [
+                'collection-schema' => [
+                    'fields' => [
+                        [
+                            'name' => 'id',
+                            'type' => 'string',
+                        ],
+                        [
+                            'name' => 'conversation_id',
+                            'type' => 'string',
+                        ],
+                        [
+                            'name' => 'role',
+                            'type' => 'string',
+                        ],
+                        [
+                            'name' => 'content',
+                            'type' => 'string',
+                        ],
+                        [
+                            'name' => 'created_at',
+                            'type' => 'int64',
+                        ],
+                        [
+                            'name' => 'embedding',
+                            'type' => 'float[]',
+                            'embed' => [
+                                'from' => [
+                                    'content',
+                                ],
+                                'model_config' => [
+                                    'model_name' => 'openai/text-embedding-3-small',
+                                    'api_key' => env('OPENAI_API_KEY'),
+                                ],
+                            ],
+                        ],
+                    ],
+                    'default_sorting_field' => 'created_at',
+                ],
+                'search-parameters' => [
+                    'query_by' => 'content',
+                    'exclude_fields' => 'embedding',
                 ],
             ],
         ],
