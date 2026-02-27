@@ -106,3 +106,41 @@ it('falls back to weight based target when day type target is missing', function
         ->and($goal->goal)->toBe(164)
         ->and($goal->amount)->toBe(50);
 });
+
+it('marks a day as a given type via markAsDayType', function () {
+    NutritionDay::factory()->rest()->create([
+        'date' => today()->toDateString(),
+    ]);
+
+    NutritionDay::markAsDayType('training', 'Upper');
+
+    $day = NutritionDay::query()->whereDate('date', today())->first();
+
+    expect($day->type)->toBe('training')
+        ->and($day->training_label)->toBe('Upper');
+});
+
+it('creates a nutrition day if none exists when marking day type', function () {
+    expect(NutritionDay::query()->count())->toBe(0);
+
+    NutritionDay::markAsDayType('training', 'Lower');
+
+    $day = NutritionDay::query()->whereDate('date', today())->first();
+
+    expect($day)->not->toBeNull()
+        ->and($day->type)->toBe('training')
+        ->and($day->training_label)->toBe('Lower');
+});
+
+it('clears training label when marking as rest day', function () {
+    NutritionDay::factory()->training('Upper')->create([
+        'date' => today()->toDateString(),
+    ]);
+
+    NutritionDay::markAsDayType('rest');
+
+    $day = NutritionDay::query()->whereDate('date', today())->first();
+
+    expect($day->type)->toBe('rest')
+        ->and($day->training_label)->toBeNull();
+});
