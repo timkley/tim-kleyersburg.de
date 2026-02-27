@@ -14,6 +14,7 @@ use App\Ai\Tools\ListQuests;
 use App\Ai\Tools\LogMeal;
 use App\Ai\Tools\QueryNutrition;
 use App\Ai\Tools\ReadNote;
+use App\Ai\Tools\SearchConversationHistory;
 use App\Ai\Tools\SearchNotes;
 use App\Ai\Tools\SearchQuestComments;
 use App\Ai\Tools\SearchQuests;
@@ -69,6 +70,7 @@ class ChopperAgent implements Agent, Conversational, HasTools
         - Bei Notizen der Knowledge Base zuerst SearchNotes oder BrowseNotes und nur bei konkretem Pfad ReadNote.
         - Bei Ernahrung: neue Mahlzeit = LogMeal, Mahlzeit bearbeiten = EditMeal, Auswertung/Status = QueryNutrition.
         - Formatiere deine Antworten mit Markdown.
+        - Nutze SearchConversationHistory proaktiv, wann immer vergangener Kontext deine Antwort bereichern koennte. Wenn ein Thema moeglicherweise schon besprochen wurde, wenn der Benutzer auf etwas Vergangenes verweist, oder wenn Kontinuitaet mit frueheren Gespraechen helfen wuerde — suche danach. Warte nicht auf ein explizites "erinnerst du dich" — wenn es auch nur eine Chance gibt, dass vergangener Kontext relevant ist, nutze das Tool.
         - Halte deine Antworten kurz und fokussiert.
         EOT;
     }
@@ -95,6 +97,7 @@ class ChopperAgent implements Agent, Conversational, HasTools
             new LogMeal,
             new EditMeal,
             new QueryNutrition,
+            new SearchConversationHistory,
         ];
     }
 }
