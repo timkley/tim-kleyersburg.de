@@ -132,7 +132,7 @@ it('creates a nutrition day if none exists when marking day type', function () {
         ->and($day->training_label)->toBe('Lower');
 });
 
-it('clears training label when marking as rest day', function () {
+it('preserves training label when not explicitly provided', function () {
     NutritionDay::factory()->training('Upper')->create([
         'date' => today()->toDateString(),
     ]);
@@ -142,5 +142,20 @@ it('clears training label when marking as rest day', function () {
     $day = NutritionDay::query()->whereDate('date', today())->first();
 
     expect($day->type)->toBe('rest')
-        ->and($day->training_label)->toBeNull();
+        ->and($day->training_label)->toBe('Upper');
+});
+
+it('marks a day type for a specific date', function () {
+    $yesterday = today()->subDay();
+
+    NutritionDay::factory()->rest()->create([
+        'date' => $yesterday->toDateString(),
+    ]);
+
+    NutritionDay::markAsDayType('training', 'Lower', $yesterday);
+
+    $day = NutritionDay::query()->whereDate('date', $yesterday)->first();
+
+    expect($day->type)->toBe('training')
+        ->and($day->training_label)->toBe('Lower');
 });

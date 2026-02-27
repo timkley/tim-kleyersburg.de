@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Modules\Holocron\Grind\Models;
 
+use Carbon\CarbonInterface;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Modules\Holocron\Grind\Database\Factories\NutritionDayFactory;
@@ -29,10 +30,10 @@ class NutritionDay extends Model
 
     protected $table = 'grind_nutrition_days';
 
-    public static function markAsDayType(string $type, ?string $trainingLabel = null): void
+    public static function markAsDayType(string $type, ?string $trainingLabel = null, ?CarbonInterface $date = null): void
     {
         $day = static::query()->firstOrCreate(
-            ['date' => today()],
+            ['date' => $date ?? today()],
             [
                 'type' => 'rest',
                 'meals' => [],
@@ -43,10 +44,13 @@ class NutritionDay extends Model
             ],
         );
 
-        $day->update([
-            'type' => $type,
-            'training_label' => $trainingLabel,
-        ]);
+        $updateData = ['type' => $type];
+
+        if ($trainingLabel !== null) {
+            $updateData['training_label'] = $trainingLabel;
+        }
+
+        $day->update($updateData);
 
         $day->recalculateTotals();
     }
