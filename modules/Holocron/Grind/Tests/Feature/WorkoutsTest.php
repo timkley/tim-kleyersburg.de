@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use Illuminate\Support\Facades\Schema;
 use Modules\Holocron\Grind\Models\Exercise;
+use Modules\Holocron\Grind\Models\NutritionDay;
 use Modules\Holocron\Grind\Models\Plan;
 use Modules\Holocron\Grind\Models\Workout;
 use Modules\Holocron\User\Models\User;
@@ -198,4 +199,27 @@ it('does not prepopulate sets for exercises never performed before', function ()
 
     // Should have no sets since exercise was never performed before
     expect($workout->sets->count())->toBe(0);
+});
+
+it('sets nutrition day to training when starting a workout', function () {
+    actingAs(User::factory()->create(['email' => 'timkley@gmail.com']));
+
+    $plan = Plan::factory()->hasAttached(
+        Exercise::factory(),
+        [
+            'sets' => 3,
+            'min_reps' => 5,
+            'max_reps' => 10,
+            'order' => 1,
+        ]
+    )->create(['name' => 'Upper']);
+
+    Livewire::test('holocron.grind.workouts.index')
+        ->call('start', $plan->id);
+
+    $day = NutritionDay::query()->whereDate('date', today())->first();
+
+    expect($day)->not->toBeNull()
+        ->and($day->type)->toBe('training')
+        ->and($day->training_label)->toBe('Upper');
 });
