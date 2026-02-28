@@ -98,8 +98,7 @@ it('shows no delta when there is no previous measurement', function () {
         'weight' => 78.5,
     ]));
 
-    expect($result)->not->toContain('delta')
-        ->not->toContain('previous');
+    expect($result)->not->toContain('Delta since');
 });
 
 it('returns the expected schema definition', function () {

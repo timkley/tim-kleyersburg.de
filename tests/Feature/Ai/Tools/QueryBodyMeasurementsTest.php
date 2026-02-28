@@ -74,7 +74,9 @@ it('returns trend with deltas for last 7 measurements', function () {
     expect($result)
         ->toContain('2099-06-09')
         ->toContain('2099-06-15')
-        ->toContain('80.0');
+        ->toContain('80.0')
+        ->toContain('+0.2')
+        ->toContain('Total change');
 });
 
 it('returns no data message for empty trend', function () {

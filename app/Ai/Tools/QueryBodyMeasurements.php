@@ -12,11 +12,17 @@ use Stringable;
 
 class QueryBodyMeasurements implements Tool
 {
+    /**
+     * Get the description of the tool's purpose.
+     */
     public function description(): Stringable|string
     {
         return 'Primary intent: report body measurement history, trends, and progress. Invoke when user says: "Mein Gewicht?", "Gewichtsverlauf", "Wie schwer bin ich?", "Koerper-Trend", or asks about weight/body composition data. Do not invoke when: the user is providing new measurement data to store.';
     }
 
+    /**
+     * Execute the tool.
+     */
     public function handle(Request $request): Stringable|string
     {
         return match ($request['query_type']) {
@@ -27,6 +33,9 @@ class QueryBodyMeasurements implements Tool
         };
     }
 
+    /**
+     * Get the tool's schema definition.
+     */
     public function schema(JsonSchema $schema): array
     {
         return [
