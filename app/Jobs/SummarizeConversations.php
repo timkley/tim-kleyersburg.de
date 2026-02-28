@@ -7,35 +7,36 @@ namespace App\Jobs;
 use App\Models\AgentConversation;
 use App\Models\AgentConversationMessage;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Foundation\Queue\Queueable;
-use Laravel\Ai\Contracts\Providers\TextProvider;
-use Laravel\Ai\Messages\UserMessage;
+
+use function Laravel\Ai\agent;
 
 class SummarizeConversations implements ShouldQueue
 {
     use Queueable;
 
-    public function handle(TextProvider $provider): void
+    public function handle(): void
     {
         $conversations = AgentConversation::query()
-            ->whereDoesntHave('messages', function ($query) {
+            ->whereDoesntHave('messages', function (Builder $query) {
                 $query->where('created_at', '>=', now()->subMinutes(30));
             })
             ->whereHas('messages')
-            ->where(function ($query) {
+            ->where(function (Builder $query) {
                 $query->whereNull('summary_generated_at')
-                    ->orWhereHas('messages', function ($subQuery) {
+                    ->orWhereHas('messages', function (Builder $subQuery) {
                         $subQuery->whereColumn('agent_conversation_messages.created_at', '>', 'agent_conversations.summary_generated_at');
                     });
             })
             ->get();
 
         foreach ($conversations as $conversation) {
-            $this->summarize($conversation, $provider);
+            $this->summarize($conversation);
         }
     }
 
-    private function summarize(AgentConversation $conversation, TextProvider $provider): void
+    private function summarize(AgentConversation $conversation): void
     {
         $messages = AgentConversationMessage::query()
             ->where('conversation_id', $conversation->id)
@@ -48,12 +49,9 @@ class SummarizeConversations implements ShouldQueue
             return;
         }
 
-        $response = $provider->textGateway()->generateText(
-            $provider,
-            $provider->cheapestTextModel(),
-            'Summarize this conversation in 2-3 sentences. Focus on topics discussed, decisions made, and key information exchanged. Write the summary in the same language as the conversation. Respond with only the summary.',
-            [new UserMessage($messages)],
-        );
+        $response = agent(
+            instructions: 'Summarize this conversation in 2-3 sentences. Focus on topics discussed, decisions made, and key information exchanged. Write the summary in the same language as the conversation. Respond with only the summary.',
+        )->prompt($messages);
 
         $conversation->update([
             'summary' => $response->text,

@@ -6,13 +6,8 @@ use App\Jobs\SummarizeConversations;
 use App\Models\AgentConversation;
 use App\Models\AgentConversationMessage;
 use Illuminate\Support\Str;
-use Laravel\Ai\Contracts\Gateway\TextGateway;
-use Laravel\Ai\Contracts\Providers\TextProvider;
-use Laravel\Ai\Gateway\FakeTextGateway;
-use Laravel\Ai\Messages\UserMessage;
-use Laravel\Ai\Responses\Data\Meta;
-use Laravel\Ai\Responses\Data\Usage;
-use Laravel\Ai\Responses\TextResponse;
+use Laravel\Ai\AnonymousAgent;
+use Laravel\Ai\Prompts\AgentPrompt;
 
 function createConversation(array $attributes = []): AgentConversation
 {
@@ -38,19 +33,9 @@ function createMessage(AgentConversation $conversation, string $role, string $co
     ], $attributes));
 }
 
-function createFakeTextProvider(array|Closure $responses = []): TextProvider
-{
-    $fakeGateway = new FakeTextGateway($responses);
-
-    $provider = Mockery::mock(TextProvider::class);
-    $provider->shouldReceive('textGateway')->andReturn($fakeGateway);
-    $provider->shouldReceive('cheapestTextModel')->andReturn('fake-model');
-    $provider->shouldReceive('name')->andReturn('fake');
-
-    return $provider;
-}
-
 it('summarizes idle conversations with no summary', function () {
+    AnonymousAgent::fake(['A conversation about deployment strategies.']);
+
     $conversation = createConversation();
 
     createMessage($conversation, 'user', 'How do I deploy?', [
@@ -60,10 +45,7 @@ it('summarizes idle conversations with no summary', function () {
         'created_at' => now()->subMinutes(45),
     ]);
 
-    $provider = createFakeTextProvider(['A conversation about deployment strategies.']);
-
-    $job = new SummarizeConversations;
-    $job->handle($provider);
+    (new SummarizeConversations)->handle();
 
     $conversation->refresh();
 
@@ -72,24 +54,27 @@ it('summarizes idle conversations with no summary', function () {
 });
 
 it('skips active conversations with recent messages', function () {
+    AnonymousAgent::fake(['Should not be called.']);
+
     $conversation = createConversation();
 
     createMessage($conversation, 'user', 'Hello', [
         'created_at' => now()->subMinutes(10),
     ]);
 
-    $provider = createFakeTextProvider(['Should not be called.']);
-
-    $job = new SummarizeConversations;
-    $job->handle($provider);
+    (new SummarizeConversations)->handle();
 
     $conversation->refresh();
 
     expect($conversation->summary)->toBeNull()
         ->and($conversation->summary_generated_at)->toBeNull();
+
+    AnonymousAgent::assertNeverPrompted();
 });
 
 it('re-summarizes when new messages exist after summary_generated_at', function () {
+    AnonymousAgent::fake(['Updated summary including caching discussion.']);
+
     $conversation = createConversation([
         'summary' => 'Old summary',
         'summary_generated_at' => now()->subHours(2),
@@ -108,10 +93,7 @@ it('re-summarizes when new messages exist after summary_generated_at', function 
         'created_at' => now()->subMinutes(55),
     ]);
 
-    $provider = createFakeTextProvider(['Updated summary including caching discussion.']);
-
-    $job = new SummarizeConversations;
-    $job->handle($provider);
+    (new SummarizeConversations)->handle();
 
     $conversation->refresh();
 
@@ -119,6 +101,8 @@ it('re-summarizes when new messages exist after summary_generated_at', function 
 });
 
 it('skips up-to-date conversations', function () {
+    AnonymousAgent::fake(['Should not be called.']);
+
     $conversation = createConversation([
         'summary' => 'Existing summary',
         'summary_generated_at' => now()->subHour(),
@@ -128,17 +112,35 @@ it('skips up-to-date conversations', function () {
         'created_at' => now()->subHours(2),
     ]);
 
-    $provider = createFakeTextProvider(['Should not be called.']);
-
-    $job = new SummarizeConversations;
-    $job->handle($provider);
+    (new SummarizeConversations)->handle();
 
     $conversation->refresh();
 
     expect($conversation->summary)->toBe('Existing summary');
+
+    AnonymousAgent::assertNeverPrompted();
+});
+
+it('skips summarization when conversation has only tool messages', function () {
+    AnonymousAgent::fake(['Should not be called.']);
+
+    $conversation = createConversation();
+
+    createMessage($conversation, 'tool', 'tool_result_data', [
+        'created_at' => now()->subHour(),
+    ]);
+
+    (new SummarizeConversations)->handle();
+
+    $conversation->refresh();
+
+    expect($conversation->summary)->toBeNull()
+        ->and($conversation->summary_generated_at)->toBeNull();
 });
 
 it('only sends user and assistant messages to the LLM', function () {
+    AnonymousAgent::fake(['Summary text.']);
+
     $conversation = createConversation();
 
     createMessage($conversation, 'user', 'User question', [
@@ -151,28 +153,11 @@ it('only sends user and assistant messages to the LLM', function () {
         'created_at' => now()->subMinutes(58),
     ]);
 
-    $capturedMessages = null;
+    (new SummarizeConversations)->handle();
 
-    $fakeGateway = Mockery::mock(TextGateway::class);
-    $fakeGateway->shouldReceive('generateText')
-        ->once()
-        ->withArgs(function ($provider, $model, $instructions, $messages) use (&$capturedMessages) {
-            $capturedMessages = $messages;
-
-            return true;
-        })
-        ->andReturn(new TextResponse('Summary text.', new Usage, new Meta('fake', 'fake-model')));
-
-    $provider = Mockery::mock(TextProvider::class);
-    $provider->shouldReceive('textGateway')->andReturn($fakeGateway);
-    $provider->shouldReceive('cheapestTextModel')->andReturn('fake-model');
-
-    $job = new SummarizeConversations;
-    $job->handle($provider);
-
-    expect($capturedMessages)->toHaveCount(1)
-        ->and($capturedMessages[0])->toBeInstanceOf(UserMessage::class)
-        ->and($capturedMessages[0]->content)->toContain('User question')
-        ->and($capturedMessages[0]->content)->toContain('Assistant response')
-        ->and($capturedMessages[0]->content)->not->toContain('tool_result_data');
+    AnonymousAgent::assertPrompted(function (AgentPrompt $prompt) {
+        return str_contains($prompt->prompt, 'User question')
+            && str_contains($prompt->prompt, 'Assistant response')
+            && ! str_contains($prompt->prompt, 'tool_result_data');
+    });
 });
