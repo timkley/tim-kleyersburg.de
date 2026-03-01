@@ -224,6 +224,43 @@ it('sends without attachments still works', function () {
         ->assertCount('messages', 1);
 });
 
+it('continues an existing conversation when conversationId is set', function () {
+    ChopperAgent::fake(['Weiter gehts!']);
+
+    $user = User::factory()->create(['email' => 'timkley@gmail.com']);
+
+    $conversationId = (string) Str::uuid();
+    DB::table('agent_conversations')->insert([
+        'id' => $conversationId,
+        'user_id' => $user->id,
+        'title' => 'Existing Conversation',
+        'created_at' => now(),
+        'updated_at' => now(),
+    ]);
+
+    Livewire::actingAs($user)
+        ->test(Chopper::class, ['conversationId' => $conversationId])
+        ->call('ask', 'Continue the conversation')
+        ->assertSet('isStreaming', false);
+
+    ChopperAgent::assertPrompted('Continue the conversation');
+});
+
+it('removes an attachment by index', function () {
+    Storage::fake('local');
+
+    $user = User::factory()->create(['email' => 'timkley@gmail.com']);
+    $file1 = UploadedFile::fake()->image('photo1.jpg');
+    $file2 = UploadedFile::fake()->image('photo2.jpg');
+
+    $component = Livewire::actingAs($user)
+        ->test(Chopper::class)
+        ->set('attachments', [$file1, $file2])
+        ->assertCount('attachments', 2)
+        ->call('removeAttachment', 0)
+        ->assertCount('attachments', 1);
+});
+
 it('loads attachments from conversation history', function () {
     $user = User::factory()->create(['email' => 'timkley@gmail.com']);
 

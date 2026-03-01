@@ -20,7 +20,7 @@ class VolumePerWorkoutChart extends HolocronComponent
     {
         /** @var Collection<int, array{date: Carbon, total_volume: float|int}> $data */
         $data = Exercise::query()->find($this->exerciseId)->volumePerWorkout()
-            ->map(fn ($item): array => [
+            ->map(fn (object $item): array => [
                 'date' => Carbon::parse($item->workout_finished_at),
                 'total_volume' => (float) $item->total_volume,
             ])
@@ -28,7 +28,7 @@ class VolumePerWorkoutChart extends HolocronComponent
 
         $trendlineData = $this->calculateTrendline($data);
 
-        $data = $data->map(function ($item, $index) use ($trendlineData) {
+        $data = $data->map(function (array $item, int $index) use ($trendlineData) {
             $item['date'] = $item['date']->format('Y-m-d');
             $item['trendline'] = $trendlineData[$index];
 
@@ -46,7 +46,7 @@ class VolumePerWorkoutChart extends HolocronComponent
      */
     private function calculateTrendline(Collection $data): array
     {
-        $x = $data->map(fn ($item, $index) => $index)->toArray();
+        $x = $data->map(fn (array $item, int $index) => $index)->toArray();
         $y = $data->pluck('total_volume')->toArray();
 
         if (count($x) < 2) {
@@ -56,12 +56,12 @@ class VolumePerWorkoutChart extends HolocronComponent
         $n = count($x);
         $sumX = array_sum($x);
         $sumY = array_sum($y);
-        $sumX2 = array_sum(array_map(fn ($val) => $val * $val, $x));
-        $sumXY = array_sum(array_map(fn ($valX, $valY) => $valX * $valY, $x, $y));
+        $sumX2 = array_sum(array_map(fn (int $val) => $val * $val, $x));
+        $sumXY = array_sum(array_map(fn (int $valX, float $valY) => $valX * $valY, $x, $y));
 
         $slope = ($n * $sumXY - $sumX * $sumY) / ($n * $sumX2 - $sumX * $sumX);
         $intercept = ($sumY - $slope * $sumX) / $n;
 
-        return array_map(fn ($valX) => $slope * $valX + $intercept, $x);
+        return array_map(fn (int $valX) => $slope * $valX + $intercept, $x);
     }
 }

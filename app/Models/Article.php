@@ -13,14 +13,11 @@ use Spatie\Feed\FeedItem;
 
 class Article
 {
-    /**
-     * @return Document
-     */
-    public static function find(string $slug)
+    public static function find(string $slug): Document
     {
         return Document::query()
             ->where('slug', $slug)
-            ->when(config('app.env') !== 'local', fn ($query) => $query->where('draft', false))
+            ->when(config('app.env') !== 'local', fn (Builder $query) => $query->where('draft', false))
             ->firstOrFail();
     }
 
@@ -29,7 +26,7 @@ class Article
      */
     public static function published(): Builder
     {
-        return Document::when(fn ($query): bool => config('app.env') !== 'local', fn ($query) => $query->where('draft', false))
+        return Document::when(fn (Builder $query): bool => config('app.env') !== 'local', fn (Builder $query) => $query->where('draft', false))
             ->orderBy('date', 'desc');
     }
 
@@ -40,7 +37,7 @@ class Article
     {
         return self::published()
             ->where('slug', '!=', $document->slug)
-            ->whereHas('tags', function ($query) use ($document): void {
+            ->whereHas('tags', function (Builder $query) use ($document): void {
                 $query->whereIn('tag_id', $document->tags->pluck('id'));
             })
             ->inRandomOrder()

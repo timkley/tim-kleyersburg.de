@@ -14,7 +14,7 @@ return new class extends Migration
             $table->unsignedInteger('webpage_id')->nullable()->after('id');
         });
         // database action to move bookmarks information to url
-        Illuminate\Support\Facades\DB::table('bookmarks')->get()->each(function ($bookmark): void {
+        Illuminate\Support\Facades\DB::table('bookmarks')->get()->each(function (object $bookmark): void {
             $id = Illuminate\Support\Facades\DB::table('webpages')->insertGetId([
                 'url' => $bookmark->url,
                 'favicon' => $bookmark->favicon,

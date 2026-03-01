@@ -28,7 +28,7 @@ return new class extends Migration
             ->from('water_intakes')
             ->selectRaw('amount, created_at, updated_at')
             ->cursor()
-            ->each(function ($waterIntake): void {
+            ->each(function (object $waterIntake): void {
                 DailyGoal::create([
                     'type' => GoalType::Water,
                     'amount' => $waterIntake->amount,

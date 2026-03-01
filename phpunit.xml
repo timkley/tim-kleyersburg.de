@@ -18,9 +18,24 @@
     <source>
         <include>
             <directory>app</directory>
+            <directory>modules</directory>
         </include>
+        <exclude>
+            <directory suffix=".php">app/Console/Commands/TestCommand.php</directory>
+            <directory suffix="Test.php">modules</directory>
+            <directory suffix="Factory.php">modules</directory>
+            <directory suffix=".blade.php">modules</directory>
+            <directory>modules/Holocron/*/Database/Migrations</directory>
+            <directory>modules/Holocron/*/Database/Factories</directory>
+            <directory>modules/Holocron/*/Tests</directory>
+            <directory>modules/Holocron/*/Views</directory>
+            <directory>modules/Holocron/*/Routes</directory>
+            <directory>modules/Holocron/_Shared/Tests</directory>
+            <directory>modules/Holocron/_Shared/Views</directory>
+        </exclude>
     </source>
     <php>
+        <ini name="memory_limit" value="2G"/>
         <env name="APP_ENV" value="testing"/>
         <env name="APP_MAINTENANCE_DRIVER" value="file"/>
         <env name="BCRYPT_ROUNDS" value="4"/>

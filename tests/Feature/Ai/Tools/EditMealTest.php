@@ -126,6 +126,23 @@ it('returns a not found message when the meal index is invalid', function () {
     expect($result)->toContain('Meal index 5 not found');
 });
 
+it('returns the expected schema definition', function () {
+    $tool = new EditMeal;
+
+    $schema = $tool->schema(new Illuminate\JsonSchema\JsonSchemaTypeFactory);
+
+    expect($schema)
+        ->toHaveKeys(['date', 'meal_index', 'name', 'time', 'kcal', 'protein', 'fat', 'carbs'])
+        ->and($schema['date'])->toBeInstanceOf(Illuminate\JsonSchema\Types\StringType::class)
+        ->and($schema['meal_index'])->toBeInstanceOf(Illuminate\JsonSchema\Types\IntegerType::class)
+        ->and($schema['name'])->toBeInstanceOf(Illuminate\JsonSchema\Types\StringType::class)
+        ->and($schema['time'])->toBeInstanceOf(Illuminate\JsonSchema\Types\StringType::class)
+        ->and($schema['kcal'])->toBeInstanceOf(Illuminate\JsonSchema\Types\IntegerType::class)
+        ->and($schema['protein'])->toBeInstanceOf(Illuminate\JsonSchema\Types\IntegerType::class)
+        ->and($schema['fat'])->toBeInstanceOf(Illuminate\JsonSchema\Types\IntegerType::class)
+        ->and($schema['carbs'])->toBeInstanceOf(Illuminate\JsonSchema\Types\IntegerType::class);
+});
+
 it('syncs protein daily goal projection when editing a meal', function () {
     NutritionDay::factory()->create([
         'date' => $this->testDate,

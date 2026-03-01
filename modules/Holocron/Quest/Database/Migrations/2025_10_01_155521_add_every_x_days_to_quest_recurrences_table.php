@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
@@ -18,7 +19,7 @@ return new class extends Migration
             $table->unsignedInteger('every_x_days')->default(1)->after('quest_id');
         });
 
-        DB::table('quest_recurrences')->chunkById(200, function ($rows) {
+        DB::table('quest_recurrences')->chunkById(200, function (Collection $rows) {
             foreach ($rows as $row) {
                 $days = match ($row->type) {
                     'daily' => $row->value,

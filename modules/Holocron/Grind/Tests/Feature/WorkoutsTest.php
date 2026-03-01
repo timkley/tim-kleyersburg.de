@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Schema;
 use Modules\Holocron\Grind\Models\Exercise;
 use Modules\Holocron\Grind\Models\NutritionDay;
 use Modules\Holocron\Grind\Models\Plan;
+use Modules\Holocron\Grind\Models\Set;
 use Modules\Holocron\Grind\Models\Workout;
 use Modules\Holocron\User\Models\User;
 
@@ -172,9 +173,60 @@ it('skips finished workouts without sets when prefilling', function () {
     expect($newWorkout->sets->count())->toBeGreaterThan(0);
 });
 
-// TODO: Add test for cross-plan exercise prepopulation
-// This test would verify that exercises shared between different plans
-// get prepopulated from their latest performance regardless of which plan they came from
+it('prepopulates sets from latest performance regardless of which plan the exercise came from', function () {
+    actingAs(User::factory()->create(['email' => 'timkley@gmail.com']));
+
+    $sharedExercise = Exercise::factory()->create();
+
+    $planA = Plan::factory()->hasAttached(
+        $sharedExercise,
+        [
+            'sets' => 2,
+            'min_reps' => 5,
+            'max_reps' => 10,
+            'order' => 1,
+        ]
+    )->create();
+
+    $planB = Plan::factory()->hasAttached(
+        $sharedExercise,
+        [
+            'sets' => 2,
+            'min_reps' => 5,
+            'max_reps' => 10,
+            'order' => 1,
+        ]
+    )->create();
+
+    // Start and finish a workout with Plan A
+    Livewire::test('holocron.grind.workouts.index')
+        ->call('start', $planA->id);
+
+    $workoutA = Workout::first();
+
+    Livewire::test('holocron.grind.workouts.show', ['workout' => $workoutA])
+        ->set('weight', 80)
+        ->set('reps', 8)
+        ->call('recordSet')
+        ->set('weight', 85)
+        ->set('reps', 6)
+        ->call('recordSet')
+        ->call('finish');
+
+    // Start a workout with Plan B — the shared exercise should get prepopulated from Plan A's workout
+    Livewire::test('holocron.grind.workouts.index')
+        ->call('start', $planB->id);
+
+    $workoutB = Workout::query()->latest('id')->first();
+
+    expect($workoutB->sets->count())->toBe(2);
+
+    $weights = $workoutB->sets->pluck('weight')->sort()->values();
+    $reps = $workoutB->sets->pluck('reps')->sort()->values();
+
+    expect($weights->toArray())->toBe([80.0, 85.0]);
+    expect($reps->toArray())->toBe([6, 8]);
+});
 
 it('does not prepopulate sets for exercises never performed before', function () {
     actingAs(User::factory()->create(['email' => 'timkley@gmail.com']));
@@ -222,4 +274,184 @@ it('sets nutrition day to training when starting a workout', function () {
     expect($day)->not->toBeNull()
         ->and($day->type)->toBe('training')
         ->and($day->training_label)->toBe('Upper');
+});
+
+it('can set the current exercise on a workout', function () {
+    actingAs(User::factory()->create(['email' => 'timkley@gmail.com']));
+
+    $exercise1 = Exercise::factory()->create();
+    $exercise2 = Exercise::factory()->create();
+
+    $plan = Plan::factory()->create();
+    $plan->exercises()->attach($exercise1, ['sets' => 3, 'min_reps' => 8, 'max_reps' => 12, 'order' => 1]);
+    $plan->exercises()->attach($exercise2, ['sets' => 3, 'min_reps' => 8, 'max_reps' => 12, 'order' => 2]);
+
+    Livewire::test('holocron.grind.workouts.index')
+        ->call('start', $plan->id);
+
+    $workout = Workout::query()->firstOrFail();
+    $workoutExercise2 = $workout->exercises()->where('exercise_id', $exercise2->id)->first();
+
+    Livewire::test('holocron.grind.workouts.show', ['workout' => $workout])
+        ->call('setExercise', $workoutExercise2->id);
+
+    expect($workout->fresh()->current_exercise_id)->toBe($workoutExercise2->id);
+});
+
+it('can swap an exercise in a workout', function () {
+    actingAs(User::factory()->create(['email' => 'timkley@gmail.com']));
+
+    $exercise1 = Exercise::factory()->create();
+    $exercise2 = Exercise::factory()->create();
+
+    $plan = Plan::factory()->hasAttached(
+        $exercise1,
+        ['sets' => 3, 'min_reps' => 8, 'max_reps' => 12, 'order' => 1]
+    )->create();
+
+    Livewire::test('holocron.grind.workouts.index')
+        ->call('start', $plan->id);
+
+    $workout = Workout::query()->firstOrFail();
+    $workoutExercise = $workout->exercises()->first();
+
+    Livewire::test('holocron.grind.workouts.show', ['workout' => $workout])
+        ->set('exerciseIdToChange', $workoutExercise->id)
+        ->call('swapExercise', $exercise2->id);
+
+    expect($workoutExercise->fresh()->exercise_id)->toBe($exercise2->id);
+});
+
+it('can delete an exercise from a workout', function () {
+    actingAs(User::factory()->create(['email' => 'timkley@gmail.com']));
+
+    $exercise1 = Exercise::factory()->create();
+    $exercise2 = Exercise::factory()->create();
+
+    $plan = Plan::factory()->create();
+    $plan->exercises()->attach($exercise1, ['sets' => 3, 'min_reps' => 8, 'max_reps' => 12, 'order' => 1]);
+    $plan->exercises()->attach($exercise2, ['sets' => 3, 'min_reps' => 8, 'max_reps' => 12, 'order' => 2]);
+
+    Livewire::test('holocron.grind.workouts.index')
+        ->call('start', $plan->id);
+
+    $workout = Workout::query()->firstOrFail();
+
+    expect($workout->exercises)->toHaveCount(2);
+
+    $workoutExercise = $workout->exercises()->first();
+
+    Livewire::test('holocron.grind.workouts.show', ['workout' => $workout])
+        ->set('exerciseIdToChange', $workoutExercise->id)
+        ->call('deleteExercise');
+
+    expect($workout->fresh()->exercises)->toHaveCount(1);
+});
+
+it('can record a set on a workout', function () {
+    actingAs(User::factory()->create(['email' => 'timkley@gmail.com']));
+
+    $exercise = Exercise::factory()->create();
+
+    $plan = Plan::factory()->hasAttached(
+        $exercise,
+        ['sets' => 3, 'min_reps' => 8, 'max_reps' => 12, 'order' => 1]
+    )->create();
+
+    Livewire::test('holocron.grind.workouts.index')
+        ->call('start', $plan->id);
+
+    $workout = Workout::query()->firstOrFail();
+
+    Livewire::test('holocron.grind.workouts.show', ['workout' => $workout])
+        ->set('weight', 100.0)
+        ->set('reps', 10)
+        ->call('recordSet')
+        ->assertHasNoErrors();
+
+    expect($workout->sets)->toHaveCount(1);
+
+    $set = $workout->sets()->first();
+    expect($set->weight)->toBe(100.0)
+        ->and($set->reps)->toBe(10);
+});
+
+it('validates weight and reps when recording a set', function () {
+    actingAs(User::factory()->create(['email' => 'timkley@gmail.com']));
+
+    $exercise = Exercise::factory()->create();
+
+    $plan = Plan::factory()->hasAttached(
+        $exercise,
+        ['sets' => 3, 'min_reps' => 8, 'max_reps' => 12, 'order' => 1]
+    )->create();
+
+    Livewire::test('holocron.grind.workouts.index')
+        ->call('start', $plan->id);
+
+    $workout = Workout::query()->firstOrFail();
+
+    Livewire::test('holocron.grind.workouts.show', ['workout' => $workout])
+        ->set('weight', '')
+        ->set('reps', '')
+        ->call('recordSet')
+        ->assertHasErrors(['weight', 'reps']);
+});
+
+it('dispatches workout:finished event when finishing', function () {
+    actingAs(User::factory()->create(['email' => 'timkley@gmail.com']));
+
+    $exercise = Exercise::factory()->create();
+
+    $plan = Plan::factory()->hasAttached(
+        $exercise,
+        ['sets' => 3, 'min_reps' => 8, 'max_reps' => 12, 'order' => 1]
+    )->create();
+
+    Livewire::test('holocron.grind.workouts.index')
+        ->call('start', $plan->id);
+
+    $workout = Workout::query()->firstOrFail();
+
+    Livewire::test('holocron.grind.workouts.show', ['workout' => $workout])
+        ->call('finish')
+        ->assertDispatched('workout:finished');
+});
+
+it('renders workout show page with exercises and available exercises', function () {
+    actingAs(User::factory()->create(['email' => 'timkley@gmail.com']));
+
+    $exercise = Exercise::factory()->create();
+
+    $plan = Plan::factory()->hasAttached(
+        $exercise,
+        ['sets' => 3, 'min_reps' => 8, 'max_reps' => 12, 'order' => 1]
+    )->create();
+
+    Livewire::test('holocron.grind.workouts.index')
+        ->call('start', $plan->id);
+
+    $workout = Workout::query()->firstOrFail();
+
+    Livewire::test('holocron.grind.workouts.show', ['workout' => $workout])
+        ->assertSuccessful()
+        ->assertViewHas('workoutExercises')
+        ->assertViewHas('currentExercise')
+        ->assertViewHas('availableExercises');
+});
+
+it('shows unfinished workouts on index', function () {
+    $plan = Plan::factory()->hasAttached(
+        Exercise::factory(),
+        ['sets' => 3, 'min_reps' => 8, 'max_reps' => 12, 'order' => 1]
+    )->create();
+
+    Workout::factory()->create([
+        'plan_id' => $plan->id,
+        'finished_at' => null,
+    ]);
+
+    Livewire::test('holocron.grind.workouts.index')
+        ->assertSuccessful()
+        ->assertViewHas('unfinishedWorkouts');
 });

@@ -56,3 +56,77 @@ it('does not expose the experience page', function () {
 
     get('/holocron/experience')->assertNotFound();
 });
+
+it('redirects authenticated users away from login page', function () {
+    $user = User::factory()->create();
+    actingAs($user);
+
+    Livewire\Livewire::test('holocron.user.login')
+        ->assertRedirect(route('holocron.dashboard'));
+});
+
+it('does not auto login when auto login is disabled', function () {
+    config()->set('auth.local_auto_login.enabled', false);
+    config()->set('auth.local_auto_login.email', 'test@example.com');
+
+    get(route('holocron.login'))
+        ->assertSuccessful();
+
+    expect(auth()->check())->toBeFalse();
+});
+
+it('does not auto login when email is empty', function () {
+    config()->set('auth.local_auto_login.enabled', true);
+    config()->set('auth.local_auto_login.email', '');
+
+    get(route('holocron.login'))
+        ->assertSuccessful();
+
+    expect(auth()->check())->toBeFalse();
+});
+
+it('does not auto login when user does not exist', function () {
+    config()->set('auth.local_auto_login.enabled', true);
+    config()->set('auth.local_auto_login.email', 'nonexistent@example.com');
+
+    get(route('holocron.login'))
+        ->assertSuccessful();
+
+    expect(auth()->check())->toBeFalse();
+});
+
+it('validates email is required for login', function () {
+    Livewire\Livewire::test('holocron.user.login')
+        ->set('email', '')
+        ->set('password', 'password')
+        ->call('login')
+        ->assertHasErrors(['email']);
+});
+
+it('validates email format for login', function () {
+    Livewire\Livewire::test('holocron.user.login')
+        ->set('email', 'not-an-email')
+        ->set('password', 'password')
+        ->call('login')
+        ->assertHasErrors(['email']);
+});
+
+it('validates password is required for login', function () {
+    Livewire\Livewire::test('holocron.user.login')
+        ->set('email', 'test@example.com')
+        ->set('password', '')
+        ->call('login')
+        ->assertHasErrors(['password']);
+});
+
+it('redirects to intended url after auto login', function () {
+    $user = User::factory()->create(['email' => 'test@example.com']);
+
+    config()->set('auth.local_auto_login.enabled', true);
+    config()->set('auth.local_auto_login.email', $user->email);
+
+    session()->put('url.intended', route('holocron.settings'));
+
+    get(route('holocron.login'))
+        ->assertRedirect(route('holocron.settings'));
+});

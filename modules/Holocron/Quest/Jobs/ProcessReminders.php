@@ -6,6 +6,7 @@ namespace Modules\Holocron\Quest\Jobs;
 
 use App\Notifications\DiscordTimChannel;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Foundation\Queue\Queueable;
 use Modules\Holocron\Quest\Models\Reminder;
 use Modules\Holocron\User\Notifications\QuestReminder;
@@ -18,7 +19,7 @@ class ProcessReminders implements ShouldQueue
     {
         $dueReminders = Reminder::query()
             ->due()
-            ->whereHas('quest', function ($query) {
+            ->whereHas('quest', function (Builder $query) {
                 $query->whereNull('completed_at');
             })
             ->with('quest')

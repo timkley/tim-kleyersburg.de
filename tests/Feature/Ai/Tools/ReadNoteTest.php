@@ -37,3 +37,11 @@ it('returns error for non-existent file', function () {
 
     expect($result)->toContain('non-existent');
 });
+
+it('defines a schema with a path parameter', function () {
+    $tool = new ReadNote;
+    $schema = $tool->schema(new Illuminate\JsonSchema\JsonSchemaTypeFactory);
+
+    expect($schema)->toHaveKey('path')
+        ->and($schema['path'])->toBeInstanceOf(Illuminate\JsonSchema\Types\StringType::class);
+});

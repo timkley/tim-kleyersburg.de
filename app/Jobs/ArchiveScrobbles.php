@@ -42,9 +42,9 @@ class ArchiveScrobbles implements ShouldBeUniqueUntilProcessing, ShouldQueue
         $pageToFetch = max($this->page ?? (int) ceil($totalPages - ($localScrobbles / self::LIMIT)), 1);
 
         $allScrobbles = collect(data_get($lastFm->getRecentTracks(limit: self::LIMIT, page: $pageToFetch), 'track'));
-        $scrobbles = $allScrobbles->reject(fn ($scrobble) => ! data_get($scrobble, 'date.uts'));
+        $scrobbles = $allScrobbles->reject(fn (mixed $scrobble) => ! data_get($scrobble, 'date.uts'));
 
-        $data = $scrobbles->map(function ($scrobble) {
+        $data = $scrobbles->map(function (mixed $scrobble) {
             return [
                 'artist' => data_get($scrobble, 'artist.#text'),
                 'album' => data_get($scrobble, 'album.#text'),

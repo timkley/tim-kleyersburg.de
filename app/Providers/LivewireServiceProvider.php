@@ -104,7 +104,7 @@ class LivewireServiceProvider extends ServiceProvider
         $aliasParts = collect()
             ->merge($moduleSegments)
             ->merge($componentSegments)
-            ->map(fn ($part) => Str::of($part)->replace('_', '')->kebab()->lower())
+            ->map(fn (string $part) => Str::of($part)->replace('_', '')->kebab()->lower())
             ->implode('.');
 
         return (string) $aliasParts;

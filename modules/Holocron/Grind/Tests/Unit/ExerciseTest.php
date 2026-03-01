@@ -9,7 +9,7 @@ use Modules\Holocron\Grind\Models\Set;
 use Modules\Holocron\Grind\Models\Workout;
 use Modules\Holocron\Grind\Models\WorkoutExercise;
 
-test('relations', function () {
+test('plans relation', function () {
     $exercise = Exercise::factory()->hasAttached(Plan::factory(), [
         'sets' => 1,
         'min_reps' => 2,
@@ -17,17 +17,17 @@ test('relations', function () {
         'order' => 1,
     ])->create();
 
-    // Create a workout exercise for this exercise
+    expect($exercise->plans->first())->toBeInstanceOf(Plan::class);
+});
+
+test('sets relation through workout exercises', function () {
+    $exercise = Exercise::factory()->create();
+
     $workoutExercise = WorkoutExercise::factory()->create([
         'exercise_id' => $exercise->id,
         'workout_id' => Workout::factory()->create()->id,
-        'sets' => 3,
-        'min_reps' => 8,
-        'max_reps' => 12,
-        'order' => 1,
     ]);
 
-    // Create a set linked to the workout exercise
     $set = new Set([
         'reps' => 10,
         'weight' => 50,
@@ -35,8 +35,36 @@ test('relations', function () {
     $set->workoutExercise()->associate($workoutExercise);
     $set->save();
 
-    expect($exercise->plans->first())->toBeInstanceOf(Plan::class);
     expect($exercise->sets->first())->toBeInstanceOf(Set::class);
+});
+
+test('personalRecord returns the set with highest volume', function () {
+    $exercise = Exercise::factory()->create();
+
+    $workoutExercise = WorkoutExercise::factory()->create([
+        'exercise_id' => $exercise->id,
+    ]);
+
+    // Lower volume set: 8 * 50 = 400
+    $lowerSet = new Set(['reps' => 8, 'weight' => 50]);
+    $lowerSet->workoutExercise()->associate($workoutExercise);
+    $lowerSet->save();
+
+    // Higher volume set: 10 * 60 = 600
+    $higherSet = new Set(['reps' => 10, 'weight' => 60]);
+    $higherSet->workoutExercise()->associate($workoutExercise);
+    $higherSet->save();
+
+    $pr = $exercise->personalRecord();
+
+    expect($pr)->toBeInstanceOf(Set::class)
+        ->and($pr->id)->toBe($higherSet->id);
+});
+
+test('personalRecord returns null when no sets exist', function () {
+    $exercise = Exercise::factory()->create();
+
+    expect($exercise->personalRecord())->toBeNull();
 });
 
 test('volumePerWorkout returns sets grouped by workout with total volume', function () {

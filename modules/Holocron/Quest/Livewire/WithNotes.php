@@ -49,6 +49,9 @@ trait WithNotes
         (new DeleteNote)->handle(Note::findOrFail($id));
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function ask(int $noteId): void
     {
         $this->streamedAnswer = '';

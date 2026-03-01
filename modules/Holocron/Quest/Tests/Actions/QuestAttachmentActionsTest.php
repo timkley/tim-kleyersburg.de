@@ -33,6 +33,24 @@ it('appends to existing attachments', function () {
         ->and($result->attachments->first())->toBe($existingPath);
 });
 
+it('throws an exception when file storage fails', function () {
+    Storage::fake('public');
+
+    // Make the store method return false by using a read-only directory
+    Storage::disk('public')->makeDirectory('quests');
+
+    $quest = Quest::factory()->create(['attachments' => []]);
+
+    // Create a file that will fail to store by mocking the disk
+    $file = Mockery::mock(UploadedFile::class);
+    $file->shouldReceive('store')
+        ->with('quests', 'public')
+        ->andReturn(false);
+
+    expect(fn () => (new AddQuestAttachment)->handle($quest, $file))
+        ->toThrow(RuntimeException::class, 'Failed to store attachment.');
+});
+
 it('removes an attachment and deletes the file', function () {
     Storage::fake('public');
 

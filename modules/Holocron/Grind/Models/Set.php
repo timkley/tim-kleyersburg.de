@@ -62,8 +62,8 @@ class Set extends Model
     protected function latestForExercise(EloquentBuilder $query, int $exerciseId): EloquentBuilder
     {
         return $query
-            ->whereHas('workoutExercise', fn ($q) => $q->where('exercise_id', $exerciseId))
-            ->whereHas('workoutExercise.workout', fn ($q) => $q->whereNotNull('finished_at'))
+            ->whereHas('workoutExercise', fn (EloquentBuilder $q) => $q->where('exercise_id', $exerciseId))
+            ->whereHas('workoutExercise.workout', fn (EloquentBuilder $q) => $q->whereNotNull('finished_at'))
             ->orderByDesc('created_at');
     }
 

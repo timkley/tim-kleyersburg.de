@@ -45,7 +45,7 @@ class Untis
         );
 
         return new Collection(data_get($response, 'data.messagesOfDay'))
-            ->map(fn ($news): News => News::createFromApi($news));
+            ->map(fn (mixed $news): News => News::createFromApi($news));
     }
 
     /**
@@ -83,7 +83,7 @@ class Untis
         );
 
         return new Collection(data_get($response, 'result'))
-            ->map(fn ($lesson): Lesson => Lesson::createFromApi($lesson));
+            ->map(fn (mixed $lesson): Lesson => Lesson::createFromApi($lesson));
     }
 
     /**
@@ -120,7 +120,7 @@ class Untis
         $response['data']['homeworks'] = $mergedHomeworks->toArray();
 
         return new Collection(data_get($response, 'data.homeworks'))
-            ->map(fn ($homework): Homework => Homework::createFromApi($homework));
+            ->map(fn (mixed $homework): Homework => Homework::createFromApi($homework));
     }
 
     /**
@@ -138,7 +138,7 @@ class Untis
         );
 
         return new Collection(data_get($response, 'data.exams'))
-            ->map(fn ($exam): Exam => Exam::createFromApi($exam));
+            ->map(fn (mixed $exam): Exam => Exam::createFromApi($exam));
     }
 
     /**
@@ -146,7 +146,7 @@ class Untis
      * @param  array<string, mixed>  $parameters
      * @return array<string, mixed>
      */
-    public function request(string $method = 'get', string $url = 'jsonrpc.do', array $data = [], array $parameters = [])
+    public function request(string $method = 'get', string $url = 'jsonrpc.do', array $data = [], array $parameters = []): ?array
     {
         $response = Http::beforeSending(fn (Request $request) => logger()->channel('untis')->debug('Request', ['url' => $request->url(), 'data' => $request->data(), 'method' => $request->method()]))
             ->withoutRedirecting()

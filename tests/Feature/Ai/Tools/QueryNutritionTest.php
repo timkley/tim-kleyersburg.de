@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 use App\Ai\Tools\QueryNutrition;
 use Carbon\CarbonImmutable;
+use Illuminate\JsonSchema\JsonSchemaTypeFactory;
+use Illuminate\JsonSchema\Types\StringType;
 use Laravel\Ai\Tools\Request;
 use Modules\Holocron\Grind\Models\NutritionDay;
 use Modules\Holocron\User\Models\User;
@@ -151,4 +153,20 @@ it('returns error for unknown query type', function () {
     $result = $tool->handle(new Request(['query_type' => 'invalid']));
 
     expect($result)->toContain('Unknown query type');
+});
+
+it('returns schema with query_type and date properties', function () {
+    $tool = new QueryNutrition;
+    $schema = $tool->schema(new JsonSchemaTypeFactory);
+
+    expect($schema)
+        ->toHaveKeys(['query_type', 'date'])
+        ->and($schema['query_type'])->toBeInstanceOf(StringType::class)
+        ->and($schema['date'])->toBeInstanceOf(StringType::class);
+
+    // Wrap in an ObjectType to verify that query_type is required and date is not.
+    $object = (new JsonSchemaTypeFactory)->object($schema);
+    $serialized = $object->toArray();
+
+    expect($serialized['required'])->toBe(['query_type']);
 });

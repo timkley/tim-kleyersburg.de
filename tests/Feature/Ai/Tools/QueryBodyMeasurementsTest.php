@@ -86,6 +86,14 @@ it('returns no data message for empty trend', function () {
     expect($result)->toContain('No body measurements');
 });
 
+it('returns a description string', function () {
+    $tool = new QueryBodyMeasurements;
+
+    expect($tool->description())
+        ->toBeString()
+        ->toContain('body measurement history');
+});
+
 it('returns error for unknown query type', function () {
     $tool = new QueryBodyMeasurements;
     $result = $tool->handle(new Request(['query_type' => 'invalid']));

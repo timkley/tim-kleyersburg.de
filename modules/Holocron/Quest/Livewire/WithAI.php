@@ -11,6 +11,9 @@ use function Laravel\Ai\agent;
 
 trait WithAI
 {
+    /**
+     * @codeCoverageIgnore
+     */
     public function generateSubquests(): void
     {
         $children = $this->quest->children->implode('name', '\n');

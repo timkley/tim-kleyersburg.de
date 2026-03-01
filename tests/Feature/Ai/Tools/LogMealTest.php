@@ -150,6 +150,23 @@ it('returns a confirmation string with daily totals', function () {
         ->toContain('1 meals total');
 });
 
+it('returns the expected schema definition', function () {
+    $tool = new LogMeal;
+
+    $schema = $tool->schema(new Illuminate\JsonSchema\JsonSchemaTypeFactory);
+
+    expect($schema)
+        ->toHaveKeys(['date', 'name', 'kcal', 'protein', 'fat', 'carbs', 'time', 'day_type'])
+        ->and($schema['date'])->toBeInstanceOf(Illuminate\JsonSchema\Types\StringType::class)
+        ->and($schema['name'])->toBeInstanceOf(Illuminate\JsonSchema\Types\StringType::class)
+        ->and($schema['kcal'])->toBeInstanceOf(Illuminate\JsonSchema\Types\IntegerType::class)
+        ->and($schema['protein'])->toBeInstanceOf(Illuminate\JsonSchema\Types\IntegerType::class)
+        ->and($schema['fat'])->toBeInstanceOf(Illuminate\JsonSchema\Types\IntegerType::class)
+        ->and($schema['carbs'])->toBeInstanceOf(Illuminate\JsonSchema\Types\IntegerType::class)
+        ->and($schema['time'])->toBeInstanceOf(Illuminate\JsonSchema\Types\StringType::class)
+        ->and($schema['day_type'])->toBeInstanceOf(Illuminate\JsonSchema\Types\StringType::class);
+});
+
 it('syncs protein daily goal projection when logging a meal', function () {
     $tool = new LogMeal;
 

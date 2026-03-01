@@ -71,3 +71,67 @@ it('can add exercises to a plan', function () {
     expect($exercise->pivot->max_reps)->toBe(10);
     expect($exercise->pivot->order)->toBe(2);
 });
+
+it('can remove an exercise from a plan', function () {
+    $plan = Plan::factory()->create();
+    $exercise = Exercise::factory()->create();
+
+    $plan->exercises()->attach($exercise, [
+        'sets' => 3,
+        'min_reps' => 8,
+        'max_reps' => 12,
+        'order' => 1,
+    ]);
+
+    expect($plan->exercises)->toHaveCount(1);
+
+    Livewire::test('holocron.grind.plans.show', [$plan->id])
+        ->call('removeExercise', $exercise->id);
+
+    expect($plan->fresh()->exercises)->toHaveCount(0);
+});
+
+it('validates plan name is required', function () {
+    Livewire::test('holocron.grind.plans.index')
+        ->set('name', '')
+        ->call('submit')
+        ->assertHasErrors(['name' => 'required']);
+});
+
+it('validates plan name minimum length', function () {
+    Livewire::test('holocron.grind.plans.index')
+        ->set('name', 'ab')
+        ->call('submit')
+        ->assertHasErrors(['name' => 'min']);
+});
+
+it('validates plan name maximum length', function () {
+    Livewire::test('holocron.grind.plans.index')
+        ->set('name', str_repeat('a', 256))
+        ->call('submit')
+        ->assertHasErrors(['name' => 'max']);
+});
+
+it('resets name after creating a plan', function () {
+    Livewire::test('holocron.grind.plans.index')
+        ->set('name', 'My Plan')
+        ->call('submit')
+        ->assertSet('name', null);
+});
+
+it('lists all plans on index', function () {
+    Plan::factory()->create(['name' => 'Upper Body']);
+    Plan::factory()->create(['name' => 'Lower Body']);
+
+    Livewire::test('holocron.grind.plans.index')
+        ->assertSee('Upper Body')
+        ->assertSee('Lower Body');
+});
+
+it('shows available exercises on plan show page', function () {
+    $plan = Plan::factory()->create();
+    Exercise::factory()->create(['name' => 'Bench Press']);
+
+    Livewire::test('holocron.grind.plans.show', [$plan->id])
+        ->assertViewHas('availableExercises');
+});

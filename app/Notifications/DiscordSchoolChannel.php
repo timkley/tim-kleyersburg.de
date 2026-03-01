@@ -11,6 +11,11 @@ class DiscordSchoolChannel extends Notification
 {
     use Notifiable;
 
+    public function getKey(): string
+    {
+        return 'discord-school-channel';
+    }
+
     public function routeNotificationForDiscord(): string
     {
         return config('services.discord.school_channel');

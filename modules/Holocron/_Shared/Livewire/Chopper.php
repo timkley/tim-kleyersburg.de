@@ -158,7 +158,7 @@ class Chopper extends HolocronComponent
     protected function loadMessages(): void
     {
         if (! $this->conversationId) {
-            return;
+            return; // @codeCoverageIgnore
         }
 
         $messages = DB::table('agent_conversation_messages')

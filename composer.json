@@ -39,6 +39,7 @@
         "nunomaduro/collision": "^8.6.1",
         "pestphp/pest": "^4.0",
         "pestphp/pest-plugin-laravel": "^v4.0",
+        "pestphp/pest-plugin-type-coverage": "^4.0",
         "rector/rector": "^2.0",
         "spatie/ray": "^1.41.4"
     },
@@ -86,6 +87,12 @@
         ],
         "test": [
             "@php artisan test --exclude-group=network --parallel"
+        ],
+        "test:coverage": [
+            "@php artisan test --coverage"
+        ],
+        "test:type-coverage": [
+            "pest --type-coverage"
         ],
         "prepush": [
             "@phpstan",

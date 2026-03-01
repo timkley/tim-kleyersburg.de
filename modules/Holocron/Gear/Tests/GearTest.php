@@ -103,6 +103,17 @@ it('can delete a journey', function () {
     expect(Journey::where('id', $journey->id)->exists())->toBeFalse();
 });
 
+it('reports whether a property is selected', function () {
+    $user = User::factory()->create();
+    actingAs($user);
+
+    $component = Livewire::test('holocron.gear.index')
+        ->set('selectedProperties', [Property::ChildOnBoard]);
+
+    expect($component->instance()->isPropertySelected(Property::ChildOnBoard))->toBeTrue()
+        ->and($component->instance()->isPropertySelected(Property::WarmWeather))->toBeFalse();
+});
+
 it('deletes all related journey items when deleting a journey', function () {
     $user = User::factory()->create();
     actingAs($user);

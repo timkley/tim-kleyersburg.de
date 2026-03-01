@@ -24,9 +24,9 @@ class QuestRecurrence extends Model
 {
     use HasFactory;
 
-    public const TYPE_RECURRENCE_BASED = 'recurrence_based';
+    public const string TYPE_RECURRENCE_BASED = 'recurrence_based';
 
-    public const TYPE_COMPLETION_BASED = 'completion_based';
+    public const string TYPE_COMPLETION_BASED = 'completion_based';
 
     protected $table = 'quest_recurrences';
 

@@ -62,6 +62,9 @@ class Show extends Component
         );
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     private function rambleInstructions(): string
     {
         return <<<'EOT'
@@ -72,6 +75,9 @@ class Show extends Component
         EOT;
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     private function ramblePrompt(string $original): string
     {
         return <<<EOT

@@ -263,7 +263,7 @@ class Index extends HolocronComponent
             'protein' => $this->mealProtein,
             'fat' => $this->mealFat,
             'carbs' => $this->mealCarbs,
-        ], fn ($value) => $value !== null && $value !== '');
+        ], fn (mixed $value) => $value !== null && $value !== '');
 
         return $meal;
     }

@@ -14,7 +14,7 @@ final readonly class RemoveQuestAttachment
         Storage::disk('public')->delete($path);
 
         $quest->update([
-            'attachments' => $quest->attachments->filter(fn ($a) => $a !== $path)->values(),
+            'attachments' => $quest->attachments->filter(fn (string $a) => $a !== $path)->values(),
         ]);
 
         return $quest->refresh();

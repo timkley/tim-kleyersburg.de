@@ -14,7 +14,7 @@ class ParentSearch extends Component
     public string $searchTerm = '';
 
     /** @var array<mixed>|Collection<int, Quest> */
-    public $quests = [];
+    public array|Collection $quests = [];
 
     public function updatingSearchTerm(mixed $value): void
     {

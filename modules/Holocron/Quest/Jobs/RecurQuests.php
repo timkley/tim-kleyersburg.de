@@ -6,6 +6,7 @@ namespace Modules\Holocron\Quest\Jobs;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
@@ -24,7 +25,7 @@ class RecurQuests implements ShouldQueue
     public function handle(): void
     {
         $recurrences = QuestRecurrence::with(['quest'])
-            ->where(function ($query) {
+            ->where(function (Builder $query) {
                 $query->where('ends_at', '>', now()->startOfDay())
                     ->orWhereNull('ends_at');
             })

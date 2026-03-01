@@ -42,3 +42,13 @@ it('returns no-results message for unmatched query', function () {
 
     expect($result)->toContain('No notes found');
 });
+
+it('defines a schema with query and limit parameters', function () {
+    $tool = new SearchNotes;
+    $schema = $tool->schema(new Illuminate\JsonSchema\JsonSchemaTypeFactory);
+
+    expect($schema)->toHaveKey('query')
+        ->toHaveKey('limit')
+        ->and($schema['query'])->toBeInstanceOf(Illuminate\JsonSchema\Types\StringType::class)
+        ->and($schema['limit'])->toBeInstanceOf(Illuminate\JsonSchema\Types\IntegerType::class);
+});

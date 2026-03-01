@@ -101,6 +101,14 @@ it('shows no delta when there is no previous measurement', function () {
     expect($result)->not->toContain('Delta since');
 });
 
+it('returns a description string', function () {
+    $tool = new LogBodyMeasurement;
+
+    expect($tool->description())
+        ->toBeString()
+        ->toContain('log a body measurement');
+});
+
 it('returns the expected schema definition', function () {
     $tool = new LogBodyMeasurement;
     $schema = $tool->schema(new JsonSchemaTypeFactory);

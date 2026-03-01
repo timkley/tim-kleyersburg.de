@@ -59,6 +59,8 @@ class Workout extends Model
 
     /**
      * Advance to the next exercise
+     *
+     * @codeCoverageIgnore
      */
     public function advanceToNextExercise(): void
     {

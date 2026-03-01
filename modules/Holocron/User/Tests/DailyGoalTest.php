@@ -111,3 +111,80 @@ it('renders protein goal without manual tracking form', function () {
         ->assertSee('Deine Ziele')
         ->assertDontSee('eingenommen');
 });
+
+it('marks a goal as reached when amount meets goal', function () {
+    $goal = DailyGoal::factory()->create([
+        'goal' => 100,
+        'amount' => 100,
+    ]);
+
+    expect($goal->reached)->toBeTrue();
+});
+
+it('marks a goal as reached when amount exceeds goal', function () {
+    $goal = DailyGoal::factory()->create([
+        'goal' => 100,
+        'amount' => 150,
+    ]);
+
+    expect($goal->reached)->toBeTrue();
+});
+
+it('marks a goal as not reached when amount is below goal', function () {
+    $goal = DailyGoal::factory()->create([
+        'goal' => 100,
+        'amount' => 50,
+    ]);
+
+    expect($goal->reached)->toBeFalse();
+});
+
+it('does not change amount when tracking zero', function () {
+    $goal = DailyGoal::factory()->create([
+        'goal' => 100,
+        'amount' => 50,
+    ]);
+
+    $goal->track(0);
+
+    expect($goal->fresh()->amount)->toBe(50);
+});
+
+it('casts type to GoalType enum', function () {
+    $goal = DailyGoal::factory()->create([
+        'type' => GoalType::Water,
+        'goal' => 2000,
+    ]);
+
+    expect($goal->type)->toBe(GoalType::Water);
+});
+
+it('casts unit to GoalUnit enum', function () {
+    $goal = DailyGoal::factory()->create([
+        'type' => GoalType::Water,
+        'unit' => Modules\Holocron\User\Enums\GoalUnit::Milliliters,
+        'goal' => 2000,
+    ]);
+
+    expect($goal->unit)->toBe(Modules\Holocron\User\Enums\GoalUnit::Milliliters);
+});
+
+it('creates a goal for a specific date', function () {
+    $date = Carbon\CarbonImmutable::parse('2026-01-15');
+    $goal = DailyGoal::for(GoalType::Mobility, $date);
+
+    expect($goal->date)->toBe($date->toDateString());
+});
+
+it('sets default amount for boolean goal types on creation', function () {
+    $goal = DailyGoal::for(GoalType::NoSmoking);
+
+    expect($goal->amount)->toBe(1);
+});
+
+it('sets zero default amount for non-boolean goal types on creation', function () {
+    User::factory()->create(['email' => 'timkley@gmail.com']);
+    $goal = DailyGoal::for(GoalType::Mobility);
+
+    expect($goal->fresh()->amount)->toBe(0);
+});

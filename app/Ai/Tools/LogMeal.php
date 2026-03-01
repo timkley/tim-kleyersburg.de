@@ -47,7 +47,7 @@ class LogMeal implements Tool
             'protein' => $request['protein'],
             'fat' => $request['fat'],
             'carbs' => $request['carbs'],
-        ], fn ($value) => $value !== null);
+        ], fn (mixed $value) => $value !== null);
 
         $meals = $day->meals;
         $meals[] = $meal;

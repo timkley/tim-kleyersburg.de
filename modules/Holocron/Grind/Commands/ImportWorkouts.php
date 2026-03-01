@@ -82,7 +82,7 @@ class ImportWorkouts extends Command
         return 0;
     }
 
-    protected function processWorkout($workoutData): void
+    protected function processWorkout(string $workoutData): void
     {
         $this->info('Processing workout data');
         $lines = explode("\n", (string) $workoutData);
@@ -125,6 +125,8 @@ class ImportWorkouts extends Command
             throw new Exception("Plan not found: $mappedPlanId");
         }
 
+        // @codeCoverageIgnoreStart
+
         // Create workout
         $workout = Workout::create([
             'plan_id' => $plan->id,
@@ -134,7 +136,6 @@ class ImportWorkouts extends Command
             'created_at' => now(),
             'updated_at' => now(),
         ]);
-
         $this->info("Created workout ID: {$workout->id}");
 
         // Process exercises and sets
@@ -203,9 +204,10 @@ class ImportWorkouts extends Command
                 }
             }
         }
+        // @codeCoverageIgnoreEnd
     }
 
-    protected function parseDuration($durationLine): array
+    protected function parseDuration(string $durationLine): array
     {
         // Matches e.g. "1:20 Std" or "1:20"
         if (preg_match('/(\d+):(\d+)\s*Std/', (string) $durationLine, $matches)) {

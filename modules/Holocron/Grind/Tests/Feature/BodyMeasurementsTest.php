@@ -97,3 +97,88 @@ it('provides chart data for weight and muscle mass', function () {
         ->and($chartData[1]['weight'])->toBe(78.5)
         ->and($chartData[1]['muscle_mass'])->toBe(56.0);
 });
+
+it('validates weight is required when adding measurement', function () {
+    Livewire::test('holocron.grind.nutrition.body-measurements')
+        ->set('date', '2025-03-15')
+        ->set('weight', null)
+        ->call('addMeasurement')
+        ->assertHasErrors(['weight' => 'required']);
+});
+
+it('validates date is required when adding measurement', function () {
+    Livewire::test('holocron.grind.nutrition.body-measurements')
+        ->set('date', '')
+        ->set('weight', 79.5)
+        ->call('addMeasurement')
+        ->assertHasErrors(['date' => 'required']);
+});
+
+it('defaults date to today', function () {
+    Livewire::test('holocron.grind.nutrition.body-measurements')
+        ->assertSet('date', now()->format('Y-m-d'));
+});
+
+it('can add measurement with only weight', function () {
+    Livewire::test('holocron.grind.nutrition.body-measurements')
+        ->set('date', '2025-03-15')
+        ->set('weight', 80.0)
+        ->call('addMeasurement')
+        ->assertHasNoErrors();
+
+    $measurement = BodyMeasurement::query()->first();
+
+    expect($measurement)->not->toBeNull()
+        ->and((float) $measurement->weight)->toBe(80.0)
+        ->and($measurement->body_fat)->toBeNull()
+        ->and($measurement->muscle_mass)->toBeNull();
+});
+
+it('can add multiple measurements for different dates', function () {
+    Livewire::test('holocron.grind.nutrition.body-measurements')
+        ->set('date', '2025-03-15')
+        ->set('weight', 80.0)
+        ->call('addMeasurement')
+        ->assertHasNoErrors();
+
+    Livewire::test('holocron.grind.nutrition.body-measurements')
+        ->set('date', '2025-03-16')
+        ->set('weight', 79.0)
+        ->call('addMeasurement')
+        ->assertHasNoErrors();
+
+    expect(BodyMeasurement::query()->count())->toBe(2);
+});
+
+it('resets form fields after adding measurement', function () {
+    Livewire::test('holocron.grind.nutrition.body-measurements')
+        ->set('date', '2025-03-15')
+        ->set('weight', 80.0)
+        ->set('bodyFat', 18.0)
+        ->set('muscleMass', 55.0)
+        ->set('visceralFat', 6)
+        ->set('bmi', 24.0)
+        ->set('bodyWater', 58.0)
+        ->call('addMeasurement')
+        ->assertSet('weight', null)
+        ->assertSet('bodyFat', null)
+        ->assertSet('muscleMass', null)
+        ->assertSet('visceralFat', null)
+        ->assertSet('bmi', null)
+        ->assertSet('bodyWater', null);
+});
+
+it('handles chart data with null muscle mass', function () {
+    BodyMeasurement::factory()->create([
+        'date' => '2025-01-01',
+        'weight' => 80.00,
+        'muscle_mass' => null,
+    ]);
+
+    $component = Livewire::test('holocron.grind.nutrition.body-measurements');
+
+    $chartData = $component->viewData('chartData');
+
+    expect($chartData)->toHaveCount(1)
+        ->and($chartData[0]['muscle_mass'])->toBeNull();
+});

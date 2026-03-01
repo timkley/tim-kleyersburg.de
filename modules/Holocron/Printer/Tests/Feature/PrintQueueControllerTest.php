@@ -273,3 +273,83 @@ it('handles multiple concurrent long polls correctly', function () {
         $lock->release();
     }
 });
+
+it('returns empty array when printer is silenced', function () {
+    $user = User::query()->where('email', 'timkley@gmail.com')->sole();
+    $user->settings->update(['printer_silenced' => true]);
+
+    Storage::disk('public')->put('printer/test.png', 'content');
+    PrintQueue::create([
+        'image' => 'printer/test.png',
+        'actions' => [],
+    ]);
+
+    $response = $this->withHeaders(['Authorization' => 'Bearer '.config('auth.bearer_token')])
+        ->getJson('/api/holocron/printer/queue');
+
+    $response->assertOk()
+        ->assertExactJson([]);
+});
+
+it('returns text-based print queue items', function () {
+    $printItem = PrintQueue::create([
+        'text' => "Hello\nWorld",
+        'actions' => ['https://example.com'],
+    ]);
+
+    $response = $this->withHeaders(['Authorization' => 'Bearer '.config('auth.bearer_token')])
+        ->getJson('/api/holocron/printer/queue');
+
+    $response->assertOk()
+        ->assertJsonCount(1)
+        ->assertJsonStructure([
+            '*' => ['id', 'text', 'actions', 'created_at'],
+        ]);
+
+    $data = $response->json();
+    expect($data[0]['id'])->toBe($printItem->id);
+    expect($data[0]['text'])->toBe("Hello\nWorld");
+    expect($data[0]['actions'])->toBe(['https://example.com']);
+});
+
+it('marks text-based items as printed after retrieval', function () {
+    $printItem = PrintQueue::create([
+        'text' => 'Print me',
+        'actions' => [],
+    ]);
+
+    expect($printItem->fresh()->printed_at)->toBeNull();
+
+    $this->withHeaders(['Authorization' => 'Bearer '.config('auth.bearer_token')])
+        ->getJson('/api/holocron/printer/queue');
+
+    expect($printItem->fresh()->printed_at)->not->toBeNull();
+});
+
+it('returns both text and image items in the same response', function () {
+    Storage::disk('public')->put('printer/test.png', 'content');
+
+    $textItem = PrintQueue::create([
+        'text' => 'Text item',
+        'actions' => [],
+        'created_at' => now()->subMinute(),
+    ]);
+
+    $imageItem = PrintQueue::create([
+        'image' => 'printer/test.png',
+        'actions' => [],
+        'created_at' => now(),
+    ]);
+
+    $response = $this->withHeaders(['Authorization' => 'Bearer '.config('auth.bearer_token')])
+        ->getJson('/api/holocron/printer/queue');
+
+    $response->assertOk()
+        ->assertJsonCount(2);
+
+    $data = $response->json();
+    expect($data[0]['id'])->toBe($textItem->id);
+    expect($data[0])->toHaveKey('text');
+    expect($data[1]['id'])->toBe($imageItem->id);
+    expect($data[1])->toHaveKey('image');
+});

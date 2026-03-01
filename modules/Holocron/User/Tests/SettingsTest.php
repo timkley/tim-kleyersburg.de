@@ -18,3 +18,27 @@ it('shows the settings page', function () {
         ->assertSuccessful()
         ->assertSeeLivewire(Settings::class);
 });
+
+it('loads current weight on mount', function () {
+    $user = User::factory()
+        ->has(UserSetting::factory()->state(['weight' => 82.5]), 'settings')
+        ->create(['email' => 'timkley@gmail.com']);
+
+    actingAs($user);
+
+    Livewire\Livewire::test(Settings::class)
+        ->assertSet('weight', 82.5);
+});
+
+it('updates weight in the database when changed', function () {
+    $user = User::factory()
+        ->has(UserSetting::factory()->state(['weight' => 80.0]), 'settings')
+        ->create(['email' => 'timkley@gmail.com']);
+
+    actingAs($user);
+
+    Livewire\Livewire::test(Settings::class)
+        ->set('weight', 85.0);
+
+    expect($user->settings->fresh()->weight)->toBe(85.0);
+});

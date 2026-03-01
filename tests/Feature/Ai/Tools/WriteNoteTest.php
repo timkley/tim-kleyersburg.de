@@ -50,3 +50,48 @@ it('overwrites an existing note file', function () {
         ->and(file_get_contents($this->testDir.'/Areas/old.md'))
         ->toBe('# Updated');
 });
+
+it('returns write failure message when service throws RuntimeException', function () {
+    $service = Mockery::mock(NotesService::class);
+    $service->shouldReceive('write')
+        ->once()
+        ->andThrow(new RuntimeException('Permission denied'));
+
+    app()->instance(NotesService::class, $service);
+
+    $tool = new WriteNote;
+    $result = $tool->handle(new Request([
+        'path' => '/locked/note.md',
+        'content' => '# Locked',
+    ]));
+
+    expect($result)->toBe('Write failed: Permission denied');
+});
+
+it('returns sync failure message when commitAndPush fails', function () {
+    $service = Mockery::mock(NotesService::class);
+    $service->shouldReceive('write')->once();
+    $service->shouldReceive('commitAndPush')
+        ->once()
+        ->andReturn(['success' => false, 'output' => 'git push rejected']);
+
+    app()->instance(NotesService::class, $service);
+
+    $tool = new WriteNote;
+    $result = $tool->handle(new Request([
+        'path' => '/Sync/note.md',
+        'content' => '# Sync Test',
+    ]));
+
+    expect($result)->toBe('Written to /Sync/note.md, but sync failed: git push rejected');
+});
+
+it('defines a schema with path and content parameters', function () {
+    $tool = new WriteNote;
+    $schema = $tool->schema(new Illuminate\JsonSchema\JsonSchemaTypeFactory);
+
+    expect($schema)->toHaveKey('path')
+        ->and($schema['path'])->toBeInstanceOf(Illuminate\JsonSchema\Types\StringType::class)
+        ->and($schema)->toHaveKey('content')
+        ->and($schema['content'])->toBeInstanceOf(Illuminate\JsonSchema\Types\StringType::class);
+});

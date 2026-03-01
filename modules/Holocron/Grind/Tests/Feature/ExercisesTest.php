@@ -49,6 +49,29 @@ it('validates exercise name is required', function () {
         ->assertHasErrors(['form.name' => 'required']);
 });
 
+it('validates exercise name minimum length', function () {
+    $user = User::factory()->create();
+    actingAs($user);
+
+    Livewire::test('holocron.grind.exercises.create-modal')
+        ->set('form.name', 'ab')
+        ->call('submit')
+        ->assertHasErrors(['form.name' => 'min']);
+});
+
+it('validates exercise name when editing', function () {
+    $user = User::factory()->create();
+    actingAs($user);
+
+    $exercise = Exercise::factory()->create(['name' => 'Bench Press']);
+
+    Livewire::test('holocron.grind.exercises.show', ['exercise' => $exercise])
+        ->set('form.name', 'ab')
+        ->assertHasErrors(['form.name' => 'min']);
+
+    expect($exercise->fresh()->name)->toBe('Bench Press');
+});
+
 it('can delete exercises', function () {
     $user = User::factory()->create();
     actingAs($user);
@@ -127,4 +150,87 @@ it('can edit exercise instructions', function () {
         ->assertHasNoErrors();
 
     expect($exercise->fresh()->instructions)->toBe('New Instructions');
+});
+
+it('ignores updates for non-form properties on show', function () {
+    $user = User::factory()->create();
+    actingAs($user);
+
+    $exercise = Exercise::factory()->create(['name' => 'Bench Press']);
+
+    Livewire::test('holocron.grind.exercises.show', ['exercise' => $exercise])
+        ->set('exercise', $exercise)
+        ->assertHasNoErrors();
+
+    expect($exercise->fresh()->name)->toBe('Bench Press');
+});
+
+it('ignores updates for unknown form properties on show', function () {
+    $user = User::factory()->create();
+    actingAs($user);
+
+    $exercise = Exercise::factory()->create(['name' => 'Bench Press']);
+
+    // Setting form.exercise triggers updated() but formProperty 'exercise'
+    // is not in the allowed list, so it should return early without saving
+    Livewire::test('holocron.grind.exercises.show', ['exercise' => $exercise])
+        ->set('form.exercise', null)
+        ->assertHasNoErrors();
+
+    expect($exercise->fresh()->name)->toBe('Bench Press');
+});
+
+it('lists all exercises on index', function () {
+    $user = User::factory()->create();
+    actingAs($user);
+
+    Exercise::factory()->create(['name' => 'Bench Press']);
+    Exercise::factory()->create(['name' => 'Squat']);
+
+    Livewire::test('holocron.grind.exercises.index')
+        ->assertSee('Bench Press')
+        ->assertSee('Squat');
+});
+
+it('dispatches exercise-created event after submission', function () {
+    $user = User::factory()->create();
+    actingAs($user);
+
+    Livewire::test('holocron.grind.exercises.create-modal')
+        ->set('form.name', 'Deadlift')
+        ->call('submit')
+        ->assertDispatched('exercise-created');
+});
+
+it('resets form after successful creation', function () {
+    $user = User::factory()->create();
+    actingAs($user);
+
+    Livewire::test('holocron.grind.exercises.create-modal')
+        ->set('form.name', 'Bench Press')
+        ->set('form.description', 'Test')
+        ->call('submit')
+        ->assertSet('form.name', '')
+        ->assertSet('form.description', null);
+});
+
+it('renders show with volume data', function () {
+    $user = User::factory()->create();
+    actingAs($user);
+
+    $exercise = Exercise::factory()->create();
+
+    Livewire::test('holocron.grind.exercises.show', ['exercise' => $exercise])
+        ->assertSuccessful()
+        ->assertViewHas('data');
+});
+
+it('validates exercise name max length on creation', function () {
+    $user = User::factory()->create();
+    actingAs($user);
+
+    Livewire::test('holocron.grind.exercises.create-modal')
+        ->set('form.name', str_repeat('a', 256))
+        ->call('submit')
+        ->assertHasErrors(['form.name' => 'max']);
 });

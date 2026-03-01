@@ -190,3 +190,66 @@ it('returns error when commit fails', function () {
     expect($result['success'])->toBeFalse()
         ->and($result['output'])->toBe('nothing to commit');
 });
+
+it('uses storage_path when no basePath is provided', function () {
+    $service = new NotesService;
+
+    $reflection = new ReflectionClass($service);
+    $property = $reflection->getProperty('basePath');
+
+    expect($property->getValue($service))->toBe(storage_path('notes'));
+});
+
+it('throws when mkdir fails during write', function () {
+    // Create a file where a directory needs to be, making mkdir fail.
+    // The @ suppresses the warning so we get the RuntimeException from the guard clause.
+    $blockingFile = $this->testDir.'/blocker';
+    file_put_contents($blockingFile, 'I block directory creation');
+
+    // Override mkdir behavior by using a non-writable parent
+    // Instead, we test the guard clause by making mkdir return false.
+    // We need to trigger the condition: !mkdir(...) && !is_dir(...)
+    set_error_handler(fn () => true); // Suppress ErrorException from mkdir warning
+
+    try {
+        $this->service->write('/blocker/sub/note.md', 'content');
+    } finally {
+        restore_error_handler();
+    }
+})->throws(RuntimeException::class, 'Failed to create directory');
+
+it('throws when search grep command fails', function () {
+    Process::fake([
+        '*grep*' => new FakeProcessResult(exitCode: 2, errorOutput: 'grep: invalid option'),
+    ]);
+
+    $this->service->search('test');
+})->throws(RuntimeException::class, 'Search failed');
+
+it('throws when commitAndPush receives an invalid path', function () {
+    $this->service->commitAndPush('/../../../etc/passwd');
+})->throws(RuntimeException::class, 'Invalid path');
+
+it('returns error when git add fails', function () {
+    Process::fake([
+        '*git*add*' => new FakeProcessResult(exitCode: 1, errorOutput: 'fatal: pathspec error'),
+    ]);
+
+    $result = $this->service->commitAndPush('/README.md');
+
+    expect($result['success'])->toBeFalse()
+        ->and($result['output'])->toBe('fatal: pathspec error');
+});
+
+it('returns error when git push fails', function () {
+    Process::fake([
+        '*git*add*' => new FakeProcessResult(exitCode: 0),
+        '*git*commit*' => new FakeProcessResult(exitCode: 0, output: 'committed'),
+        '*git*push*' => new FakeProcessResult(exitCode: 1, errorOutput: 'rejected: non-fast-forward'),
+    ]);
+
+    $result = $this->service->commitAndPush('/README.md');
+
+    expect($result['success'])->toBeFalse()
+        ->and($result['output'])->toBe('rejected: non-fast-forward');
+});
