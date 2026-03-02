@@ -135,6 +135,13 @@ it('resets streaming state on handleStreamError', function () {
 });
 
 it('allows conversation owner to access channel', function () {
+    config([
+        'broadcasting.default' => 'reverb',
+        'broadcasting.connections.reverb.key' => 'test-key',
+        'broadcasting.connections.reverb.secret' => 'test-secret',
+        'broadcasting.connections.reverb.app_id' => 'test-app-id',
+    ]);
+
     $conversationId = fake()->uuid();
     DB::table('agent_conversations')->insert([
         'id' => $conversationId,
@@ -151,6 +158,13 @@ it('allows conversation owner to access channel', function () {
 });
 
 it('denies non-owner access to channel', function () {
+    config([
+        'broadcasting.default' => 'reverb',
+        'broadcasting.connections.reverb.key' => 'test-key',
+        'broadcasting.connections.reverb.secret' => 'test-secret',
+        'broadcasting.connections.reverb.app_id' => 'test-app-id',
+    ]);
+
     $conversationId = fake()->uuid();
     $otherUser = User::factory()->create();
     DB::table('agent_conversations')->insert([
@@ -168,6 +182,13 @@ it('denies non-owner access to channel', function () {
 });
 
 it('allows authenticated user to access temp UUID channel', function () {
+    config([
+        'broadcasting.default' => 'reverb',
+        'broadcasting.connections.reverb.key' => 'test-key',
+        'broadcasting.connections.reverb.secret' => 'test-secret',
+        'broadcasting.connections.reverb.app_id' => 'test-app-id',
+    ]);
+
     $tempId = fake()->uuid();
 
     $this->postJson('/broadcasting/auth', [
