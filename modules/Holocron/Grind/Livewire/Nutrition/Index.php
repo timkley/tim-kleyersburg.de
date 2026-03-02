@@ -30,7 +30,7 @@ class Index extends HolocronComponent
 
     public ?int $mealCarbs = null;
 
-    public ?int $editingMealIndex = null;
+    public ?int $editingMealId = null;
 
     public int $averageKcal = 0;
 
@@ -94,39 +94,13 @@ class Index extends HolocronComponent
 
         $day = $this->getOrCreateDay();
 
-        $meals = $day->meals ?? [];
-        $meals[] = $this->mealPayload();
-        $day->update(['meals' => $meals]);
-        $day->recalculateTotals();
+        $day->meals()->create($this->mealPayload());
 
         $this->cancelMealEdit();
         $this->calculateAverages();
     }
 
-    public function deleteMeal(int $index): void
-    {
-        $day = $this->getOrCreateDay();
-
-        $meals = $day->meals ?? [];
-
-        if (! array_key_exists($index, $meals)) {
-            return;
-        }
-
-        array_splice($meals, $index, 1);
-        $meals = array_values($meals);
-
-        $day->update(['meals' => $meals]);
-        $day->recalculateTotals();
-
-        if ($this->editingMealIndex === $index) {
-            $this->cancelMealEdit();
-        }
-
-        $this->calculateAverages();
-    }
-
-    public function editMeal(int $index): void
+    public function deleteMeal(int $mealId): void
     {
         $day = NutritionDay::query()->whereDate('date', $this->date)->first();
 
@@ -134,44 +108,69 @@ class Index extends HolocronComponent
             return;
         }
 
-        $meals = $day->meals ?? [];
+        $meal = $day->meals()->find($mealId);
 
-        if (! array_key_exists($index, $meals)) {
+        if (! $meal) {
             return;
         }
 
-        $meal = $meals[$index];
+        $meal->delete();
 
-        $this->editingMealIndex = $index;
-        $this->mealName = $meal['name'];
-        $this->mealTime = $meal['time'] ?? null;
-        $this->mealKcal = $meal['kcal'];
-        $this->mealProtein = $meal['protein'];
-        $this->mealFat = $meal['fat'];
-        $this->mealCarbs = $meal['carbs'];
+        if ($this->editingMealId === $mealId) {
+            $this->cancelMealEdit();
+        }
+
+        $this->calculateAverages();
+    }
+
+    public function editMeal(int $mealId): void
+    {
+        $day = NutritionDay::query()->whereDate('date', $this->date)->first();
+
+        if (! $day) {
+            return;
+        }
+
+        $meal = $day->meals()->find($mealId);
+
+        if (! $meal) {
+            return;
+        }
+
+        $this->editingMealId = $mealId;
+        $this->mealName = $meal->name;
+        $this->mealTime = $meal->time;
+        $this->mealKcal = $meal->kcal;
+        $this->mealProtein = $meal->protein;
+        $this->mealFat = $meal->fat;
+        $this->mealCarbs = $meal->carbs;
     }
 
     public function updateMeal(): void
     {
-        if ($this->editingMealIndex === null) {
+        if ($this->editingMealId === null) {
             return;
         }
 
         $this->validateMealInput();
 
-        $day = $this->getOrCreateDay();
-        $meals = $day->meals ?? [];
+        $day = NutritionDay::query()->whereDate('date', $this->date)->first();
 
-        if (! array_key_exists($this->editingMealIndex, $meals)) {
+        if (! $day) {
             $this->cancelMealEdit();
 
             return;
         }
 
-        $meals[$this->editingMealIndex] = $this->mealPayload();
+        $meal = $day->meals()->find($this->editingMealId);
 
-        $day->update(['meals' => array_values($meals)]);
-        $day->recalculateTotals();
+        if (! $meal) {
+            $this->cancelMealEdit();
+
+            return;
+        }
+
+        $meal->update($this->mealPayload());
 
         $this->cancelMealEdit();
         $this->calculateAverages();
@@ -180,12 +179,12 @@ class Index extends HolocronComponent
     public function cancelMealEdit(): void
     {
         $this->reset('mealName', 'mealTime', 'mealKcal', 'mealProtein', 'mealFat', 'mealCarbs');
-        $this->editingMealIndex = null;
+        $this->editingMealId = null;
     }
 
     public function render(): View
     {
-        $day = NutritionDay::query()->whereDate('date', $this->date)->first();
+        $day = NutritionDay::query()->with('meals')->whereDate('date', $this->date)->first();
 
         /** @var User $user */
         $user = auth()->user();
@@ -216,27 +215,23 @@ class Index extends HolocronComponent
         return NutritionDay::query()->create([
             'date' => Carbon::parse($this->date),
             'type' => 'rest',
-            'meals' => [],
-            'total_kcal' => 0,
-            'total_protein' => 0,
-            'total_fat' => 0,
-            'total_carbs' => 0,
         ]);
     }
 
     private function calculateAverages(): void
     {
         $days = NutritionDay::query()
+            ->with('meals')
             ->whereDate('date', '<=', $this->date)
             ->whereDate('date', '>=', Carbon::parse($this->date)->subDays(6)->format('Y-m-d'))
             ->get();
 
         $count = max(1, $days->count());
 
-        $this->averageKcal = (int) round($days->sum('total_kcal') / $count);
-        $this->averageProtein = (int) round($days->sum('total_protein') / $count);
-        $this->averageFat = (int) round($days->sum('total_fat') / $count);
-        $this->averageCarbs = (int) round($days->sum('total_carbs') / $count);
+        $this->averageKcal = (int) round($days->sum(fn (NutritionDay $day) => $day->meals->sum('kcal')) / $count);
+        $this->averageProtein = (int) round($days->sum(fn (NutritionDay $day) => $day->meals->sum('protein')) / $count);
+        $this->averageFat = (int) round($days->sum(fn (NutritionDay $day) => $day->meals->sum('fat')) / $count);
+        $this->averageCarbs = (int) round($days->sum(fn (NutritionDay $day) => $day->meals->sum('carbs')) / $count);
     }
 
     private function validateMealInput(): void
@@ -251,20 +246,17 @@ class Index extends HolocronComponent
     }
 
     /**
-     * @return array{name: string, time?: string, kcal: int, protein: int, fat: int, carbs: int}
+     * @return array{name: string, time: ?string, kcal: int, protein: int, fat: int, carbs: int}
      */
     private function mealPayload(): array
     {
-        /** @var array{name: string, time?: string, kcal: int, protein: int, fat: int, carbs: int} $meal */
-        $meal = array_filter([
+        return [
             'name' => $this->mealName,
             'time' => $this->mealTime,
-            'kcal' => $this->mealKcal,
-            'protein' => $this->mealProtein,
-            'fat' => $this->mealFat,
-            'carbs' => $this->mealCarbs,
-        ], fn (mixed $value) => $value !== null && $value !== '');
-
-        return $meal;
+            'kcal' => (int) $this->mealKcal,
+            'protein' => (int) $this->mealProtein,
+            'fat' => (int) $this->mealFat,
+            'carbs' => (int) $this->mealCarbs,
+        ];
     }
 }

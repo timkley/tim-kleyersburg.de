@@ -28,5 +28,5 @@ it('has a nutrition day with many meals', function () {
     $day = NutritionDay::factory()->create();
     Meal::factory()->count(3)->create(['nutrition_day_id' => $day->id]);
 
-    expect($day->mealRecords)->toHaveCount(3);
+    expect($day->meals)->toHaveCount(3);
 });

@@ -65,25 +65,25 @@
     </div>
 
     {{-- Today's Totals --}}
-    @if($day)
+    @if($day && $day->meals->isNotEmpty())
         <div class="space-y-2">
             <flux:heading size="base">Tagesübersicht</flux:heading>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
                 <flux:card size="sm" class="space-y-1">
                     <flux:text size="sm">Kalorien</flux:text>
-                    <flux:heading>{{ $day->total_kcal }} kcal</flux:heading>
+                    <flux:heading>{{ $day->meals->sum('kcal') }} kcal</flux:heading>
                 </flux:card>
                 <flux:card size="sm" class="space-y-1">
                     <flux:text size="sm">Protein</flux:text>
-                    <flux:heading>{{ $day->total_protein }} g</flux:heading>
+                    <flux:heading>{{ $day->meals->sum('protein') }} g</flux:heading>
                 </flux:card>
                 <flux:card size="sm" class="space-y-1">
                     <flux:text size="sm">Fett</flux:text>
-                    <flux:heading>{{ $day->total_fat }} g</flux:heading>
+                    <flux:heading>{{ $day->meals->sum('fat') }} g</flux:heading>
                 </flux:card>
                 <flux:card size="sm" class="space-y-1">
                     <flux:text size="sm">Kohlenhydrate</flux:text>
-                    <flux:heading>{{ $day->total_carbs }} g</flux:heading>
+                    <flux:heading>{{ $day->meals->sum('carbs') }} g</flux:heading>
                 </flux:card>
             </div>
         </div>
@@ -95,27 +95,27 @@
     <div class="space-y-4">
         <flux:heading size="base">Mahlzeiten</flux:heading>
 
-        @if($day && count($day->meals))
+        @if($day && $day->meals->isNotEmpty())
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-                @foreach($day->meals as $index => $meal)
-                    <flux:card wire:key="meal-{{ $index }}" size="sm" class="space-y-2">
+                @foreach($day->meals as $meal)
+                    <flux:card wire:key="meal-{{ $meal->id }}" size="sm" class="space-y-2">
                         <div class="flex items-start justify-between">
                             <div>
-                                <flux:heading size="sm">{{ $meal['name'] }}</flux:heading>
-                                @if(!empty($meal['time']))
-                                    <flux:text size="sm">{{ $meal['time'] }} Uhr</flux:text>
+                                <flux:heading size="sm">{{ $meal->name }}</flux:heading>
+                                @if($meal->time)
+                                    <flux:text size="sm">{{ $meal->time }} Uhr</flux:text>
                                 @endif
                             </div>
                             <div class="flex items-center gap-1">
-                                <flux:button variant="subtle" size="xs" icon="pencil" wire:click="editMeal({{ $index }})" />
-                                <flux:button variant="subtle" size="xs" icon="trash" wire:click="deleteMeal({{ $index }})" wire:confirm="Mahlzeit wirklich löschen?" />
+                                <flux:button variant="subtle" size="xs" icon="pencil" wire:click="editMeal({{ $meal->id }})" />
+                                <flux:button variant="subtle" size="xs" icon="trash" wire:click="deleteMeal({{ $meal->id }})" wire:confirm="Mahlzeit wirklich löschen?" />
                             </div>
                         </div>
                         <div class="flex gap-3 text-sm">
-                            <flux:text>{{ $meal['kcal'] }} kcal</flux:text>
-                            <flux:text>P: {{ $meal['protein'] }}g</flux:text>
-                            <flux:text>F: {{ $meal['fat'] }}g</flux:text>
-                            <flux:text>K: {{ $meal['carbs'] }}g</flux:text>
+                            <flux:text>{{ $meal->kcal }} kcal</flux:text>
+                            <flux:text>P: {{ $meal->protein }}g</flux:text>
+                            <flux:text>F: {{ $meal->fat }}g</flux:text>
+                            <flux:text>K: {{ $meal->carbs }}g</flux:text>
                         </div>
                     </flux:card>
                 @endforeach
@@ -129,8 +129,8 @@
 
     {{-- Add Meal Form --}}
     <div class="space-y-4">
-        <flux:heading size="base">{{ $editingMealIndex !== null ? 'Mahlzeit bearbeiten' : 'Mahlzeit hinzufügen' }}</flux:heading>
-        <form wire:submit="{{ $editingMealIndex !== null ? 'updateMeal' : 'addMeal' }}" class="space-y-4">
+        <flux:heading size="base">{{ $editingMealId !== null ? 'Mahlzeit bearbeiten' : 'Mahlzeit hinzufügen' }}</flux:heading>
+        <form wire:submit="{{ $editingMealId !== null ? 'updateMeal' : 'addMeal' }}" class="space-y-4">
             <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
                 <flux:input label="Name" wire:model="mealName" placeholder="z.B. Frühstück" required />
                 <flux:input label="Uhrzeit" type="time" wire:model="mealTime" />
@@ -141,9 +141,9 @@
             </div>
             <div class="flex items-center gap-2">
                 <flux:button type="submit" variant="primary">
-                    {{ $editingMealIndex !== null ? 'Mahlzeit aktualisieren' : 'Mahlzeit speichern' }}
+                    {{ $editingMealId !== null ? 'Mahlzeit aktualisieren' : 'Mahlzeit speichern' }}
                 </flux:button>
-                @if($editingMealIndex !== null)
+                @if($editingMealId !== null)
                     <flux:button type="button" variant="subtle" wire:click="cancelMealEdit">Abbrechen</flux:button>
                 @endif
             </div>

@@ -20,14 +20,6 @@ class NutritionDayFactory extends Factory
             'date' => fake()->unique()->date(),
             'type' => fake()->randomElement(['training', 'rest', 'sick']),
             'training_label' => null,
-            'meals' => [
-                ['name' => 'Frühstück', 'time' => '08:00', 'kcal' => 500, 'protein' => 30, 'fat' => 20, 'carbs' => 50],
-                ['name' => 'Mittagessen', 'time' => '12:30', 'kcal' => 700, 'protein' => 40, 'fat' => 25, 'carbs' => 70],
-            ],
-            'total_kcal' => 1200,
-            'total_protein' => 70,
-            'total_fat' => 45,
-            'total_carbs' => 120,
         ];
     }
 

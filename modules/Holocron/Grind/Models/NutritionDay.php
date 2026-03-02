@@ -17,12 +17,7 @@ use Modules\Holocron\User\Models\User;
  * @property-read \Carbon\CarbonImmutable $date
  * @property-read string $type
  * @property-read ?string $training_label
- * @property array<int, array{name: string, time?: string, kcal: int, protein: int, fat: int, carbs: int}> $meals
  * @property-read ?string $notes
- * @property int $total_kcal
- * @property int $total_protein
- * @property int $total_fat
- * @property int $total_carbs
  */
 class NutritionDay extends Model
 {
@@ -35,14 +30,7 @@ class NutritionDay extends Model
     {
         $day = static::query()->firstOrCreate(
             ['date' => $date ?? today()],
-            [
-                'type' => 'rest',
-                'meals' => [],
-                'total_kcal' => 0,
-                'total_protein' => 0,
-                'total_fat' => 0,
-                'total_carbs' => 0,
-            ],
+            ['type' => 'rest'],
         );
 
         $updateData = ['type' => $type];
@@ -53,25 +41,13 @@ class NutritionDay extends Model
 
         $day->update($updateData);
 
-        $day->recalculateTotals();
-    }
-
-    public function recalculateTotals(): void
-    {
-        $this->total_kcal = (int) collect($this->meals)->sum('kcal');
-        $this->total_protein = (int) collect($this->meals)->sum('protein');
-        $this->total_fat = (int) collect($this->meals)->sum('fat');
-        $this->total_carbs = (int) collect($this->meals)->sum('carbs');
-        $this->save();
-
-        $this->syncProteinGoalProjection();
+        $day->syncProteinGoalProjection();
     }
 
     /**
      * @return HasMany<Meal, $this>
      */
-    // TODO: Rename to meals() after Task 2 removes the JSON meals column
-    public function mealRecords(): HasMany
+    public function meals(): HasMany
     {
         return $this->hasMany(Meal::class);
     }
@@ -85,7 +61,6 @@ class NutritionDay extends Model
     {
         return [
             'date' => 'date',
-            'meals' => 'array',
         ];
     }
 
@@ -110,7 +85,7 @@ class NutritionDay extends Model
         $goal->fill([
             'unit' => GoalType::Protein->unit()->value,
             'goal' => $this->proteinTargetFor($user),
-            'amount' => $this->total_protein,
+            'amount' => (int) $this->meals()->sum('protein'),
         ]);
 
         $goal->save();
