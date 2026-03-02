@@ -8,13 +8,10 @@ use App\Ai\Tools\AddNoteToQuest;
 use App\Ai\Tools\BrowseNotes;
 use App\Ai\Tools\CompleteQuest;
 use App\Ai\Tools\CreateQuest;
-use App\Ai\Tools\EditMeal;
 use App\Ai\Tools\GetQuest;
 use App\Ai\Tools\ListQuests;
 use App\Ai\Tools\LogBodyMeasurement;
-use App\Ai\Tools\LogMeal;
 use App\Ai\Tools\QueryBodyMeasurements;
-use App\Ai\Tools\QueryNutrition;
 use App\Ai\Tools\ReadNote;
 use App\Ai\Tools\SearchConversationHistory;
 use App\Ai\Tools\SearchNotes;
@@ -70,7 +67,6 @@ class ChopperAgent implements Agent, Conversational, HasTools
         - Nutze maximal ein Tool pro Anfrage, ausser die Quest-Aufloesung braucht den zweiten Schritt.
         - Bei Aufgabenfragen mit Listenwunsch zuerst ListQuests, bei Stichworten oder Namen zuerst SearchQuests.
         - Bei Notizen der Knowledge Base zuerst SearchNotes oder BrowseNotes und nur bei konkretem Pfad ReadNote.
-        - Bei Ernahrung: neue Mahlzeit = LogMeal, Mahlzeit bearbeiten = EditMeal, Auswertung/Status = QueryNutrition.
         - Bei Koerpermesswerten: neue Messung = LogBodyMeasurement, Auswertung/Verlauf = QueryBodyMeasurements.
         - Formatiere deine Antworten mit Markdown.
         - Nutze SearchConversationHistory proaktiv, wann immer vergangener Kontext deine Antwort bereichern koennte. Wenn ein Thema moeglicherweise schon besprochen wurde, wenn der Benutzer auf etwas Vergangenes verweist, oder wenn Kontinuitaet mit frueheren Gespraechen helfen wuerde — suche danach. Warte nicht auf ein explizites "erinnerst du dich" — wenn es auch nur eine Chance gibt, dass vergangener Kontext relevant ist, nutze das Tool.
@@ -97,9 +93,6 @@ class ChopperAgent implements Agent, Conversational, HasTools
             new ReadNote,
             new WriteNote,
             new SearchNotes,
-            new LogMeal,
-            new EditMeal,
-            new QueryNutrition,
             new LogBodyMeasurement,
             new QueryBodyMeasurements,
             new SearchConversationHistory,
