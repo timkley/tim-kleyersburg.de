@@ -27,7 +27,7 @@ class MealObserver
         $this->syncProteinGoal($meal->nutritionDay);
     }
 
-    private function syncProteinGoal(NutritionDay $day): void
+    public function syncProteinGoal(NutritionDay $day): void
     {
         $user = $this->resolveGoalUser();
 

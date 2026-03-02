@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Modules\Holocron\Grind\Database\Factories\NutritionDayFactory;
+use Modules\Holocron\Grind\Observers\MealObserver;
 
 /**
  * @property-read \Carbon\CarbonImmutable $date
@@ -38,8 +39,7 @@ class NutritionDay extends Model
 
         $day->update($updateData);
 
-        $firstMeal = $day->meals()->first();
-        $firstMeal?->touch();
+        app(MealObserver::class)->syncProteinGoal($day);
     }
 
     /**
