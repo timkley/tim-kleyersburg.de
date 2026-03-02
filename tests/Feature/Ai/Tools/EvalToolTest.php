@@ -119,6 +119,46 @@ it('allows collection methods', function () {
     expect($result)->toContain('6');
 });
 
+it('blocks call_user_func bypass', function () {
+    $tool = new EvalTool;
+
+    $result = (string) $tool->handle(new Request([
+        'code' => 'call_user_func("exec", "whoami");',
+    ]));
+
+    expect($result)->toContain('not allowed');
+});
+
+it('blocks array_map callable bypass', function () {
+    $tool = new EvalTool;
+
+    $result = (string) $tool->handle(new Request([
+        'code' => 'array_map("system", ["whoami"]);',
+    ]));
+
+    expect($result)->toContain('not allowed');
+});
+
+it('blocks backtick operator', function () {
+    $tool = new EvalTool;
+
+    $result = (string) $tool->handle(new Request([
+        'code' => '`whoami`;',
+    ]));
+
+    expect($result)->toContain('not allowed');
+});
+
+it('blocks ReflectionFunction bypass', function () {
+    $tool = new EvalTool;
+
+    $result = (string) $tool->handle(new Request([
+        'code' => '(new ReflectionFunction("exec"))->invoke("whoami");',
+    ]));
+
+    expect($result)->toContain('not allowed');
+});
+
 it('returns the expected schema definition', function () {
     $tool = new EvalTool;
 

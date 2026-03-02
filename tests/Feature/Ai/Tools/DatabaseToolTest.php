@@ -76,6 +76,46 @@ it('allows DESCRIBE queries', function () {
     expect($result)->toContain('date');
 });
 
+it('blocks INSERT into non-writable tables', function () {
+    $tool = new DatabaseTool;
+
+    $result = (string) $tool->handle(new Request([
+        'query' => "INSERT INTO users (email) VALUES ('hacked@test.com')",
+    ]));
+
+    expect($result)->toContain('not allowed');
+});
+
+it('blocks UPDATE on non-writable tables', function () {
+    $tool = new DatabaseTool;
+
+    $result = (string) $tool->handle(new Request([
+        'query' => "UPDATE users SET password = 'hacked' WHERE 1=1",
+    ]));
+
+    expect($result)->toContain('not allowed');
+});
+
+it('allows INSERT into writable tables', function () {
+    $tool = new DatabaseTool;
+
+    $result = (string) $tool->handle(new Request([
+        'query' => "INSERT INTO chopper_directives (content, created_at, updated_at) VALUES ('test', datetime('now'), datetime('now'))",
+    ]));
+
+    expect($result)->toContain('Insert');
+});
+
+it('returns error for malformed SQL', function () {
+    $tool = new DatabaseTool;
+
+    $result = (string) $tool->handle(new Request([
+        'query' => 'SELECT * FROM nonexistent_table_xyz',
+    ]));
+
+    expect($result)->toContain('Query error');
+});
+
 it('returns the expected schema definition', function () {
     $tool = new DatabaseTool;
 

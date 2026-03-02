@@ -20,6 +20,9 @@ class EvalTool implements Tool
         'unlink', 'rmdir', 'mkdir', 'rename', 'copy', 'chmod', 'chown',
         'glob', 'scandir', 'readdir', 'opendir',
         'eval', 'assert', 'preg_replace_callback_array',
+        'call_user_func', 'call_user_func_array',
+        'array_map', 'array_filter', 'array_walk', 'array_walk_recursive',
+        'usort', 'uasort', 'uksort',
     ];
 
     /** @var list<string> */
@@ -30,6 +33,9 @@ class EvalTool implements Tool
         'Illuminate\\Support\\Facades\\Process',
         'Illuminate\\Filesystem',
         'Symfony\\Component\\Process',
+        'ReflectionFunction',
+        'ReflectionMethod',
+        'ReflectionClass',
     ];
 
     /**
@@ -93,6 +99,10 @@ class EvalTool implements Tool
 
     private function findViolation(string $code): ?string
     {
+        if (str_contains($code, '`')) {
+            return 'backtick operator';
+        }
+
         foreach (self::BLOCKED_FUNCTIONS as $function) {
             if (preg_match('/\b'.preg_quote($function, '/').'\s*\(/', $code)) {
                 return $function;

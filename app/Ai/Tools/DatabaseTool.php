@@ -16,6 +16,15 @@ class DatabaseTool implements Tool
     /** @var list<string> */
     private const array ALLOWED_STATEMENTS = ['select', 'insert', 'update', 'show', 'describe', 'explain', 'pragma'];
 
+    /** @var list<string> */
+    private const array WRITABLE_TABLE_PREFIXES = [
+        'grind_',
+        'quest',
+        'daily_goals',
+        'agent_conversation',
+        'chopper_directives',
+    ];
+
     /**
      * Get the description of the tool's purpose.
      */
@@ -34,6 +43,10 @@ class DatabaseTool implements Tool
 
         if (! in_array($statementType, self::ALLOWED_STATEMENTS, true)) {
             return "Statement type '{$statementType}' is not allowed. Only SELECT, INSERT, UPDATE, SHOW, DESCRIBE, EXPLAIN, and PRAGMA are permitted.";
+        }
+
+        if (in_array($statementType, ['insert', 'update'], true) && ! $this->isWritableTable($query, $statementType)) {
+            return 'Write operation not allowed on this table. Only tables with these prefixes are writable: '.implode(', ', self::WRITABLE_TABLE_PREFIXES);
         }
 
         try {
@@ -60,6 +73,45 @@ class DatabaseTool implements Tool
     private function parseStatementType(string $query): string
     {
         return mb_strtolower(strtok($query, " \t\n\r") ?: '');
+    }
+
+    private function isWritableTable(string $query, string $statementType): bool
+    {
+        $table = match ($statementType) {
+            'insert' => $this->extractInsertTable($query),
+            'update' => $this->extractUpdateTable($query),
+            default => null,
+        };
+
+        if ($table === null) {
+            return false;
+        }
+
+        foreach (self::WRITABLE_TABLE_PREFIXES as $prefix) {
+            if (str_starts_with($table, $prefix)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private function extractInsertTable(string $query): ?string
+    {
+        if (preg_match('/insert\s+into\s+[`"\']?(\w+)[`"\']?/i', $query, $matches)) {
+            return mb_strtolower($matches[1]);
+        }
+
+        return null;
+    }
+
+    private function extractUpdateTable(string $query): ?string
+    {
+        if (preg_match('/update\s+[`"\']?(\w+)[`"\']?/i', $query, $matches)) {
+            return mb_strtolower($matches[1]);
+        }
+
+        return null;
     }
 
     private function executeSelect(string $query): string
