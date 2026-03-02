@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Modules\Holocron\Grind\Database\Factories\MealFactory;
+use Modules\Holocron\Grind\Observers\MealObserver;
 
 /**
  * @property-read int $id
@@ -32,6 +33,11 @@ class Meal extends Model
     public function nutritionDay(): BelongsTo
     {
         return $this->belongsTo(NutritionDay::class);
+    }
+
+    protected static function booted(): void
+    {
+        static::observe(MealObserver::class);
     }
 
     protected static function newFactory(): MealFactory
