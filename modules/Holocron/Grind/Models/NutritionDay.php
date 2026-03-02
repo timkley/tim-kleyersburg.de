@@ -7,6 +7,7 @@ namespace Modules\Holocron\Grind\Models;
 use Carbon\CarbonInterface;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Modules\Holocron\Grind\Database\Factories\NutritionDayFactory;
 use Modules\Holocron\User\Enums\GoalType;
 use Modules\Holocron\User\Models\DailyGoal;
@@ -64,6 +65,14 @@ class NutritionDay extends Model
         $this->save();
 
         $this->syncProteinGoalProjection();
+    }
+
+    /**
+     * @return HasMany<Meal, $this>
+     */
+    public function mealRecords(): HasMany
+    {
+        return $this->hasMany(Meal::class);
     }
 
     protected static function newFactory(): NutritionDayFactory
