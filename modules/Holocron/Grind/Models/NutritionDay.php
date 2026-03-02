@@ -70,6 +70,7 @@ class NutritionDay extends Model
     /**
      * @return HasMany<Meal, $this>
      */
+    // TODO: Rename to meals() after Task 2 removes the JSON meals column
     public function mealRecords(): HasMany
     {
         return $this->hasMany(Meal::class);
