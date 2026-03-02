@@ -2,9 +2,9 @@
 
 > **For Claude:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task.
 
-**Goal:** Replace Chopper's 17 specialized tools with 3 general-purpose tools (DatabaseTool, EvalTool, FilesystemTool), normalize the meals JSON column into its own table, and add a MealObserver for protein goal syncing.
+**Goal:** Replace Chopper's 17 specialized tools with 3 general-purpose tools (DatabaseTool, EvalTool, FilesystemTool), normalize the meals JSON column into its own table, add a MealObserver for protein goal syncing, and add teachable directives so Chopper can learn new behavioral rules at runtime.
 
-**Architecture:** Three tools replace all domain-specific tools. DatabaseTool handles raw SQL (SELECT/INSERT/UPDATE), EvalTool runs allowlisted PHP for Scout search and calculations, FilesystemTool consolidates knowledge base file operations. Schema context is auto-injected into the system prompt via a SchemaProvider. Meals are normalized from JSON into a `grind_meals` table.
+**Architecture:** Three tools replace all domain-specific tools. DatabaseTool handles raw SQL (SELECT/INSERT/UPDATE), EvalTool runs allowlisted PHP for Scout search and calculations, FilesystemTool consolidates knowledge base file operations. Schema context is auto-injected into the system prompt via a SchemaProvider. Meals are normalized from JSON into a `grind_meals` table. A `chopper_directives` table stores teachable behavioral rules that are loaded into the system prompt at boot.
 
 **Tech Stack:** Laravel 12, laravel/ai v0, Pest 4, SQLite
 
@@ -1297,6 +1297,7 @@ it('generates a compact schema summary string', function () {
         ->toContain('quests')
         ->toContain('quest_notes')
         ->toContain('agent_conversation_messages')
+        ->toContain('chopper_directives')
         ->not->toContain('migrations')
         ->not->toContain('password_reset_tokens');
 });
@@ -1340,6 +1341,7 @@ class SchemaProvider
         'quest',
         'daily_goals',
         'agent_conversation',
+        'chopper_directives',
         'users',
         'user_settings',
     ];
@@ -1402,7 +1404,158 @@ git commit -m "feat: add SchemaProvider for auto-injecting database schema into 
 
 ---
 
-### Task 8: Rewrite ChopperAgent to use new tools and system prompt
+### Task 8: Add chopper_directives table and DirectivesProvider
+
+**Files:**
+- Create: migration for `chopper_directives` table
+- Create: `app/Ai/Providers/DirectivesProvider.php`
+- Test: `tests/Feature/Ai/Providers/DirectivesProviderTest.php`
+
+**Step 1: Write the failing test**
+
+Create `tests/Feature/Ai/Providers/DirectivesProviderTest.php`:
+
+```php
+<?php
+
+declare(strict_types=1);
+
+use App\Ai\Providers\DirectivesProvider;
+use Illuminate\Support\Facades\DB;
+
+it('returns empty string when no directives exist', function () {
+    $provider = new DirectivesProvider;
+
+    expect($provider->generate())->toBe('');
+});
+
+it('returns formatted directives section when active directives exist', function () {
+    DB::table('chopper_directives')->insert([
+        ['content' => 'Zeige immer Protein-Ziele beim Loggen', 'created_at' => now(), 'updated_at' => now()],
+        ['content' => 'Antworte mit Emojis', 'created_at' => now(), 'updated_at' => now()],
+    ]);
+
+    $provider = new DirectivesProvider;
+    $result = $provider->generate();
+
+    expect($result)
+        ->toContain('Deine gelernten Regeln')
+        ->toContain('Zeige immer Protein-Ziele beim Loggen')
+        ->toContain('Antworte mit Emojis');
+});
+
+it('excludes deactivated directives', function () {
+    DB::table('chopper_directives')->insert([
+        ['content' => 'Active rule', 'deactivated_at' => null, 'created_at' => now(), 'updated_at' => now()],
+        ['content' => 'Inactive rule', 'deactivated_at' => now(), 'created_at' => now(), 'updated_at' => now()],
+    ]);
+
+    $provider = new DirectivesProvider;
+    $result = $provider->generate();
+
+    expect($result)
+        ->toContain('Active rule')
+        ->not->toContain('Inactive rule');
+});
+```
+
+**Step 2: Run test to verify it fails**
+
+Run: `php artisan test --compact --filter=DirectivesProviderTest`
+Expected: FAIL (table doesn't exist)
+
+**Step 3: Create the migration**
+
+Run: `php artisan make:migration create_chopper_directives_table --no-interaction`
+
+Replace contents:
+
+```php
+<?php
+
+declare(strict_types=1);
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::create('chopper_directives', function (Blueprint $table) {
+            $table->id();
+            $table->text('content');
+            $table->datetime('deactivated_at')->nullable();
+            $table->timestamps();
+        });
+    }
+};
+```
+
+**Step 4: Create DirectivesProvider**
+
+Create `app/Ai/Providers/DirectivesProvider.php`:
+
+```php
+<?php
+
+declare(strict_types=1);
+
+namespace App\Ai\Providers;
+
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
+
+class DirectivesProvider
+{
+    public function generate(): string
+    {
+        if (! Schema::hasTable('chopper_directives')) {
+            return '';
+        }
+
+        $directives = DB::select('SELECT content FROM chopper_directives WHERE deactivated_at IS NULL ORDER BY id');
+
+        if (empty($directives)) {
+            return '';
+        }
+
+        $output = "## Deine gelernten Regeln\n\n";
+        $output .= "Die folgenden Regeln hast du dir gemerkt. Befolge sie immer:\n";
+
+        foreach ($directives as $directive) {
+            $output .= "- {$directive->content}\n";
+        }
+
+        return $output;
+    }
+}
+```
+
+**Step 5: Run the migration**
+
+Run: `php artisan migrate --no-interaction`
+
+**Step 6: Run tests**
+
+Run: `php artisan test --compact --filter=DirectivesProviderTest`
+Expected: PASS
+
+**Step 7: Run verification**
+
+Run: `composer phpstan && vendor/bin/pint --dirty --format agent`
+
+**Step 8: Commit**
+
+```bash
+git add -A
+git commit -m "feat: add chopper_directives table and DirectivesProvider"
+```
+
+---
+
+### Task 9: Rewrite ChopperAgent to use new tools and system prompt
 
 **Files:**
 - Modify: `app/Ai/Agents/ChopperAgent.php`
@@ -1421,6 +1574,7 @@ use App\Ai\Agents\ChopperAgent;
 use App\Ai\Tools\DatabaseTool;
 use App\Ai\Tools\EvalTool;
 use App\Ai\Tools\FilesystemTool;
+use Illuminate\Support\Facades\DB;
 
 it('registers exactly three tools', function () {
     $agent = new ChopperAgent;
@@ -1459,6 +1613,33 @@ it('includes tool selection guidance in instructions', function () {
         ->toContain('EvalTool')
         ->toContain('FilesystemTool');
 });
+
+it('includes active directives in instructions', function () {
+    DB::table('chopper_directives')->insert([
+        ['content' => 'Zeige immer Protein-Ziele', 'created_at' => now(), 'updated_at' => now()],
+    ]);
+
+    $agent = new ChopperAgent;
+    $instructions = (string) $agent->instructions();
+
+    expect($instructions)
+        ->toContain('Deine gelernten Regeln')
+        ->toContain('Zeige immer Protein-Ziele');
+});
+
+it('omits directives section when no directives exist', function () {
+    $agent = new ChopperAgent;
+    $instructions = (string) $agent->instructions();
+
+    expect($instructions)->not->toContain('Deine gelernten Regeln');
+});
+
+it('includes directive management instructions', function () {
+    $agent = new ChopperAgent;
+    $instructions = (string) $agent->instructions();
+
+    expect($instructions)->toContain('chopper_directives');
+});
 ```
 
 **Step 2: Run test to verify it fails**
@@ -1477,6 +1658,7 @@ declare(strict_types=1);
 
 namespace App\Ai\Agents;
 
+use App\Ai\Providers\DirectivesProvider;
 use App\Ai\Providers\SchemaProvider;
 use App\Ai\Tools\DatabaseTool;
 use App\Ai\Tools\EvalTool;
@@ -1506,6 +1688,7 @@ class ChopperAgent implements Agent, Conversational, HasTools
         $date = now()->format('l, j. F Y');
         $time = now()->toTimeString();
         $schema = (new SchemaProvider)->generate();
+        $directives = (new DirectivesProvider)->generate();
 
         return <<<EOT
         Du bist Chopper, ein hilfreicher Assistent basierend auf dem Droiden C1-10P aus Star Wars Rebels.
@@ -1553,6 +1736,11 @@ class ChopperAgent implements Agent, Conversational, HasTools
         - Halte deine Antworten kurz und fokussiert.
         - Formatiere deine Antworten mit Markdown.
         - Nutze SearchConversationHistory (via EvalTool) proaktiv, wann immer vergangener Kontext relevant sein koennte.
+        - Wenn der Benutzer dir sagt, dass du dir etwas merken sollst, speichere es als Direktive in der Tabelle `chopper_directives` (INSERT via DatabaseTool).
+        - Zum Deaktivieren einer Direktive: UPDATE chopper_directives SET deactivated_at = datetime('now') WHERE id = ?
+        - Zum Auflisten deiner Regeln: SELECT * FROM chopper_directives WHERE deactivated_at IS NULL
+
+        {$directives}
 
         ## Datenbank-Schema
 
@@ -1592,7 +1780,7 @@ git commit -m "feat: rewrite ChopperAgent to use DatabaseTool, EvalTool, Filesys
 
 ---
 
-### Task 9: Remove old tools and their tests
+### Task 10: Remove old tools and their tests
 
 **Files:**
 - Delete: `app/Ai/Tools/SearchQuests.php`
@@ -1695,7 +1883,7 @@ git commit -m "chore: remove 17 old Chopper tools and their tests"
 
 ---
 
-### Task 10: Final integration verification
+### Task 11: Final integration verification
 
 **Step 1: Run the full test suite**
 
