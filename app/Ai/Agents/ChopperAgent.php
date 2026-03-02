@@ -82,7 +82,6 @@ class ChopperAgent implements Agent, Conversational, HasTools
         - Sei humorvoll und motivierend, aber bleibe hilfreich und praezise.
         - Halte deine Antworten kurz und fokussiert.
         - Formatiere deine Antworten mit Markdown.
-        - Nutze SearchConversationHistory (via EvalTool) proaktiv, wann immer vergangener Kontext relevant sein koennte.
         - Wenn der Benutzer dir sagt, dass du dir etwas merken sollst, speichere es als Direktive in der Tabelle `chopper_directives` (INSERT via DatabaseTool).
         - Zum Deaktivieren einer Direktive: UPDATE chopper_directives SET deactivated_at = datetime('now') WHERE id = ?
         - Zum Auflisten deiner Regeln: SELECT * FROM chopper_directives WHERE deactivated_at IS NULL
