@@ -24,7 +24,9 @@ class MealObserver
 
     public function deleted(Meal $meal): void
     {
-        $this->syncProteinGoal($meal->nutritionDay);
+        if ($meal->nutritionDay !== null) {
+            $this->syncProteinGoal($meal->nutritionDay);
+        }
     }
 
     public function syncProteinGoal(NutritionDay $day): void

@@ -16,10 +16,6 @@ beforeEach(function () {
     file_put_contents($this->testDir.'/Projects/test.md', '# Test Note');
 
     app()->instance(NotesService::class, new NotesService($this->testDir));
-
-    Process::fake([
-        'git *' => Process::result(output: 'Already up to date.'),
-    ]);
 });
 
 afterEach(function () {
@@ -61,6 +57,8 @@ it('searches for content', function () {
 });
 
 it('writes a file and reports sync result', function () {
+    Process::fake();
+
     $tool = new FilesystemTool;
 
     $result = (string) $tool->handle(new Request([

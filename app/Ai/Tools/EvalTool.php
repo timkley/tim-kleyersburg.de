@@ -19,23 +19,30 @@ class EvalTool implements Tool
         'file_get_contents', 'file_put_contents', 'fopen', 'fwrite', 'fread',
         'unlink', 'rmdir', 'mkdir', 'rename', 'copy', 'chmod', 'chown',
         'glob', 'scandir', 'readdir', 'opendir',
-        'eval', 'assert', 'preg_replace_callback_array',
+        'eval', 'assert', 'preg_replace_callback_array', 'preg_replace_callback',
         'call_user_func', 'call_user_func_array',
         'array_map', 'array_filter', 'array_walk', 'array_walk_recursive',
         'usort', 'uasort', 'uksort',
+        'chr', 'ord',
+    ];
+
+    /** @var list<string> */
+    private const array BLOCKED_PATTERNS = [
+        '/\bStorage\s*::/',
+        '/\bFile\s*::/',
+        '/\bProcess\s*::/',
+        '/\bReflectionFunction\b/',
+        '/\bReflectionMethod\b/',
+        '/\bReflectionClass\b/',
     ];
 
     /** @var list<string> */
     private const array BLOCKED_CLASSES = [
-        'Storage', 'File', 'Process',
         'Illuminate\\Support\\Facades\\Storage',
         'Illuminate\\Support\\Facades\\File',
         'Illuminate\\Support\\Facades\\Process',
         'Illuminate\\Filesystem',
         'Symfony\\Component\\Process',
-        'ReflectionFunction',
-        'ReflectionMethod',
-        'ReflectionClass',
     ];
 
     /**
@@ -59,8 +66,9 @@ class EvalTool implements Tool
             return "Code not allowed: '{$violation}' is blocked for security. Allowed: models, Carbon, Collection, Str, Arr, Http, and math functions.";
         }
 
+        ob_start();
+
         try {
-            ob_start();
             $returnValue = eval($code);
             $output = ob_get_clean();
 
@@ -83,6 +91,8 @@ class EvalTool implements Tool
 
             return $result !== '' ? $result : 'Code executed successfully (no output).';
         } catch (Throwable $e) {
+            ob_get_clean();
+
             return "Execution error: {$e->getMessage()}";
         }
     }
@@ -103,9 +113,20 @@ class EvalTool implements Tool
             return 'backtick operator';
         }
 
+        // Block variable function calls: $fn(...), $var(...)
+        if (preg_match('/\$\w+\s*\(/', $code)) {
+            return 'variable function call';
+        }
+
         foreach (self::BLOCKED_FUNCTIONS as $function) {
             if (preg_match('/\b'.preg_quote($function, '/').'\s*\(/', $code)) {
                 return $function;
+            }
+        }
+
+        foreach (self::BLOCKED_PATTERNS as $pattern) {
+            if (preg_match($pattern, $code, $matches)) {
+                return mb_trim($matches[0]);
             }
         }
 

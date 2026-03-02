@@ -159,6 +159,47 @@ it('blocks ReflectionFunction bypass', function () {
     expect($result)->toContain('not allowed');
 });
 
+it('blocks variable function calls', function () {
+    $tool = new EvalTool;
+
+    $result = (string) $tool->handle(new Request([
+        'code' => '$fn = "exec"; $fn("whoami");',
+    ]));
+
+    expect($result)->toContain('not allowed');
+});
+
+it('blocks chr construction of function names', function () {
+    $tool = new EvalTool;
+
+    $result = (string) $tool->handle(new Request([
+        'code' => 'chr(101).chr(120).chr(101).chr(99);',
+    ]));
+
+    expect($result)->toContain('not allowed');
+});
+
+it('blocks short facade names used as static calls', function () {
+    $tool = new EvalTool;
+
+    $result = (string) $tool->handle(new Request([
+        'code' => 'Storage::get("test");',
+    ]));
+
+    expect($result)->toContain('not allowed');
+});
+
+it('does not false-positive on variable names containing blocked substrings', function () {
+    $tool = new EvalTool;
+
+    $result = (string) $tool->handle(new Request([
+        'code' => 'return "ProfileStorage";',
+    ]));
+
+    expect($result)->not->toContain('not allowed')
+        ->and($result)->toContain('ProfileStorage');
+});
+
 it('returns the expected schema definition', function () {
     $tool = new EvalTool;
 
