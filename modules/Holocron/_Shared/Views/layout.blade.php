@@ -35,4 +35,5 @@
     @endpersist
 
     <script type="module" src="{{ asset('js/longpress.js') }}"></script>
+    @vite('resources/js/echo.js')
 </x-layouts.app>

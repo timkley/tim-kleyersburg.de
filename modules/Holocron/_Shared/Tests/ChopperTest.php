@@ -57,10 +57,11 @@ it('can ask the agent and receive a response', function () {
 
     Livewire::actingAs($user)
         ->test(Chopper::class)
-        ->call('ask', 'Hallo Chopper!')
-        ->assertSet('isStreaming', false);
+        ->set('message', 'Hallo Chopper!')
+        ->call('send')
+        ->call('ask', 'Hallo Chopper!');
 
-    ChopperAgent::assertPrompted('Hallo Chopper!');
+    ChopperAgent::assertQueued('Hallo Chopper!');
 });
 
 it('does not send empty messages', function () {
@@ -73,7 +74,7 @@ it('does not send empty messages', function () {
         ->set('message', '   ')
         ->call('send');
 
-    ChopperAgent::assertNeverPrompted();
+    ChopperAgent::assertNeverQueued();
 });
 
 it('dispatches message-sent event when sending a message', function () {
@@ -207,7 +208,7 @@ it('passes attachments to the agent when asking', function () {
 
     $component->call('ask', 'Beschreibe das Bild', $storedFiles);
 
-    ChopperAgent::assertPrompted('Beschreibe das Bild');
+    ChopperAgent::assertQueued('Beschreibe das Bild');
 });
 
 it('sends without attachments still works', function () {
@@ -240,10 +241,11 @@ it('continues an existing conversation when conversationId is set', function () 
 
     Livewire::actingAs($user)
         ->test(Chopper::class, ['conversationId' => $conversationId])
-        ->call('ask', 'Continue the conversation')
-        ->assertSet('isStreaming', false);
+        ->set('message', 'Continue the conversation')
+        ->call('send')
+        ->call('ask', 'Continue the conversation');
 
-    ChopperAgent::assertPrompted('Continue the conversation');
+    ChopperAgent::assertQueued('Continue the conversation');
 });
 
 it('removes an attachment by index', function () {

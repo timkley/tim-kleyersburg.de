@@ -5,12 +5,13 @@ declare(strict_types=1);
 namespace Modules\Holocron\_Shared\Livewire;
 
 use App\Ai\Agents\ChopperAgent;
+use Flux;
+use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use Illuminate\View\View;
 use Laravel\Ai\Files\Image as AiImage;
-use Laravel\Ai\Responses\StreamedAgentResponse;
-use Laravel\Ai\Streaming\Events\TextDelta;
 use Livewire\Attributes\Title;
 use Livewire\WithFileUploads;
 use stdClass;
@@ -73,12 +74,18 @@ class Chopper extends HolocronComponent
         $this->streamedResponse = '';
         $this->isStreaming = true;
 
+        // Generate channel ID for new conversations
+        if (! $this->conversationId) {
+            $this->conversationId = Str::uuid()->toString();
+        }
+
         $this->messages[] = [
             'role' => 'user',
             'content' => $userMessage,
             'attachments' => $storagePaths,
         ];
 
+        $this->dispatch('chopper-subscribe', conversationId: $this->conversationId);
         $this->dispatch('message-sent');
 
         $this->js('$wire.ask('.json_encode($userMessage, JSON_THROW_ON_ERROR).', '.json_encode($storagePaths, JSON_THROW_ON_ERROR).')');
@@ -93,40 +100,43 @@ class Chopper extends HolocronComponent
             $storagePaths,
         );
 
-        if ($this->conversationId) {
-            $stream = $agent->continue($this->conversationId, auth()->user())->stream($userMessage, $attachments);
+        $isNewConversation = ! DB::table('agent_conversations')->where('id', $this->conversationId)->exists();
+
+        if ($isNewConversation) {
+            $agent->forUser(auth()->user());
         } else {
-            $stream = $agent->forUser(auth()->user())->stream($userMessage, $attachments);
+            $agent->continue($this->conversationId, auth()->user());
         }
 
-        foreach ($stream as $event) {
-            if (! $event instanceof TextDelta) {
-                continue;
+        $channel = new PrivateChannel('chopper.conversation.'.$this->conversationId);
+        $agent->broadcastOnQueue($userMessage, $channel, $attachments);
+    }
+
+    public function streamCompleted(): void
+    {
+        // If conversationId was a temp UUID, find the real one
+        $exists = DB::table('agent_conversations')->where('id', $this->conversationId)->exists();
+        if (! $exists) {
+            $realId = DB::table('agent_conversations')
+                ->where('user_id', auth()->id())
+                ->orderByDesc('created_at')
+                ->value('id');
+            if ($realId) {
+                $this->conversationId = $realId;
             }
-
-            $this->streamedResponse .= $event->delta;
-
-            $this->stream(
-                to: 'assistant-response',
-                content: str($this->streamedResponse)->markdown(),
-                replace: true,
-            );
         }
 
-        $this->messages[] = ['role' => 'assistant', 'content' => $this->streamedResponse];
-
-        $stream->then(function (StreamedAgentResponse $response): void {
-            if (! $this->conversationId && $response->conversationId) {
-                $this->conversationId = $response->conversationId;
-
-                $this->js(
-                    "history.replaceState({}, '', '".route('holocron.chopper', $response->conversationId)."')"
-                );
-            }
-        });
-
+        $this->loadMessages();
         $this->isStreaming = false;
         $this->streamedResponse = '';
+        $this->js("history.replaceState({}, '', '".route('holocron.chopper', $this->conversationId)."')");
+    }
+
+    public function handleStreamError(string $message): void
+    {
+        $this->isStreaming = false;
+        $this->streamedResponse = '';
+        Flux::toast(text: $message, variant: 'danger');
     }
 
     public function removeAttachment(int $index): void

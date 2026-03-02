@@ -1,4 +1,8 @@
-<div class="flex h-[calc(100dvh-12rem)] min-h-0 flex-col gap-2 md:h-[calc(100vh-12rem)] md:flex-row md:gap-6">
+<div
+    x-data="chopperChat($wire.conversationId, $wire.isStreaming)"
+    x-on:chopper-subscribe.window="subscribe($event.detail.conversationId)"
+    class="flex h-[calc(100dvh-12rem)] min-h-0 flex-col gap-2 md:h-[calc(100vh-12rem)] md:flex-row md:gap-6"
+>
     {{-- Sidebar: Conversation List (Desktop) --}}
     <div class="hidden w-64 shrink-0 flex-col gap-2 overflow-y-auto md:flex">
         <flux:button :href="route('holocron.chopper')" variant="primary" class="w-full" wire:navigate>
@@ -128,12 +132,11 @@
             @if ($isStreaming)
                 <div class="flex justify-start">
                     <div class="max-w-[80%] rounded-2xl bg-zinc-100 px-4 py-2 dark:bg-zinc-800">
-                        <div class="prose prose-sm dark:prose-invert" wire:stream="assistant-response">
-                            @if ($streamedResponse === '')
+                        <div class="prose prose-sm dark:prose-invert">
+                            <template x-if="streamContent === ''">
                                 <flux:icon.loading class="size-5 text-zinc-400" />
-                            @else
-                                {!! str($streamedResponse)->markdown() !!}
-                            @endif
+                            </template>
+                            <div x-show="streamContent !== ''" x-text="streamContent" style="white-space: pre-wrap;"></div>
                         </div>
                     </div>
                 </div>
@@ -236,3 +239,53 @@
         </form>
     </div>
 </div>
+
+@script
+<script>
+Alpine.data('chopperChat', (initialConversationId, initialIsStreaming) => ({
+    channel: null,
+    subscribedConversationId: null,
+    streamContent: '',
+    safetyTimeout: null,
+
+    init() {
+        if (initialConversationId && initialIsStreaming) {
+            this.subscribe(initialConversationId)
+        }
+    },
+
+    subscribe(conversationId) {
+        this.unsubscribe()
+        this.streamContent = ''
+        this.subscribedConversationId = conversationId
+
+        this.channel = window.Echo.private(`chopper.conversation.${conversationId}`)
+            .listen('.text_delta', (e) => { this.streamContent += e.delta })
+            .listen('.stream_end', () => {
+                this.$wire.streamCompleted()
+                this.unsubscribe()
+            })
+
+        // Safety timeout: if job fails or stream_end never arrives
+        this.safetyTimeout = setTimeout(() => {
+            this.$wire.streamCompleted()
+            this.unsubscribe()
+        }, 300000) // 5 minutes
+    },
+
+    unsubscribe() {
+        if (this.safetyTimeout) {
+            clearTimeout(this.safetyTimeout)
+            this.safetyTimeout = null
+        }
+        if (this.subscribedConversationId) {
+            window.Echo.leave(`chopper.conversation.${this.subscribedConversationId}`)
+            this.subscribedConversationId = null
+            this.channel = null
+        }
+    },
+
+    destroy() { this.unsubscribe() }
+}))
+</script>
+@endscript
