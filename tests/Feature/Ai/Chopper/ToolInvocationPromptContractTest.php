@@ -19,15 +19,12 @@ use App\Ai\Tools\SearchQuests;
 use App\Ai\Tools\WriteNote;
 use Laravel\Ai\Contracts\Tool;
 
-it('defines name-first quest routing anchors in chopper instructions', function () {
+it('defines name-first quest resolution guidance in chopper instructions', function () {
     $instructions = (string) (new ChopperAgent)->instructions();
 
     expect($instructions)->toContain(
-        'Nutzer nennen Quests fast immer ueber Namen, nicht ueber IDs.',
-        'Bei Quest-Namen zuerst SearchQuests oder ListQuests nutzen.',
-        'ID-basierte Quest-Tools (GetQuest, CompleteQuest, AddNoteToQuest) erst nach Aufloesung verwenden.',
-        'Wenn mehrere Quests passen, frage nach, bevor du eine schreibende Aktion ausfuehrst.',
-        'Nutze maximal ein Tool pro Anfrage, ausser die Quest-Aufloesung braucht den zweiten Schritt.'
+        'Nutzer referenzieren Quests fast immer ueber Namen',
+        'Quest::search(\'name\')',
     );
 });
 

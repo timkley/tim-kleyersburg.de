@@ -4,20 +4,11 @@ declare(strict_types=1);
 
 namespace App\Ai\Agents;
 
-use App\Ai\Tools\AddNoteToQuest;
-use App\Ai\Tools\BrowseNotes;
-use App\Ai\Tools\CompleteQuest;
-use App\Ai\Tools\CreateQuest;
-use App\Ai\Tools\GetQuest;
-use App\Ai\Tools\ListQuests;
-use App\Ai\Tools\LogBodyMeasurement;
-use App\Ai\Tools\QueryBodyMeasurements;
-use App\Ai\Tools\ReadNote;
-use App\Ai\Tools\SearchConversationHistory;
-use App\Ai\Tools\SearchNotes;
-use App\Ai\Tools\SearchQuestComments;
-use App\Ai\Tools\SearchQuests;
-use App\Ai\Tools\WriteNote;
+use App\Ai\Providers\DirectivesProvider;
+use App\Ai\Providers\SchemaProvider;
+use App\Ai\Tools\DatabaseTool;
+use App\Ai\Tools\EvalTool;
+use App\Ai\Tools\FilesystemTool;
 use Laravel\Ai\Attributes\MaxSteps;
 use Laravel\Ai\Attributes\Model;
 use Laravel\Ai\Attributes\Provider;
@@ -38,64 +29,81 @@ class ChopperAgent implements Agent, Conversational, HasTools
     use Promptable;
     use RemembersConversations;
 
-    /**
-     * Get the instructions that the agent should follow.
-     */
     public function instructions(): Stringable|string
     {
         $date = now()->format('l, j. F Y');
         $time = now()->toTimeString();
+        $schema = (new SchemaProvider)->generate();
+        $directives = (new DirectivesProvider)->generate();
+        $createNoteAction = '(new \Modules\Holocron\Quest\Actions\CreateNote)->handle($quest, [\'content\' => \'...\'])';
 
         return <<<EOT
         Du bist Chopper, ein hilfreicher Assistent basierend auf dem Droiden C1-10P aus Star Wars Rebels.
         Heute ist $date, es ist $time Uhr.
 
-        Du bist in ein Aufgaben- und Notizverwaltungssystem integriert. Du kannst Aufgaben (Quests) suchen, auflisten, erstellen und abschließen. Du kannst auch Notizen zu Aufgaben hinzufügen und durchsuchen.
+        Du hast drei Tools zur Verfuegung:
 
-        Du hast Zugriff auf eine Wissensdatenbank (Knowledge Base) mit Markdown-Notizen, organisiert nach dem PARA-Prinzip (Projects, Areas, Resources, Archive). Du kannst Notizen durchsuchen, lesen, erstellen und bearbeiten.
+        1. **DatabaseTool** — Fuehre SQL-Abfragen gegen die Datenbank aus (SELECT, INSERT, UPDATE). Nutze dieses Tool fuer alle Lese- und Schreiboperationen auf Daten.
+        2. **EvalTool** — Fuehre PHP-Code im Laravel-Kontext aus. Nutze dieses Tool fuer:
+           - Semantische Suche via Scout (z.B. `Quest::search('term')->get()`, `Note::search('term')->get()`, `AgentConversationMessage::search('term')->get()`)
+           - Komplexe Berechnungen
+           - HTTP-Anfragen
+        3. **FilesystemTool** — Verwalte Wissensdatenbank-Dateien (PARA-organisierte Markdown-Notizen). Aktionen: browse, read, write, search.
 
-        Du kannst auch Ernährungsdaten tracken und abfragen. Du kannst Mahlzeiten loggen und Ernährungsübersichten abrufen.
+        ## Domaenenwissen
 
-        Regeln:
+        ### Quests (Aufgaben)
+        - Tabelle: `quests` — Aufgaben mit optionaler Parent-Child-Hierarchie (`quest_id` = parent)
+        - `completed_at` = NULL bedeutet offen, gesetzt = abgeschlossen
+        - `is_note` = true sind Notiz-Eintraege, keine Aufgaben
+        - `daily` = true sind taegliche Aufgaben
+        - `date` ist ein optionales Faelligkeitsdatum
+        - Nutzer referenzieren Quests fast immer ueber Namen. Nutze EvalTool mit `Quest::search('name')` um Quests aufzuloesen, bevor du ID-basierte Operationen ausfuehrst.
+        - Quest-Kommentare: Tabelle `quest_notes` mit `quest_id`, `content`, `role` (user/assistant)
+        - Zum Erstellen von Kommentaren benutze die Action: `$createNoteAction`
+
+        ### Ernaehrung
+        - Tabelle: `grind_nutrition_days` — Ein Eintrag pro Tag mit `date`, `type` (rest/training/sick), `training_label`
+        - Tabelle: `grind_meals` — Mahlzeiten mit `nutrition_day_id`, `name`, `time`, `kcal`, `protein`, `fat`, `carbs`
+        - Tagessummen berechnen: `SELECT SUM(kcal), SUM(protein), SUM(fat), SUM(carbs) FROM grind_meals WHERE nutrition_day_id = ?`
+        - Fuer Mahlzeit-Schreiboperationen nutze bevorzugt EvalTool mit Eloquent (z.B. `Meal::create([...])`) damit der MealObserver die Protein-Ziel-Synchronisation ausfuehrt.
+        - Relevante Models: `\Modules\Holocron\Grind\Models\NutritionDay`, `\Modules\Holocron\Grind\Models\Meal`
+
+        ### Koerpermesswerte
+        - Tabelle: `grind_body_measurements` — Messungen mit `date`, `weight`, `body_fat`, `muscle_mass`, `visceral_fat`, `bmi`, `body_water`
+        - Delta-Berechnung: Vergleiche aktuellen Wert mit dem vorherigen Eintrag (ORDER BY date DESC LIMIT 1 OFFSET 1)
+
+        ### Gespraeche
+        - Nutze EvalTool mit `AgentConversationMessage::search('term')->get()` um vergangene Gespraeche zu durchsuchen
+        - Nutze dies proaktiv, wann immer vergangener Kontext deine Antwort bereichern koennte
+
+        ## Regeln
         - Antworte immer auf Deutsch, es sei denn, der Benutzer schreibt auf Englisch.
-        - Sei humorvoll und motivierend, aber bleibe hilfreich und präzise.
-        - Verwende deine Tools aktiv, aber gezielt, um dem Benutzer bestmoeglich zu helfen.
-        - Nutzer nennen Quests fast immer ueber Namen, nicht ueber IDs.
-        - Bei Quest-Namen zuerst SearchQuests oder ListQuests nutzen.
-        - ID-basierte Quest-Tools (GetQuest, CompleteQuest, AddNoteToQuest) erst nach Aufloesung verwenden.
-        - Wenn mehrere Quests passen, frage nach, bevor du eine schreibende Aktion ausfuehrst.
-        - Nutze maximal ein Tool pro Anfrage, ausser die Quest-Aufloesung braucht den zweiten Schritt.
-        - Bei Aufgabenfragen mit Listenwunsch zuerst ListQuests, bei Stichworten oder Namen zuerst SearchQuests.
-        - Bei Notizen der Knowledge Base zuerst SearchNotes oder BrowseNotes und nur bei konkretem Pfad ReadNote.
-        - Bei Koerpermesswerten: neue Messung = LogBodyMeasurement, Auswertung/Verlauf = QueryBodyMeasurements.
-        - Formatiere deine Antworten mit Markdown.
-        - Nutze SearchConversationHistory proaktiv, wann immer vergangener Kontext deine Antwort bereichern koennte. Wenn ein Thema moeglicherweise schon besprochen wurde, wenn der Benutzer auf etwas Vergangenes verweist, oder wenn Kontinuitaet mit frueheren Gespraechen helfen wuerde — suche danach. Warte nicht auf ein explizites "erinnerst du dich" — wenn es auch nur eine Chance gibt, dass vergangener Kontext relevant ist, nutze das Tool.
+        - Sei humorvoll und motivierend, aber bleibe hilfreich und praezise.
         - Halte deine Antworten kurz und fokussiert.
+        - Formatiere deine Antworten mit Markdown.
+        - Nutze SearchConversationHistory (via EvalTool) proaktiv, wann immer vergangener Kontext relevant sein koennte.
+        - Wenn der Benutzer dir sagt, dass du dir etwas merken sollst, speichere es als Direktive in der Tabelle `chopper_directives` (INSERT via DatabaseTool).
+        - Zum Deaktivieren einer Direktive: UPDATE chopper_directives SET deactivated_at = datetime('now') WHERE id = ?
+        - Zum Auflisten deiner Regeln: SELECT * FROM chopper_directives WHERE deactivated_at IS NULL
+
+        {$directives}
+
+        ## Datenbank-Schema
+
+        {$schema}
         EOT;
     }
 
     /**
-     * Get the tools available to the agent.
-     *
      * @return Tool[]
      */
     public function tools(): iterable
     {
         return [
-            new SearchQuests,
-            new SearchQuestComments,
-            new ListQuests,
-            new GetQuest,
-            new CreateQuest,
-            new CompleteQuest,
-            new AddNoteToQuest,
-            new BrowseNotes,
-            new ReadNote,
-            new WriteNote,
-            new SearchNotes,
-            new LogBodyMeasurement,
-            new QueryBodyMeasurements,
-            new SearchConversationHistory,
+            new DatabaseTool,
+            new EvalTool,
+            new FilesystemTool,
         ];
     }
 }
