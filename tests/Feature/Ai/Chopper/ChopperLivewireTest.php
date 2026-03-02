@@ -3,10 +3,27 @@
 declare(strict_types=1);
 
 use App\Ai\Agents\ChopperAgent;
+use Illuminate\Broadcasting\BroadcastManager;
 use Illuminate\Support\Facades\DB;
 use Livewire\Livewire;
 use Modules\Holocron\_Shared\Livewire\Chopper;
 use Modules\Holocron\User\Models\User;
+
+function useReverbBroadcaster(): void
+{
+    config([
+        'broadcasting.default' => 'reverb',
+        'broadcasting.connections.reverb.key' => 'test-key',
+        'broadcasting.connections.reverb.secret' => 'test-secret',
+        'broadcasting.connections.reverb.app_id' => 'test-app-id',
+    ]);
+
+    // Channels were registered on the previous broadcaster during boot.
+    // Forget the manager so a fresh reverb broadcaster is created,
+    // then re-register channel definitions.
+    app()->forgetInstance(BroadcastManager::class);
+    require base_path('routes/channels.php');
+}
 
 beforeEach(function () {
     $this->user = User::factory()->create();
@@ -135,12 +152,7 @@ it('resets streaming state on handleStreamError', function () {
 });
 
 it('allows conversation owner to access channel', function () {
-    config([
-        'broadcasting.default' => 'reverb',
-        'broadcasting.connections.reverb.key' => 'test-key',
-        'broadcasting.connections.reverb.secret' => 'test-secret',
-        'broadcasting.connections.reverb.app_id' => 'test-app-id',
-    ]);
+    useReverbBroadcaster();
 
     $conversationId = fake()->uuid();
     DB::table('agent_conversations')->insert([
@@ -158,12 +170,7 @@ it('allows conversation owner to access channel', function () {
 });
 
 it('denies non-owner access to channel', function () {
-    config([
-        'broadcasting.default' => 'reverb',
-        'broadcasting.connections.reverb.key' => 'test-key',
-        'broadcasting.connections.reverb.secret' => 'test-secret',
-        'broadcasting.connections.reverb.app_id' => 'test-app-id',
-    ]);
+    useReverbBroadcaster();
 
     $conversationId = fake()->uuid();
     $otherUser = User::factory()->create();
@@ -182,12 +189,7 @@ it('denies non-owner access to channel', function () {
 });
 
 it('allows authenticated user to access temp UUID channel', function () {
-    config([
-        'broadcasting.default' => 'reverb',
-        'broadcasting.connections.reverb.key' => 'test-key',
-        'broadcasting.connections.reverb.secret' => 'test-secret',
-        'broadcasting.connections.reverb.app_id' => 'test-app-id',
-    ]);
+    useReverbBroadcaster();
 
     $tempId = fake()->uuid();
 
