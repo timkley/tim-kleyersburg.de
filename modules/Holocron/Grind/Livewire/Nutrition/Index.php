@@ -22,13 +22,13 @@ class Index extends HolocronComponent
 
     public ?string $mealTime = null;
 
-    public ?int $mealKcal = null;
+    public int|float|null $mealKcal = null;
 
-    public ?int $mealProtein = null;
+    public int|float|null $mealProtein = null;
 
-    public ?int $mealFat = null;
+    public int|float|null $mealFat = null;
 
-    public ?int $mealCarbs = null;
+    public int|float|null $mealCarbs = null;
 
     public ?int $editingMealId = null;
 
